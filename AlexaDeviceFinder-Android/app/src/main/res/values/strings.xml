@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Alexa Device Finder</string>
+    <string name="menu_settings">Settings</string>
+    <string name="login_with_amazon">Login with Amazon</string>
+    <string name="login_with_amazon_capital">LOGIN WITH AMAZON</string>
+    <string name="login_button_content_description">"Button for authorization through Login with Amazon"</string>
+    <string name="logout">Logout</string>
+    <string name="default_message">Welcome to Login with Amazon!\nIf this is your first time logging in, you will be asked to give permission for this application to access your profile data.</string>
+    <string name="return_to_app">Return to App</string>
+    <string name="title_activity_launch">Device Finder</string>
+    <string name="logo_to_display_when_loading_app">Logo to display when loading app</string>
+    <string name="alexa_device_finder">Alexa Device Finder</string>
+    <string name="alexa_device_finder_content_description">Alexa Device Finder</string>
+</resources>
