@@ -44,7 +44,10 @@ public class ConfigActivity extends AppCompatActivity {
         View logoutButton = findViewById(R.id.logoutButton);
         Switch overrideVolumeControls = findViewById(R.id.overrideVolumeControls);
         EditText deviceNameField = findViewById(R.id.deviceNameField);
+        SeekBar volumeSlider = findViewById(R.id.volumeSlider);
         logoutProgressBar = findViewById(R.id.logoutProgressBar);
+
+        volumeSlider.setEnabled(false);
 
         deviceNameField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -80,6 +83,7 @@ public class ConfigActivity extends AppCompatActivity {
 
         overrideVolumeControls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             SeekBar volumeSlider = findViewById(R.id.volumeSlider);
+
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 volumeSlider.setEnabled(isChecked);
