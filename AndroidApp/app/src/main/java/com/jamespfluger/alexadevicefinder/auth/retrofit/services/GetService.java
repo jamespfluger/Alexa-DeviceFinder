@@ -1,9 +1,9 @@
-package com.jamespfluger.alexadevicefinder.auth.services;
+package com.jamespfluger.alexadevicefinder.auth.retrofit.services;
 
 import android.util.Log;
 
-import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
-import com.jamespfluger.alexadevicefinder.auth.UserDevice;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthDefinition;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthUserDevice;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ import retrofit2.Response;
 
 public class GetService {
 
-    private ArrayList<UserDevice> userDevices;
+    private ArrayList<AuthUserDevice> userDevices;
 
-    public ArrayList<UserDevice> getUserDevices(String userId, AuthInterface authApi){
-        Call<ArrayList<UserDevice>> userCall = authApi.getUserDevices(userId);
+    public ArrayList<AuthUserDevice> getUserDevices(String userId, AuthDefinition authApi){
+        Call<ArrayList<AuthUserDevice>> userCall = authApi.getUserDevices(userId);
 
-        userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
+        userCall.enqueue(new Callback<ArrayList<AuthUserDevice>>() {
             @Override
-            public void onResponse(Call<ArrayList<UserDevice>> call, Response<ArrayList<UserDevice>> response) {
+            public void onResponse(Call<ArrayList<AuthUserDevice>> call, Response<ArrayList<AuthUserDevice>> response) {
                 if(response.isSuccessful()){
                     userDevices = response.body();
                     Log.d("TEST", "Response AND Success=" + ((Boolean)response.isSuccessful()).toString());
@@ -40,7 +40,7 @@ public class GetService {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<UserDevice>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<AuthUserDevice>> call, Throwable t) {
                 Log.d("TEST", "Complete Failure");
                 Log.d("TEST", "Call.isExecuted=" + call.isExecuted());
                 Log.d("TEST", "Call.isExecuted=" + t.getCause());
