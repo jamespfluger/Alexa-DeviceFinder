@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -34,6 +35,8 @@ public class LoginActivity extends Activity {
         requestContext.registerListener(new AuthorizeListener() {
             @Override
             public void onSuccess(AuthorizeResult authorizeResult) {
+                Log.d(LoginActivity.class.getName(),"LOGIN SUCCESS -> userid:" + authorizeResult.getUser().getUserId());
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -44,6 +47,9 @@ public class LoginActivity extends Activity {
             }
             @Override
             public void onError(AuthError authError) {
+                Log.w(LoginActivity.class.getName(), authError.getMessage());
+                Log.w(LoginActivity.class.getName(), authError.getStackTrace().toString());
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -54,6 +60,7 @@ public class LoginActivity extends Activity {
             }
             @Override
             public void onCancel(AuthCancellation authCancellation) {
+                Log.i(LoginActivity.class.getName(), "login cancelled => " + authCancellation.getDescription());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
