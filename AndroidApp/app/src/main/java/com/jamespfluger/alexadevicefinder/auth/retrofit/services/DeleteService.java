@@ -1,7 +1,7 @@
-package com.jamespfluger.alexadevicefinder.auth.services;
+package com.jamespfluger.alexadevicefinder.auth.retrofit.services;
 
-import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
-import com.jamespfluger.alexadevicefinder.auth.UserDevice;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthDefinition;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthUserDevice;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -10,7 +10,7 @@ import retrofit2.Response;
 public class DeleteService {
     private Boolean isSuccessful;
 
-    public Boolean deleteDevice(UserDevice userDevice, AuthInterface authApi){
+    public Boolean deleteDevice(AuthUserDevice userDevice, AuthDefinition authApi){
         Call<Void> userCall = authApi.deleteDevice(userDevice.getUserId(), userDevice.getDeviceId());
 
         userCall.enqueue(new Callback<Void>() {
@@ -28,7 +28,7 @@ public class DeleteService {
         return isSuccessful;
     }
 
-    public Boolean deleteDevice(String userId, String deviceId, AuthInterface authApi){
+    public Boolean deleteDevice(String userId, String deviceId, AuthDefinition authApi){
         Call<Void> userCall = authApi.deleteDevice(userId, deviceId);
 
         userCall.enqueue(new Callback<Void>() {
@@ -46,7 +46,7 @@ public class DeleteService {
         return isSuccessful;
     }
 
-    public Boolean deleteUser(String userId, AuthInterface authApi){
+    public Boolean deleteUser(String userId, AuthDefinition authApi){
         Call<Void> userCall = authApi.deleteUser(userId);
 
         userCall.enqueue(new Callback<Void>() {

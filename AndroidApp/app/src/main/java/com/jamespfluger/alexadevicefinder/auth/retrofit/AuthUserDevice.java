@@ -1,10 +1,10 @@
-package com.jamespfluger.alexadevicefinder.auth;
+package com.jamespfluger.alexadevicefinder.auth.retrofit;
 
-public class UserDevice {
+public class AuthUserDevice {
     private String userId;
     private String deviceId;
 
-    public UserDevice(String userId, String deviceId){
+    public AuthUserDevice(String userId, String deviceId){
         this.userId = userId;
         this.deviceId = deviceId;
     }
