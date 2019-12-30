@@ -1,13 +1,7 @@
 package com.jamespfluger.alexadevicefinder.activities;
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -27,23 +21,17 @@ import com.amazon.identity.auth.device.api.authorization.User;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.jamespfluger.alexadevicefinder.CommonTools;
 import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.auth.AuthService;
-import com.jamespfluger.alexadevicefinder.auth.UserDevice;
-
-import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthExecutor;
 
 public class ConfigActivity extends AppCompatActivity {
     private RequestContext requestContext;
     private ProgressBar logoutProgressBar;
-    private AuthService authService;
+    private AuthExecutor authExecutor;
     private String userId;
     private String deviceId;
 
@@ -55,7 +43,7 @@ public class ConfigActivity extends AppCompatActivity {
         initializeUI();
 
         // Establish REST service
-        authService = new AuthService();
+        authExecutor = new AuthExecutor();
     
         establishUserDevicePair();
     }
@@ -94,7 +82,7 @@ public class ConfigActivity extends AppCompatActivity {
                 AuthorizationManager.signOut(getApplicationContext(), new Listener<Void, AuthError>() {
                     @Override
                     public void onSuccess(Void response) {
-                        authService.deleteDevice(userId, deviceId);
+                        authExecutor.deleteDevice(userId, deviceId);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -189,7 +177,7 @@ public class ConfigActivity extends AppCompatActivity {
 
     private void updateUserDevice(){
         if(userId!=null && deviceId!=null){
-            authService.addUserDevice(userId, deviceId);
+            authExecutor.addUserDevice(userId, deviceId);
         }
     }
 }

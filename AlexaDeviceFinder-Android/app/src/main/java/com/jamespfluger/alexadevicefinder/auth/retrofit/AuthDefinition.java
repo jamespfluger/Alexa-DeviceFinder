@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.auth;
+package com.jamespfluger.alexadevicefinder.auth.retrofit;
 
 
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface AuthInterface {
+public interface AuthDefinition {
     @GET("users/{userid}")
-    Call<ArrayList<UserDevice>> getUserDevices(@Path("userid") String userId);
+    Call<ArrayList<AuthUserDevice>> getUserDevices(@Path("userid") String userId);
 
     @POST("users")
-    Call<Void> addUserDevice(@Body UserDevice userDevice);
+    Call<Void> addUserDevice(@Body AuthUserDevice userDevice);
 
     @DELETE("users/{userid}/devices/{deviceid}")
     Call<Void> deleteDevice(@Path("userid") String userId, @Path("deviceid") String deviceId);
