@@ -1,9 +1,7 @@
-package com.jamespfluger.alexadevicefinder.auth.services;
+package com.jamespfluger.alexadevicefinder.auth.retrofit.services;
 
-import android.util.Log;
-
-import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
-import com.jamespfluger.alexadevicefinder.auth.UserDevice;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthDefinition;
+import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthUserDevice;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,7 +11,7 @@ public class AddService {
 
     private Boolean isSuccessful;
 
-    public Boolean addUserDevice(UserDevice userDevice, AuthInterface authApi){
+    public Boolean addUserDevice(AuthUserDevice userDevice, AuthDefinition authApi){
         Call<Void> userCall = authApi.addUserDevice(userDevice);
 
         userCall.enqueue(new Callback<Void>() {
@@ -31,8 +29,8 @@ public class AddService {
         return isSuccessful;
     }
 
-    public Boolean addUserDevice(String userId, String deviceId, AuthInterface authApi){
-        Call<Void> userCall = authApi.addUserDevice(new UserDevice(userId, deviceId));
+    public Boolean addUserDevice(String userId, String deviceId, AuthDefinition authApi){
+        Call<Void> userCall = authApi.addUserDevice(new AuthUserDevice(userId, deviceId));
 
         userCall.enqueue(new Callback<Void>() {
             @Override
