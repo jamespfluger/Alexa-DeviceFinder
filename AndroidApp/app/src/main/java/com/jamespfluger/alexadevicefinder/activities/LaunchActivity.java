@@ -11,6 +11,7 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
 import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
+import com.jamespfluger.alexadevicefinder.PermissionsRequester;
 import com.jamespfluger.alexadevicefinder.R;
 
 public class LaunchActivity extends AppCompatActivity {
@@ -36,6 +37,9 @@ public class LaunchActivity extends AppCompatActivity {
                 } else {
                     intentToLaunch = new Intent(getApplicationContext(), LoginActivity.class);
                 }
+
+                PermissionsRequester permissionsRequester = new PermissionsRequester();
+                permissionsRequester.requestPermissions(LaunchActivity.this);
 
                 startActivity(intentToLaunch);
                 finish();
