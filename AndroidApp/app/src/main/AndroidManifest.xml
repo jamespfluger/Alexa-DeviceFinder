@@ -55,6 +55,12 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".notifications.RingtonePlayingService" />
+
+        <receiver
+            android:name="com.jamespfluger.alexadevicefinder.notifications.CancelNotificationReceiver"
+            android:exported="false" >
+        </receiver>
     </application>
 
 </manifest>
