@@ -38,8 +38,8 @@ public class LaunchActivity extends AppCompatActivity {
                     intentToLaunch = new Intent(getApplicationContext(), LoginActivity.class);
                 }
 
-                PermissionsRequester permissionsRequester = new PermissionsRequester();
-                permissionsRequester.requestPermissions(LaunchActivity.this);
+                //PermissionsRequester permissionsRequester = new PermissionsRequester();
+                //permissionsRequester.requestPermissions(LaunchActivity.this);
 
                 startActivity(intentToLaunch);
                 finish();

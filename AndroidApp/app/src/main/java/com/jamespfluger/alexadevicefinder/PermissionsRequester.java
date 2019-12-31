@@ -36,10 +36,10 @@ public class PermissionsRequester {
             String packageName = context.getPackageName();
             if (!pm.isIgnoringBatteryOptimizations(packageName)) {
 
-                AlertDialog.Builder requireDoNotDisturb = new AlertDialog.Builder(context);
-                requireDoNotDisturb.setTitle(R.string.warning);
-                requireDoNotDisturb.setMessage(R.string.batteryOptimizationWarning);
-                requireDoNotDisturb.create();
+                AlertDialog.Builder requireBatteryOptimization = new AlertDialog.Builder(context);
+                requireBatteryOptimization.setTitle(R.string.warning);
+                requireBatteryOptimization.setMessage(R.string.batteryOptimizationWarning);
+                requireBatteryOptimization.create();
 
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
