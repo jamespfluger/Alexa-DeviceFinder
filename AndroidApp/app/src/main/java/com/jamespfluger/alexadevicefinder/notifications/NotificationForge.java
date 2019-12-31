@@ -50,7 +50,7 @@ public final class NotificationForge {
         Intent cancelIntent = new Intent(context, CancelNotificationReceiver.class);
         PendingIntent pendingCancelIntent = PendingIntent.getBroadcast(context, 0, cancelIntent, 0);
 
-         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher_round)
+         notificationBuilder.setSmallIcon(R.mipmap.ic_notification)
                             .setContentTitle(title)
                             .setContentText(message)
                             .setChannelId(CHANNEL_ID)
