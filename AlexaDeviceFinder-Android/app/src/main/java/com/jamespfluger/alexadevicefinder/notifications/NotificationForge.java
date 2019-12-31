@@ -14,6 +14,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -24,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public final class NotificationService {
+public final class NotificationForge {
     private Context context;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder notificationBuilder;
@@ -32,43 +33,42 @@ public final class NotificationService {
     private final int NOTIFICATION_ID = Integer.parseInt(new SimpleDateFormat("ddHHmmss",  Locale.US).format(new Date()));
     private final String CHANNEL_ID = "4096";
 
-    public NotificationService(Context context){
+    public NotificationForge(Context context){
         this.context = context;
 
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
+
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+            createNotificationChannel();
+        }
     }
 
     public void issueNotification(String title, String message){
         setDeviceToMaxVolume();
 
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-            createNotificationChannel("Device Alert (Required)");
-        }
+        Intent cancelIntent = new Intent(context, CancelNotificationReceiver.class);
+        PendingIntent pendingCancelIntent = PendingIntent.getBroadcast(context, 0, cancelIntent, 0);
 
          notificationBuilder.setSmallIcon(R.mipmap.ic_launcher_round)
                             .setContentTitle(title)
                             .setContentText(message)
+                            .setChannelId(CHANNEL_ID)
                             .setAutoCancel(true)
-                            .setSound(Uri.parse(context.getString(R.string.resourcePackage) + R.raw.alert))
-                            .setChannelId(CHANNEL_ID);
+                            .setDeleteIntent(pendingCancelIntent)
+                            .setContentIntent(pendingCancelIntent)
+                            .setOnlyAlertOnce(true);
 
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
 
-        Ringtone r =  RingtoneManager.getRingtone(context, Uri.parse(context.getString(R.string.resourcePackage) + R.raw.alert));
-        r.play();
+        Intent ringtoneIntent = new Intent(context, RingtonePlayingService.class);
+        context.startService(ringtoneIntent);
     }
 
     @RequiresApi(api= Build.VERSION_CODES.O)
-    private void createNotificationChannel(String channelName){
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH);
-
-        AudioAttributes ringtoneAttributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                .build();
-
-        channel.setSound(Uri.parse(context.getString(R.string.resourcePackage) + R.raw.alert), ringtoneAttributes);
+    private void createNotificationChannel(){
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.deviceAlertChannelName), NotificationManager.IMPORTANCE_HIGH);
+        channel.setSound(null, null); // Override the default notification sound so only our custom one plays
 
         notificationBuilder.setChannelId(CHANNEL_ID);
         notificationManager.createNotificationChannel(channel);
