@@ -2,9 +2,28 @@
 
 ### What is this?  
 Alexa – Device Finder is a combination of an Alexa skill with an Android companion app.  
-It is a skill used to locate any Android device by asking Alexa where it is. The Android app will receive a notification to play a sound at maximum volume 
+It is a skill used to locate any Android device by asking Alexa where it is. The Android app will receive a notification to play a sound at maximum volume
 
-### How does the application flow?
+### How is the application organized?
+
+There are two parts to the application:
+1. The Android application, written in Java (may be converted to Kotlin in the future)
+2. The .NET Core solution, which is broken down into two additional parts
+    1. The authentication API between the Android device and the DynamoDB database, which stores the user's Amazon ID + Device ID for notifications 
+    2. The Alexa skill itself that the user will interact with
+
+### How do I set up the project(s) to develop for after cloning the repository?
+
+#### Android
+1. Install Android Studio
+2. Follow the [instructions to create a new security profile](https://developer.amazon.com/docs/login-with-amazon/register-android.html) to use with Login With Amazon
+    1. 
+3. More
+
+#### .NET Core solution
+1. 
+
+### How does the application flow, from a business side?
 
 1. The user signs into the Android app with their phone.
 2. This sends a request to an AWS or Azure serverless function with their Amazon ID, device ID, and phone name.
