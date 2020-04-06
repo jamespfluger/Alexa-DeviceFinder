@@ -1,4 +1,4 @@
-![Alexa - Device Finder](https://i.imgur.com/wCv1PIX.png)
+![Alexa - Device Finder](https://i.imgur.com/WTi6XGl.png)
 
 ---
 
