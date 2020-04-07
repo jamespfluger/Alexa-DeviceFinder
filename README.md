@@ -1,7 +1,5 @@
 ![Alexa - Device Finder](https://i.imgur.com/49etAt5.png)
 
-#
-
 ### What is this?  
 Alexa – Device Finder is a combination of an Alexa skill with an Android companion app.  
 It is a skill used to locate any Android device by asking Alexa where it is. The Android app will receive a notification to play a sound at maximum volume 
