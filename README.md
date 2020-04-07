@@ -1,4 +1,4 @@
-![Alexa - Device Finder](https://i.imgur.com/49etAt5.png)
+![Alexa - Device Finder](https://i.imgur.com/hhtczpR.png)
 
 ### What is this?  
 Alexa – Device Finder is a combination of an Alexa skill with an Android companion app.  
