@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AlexaDeviceFinder.Models
+namespace AlexaDeviceFinderAuth.Models
 {
     [DynamoDBTable("UserDevice")]
     public class UserDevice
