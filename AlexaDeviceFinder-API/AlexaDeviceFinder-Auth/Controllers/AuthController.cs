@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using Amazon.DynamoDBv2;
-using AlexaDeviceFinder.Models;
+using AlexaDeviceFinderAuth.Models;
 
 using Amazon.DynamoDBv2.DataModel;
 using Amazon;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 
-namespace AlexaDeviceFinder.Controllers
+namespace AlexaDeviceFinderAuth.Controllers
 {
     /// <summary>
     /// ASP.NET Core controller acting as a DynamoDB Proxy.
