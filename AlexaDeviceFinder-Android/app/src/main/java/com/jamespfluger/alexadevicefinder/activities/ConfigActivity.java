@@ -1,7 +1,13 @@
 package com.jamespfluger.alexadevicefinder.activities;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,17 +27,23 @@ import com.amazon.identity.auth.device.api.authorization.User;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.jamespfluger.alexadevicefinder.CommonTools;
 import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.auth.retrofit.AuthExecutor;
+import com.jamespfluger.alexadevicefinder.auth.AuthService;
+import com.jamespfluger.alexadevicefinder.auth.UserDevice;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ConfigActivity extends AppCompatActivity {
     private RequestContext requestContext;
     private ProgressBar logoutProgressBar;
-    private AuthExecutor authExecutor;
+    private AuthService authService;
     private String userId;
     private String deviceId;
 
@@ -43,9 +55,26 @@ public class ConfigActivity extends AppCompatActivity {
         initializeUI();
 
         // Establish REST service
-        authExecutor = new AuthExecutor();
+        authService = new AuthService();
     
         establishUserDevicePair();
+
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(!notificationManager.isNotificationPolicyAccessGranted()) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                startActivity(intent);
+            }
+            Intent intent = new Intent();
+            String packageName = getPackageName();
+            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                startActivity(intent);
+            }
+        }
     }
 
     @Override
@@ -82,7 +111,7 @@ public class ConfigActivity extends AppCompatActivity {
                 AuthorizationManager.signOut(getApplicationContext(), new Listener<Void, AuthError>() {
                     @Override
                     public void onSuccess(Void response) {
-                        authExecutor.deleteDevice(userId, deviceId);
+                        authService.deleteDevice(userId, deviceId);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -177,7 +206,7 @@ public class ConfigActivity extends AppCompatActivity {
 
     private void updateUserDevice(){
         if(userId!=null && deviceId!=null){
-            authExecutor.addUserDevice(userId, deviceId);
+            authService.addUserDevice(userId, deviceId);
         }
     }
 }
