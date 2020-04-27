@@ -41,7 +41,7 @@
     "AspNetCoreFunction": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "AlexaDeviceFinder::AlexaDeviceFinder.LambdaEntryPoint::FunctionHandlerAsync",
+        "Handler": "AlexaDeviceFinderAuth::AlexaDeviceFinderAuth.LambdaEntryPoint::FunctionHandlerAsync",
         "Runtime": "dotnetcore2.1",
         "CodeUri": "",
         "MemorySize": 256,

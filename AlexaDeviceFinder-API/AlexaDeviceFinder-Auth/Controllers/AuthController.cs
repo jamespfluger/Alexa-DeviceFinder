@@ -64,7 +64,7 @@ namespace AlexaDeviceFinderAuth.Controllers
         /// <summary>
         /// Inserts/Updates a Amazon user ID and Android device ID pair
         /// </summary>
-        /// <param name="UserDevice">Pair of User and Android IDs</param>
+        /// <param name="userDevice">Pair of User and Android IDs</param>
         [HttpPost("users")]
         public async Task<ActionResult> AddUserDevice([FromBody] UserDevice userDevice)
         {
