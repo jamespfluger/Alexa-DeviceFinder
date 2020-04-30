@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 using Amazon.DynamoDBv2;
 using AlexaDeviceFinderAuth.Models;
-
+ 
 using Amazon.DynamoDBv2.DataModel;
 using Amazon;
 using Amazon.DynamoDBv2.DocumentModel;
