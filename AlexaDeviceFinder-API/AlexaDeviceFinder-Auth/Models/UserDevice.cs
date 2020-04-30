@@ -19,6 +19,7 @@ namespace AlexaDeviceFinderAuth.Models
 
         [DynamoDBHashKey("UserID")] // Partition key
         public string UserId { get; set; }
+
         [DynamoDBRangeKey("DeviceID")] // Sort key
         public string DeviceId { get; set; }
     }
