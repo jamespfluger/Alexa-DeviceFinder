@@ -115,7 +115,7 @@ public class ConfigActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.i(ConfigActivity.class.getName(), "LOGOUT SUCCESS");
+                                Log.i("DEVICEFINDER",ConfigActivity.class.getName() + ":" +  "LOGOUT SUCCESS");
                                 setLoggingOutState(true);
                                 switchToLoginActivity();
                             }
@@ -123,7 +123,7 @@ public class ConfigActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onError(AuthError authError) {
-                        Log.w(ConfigActivity.class.getName(), "LOGOUT ERROR -> " + authError.toString());
+                        Log.w("DEVICEFINDER",ConfigActivity.class.getName() + ":" +  "LOGOUT ERROR -> " + authError.toString());
                         setLoggingOutState(false);
                     }
                 });
