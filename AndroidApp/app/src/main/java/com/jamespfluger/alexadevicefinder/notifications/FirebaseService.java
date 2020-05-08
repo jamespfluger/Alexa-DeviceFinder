@@ -1,12 +1,13 @@
 package com.jamespfluger.alexadevicefinder.notifications;
 
-import android.util.Log;
+import androidx.annotation.NonNull;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 
 public class FirebaseService extends FirebaseMessagingService {
+    NotificationForge notificationForge;
     @Override
     public void onNewToken(String s)
     {
@@ -14,15 +15,12 @@ public class FirebaseService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        NotificationForge notificationService = new NotificationForge(getApplicationContext());
+        if (notificationForge == null)
+            notificationForge = new NotificationForge(getApplicationContext());
 
-        String title = remoteMessage.getData().get("title");
-        String body = remoteMessage.getData().get("body");
-
-        notificationService.issueNotification(title, body);
+        notificationForge.issueNotification(remoteMessage);
     }
-
 }

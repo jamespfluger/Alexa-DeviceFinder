@@ -1,9 +1,9 @@
 package com.jamespfluger.alexadevicefinder.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.amazon.identity.auth.device.AuthError;
 import com.amazon.identity.auth.device.api.Listener;
@@ -19,6 +19,7 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
     }
@@ -38,8 +39,8 @@ public class LaunchActivity extends AppCompatActivity {
                     intentToLaunch = new Intent(getApplicationContext(), LoginActivity.class);
                 }
 
-                //PermissionsRequester permissionsRequester = new PermissionsRequester();
-                //permissionsRequester.requestPermissions(LaunchActivity.this);
+                PermissionsRequester permissionsRequester = new PermissionsRequester();
+                permissionsRequester.requestPermissions(LaunchActivity.this);
 
                 startActivity(intentToLaunch);
                 finish();

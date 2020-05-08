@@ -23,7 +23,7 @@ public class AuthService {
 
     public AuthService(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://alexadevicefinderauth.conveyor.cloud/devicefinder/auth/")
+                .baseUrl("https://qsbrgmx8u1.execute-api.us-west-2.amazonaws.com/Prod/devicefinder/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         authApi = retrofit.create(AuthInterface.class);
