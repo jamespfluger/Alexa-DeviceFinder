@@ -57,12 +57,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".notifications.RingtonePlayingService" />
 
         <receiver
-            android:name="com.jamespfluger.alexadevicefinder.notifications.CancelNotificationReceiver"
-            android:exported="false" >
+            android:name=".notifications.NotificationReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
         </receiver>
+
         <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_notification"
         />

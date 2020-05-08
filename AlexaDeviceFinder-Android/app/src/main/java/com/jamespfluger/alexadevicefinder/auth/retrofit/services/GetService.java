@@ -24,15 +24,15 @@ public class GetService {
             public void onResponse(Call<ArrayList<AuthUserDevice>> call, Response<ArrayList<AuthUserDevice>> response) {
                 if(response.isSuccessful()){
                     userDevices = response.body();
-                    Log.d("TEST", "Response AND Success=" + ((Boolean)response.isSuccessful()).toString());
+                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Response AND Success=" + ((Boolean)response.isSuccessful()).toString());
                 }
                 else{
                     userDevices = null;
-                    Log.d("TEST", "Response AND Failure=" + ((Boolean)response.isSuccessful()).toString());
-                    Log.d("TEST", response.message());
-                    Log.d("TEST", response.toString());
+                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Response AND Failure=" + ((Boolean)response.isSuccessful()).toString());
+                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.message());
+                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.toString());
                     try {
-                        Log.d("TEST", response.errorBody().string());
+                        Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -41,11 +41,11 @@ public class GetService {
 
             @Override
             public void onFailure(Call<ArrayList<AuthUserDevice>> call, Throwable t) {
-                Log.d("TEST", "Complete Failure");
-                Log.d("TEST", "Call.isExecuted=" + call.isExecuted());
-                Log.d("TEST", "Call.isExecuted=" + t.getCause());
-                Log.d("TEST", "Throwable.localizedMessage)=" + t.getLocalizedMessage());
-                Log.d("TEST", "Throwable.toString=" + t.toString());
+                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Complete Failure");
+                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Call.isExecuted=" + call.isExecuted());
+                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Call.isExecuted=" + t.getCause());
+                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Throwable.localizedMessage)=" + t.getLocalizedMessage());
+                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Throwable.toString=" + t.toString());
                 userDevices = null;
             }
         });
