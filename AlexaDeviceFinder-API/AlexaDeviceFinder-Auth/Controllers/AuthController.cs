@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
-using Amazon.DynamoDBv2;
 using AlexaDeviceFinderAuth.Models;
- 
-using Amazon.DynamoDBv2.DataModel;
 using Amazon;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlexaDeviceFinderAuth.Controllers
 {
