@@ -358,4 +358,8 @@ AlexaDeviceFinder-Android/app/google-services.json
 AlexaDeviceFinder-Android/.idea/codeStyles/Project.xml
 *.user
 AlexaDeviceFinder-API/.vs
+AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/key.json
+AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/.lambda-test-tool
 AlexaDeviceFinder-Android/.idea
+AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/Properties/launchSettings.json
+AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/aws-lambda-tools-defaults.json
