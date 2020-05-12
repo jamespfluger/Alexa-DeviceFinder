@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using AlexaDeviceFinderSkill.Models;
-using AlexaDeviceFinderSkill.Utils;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.Serialization.Json;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -25,24 +19,47 @@ namespace AlexaDeviceFinderSkill
         public SkillResponse AlexaHandler(SkillRequest input, ILambdaContext context)
         {
             Logger = context.Logger;
+            SkillResponse response;
 
-            AlexaLambdaEntry.Logger.LogLine($"{input.Session.SessionId} is {(input.Session.New ? "New" : "Old")} ");
-            AlexaLambdaEntry.Logger.LogLine($"{System.Text.Json.JsonSerializer.Serialize<SkillRequest>(input)}");
-            AlexaLambdaEntry.Logger.LogLine($"UserId: {input.Session.User.UserId}");
-            AlexaLambdaEntry.Logger.LogLine($"AccessToken: {input?.Session?.User?.AccessToken}");
+            StringBuilder initialParameters = new StringBuilder();
+            initialParameters.Append($"{input.Session.SessionId} is {(input.Session.New ? "New" : "Old")}" + Environment.NewLine);
+            initialParameters.Append($"UserId: {input?.Session?.User?.UserId}" + Environment.NewLine);
+            initialParameters.Append($"AccessToken: {input?.Session?.User?.AccessToken}" + Environment.NewLine);
 
-            switch (input.Request)
+            AlexaLambdaEntry.Logger.LogLine(initialParameters.ToString());
+            AlexaLambdaEntry.Logger.LogLine($"{System.Text.Json.JsonSerializer.Serialize<SkillRequest>(input)}" + Environment.NewLine);
+
+            if (input.Request is IntentRequest)
             {
-                case LaunchRequest launchRequest:
-                    return HandleLaunch(launchRequest);
-                case IntentRequest intentRequest:
-                    return HandleIntent(intentRequest, input.Session.User.UserId);
-                default:
-                    throw new NotImplementedException("Unknown request type.");
+                response = HandleIntent(input.Request as IntentRequest, input.Session.User.UserId);
+            }
+            else
+            {
+                response = new SkillResponse();
+                response.Response = new ResponseBody();
+                response.Response.OutputSpeech = new PlainTextOutputSpeech("I'm sorry, I couldn't understand your request. Please rephrase it or try again.");
+            }
+
+            return response;
+        }
+
+        private SkillResponse HandleIntent(IntentRequest intentRequest, string userId)
+        {
+            try
+            {
+                AlexaLambdaEntry.Logger.LogLine($"Processing the {intentRequest.Intent.Name} IntentRequest");
+                
+                string output = FindDevice(intentRequest, userId);
+                return ResponseBuilder.Tell("Successfully sent a message!");
+            }
+            catch (Exception ex)
+            {
+                AlexaLambdaEntry.Logger.LogLine($"We had an exception handling the intent: {ex}");
+                return ResponseBuilder.Tell("I'm sorry, I was unable to find your device.");
             }
         }
 
-        private void FindDevice(IntentRequest intentRequest, string userId)
+        private string FindDevice(IntentRequest intentRequest, string userId)
         {
             try
             {
@@ -50,47 +67,13 @@ namespace AlexaDeviceFinderSkill
                 UserDevice device = dynamoUtil.GetDevice(userId);
 
                 FirebaseUtil firebaseUtil = new FirebaseUtil();
-                firebaseUtil.SendMessage(device.DeviceId);
+                return firebaseUtil.SendMessage(device.DeviceId);
             }
             catch (Exception ex)
             {
                 AlexaLambdaEntry.Logger.LogLine($"We had an exception getting or finding the device: " + ex.Message + System.Environment.NewLine + ex);
+                throw;
             }
-
-        }
-
-        private SkillResponse HandleLaunch(LaunchRequest launchRequest)
-        {
-            AlexaLambdaEntry.Logger.LogLine($"LaunchRequest made");
-
-            var outputSpeech = new PlainTextOutputSpeech();
-            outputSpeech.Text = "Welcome! You can ask me to say hello world.";
-
-            return ResponseBuilder.Tell(outputSpeech);
-        }
-
-        private SkillResponse HandleIntent(IntentRequest intentRequest, string userId)
-        {
-            try
-            {
-                AlexaLambdaEntry.Logger.LogLine($"IntentRequest {intentRequest.Intent.Name} made");
-
-                FindDevice(intentRequest, userId);
-
-                AlexaLambdaEntry.Logger.LogLine("Left FindDevice");
-                string responseText = "Hello world!";
-                var responseSpeech = new PlainTextOutputSpeech(responseText);
-
-                AlexaLambdaEntry.Logger.LogLine("About to tell user something!");
-                return ResponseBuilder.Tell(responseSpeech);
-            }
-            catch (Exception ex)
-            {
-                AlexaLambdaEntry.Logger.LogLine($"We had an exception handling the intent: " + ex.Message + System.Environment.NewLine + ex);
-            }
-
-            return ResponseBuilder.Tell("Uh oh error oh");
-
         }
     }
 }
