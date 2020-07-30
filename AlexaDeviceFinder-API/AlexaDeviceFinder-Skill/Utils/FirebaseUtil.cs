@@ -9,16 +9,11 @@ namespace AlexaDeviceFinderSkill
 {
     public class FirebaseUtil
     {
-        public FirebaseUtil()
-        {
-
-        }
-
         public string SendMessage(string token)
         {
             try
             {
-                // Iff the default instance hasn't been created, then we need to create it ourselves 
+                // If the default instance hasn't been created, then we need to create it ourselves 
                 if (FirebaseApp.DefaultInstance == null)
                     CreateFirebaseApp();
 
@@ -26,22 +21,12 @@ namespace AlexaDeviceFinderSkill
                 Message message = CreateNotification(token);
 
                 // Because we want to know the result of the message, we have to wait for it
-                AlexaLambdaEntry.Logger.LogLine($"Sending notification to {token}");
+                AlexaLambdaEntry.Logger.Log($"Sending notification to {token}");
                 return FirebaseMessaging.DefaultInstance.SendAsync(message).GetAwaiter().GetResult();
-            }
-            catch (ArgumentException ex)
-            {
-                AlexaLambdaEntry.Logger.LogLine($"An invalid notification tried to be sent for token {token}: {ex}");
-                throw;
-            }
-            catch (FirebaseMessagingException ex)
-            {
-                AlexaLambdaEntry.Logger.LogLine($"An unknown error occured in the Firebase messaging API for token {token}: {ex}");
-                throw;
             }
             catch (Exception ex)
             {
-                AlexaLambdaEntry.Logger.LogLine($"An unhandled exception occured when sending the message for token {token}: {ex}");
+                AlexaLambdaEntry.Logger.Log($"An unhandled exception occured when sending the message for token {token}: {ex}");
                 throw;
             }
         }
@@ -50,15 +35,15 @@ namespace AlexaDeviceFinderSkill
         {
             try
             {
-                AlexaLambdaEntry.Logger.LogLine("Creating a new instance of the FirebaseApp");
-
-                FirebaseApp firebaseApp = FirebaseApp.Create();
+                AlexaLambdaEntry.Logger.Log("Creating a new instance of the FirebaseApp");
+                
                 AppOptions appOptions = new AppOptions();
                 appOptions.Credential = GoogleCredential.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "key.json"));
+                FirebaseApp firebaseApp = FirebaseApp.Create(appOptions);
             }
             catch (Exception ex)
             {
-                AlexaLambdaEntry.Logger.LogLine($"Error creating new isntance of FirebaseApp {ex}");
+                AlexaLambdaEntry.Logger.Log($"Error creating new isntance of FirebaseApp {ex}");
                 throw;
             }
         }
@@ -70,12 +55,15 @@ namespace AlexaDeviceFinderSkill
                 Notification notification = new Notification();
                 notification.Title = Constants.NOTIFICATION_TITLE;
 
+                AndroidConfig androidConfig = new AndroidConfig();
+                androidConfig = new AndroidConfig();
+                androidConfig.Priority = Priority.High;
+                androidConfig.Notification = new AndroidNotification();
+                androidConfig.Notification.ChannelId = Constants.DEVICE_RING_CHANNEL_ID;
+
                 Message message = new Message();
-                message.Android = new AndroidConfig();
-                message.Android.Priority = Priority.High;
-                message.Android.Notification = new AndroidNotification();
-                message.Android.Notification.ChannelId = Constants.DEVICE_RING_CHANNEL_ID;
                 message.Notification = notification;
+                message.Android = androidConfig;
                 message.Token = token;
 
                 return message;
