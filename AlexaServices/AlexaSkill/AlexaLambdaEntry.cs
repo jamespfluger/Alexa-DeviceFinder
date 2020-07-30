@@ -20,6 +20,8 @@ namespace AlexaDeviceFinderSkill
 
         public SkillResponse AlexaHandler(SkillRequest input, ILambdaContext context)
         {
+            if (input.Request is IntentRequest && input.Request.RequestId == "HEARTBEAT")
+                return HeartbeatUtil.SendHeartbeat();
 
             Logger = context.Logger;
 
