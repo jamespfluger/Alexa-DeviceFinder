@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.jamespfluger.alexadevicefinder.CommonTools;
 import com.jamespfluger.alexadevicefinder.R;
 import com.jamespfluger.alexadevicefinder.auth.AuthService;
 
@@ -174,7 +174,7 @@ public class ConfigActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Error retrieving profile information.\nPlease log in again");
+                    Toast.makeText(getApplicationContext(), "Error retrieving profile information.\nPlease log in again", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -193,7 +193,7 @@ public class ConfigActivity extends AppCompatActivity {
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    CommonTools.ShowToast(getApplicationContext(), "Error receiving Firebase token.\nPlease log in again");
+                    Toast.makeText(getApplicationContext(), "Error receiving Firebase token.\nPlease log in again", Toast.LENGTH_SHORT).show();
                 }
             });
     }
