@@ -21,7 +21,7 @@ public class AuthService {
     private AuthInterface authApi;
     private ArrayList<UserDevice> userDevices;
 
-    public AuthService(){
+    public AuthService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://qsbrgmx8u1.execute-api.us-west-2.amazonaws.com/Prod/devicefinder/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -29,13 +29,13 @@ public class AuthService {
         authApi = retrofit.create(AuthInterface.class);
     }
 
-    public ArrayList<UserDevice> getUserDevices(String userId){
+    public ArrayList<UserDevice> getUserDevices(String userId) {
         Call<ArrayList<UserDevice>> userCall = authApi.getUserDevices(userId);
 
         userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
             @Override
             public void onResponse(Call<ArrayList<UserDevice>> call, Response<ArrayList<UserDevice>> response) {
-                if(response.isSuccessful())
+                if (response.isSuccessful())
                     userDevices = response.body();
                 else
                     userDevices = null;
@@ -50,27 +50,27 @@ public class AuthService {
         return userDevices;
     }
 
-    public void addUserDevice(UserDevice userDevice){
+    public void addUserDevice(UserDevice userDevice) {
         AddService addService = new AddService();
         addService.addUserDevice(userDevice, authApi);
     }
 
-    public void addUserDevice(String userId, String deviceId){
+    public void addUserDevice(String userId, String deviceId) {
         AddService addService = new AddService();
         addService.addUserDevice(userId, deviceId, authApi);
     }
 
-    public void deleteDevice(UserDevice userDevice){
+    public void deleteDevice(UserDevice userDevice) {
         DeleteService deleteService = new DeleteService();
         deleteService.deleteDevice(userDevice, authApi);
     }
 
-    public void deleteDevice(String userId, String deviceId){
+    public void deleteDevice(String userId, String deviceId) {
         DeleteService deleteService = new DeleteService();
         deleteService.deleteDevice(userId, deviceId, authApi);
     }
 
-    public void deleteUser(String userId){
+    public void deleteUser(String userId) {
         DeleteService deleteService = new DeleteService();
         deleteService.deleteUser(userId, authApi);
     }

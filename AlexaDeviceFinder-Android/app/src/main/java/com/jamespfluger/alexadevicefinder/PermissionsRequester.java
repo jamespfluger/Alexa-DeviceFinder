@@ -13,18 +13,18 @@ import static android.content.Context.POWER_SERVICE;
 
 public class PermissionsRequester {
 
-    public void requestPermissions(Context context){
+    public void requestPermissions(Context context) {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(!notificationManager.isNotificationPolicyAccessGranted()){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!notificationManager.isNotificationPolicyAccessGranted()) {
 
                 AlertDialog.Builder requireDoNotDisturb = new AlertDialog.Builder(context);
                 requireDoNotDisturb.setTitle(R.string.warning);
                 requireDoNotDisturb.setMessage(R.string.doNotDisturbWarning);
 
-                if(!notificationManager.isNotificationPolicyAccessGranted()) {
+                if (!notificationManager.isNotificationPolicyAccessGranted()) {
                     Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                     context.startActivity(intent);
                 }

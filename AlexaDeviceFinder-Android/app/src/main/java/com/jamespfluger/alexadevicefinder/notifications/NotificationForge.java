@@ -20,31 +20,31 @@ public final class NotificationForge {
     private NotificationCompat.Builder notificationBuilder;
     private final String CHANNEL_ID = "CHANNEL_4096";
 
-    public NotificationForge(Context context){
+    public NotificationForge(Context context) {
         this.context = context;
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
         notificationBuilder.setChannelId(CHANNEL_ID)
-                            .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
-                            .setSmallIcon(R.mipmap.ic_notification)
-                            .setAutoCancel(true)
-                            .setOnlyAlertOnce(true)
-                            .setPriority(NotificationCompat.PRIORITY_MAX)
-                            .setCategory(NotificationCompat.CATEGORY_CALL);
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.ic_notification)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_CALL);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager.getNotificationChannel(CHANNEL_ID) == null){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
             createNotificationChannel();
         }
     }
 
-    public void issueNotification(RemoteMessage remoteMessage){
+    public void issueNotification(RemoteMessage remoteMessage) {
         notificationBuilder.setContentText(remoteMessage.getNotification().getTitle());
-        notificationManager.notify((int)System.currentTimeMillis(), notificationBuilder.build());
+        notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
     }
 
-    @RequiresApi(api= Build.VERSION_CODES.O)
-    private void createNotificationChannel(){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(
                 CHANNEL_ID,
                 context.getString(R.string.deviceAlertChannelName),
