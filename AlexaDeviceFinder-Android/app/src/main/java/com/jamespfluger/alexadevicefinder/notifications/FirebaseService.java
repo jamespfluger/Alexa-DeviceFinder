@@ -8,9 +8,9 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseService extends FirebaseMessagingService {
     NotificationForge notificationForge;
+
     @Override
-    public void onNewToken(String s)
-    {
+    public void onNewToken(String s) {
         super.onNewToken(s);
     }
 
