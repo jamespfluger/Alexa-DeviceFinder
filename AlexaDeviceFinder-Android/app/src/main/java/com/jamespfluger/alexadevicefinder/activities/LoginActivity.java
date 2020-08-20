@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazon.identity.auth.device.AuthError;
 import com.amazon.identity.auth.device.api.authorization.AuthCancellation;
@@ -17,7 +18,6 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeRequest;
 import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
-import com.jamespfluger.alexadevicefinder.CommonTools;
 import com.jamespfluger.alexadevicefinder.R;
 
 public class LoginActivity extends Activity {
@@ -39,7 +39,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Successfully logged into Amazon");
+                    Toast.makeText(getApplicationContext(), "Successfully logged into Amazon", Toast.LENGTH_SHORT).show();
                     }
                 });
                 switchToConfigActivity();
@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Error during authorization.  Please try again.");
+                    Toast.makeText(getApplicationContext(), "Error logging in. Please try again.", Toast.LENGTH_SHORT).show();
                     setLoggingInState(false);
                     }
                 });
@@ -63,7 +63,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Authorization cancelled");
+                    Toast.makeText(getApplicationContext(), "Login cancelled.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
