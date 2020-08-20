@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using AlexaDeviceFinderSkill.Models;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
@@ -9,10 +11,12 @@ namespace AlexaDeviceFinderSkill
 {
     public class FirebaseUtil
     {
-        public string SendMessage(string token)
+        public async Task<string> SendMessage(string token)
         {
             try
             {
+                AlexaLambdaEntry.Logger.Log($"Sending notification to {token}");
+
                 // If the default instance hasn't been created, then we need to create it ourselves 
                 if (FirebaseApp.DefaultInstance == null)
                     CreateFirebaseApp();
@@ -20,9 +24,11 @@ namespace AlexaDeviceFinderSkill
                 // This creates a regular notifiation message to be sent
                 Message message = CreateNotification(token);
 
-                // Because we want to know the result of the message, we have to wait for it
-                AlexaLambdaEntry.Logger.Log($"Sending notification to {token}");
-                return FirebaseMessaging.DefaultInstance.SendAsync(message).GetAwaiter().GetResult();
+                Stopwatch s = Stopwatch.StartNew();
+                string sendResult = await FirebaseMessaging.DefaultInstance.SendAsync(message);
+                AlexaLambdaEntry.Logger.LogLine($"Message send time: {s.ElapsedMilliseconds}ms");
+
+                return sendResult;
             }
             catch (Exception ex)
             {

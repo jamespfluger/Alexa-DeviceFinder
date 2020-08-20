@@ -2,7 +2,7 @@
 
 namespace AlexaDeviceFinderSkill.Models
 {
-    [DynamoDBTable("UserDevice")]
+    [DynamoDBTable("Evergreen")]
     public class UserDevice
     {
         public UserDevice() { }
@@ -16,7 +16,7 @@ namespace AlexaDeviceFinderSkill.Models
         [DynamoDBHashKey("UserID")] // Partition key
         public string UserId { get; set; }
 
-        [DynamoDBRangeKey("DeviceID")] // Sort key
+        [DynamoDBProperty("DeviceID")]
         public string DeviceId { get; set; }
 
         public override string ToString()
