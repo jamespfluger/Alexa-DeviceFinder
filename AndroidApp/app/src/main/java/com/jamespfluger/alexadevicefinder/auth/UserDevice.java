@@ -4,25 +4,29 @@ public class UserDevice {
     private String userId;
     private String deviceId;
 
-    public UserDevice(String userId, String deviceId){
+    public UserDevice(String userId, String deviceId) {
         this.userId = userId;
         this.deviceId = deviceId;
     }
 
-    public String getUserId(){
+    public String getUserId() {
         return this.userId;
     }
-    public void setUserId(String userId){
+
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getDeviceId(){
+    public String getDeviceId() {
         return this.deviceId;
     }
-    public void setDeviceId(String deviceId){
+
+    public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
 
     @Override
-    public String toString(){ return userId + ":" + deviceId; }
+    public String toString() {
+        return userId + ":" + deviceId;
+    }
 }
