@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using Alexa.NET;
 using Alexa.NET.Response;
 using AlexaDeviceFinderSkill.Models;
@@ -29,7 +27,7 @@ namespace AlexaDeviceFinderSkill.Utils
             stopwatch.Stop();
             long firebaseTime = stopwatch.ElapsedMilliseconds;
 
-            return ResponseBuilder.Tell(@$"Heartbeat complete | DynamoDB={successfulDynamo}:Firebase={successfulFirebase} | Dynamo={dynamoTime}ms:Firebase={firebaseTime}ms");
+            return ResponseBuilder.Tell($"Heartbeat complete | DynamoDB={successfulDynamo}:Firebase={successfulFirebase} | Dynamo={dynamoTime}ms:Firebase={firebaseTime}ms");
         }
 
         private static bool LoadDynamo()
@@ -38,7 +36,7 @@ namespace AlexaDeviceFinderSkill.Utils
             {
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
                 DynamoDBContext context = new DynamoDBContext(client);
-                context.QueryAsync<UserDevice>("HEARTBEAT");
+                context.LoadAsync<UserDevice>("HEARTBEAT");
 
                 return true;
             }
