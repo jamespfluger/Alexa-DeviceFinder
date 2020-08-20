@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.Text;
 using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
@@ -24,8 +22,6 @@ namespace AlexaDeviceFinderSkill
                 return HeartbeatUtil.SendHeartbeat();
 
             Logger = context.Logger;
-
-            AlexaLambdaEntry.Logger.Log($"AccessToken: {input?.Session?.User?.AccessToken}");
 
             if (input.Request is IntentRequest)
                 return HandleIntent(input.Request as IntentRequest, input.Session.User.UserId);
@@ -56,11 +52,12 @@ namespace AlexaDeviceFinderSkill
             {
                 // Get the user's device info from DynamoDB
                 DynamoDbUtil dynamoUtil = new DynamoDbUtil();
-                UserDevice device = dynamoUtil.GetDevice(userId);
+                UserDevice device = dynamoUtil.GetDevice(userId).Result;
 
                 // Send an FCM notification to that device
                 FirebaseUtil firebaseUtil = new FirebaseUtil();
-                string result = firebaseUtil.SendMessage(device.DeviceId);
+                string result = firebaseUtil.SendMessage(device.DeviceId).Result;
+
                 return result;
             }
             catch (Exception ex)
