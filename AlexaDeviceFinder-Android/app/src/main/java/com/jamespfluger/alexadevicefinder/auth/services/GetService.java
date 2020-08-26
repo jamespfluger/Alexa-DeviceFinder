@@ -14,7 +14,8 @@ import retrofit2.Response;
 
 public class GetService {
 
-    private ArrayList<UserDevice> userDevices;
+    private ArrayList<UserDevice> userDevices = null;
+    private UserDevice userDevice = null;
 
     public ArrayList<UserDevice> getUserDevices(String userId, AuthInterface authApi){
         Call<ArrayList<UserDevice>> userCall = authApi.getUserDevices(userId);
@@ -24,32 +25,35 @@ public class GetService {
             public void onResponse(Call<ArrayList<UserDevice>> call, Response<ArrayList<UserDevice>> response) {
                 if(response.isSuccessful()){
                     userDevices = response.body();
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Response AND Success=" + ((Boolean)response.isSuccessful()).toString());
-                }
-                else{
-                    userDevices = null;
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Response AND Failure=" + ((Boolean)response.isSuccessful()).toString());
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.message());
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.toString());
-                    try {
-                        Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<UserDevice>> call, Throwable t) {
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Complete Failure");
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Call.isExecuted=" + call.isExecuted());
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Call.isExecuted=" + t.getCause());
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Throwable.localizedMessage)=" + t.getLocalizedMessage());
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Throwable.toString=" + t.toString());
                 userDevices = null;
             }
         });
 
         return userDevices;
+    }
+
+    public UserDevice getUserDevice(String userId, String deviceId, AuthInterface authApi){
+        Call<UserDevice> userCall = authApi.getUserDevice(userId, deviceId);
+
+        userCall.enqueue(new Callback<UserDevice>() {
+            @Override
+            public void onResponse(Call<UserDevice> call, Response<UserDevice> response) {
+                if(response.isSuccessful()){
+                    userDevice = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDevice> call, Throwable t) {
+                userDevice = null;
+            }
+        });
+
+        return userDevice;
     }
 }

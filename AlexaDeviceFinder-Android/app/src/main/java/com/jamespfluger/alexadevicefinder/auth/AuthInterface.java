@@ -14,6 +14,9 @@ public interface AuthInterface {
     @GET("users/{userid}")
     Call<ArrayList<UserDevice>> getUserDevices(@Path("userid") String userId);
 
+    @GET("users/{userid}/devices/{deviceid}")
+    Call<UserDevice> getUserDevice(@Path("userid") String userId, @Path("deviceid") String deviceId);
+
     @POST("users")
     Call<Void> addUserDevice(@Body UserDevice userDevice);
 }

@@ -29,24 +29,13 @@ public class AuthService {
     }
 
     public ArrayList<UserDevice> getUserDevices(String userId) {
-        Call<ArrayList<UserDevice>> userCall = authApi.getUserDevices(userId);
+        GetService getService = new GetService();
+        return getService.getUserDevices(userId, authApi);
+    }
 
-        userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
-            @Override
-            public void onResponse(Call<ArrayList<UserDevice>> call, Response<ArrayList<UserDevice>> response) {
-                if (response.isSuccessful())
-                    userDevices = response.body();
-                else
-                    userDevices = null;
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<UserDevice>> call, Throwable t) {
-                userDevices = null;
-            }
-        });
-
-        return userDevices;
+    public UserDevice getUserDevice(String userId, String deviceId) {
+        GetService getService = new GetService();
+        return getService.getUserDevice(userId, deviceId, authApi);
     }
 
     public void addUserDevice(UserDevice userDevice) {
