@@ -16,10 +16,4 @@ public interface AuthInterface {
 
     @POST("users")
     Call<Void> addUserDevice(@Body UserDevice userDevice);
-
-    @DELETE("users/{userid}/devices/{deviceid}")
-    Call<Void> deleteDevice(@Path("userid") String userId, @Path("deviceid") String deviceId);
-
-    @DELETE("users/{userid}")
-    Call<Void> deleteUser(@Path("userid") String userId);
 }

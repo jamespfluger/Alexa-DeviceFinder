@@ -3,7 +3,6 @@ package com.jamespfluger.alexadevicefinder.auth;
 import android.util.Log;
 
 import com.jamespfluger.alexadevicefinder.auth.services.AddService;
-import com.jamespfluger.alexadevicefinder.auth.services.DeleteService;
 import com.jamespfluger.alexadevicefinder.auth.services.GetService;
 
 import java.io.IOException;
@@ -58,20 +57,5 @@ public class AuthService {
     public void addUserDevice(String userId, String deviceId) {
         AddService addService = new AddService();
         addService.addUserDevice(userId, deviceId, authApi);
-    }
-
-    public void deleteDevice(UserDevice userDevice) {
-        DeleteService deleteService = new DeleteService();
-        deleteService.deleteDevice(userDevice, authApi);
-    }
-
-    public void deleteDevice(String userId, String deviceId) {
-        DeleteService deleteService = new DeleteService();
-        deleteService.deleteDevice(userId, deviceId, authApi);
-    }
-
-    public void deleteUser(String userId) {
-        DeleteService deleteService = new DeleteService();
-        deleteService.deleteUser(userId, authApi);
     }
 }
