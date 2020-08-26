@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Alexa.NET;
+using Alexa.NET.Request;
 using Alexa.NET.Response;
 using AlexaDeviceFinderSkill.Models;
 using Amazon;
@@ -11,20 +13,18 @@ using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
 
-namespace AlexaDeviceFinderSkill.Utils
+namespace AlexaDeviceFinderSkill.RequestHandlers
 {
-    public static class HeartbeatUtil
+    public class HeartbeatUtil
     {
         public static SkillResponse SendHeartbeat()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             char successfulDynamo = LoadDynamo() ? 'Y' : 'N';
-            stopwatch.Stop();
             long dynamoTime = stopwatch.ElapsedMilliseconds;
 
             stopwatch.Restart();
             char successfulFirebase = LoadFirebase() ? 'Y' : 'N';
-            stopwatch.Stop();
             long firebaseTime = stopwatch.ElapsedMilliseconds;
 
             return ResponseBuilder.Tell($"Heartbeat complete | DynamoDB={successfulDynamo}:Firebase={successfulFirebase} | Dynamo={dynamoTime}ms:Firebase={firebaseTime}ms");
@@ -36,11 +36,11 @@ namespace AlexaDeviceFinderSkill.Utils
             {
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
                 DynamoDBContext context = new DynamoDBContext(client);
-                context.LoadAsync<UserDevice>("HEARTBEAT");
+                context.LoadAsync<AmazonUserDevice>("HEARTBEAT");
 
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -60,7 +60,7 @@ namespace AlexaDeviceFinderSkill.Utils
                 FirebaseMessaging.DefaultInstance.SendAsync(new Message());
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
