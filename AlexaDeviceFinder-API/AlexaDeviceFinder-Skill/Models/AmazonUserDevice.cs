@@ -27,10 +27,5 @@ namespace AlexaDeviceFinderSkill.Models
             this.AmazonUserId = userId;
             this.DeviceId = deviceId;
         }
-
-        public override string ToString()
-        {
-            return $"{this.AmazonUserId}:{ this.DeviceId}";
-        }
     }
 }

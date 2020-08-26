@@ -53,7 +53,6 @@ namespace AlexaDeviceFinderAuth.Controllers
                 if (userDevice == null || string.IsNullOrEmpty(userDevice.AmazonUserId) || string.IsNullOrEmpty(userDevice.DeviceId))
                     return BadRequest("AmazonUserDevice body is missing or malformed");
 
-                bool isBodyNull = userDevice == null;
                 await context.SaveAsync(userDevice);
                 return Ok();
             }
