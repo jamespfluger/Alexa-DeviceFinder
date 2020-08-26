@@ -30,7 +30,7 @@ namespace AlexaDeviceFinderSkill.Services
             }
         }
 
-        public async Task<string> SendFirebaseMessage(DeviceRequest request)
+        public async Task<string> SendFirebaseMessage(AmazonUserDevice request)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace AlexaDeviceFinderSkill.Services
 
                 Message message;
 
-                if (request.DeviceType == DeviceRequest.DeviceOperatingSystem.Android)
+                if (request.DeviceOs == AmazonUserDevice.DeviceOperatingSystem.Android)
                     message = CreateAndroidNotification(request.DeviceId);
                 else
                     message = CreateAppleNotification(request.DeviceId);

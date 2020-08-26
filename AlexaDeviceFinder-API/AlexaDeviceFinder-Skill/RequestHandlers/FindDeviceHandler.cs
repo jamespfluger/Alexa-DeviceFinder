@@ -18,7 +18,7 @@ namespace AlexaDeviceFinderSkill.RequestHandlers
             try
             {
                 // Grab the device information from Dynamo and immediately send the notification
-                DeviceRequest userDevice = await DynamoService.Instance.LoadItem<DeviceRequest>(skillRequest.Session.User.UserId);
+                AmazonUserDevice userDevice = await DynamoService.Instance.LoadItem<AmazonUserDevice>(skillRequest.Session.User.UserId);
 
                 // Immediately send the notification
                 await FirebaseService.Instance.SendFirebaseMessage(userDevice);
