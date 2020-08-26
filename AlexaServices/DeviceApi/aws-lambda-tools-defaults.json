@@ -10,9 +10,12 @@
     "region"      : "us-west-2",
     "configuration" : "Release",
     "framework"     : "netcoreapp3.1",
-    "s3-prefix"     : "AlexaDeviceFinder/",
-    "template"      : "serverless.template",
-    "template-parameters" : "\"ShouldCreateBucket\"=\"true\";\"BucketName\"=\"alexadevicefinderauthbuckets3\"",
-    "s3-bucket"           : "alexadevicefinderauthbucket",
-    "stack-name"          : "alexadevicefinderstack"
+    "function-runtime" : "dotnetcore3.1",
+    "function-memory-size" : 256,
+    "function-timeout"     : 30,
+    "function-handler"     : "AlexaDeviceFinderAuth::AlexaDeviceFinderAuth.LambdaEntryPoint::FunctionHandlerAsync",
+    "function-name"        : "alexadevicefinderstack-AspNetCoreFunction-F9FHKEEI3CYT",
+    "function-role"        : "arn:aws:iam::109578389425:role/alexadevicefinderstack-AspNetCoreFunctionRole-BF6PN7983GSD",
+    "tracing-mode"         : "PassThrough",
+    "environment-variables" : ""
 }
