@@ -1,11 +1,8 @@
 package com.jamespfluger.alexadevicefinder.auth.services;
 
-import android.util.Log;
-
 import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
-import com.jamespfluger.alexadevicefinder.auth.UserDevice;
+import com.jamespfluger.alexadevicefinder.auth.AmazonUserDevice;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -14,22 +11,22 @@ import retrofit2.Response;
 
 public class GetService {
 
-    private ArrayList<UserDevice> userDevices = null;
-    private UserDevice userDevice = null;
+    private ArrayList<AmazonUserDevice> userDevices = null;
+    private AmazonUserDevice userDevice = null;
 
-    public ArrayList<UserDevice> getUserDevices(String userId, AuthInterface authApi){
-        Call<ArrayList<UserDevice>> userCall = authApi.getUserDevices(userId);
+    public ArrayList<AmazonUserDevice> getUserDevices(String userId, AuthInterface authApi){
+        Call<ArrayList<AmazonUserDevice>> userCall = authApi.getUserDevices(userId);
 
-        userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
+        userCall.enqueue(new Callback<ArrayList<AmazonUserDevice>>() {
             @Override
-            public void onResponse(Call<ArrayList<UserDevice>> call, Response<ArrayList<UserDevice>> response) {
+            public void onResponse(Call<ArrayList<AmazonUserDevice>> call, Response<ArrayList<AmazonUserDevice>> response) {
                 if(response.isSuccessful()){
                     userDevices = response.body();
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<UserDevice>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<AmazonUserDevice>> call, Throwable t) {
                 userDevices = null;
             }
         });
@@ -37,19 +34,19 @@ public class GetService {
         return userDevices;
     }
 
-    public UserDevice getUserDevice(String userId, String deviceId, AuthInterface authApi){
-        Call<UserDevice> userCall = authApi.getUserDevice(userId, deviceId);
+    public AmazonUserDevice getUserDevice(String userId, String deviceId, AuthInterface authApi){
+        Call<AmazonUserDevice> userCall = authApi.getUserDevice(userId, deviceId);
 
-        userCall.enqueue(new Callback<UserDevice>() {
+        userCall.enqueue(new Callback<AmazonUserDevice>() {
             @Override
-            public void onResponse(Call<UserDevice> call, Response<UserDevice> response) {
+            public void onResponse(Call<AmazonUserDevice> call, Response<AmazonUserDevice> response) {
                 if(response.isSuccessful()){
                     userDevice = response.body();
                 }
             }
 
             @Override
-            public void onFailure(Call<UserDevice> call, Throwable t) {
+            public void onFailure(Call<AmazonUserDevice> call, Throwable t) {
                 userDevice = null;
             }
         });

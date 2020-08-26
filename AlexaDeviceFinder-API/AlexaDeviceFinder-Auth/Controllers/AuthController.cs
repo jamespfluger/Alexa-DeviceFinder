@@ -31,9 +31,9 @@ namespace AlexaDeviceFinderAuth.Controllers
         /// <param name="userId">Amazon user ID</param>
         /// <param name="deviceId">Android device ID</param>
         [HttpGet("users/{userid}/devices/{deviceid}")]
-        public async Task<ActionResult<UserDevice>> GetUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
+        public async Task<ActionResult<AmazonUserDevice>> GetUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
         {
-            UserDevice foundDevice = await context.LoadAsync<UserDevice>(userId, deviceId);
+            AmazonUserDevice foundDevice = await context.LoadAsync<AmazonUserDevice>(userId, deviceId);
 
             if (foundDevice != null)
                 return Ok(foundDevice);
@@ -46,16 +46,20 @@ namespace AlexaDeviceFinderAuth.Controllers
         /// </summary>
         /// <param name="userDevice">Pair of User and Android IDs</param>
         [HttpPost("users")]
-        public async Task<ActionResult> AddUserDevice([FromBody] UserDevice userDevice)
+        public async Task<ActionResult> AddAmazonUserDevice([FromBody] AmazonUserDevice userDevice)
         {
             try
             {
+                if (userDevice == null || string.IsNullOrEmpty(userDevice.AmazonUserId) || string.IsNullOrEmpty(userDevice.DeviceId))
+                    return BadRequest("AmazonUserDevice body is missing or malformed");
+
+                bool isBodyNull = userDevice == null;
                 await context.SaveAsync(userDevice);
                 return Ok();
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                return BadRequest(e);
+                return BadRequest(ex);
             }
         }
     }

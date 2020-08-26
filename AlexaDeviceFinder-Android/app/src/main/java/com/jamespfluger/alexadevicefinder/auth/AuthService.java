@@ -1,16 +1,10 @@
 package com.jamespfluger.alexadevicefinder.auth;
 
-import android.util.Log;
-
 import com.jamespfluger.alexadevicefinder.auth.services.AddService;
 import com.jamespfluger.alexadevicefinder.auth.services.GetService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AuthService {
 
     private AuthInterface authApi;
-    private ArrayList<UserDevice> userDevices;
+    private ArrayList<AmazonUserDevice> userDevices;
 
     public AuthService() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -28,17 +22,17 @@ public class AuthService {
         authApi = retrofit.create(AuthInterface.class);
     }
 
-    public ArrayList<UserDevice> getUserDevices(String userId) {
+    public ArrayList<AmazonUserDevice> getUserDevices(String userId) {
         GetService getService = new GetService();
         return getService.getUserDevices(userId, authApi);
     }
 
-    public UserDevice getUserDevice(String userId, String deviceId) {
+    public AmazonUserDevice getUserDevice(String userId, String deviceId) {
         GetService getService = new GetService();
         return getService.getUserDevice(userId, deviceId, authApi);
     }
 
-    public void addUserDevice(UserDevice userDevice) {
+    public void addUserDevice(AmazonUserDevice userDevice) {
         AddService addService = new AddService();
         addService.addUserDevice(userDevice, authApi);
     }

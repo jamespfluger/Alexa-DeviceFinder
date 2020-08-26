@@ -1,10 +1,11 @@
 package com.jamespfluger.alexadevicefinder.auth;
 
-public class UserDevice {
+public class AmazonUserDevice {
     private String userId;
     private String deviceId;
+    private String deviceOs = "Android";
 
-    public UserDevice(String userId, String deviceId) {
+    public AmazonUserDevice(String userId, String deviceId) {
         this.userId = userId;
         this.deviceId = deviceId;
     }
@@ -24,6 +25,10 @@ public class UserDevice {
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
+
+    public String getDeviceOs() { return this.deviceOs; }
+
+    public void setDeviceOs(String deviceOs) { this.deviceOs = deviceOs; }
 
     @Override
     public String toString() {
