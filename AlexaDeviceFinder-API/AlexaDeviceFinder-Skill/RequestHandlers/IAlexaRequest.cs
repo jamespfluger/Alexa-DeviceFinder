@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Alexa.NET;
+﻿using System.Threading.Tasks;
 using Alexa.NET.Request;
-using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 
-namespace AlexaDeviceFinderSkill.RequestHandlers
+namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public interface IRequestHandler
     {

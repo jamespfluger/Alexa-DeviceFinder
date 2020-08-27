@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using AlexaDeviceFinderAuth.Models;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.Models;
 using Microsoft.AspNetCore.Mvc;
-using OtpNet;
 
-namespace AlexaDeviceFinderAuth.Controllers
+namespace DeviceFinder.AuthApi.Controllers
 {
     /// <summary>
     /// ASP.NET Core controller acting as a DynamoDB Proxy.
