@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Text;
 using Amazon.DynamoDBv2.DataModel;
 
 namespace DeviceFinder.Models
 {
+    /// <summary>
+    /// OTP model sent to DynamoDB
+    /// </summary>
     [DynamoDBTable("AlexaAuthUsers")]
     public class AlexaAuthUser
     {
         [DynamoDBHashKey("OneTimePassword")]
-        public string OneTimePassword { get; set; }
+        public int OneTimePassword { get; set; }
 
         [DynamoDBProperty("AlexaUserID")]
         public string AlexaUserId { get; set; }
@@ -18,13 +18,9 @@ namespace DeviceFinder.Models
         [DynamoDBProperty("TimeToLive")]
         public long TimeToLive { get; set; }
 
-        public AlexaAuthUser() { }
+        [DynamoDBProperty("ModifiedDate")]
+        public DateTime ModifiedDate { get; set; }
 
-        public AlexaAuthUser(string otp, string alexaUserId, long timeToLive)
-        {
-            this.OneTimePassword = otp;
-            this.AlexaUserId = alexaUserId;
-            this.TimeToLive = timeToLive;
-        }
+        public AlexaAuthUser() { this.ModifiedDate = DateTime.UtcNow; }
     }
 }
