@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
-using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
-using AlexaDeviceFinderSkill.Models;
-using AlexaDeviceFinderSkill.Services;
-using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.AlexaSkill.Services;
+using DeviceFinder.Models;
+using OtpNet;
 
-namespace AlexaDeviceFinderSkill.RequestHandlers
+namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class AuthHandler : IRequestHandler
     {

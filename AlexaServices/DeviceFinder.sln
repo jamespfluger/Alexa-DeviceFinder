@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaDeviceFinderAuth", "AlexaDeviceFinder-Auth\AlexaDeviceFinderAuth.csproj", "{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder.AuthApi", "AlexaDeviceFinder-Auth\DeviceFinder.AuthApi.csproj", "{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaDeviceFinderSkill", "AlexaDeviceFinder-Skill\AlexaDeviceFinderSkill.csproj", "{2FAD5259-4EE4-46F3-9064-6A4BD578035F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder.AlexaSkill", "AlexaDeviceFinder-Skill\DeviceFinder.AlexaSkill.csproj", "{2FAD5259-4EE4-46F3-9064-6A4BD578035F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder.Models", "AlexaDeviceFinderModels\DeviceFinder.Models.csproj", "{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

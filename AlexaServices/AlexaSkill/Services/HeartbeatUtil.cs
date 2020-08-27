@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using Alexa.NET;
-using Alexa.NET.Request;
 using Alexa.NET.Response;
-using AlexaDeviceFinderSkill.Models;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.Models;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
 
-namespace AlexaDeviceFinderSkill.RequestHandlers
+namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class HeartbeatUtil
     {

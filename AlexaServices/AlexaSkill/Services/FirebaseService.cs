@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using AlexaDeviceFinderSkill.Models;
+using DeviceFinder.Models;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
 
-namespace AlexaDeviceFinderSkill.Services
+namespace DeviceFinder.AlexaSkill.Services
 {
     public class FirebaseService
     {
@@ -25,7 +22,7 @@ namespace AlexaDeviceFinderSkill.Services
             {
                 Logger.Log("Creating a new instance of the FirebaseApp");
                 AppOptions appOptions = new AppOptions();
-                appOptions.Credential = GoogleCredential.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("AlexaDeviceFinderSkill.key.json"));
+                appOptions.Credential = GoogleCredential.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("DeviceFinder.AlexaSkill.key.json"));
                 FirebaseApp.Create(appOptions);
             }
         }
