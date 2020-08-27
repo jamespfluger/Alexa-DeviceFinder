@@ -16,9 +16,45 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
         {
             try
             {
-                string otp = await GenerateOtp();
+                string computedOtp = null;
+                int numAttempts = 0;
 
-                return ResponseBuilder.Tell($"Here is your one time code: {otp}");
+                do
+                {
+                    computedOtp = GenerateOtp();
+
+                    AlexaAuthUser queriedAuthUser = await DynamoService.Instance.LoadItem<AlexaAuthUser>(int.Parse(computedOtp));
+
+                    if (queriedAuthUser != null)
+                    {
+                        Logger.Log($"OTP value '{computedOtp}' already exists. Attempting to generate a new one.");
+                        numAttempts++;
+                        continue;
+                    }
+                    else
+                    {
+                        AlexaAuthUser newAlexaAuthUser = new AlexaAuthUser();
+                        newAlexaAuthUser.OneTimePassword = int.Parse(computedOtp);
+                        newAlexaAuthUser.AlexaUserId = request.Context.System.User.UserId;
+                        newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddSeconds(120).ToUnixTimeSeconds();
+
+                        bool didSaveSucceed = await DynamoService.Instance.SaveItem<AlexaAuthUser>(newAlexaAuthUser);
+
+                        if (didSaveSucceed)
+                            break;
+                        else
+                            Logger.Log($"Error saving OTP value '{computedOtp}'. Attempting to generate a new one.");
+
+                        numAttempts++;
+                    }
+                } while (numAttempts < 10);
+
+                SsmlOutputSpeech responseMessage = BuildSsmlResponseMessage(computedOtp);
+
+                if (computedOtp != null)
+                    return ResponseBuilder.Tell(responseMessage);
+                else
+                    return ResponseBuilder.Tell($"I'm sorry, I was unable to process your authentication.");
             }
             catch (Exception ex)
             {
@@ -27,12 +63,36 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             }
         }
 
-        private async Task<string> GenerateOtp()
+        private static SsmlOutputSpeech BuildSsmlResponseMessage(string computedOtp)
         {
-            string otp = "";
+            StringBuilder ssmlSpeech = new StringBuilder();
 
+            ssmlSpeech.Append("<speak>");
+            ssmlSpeech.Append("Enter this code into the app: ");
 
-            return otp;
+            for (int i = 0; i < 6; i++)
+            {
+                ssmlSpeech.Append(computedOtp[i]);
+                ssmlSpeech.Append("<break time=\"500ms\"/>");
+            }
+            ssmlSpeech.Append("This code will expire in 60 seconds. ");
+            ssmlSpeech.Append("Again, enter this code into the app: ");
+            for (int i = 0; i < 6; i++)
+            {
+                ssmlSpeech.Append(computedOtp[i]);
+                ssmlSpeech.Append(" <break time=\"500ms\"/>");
+            }
+            ssmlSpeech.Append("</speak>");
+
+            return new SsmlOutputSpeech(ssmlSpeech.ToString());
+        }
+
+        private string GenerateOtp()
+        {
+            byte[] otpKey = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
+            Totp totp = new Totp(otpKey, 120);
+
+            return totp.ComputeTotp();
         }
     }
 }
