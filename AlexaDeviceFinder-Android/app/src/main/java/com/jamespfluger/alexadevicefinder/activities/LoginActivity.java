@@ -23,6 +23,7 @@ import com.jamespfluger.alexadevicefinder.R;
 public class LoginActivity extends Activity {
     private RequestContext requestContext;
     private View loginButton;
+    private View alexaConnectButton;
     private TextView loginText;
     private ProgressBar loginProgressBar;
 
@@ -85,6 +86,7 @@ public class LoginActivity extends Activity {
         loginProgressBar = findViewById(R.id.loginProgressBar);
         loginButton = findViewById(R.id.loginButton);
         loginText = (TextView) findViewById(R.id.loginText);
+        alexaConnectButton = findViewById(R.id.alexaConnectButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +98,13 @@ public class LoginActivity extends Activity {
                 );
 
                 setLoggingInState(true);
+            }
+        });
+
+        alexaConnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToOtpActivity();
             }
         });
     }
@@ -116,6 +125,13 @@ public class LoginActivity extends Activity {
         Intent configIntent = new Intent(this, ConfigActivity.class);
         this.overridePendingTransition(R.transition.slide_out_left, R.transition.slide_in_right);
         startActivity(configIntent);
+        finish();
+    }
+
+    private void switchToOtpActivity(){
+        Intent otpIntent = new Intent(this, OtpActivity.class);
+        this.overridePendingTransition(R.transition.slide_out_left,R.transition.slide_in_right);
+        startActivity(otpIntent);
         finish();
     }
 }
