@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
-using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
-using AlexaDeviceFinderSkill.Models;
-using AlexaDeviceFinderSkill.Services;
+using DeviceFinder.AlexaSkill.Services;
+using DeviceFinder.Models;
 
-namespace AlexaDeviceFinderSkill.RequestHandlers
+namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class FindDeviceHandler : IRequestHandler
     {

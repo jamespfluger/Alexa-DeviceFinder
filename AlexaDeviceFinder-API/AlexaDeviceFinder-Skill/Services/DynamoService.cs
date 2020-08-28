@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 
-namespace AlexaDeviceFinderSkill.Services
+namespace DeviceFinder.AlexaSkill.Services
 {
     public class DynamoService
     {
@@ -24,7 +21,7 @@ namespace AlexaDeviceFinderSkill.Services
             context = new DynamoDBContext(client);
         }
 
-        public async Task<T> LoadItem<T>(string hashKey)
+        public async Task<T> LoadItem<T>(object hashKey)
         {
             try
             {

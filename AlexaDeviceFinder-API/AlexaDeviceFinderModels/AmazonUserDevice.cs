@@ -1,8 +1,11 @@
 ﻿using System;
 using Amazon.DynamoDBv2.DataModel;
 
-namespace AlexaDeviceFinderAuth.Models
+namespace DeviceFinder.Models
 {
+    /// <summary>
+    /// Model coming from device
+    /// </summary>
     [DynamoDBTable("AmazonUserDevices")]
     public class AmazonUserDevice
     {
@@ -25,21 +28,13 @@ namespace AlexaDeviceFinderAuth.Models
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
 
-        public AmazonUserDevice()
-        {
-            this.ModifiedDate = DateTime.UtcNow;
-        }
+        public AmazonUserDevice() { this.ModifiedDate = DateTime.UtcNow; }
 
         public AmazonUserDevice(string userId, string deviceId)
         {
             this.AmazonUserId = userId;
             this.DeviceId = deviceId;
             this.ModifiedDate = DateTime.UtcNow;
-        }
-
-        public override string ToString()
-        {
-            return $"{this.AmazonUserId}:{ this.DeviceId}";
         }
     }
 }
