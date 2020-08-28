@@ -1,16 +1,21 @@
 package com.jamespfluger.alexadevicefinder.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jamespfluger.alexadevicefinder.R;
 
-public class OtpActivity extends Activity {
+public class OtpActivity extends AppCompatActivity {
     private EditText otpField1;
     private EditText otpField2;
     private EditText otpField3;
@@ -23,6 +28,23 @@ public class OtpActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
 
+        WindowManager.LayoutParams p = new WindowManager.LayoutParams();
+
+
+        findViewById(R.id.otpActivity).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (getCurrentFocus() == null)
+                    return false;
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                getCurrentFocus().clearFocus();
+
+                return true;
+            }});
+
+
         otpField1 = findViewById(R.id.otpField1);
         otpField2 = findViewById(R.id.otpField2);
         otpField3 = findViewById(R.id.otpField3);
@@ -30,7 +52,37 @@ public class OtpActivity extends Activity {
         otpField5 = findViewById(R.id.otpField5);
         otpField6 = findViewById(R.id.otpField6);
 
-        otpField1.addTextChangedListener(new TextWatcher() {
+
+        otpField1.addTextChangedListener(getTextChangedListener(otpField1, otpField2));
+        otpField2.addTextChangedListener(getTextChangedListener(otpField1, otpField3));
+        otpField3.addTextChangedListener(getTextChangedListener(otpField2, otpField4));
+        otpField4.addTextChangedListener(getTextChangedListener(otpField3, otpField5));
+        otpField5.addTextChangedListener(getTextChangedListener(otpField4, otpField6));
+        otpField6.addTextChangedListener(getTextChangedListener(otpField5, otpField6));
+
+        addCursorPositionFocusListener(otpField1);
+        addCursorPositionFocusListener(otpField2);
+        addCursorPositionFocusListener(otpField3);
+        addCursorPositionFocusListener(otpField4);
+        addCursorPositionFocusListener(otpField5);
+        addCursorPositionFocusListener(otpField6);
+    }
+
+    /*@Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }*/
+
+    public void stealFocusFromEditTexts(View view) {
+        int a = 3;
+    }
+
+    private TextWatcher getTextChangedListener(final EditText previousField, final EditText nextField) {
+        return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
 
@@ -39,136 +91,36 @@ public class OtpActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable text) {
-                if(text.length() == 1)
+                if (text.length() == 0)
                 {
-                    otpField2.requestFocus();
+                    previousField.requestFocus();
                 }
-                else if(text.length() == 0)
+                else
                 {
-                    otpField1.clearFocus();
-                }
-            }
-        });
-
-        otpField2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable text) {
-                if(text.length() == 1)
-                {
-                    otpField3.requestFocus();
-                }
-                else if(text.length() == 0)
-                {
-                    otpField1.requestFocus();
-                }
-            }
-        });
-
-        otpField3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable text) {
-                if(text.length() == 1)
-                {
-                    otpField4.requestFocus();
-                }
-                else if(text.length() == 0)
-                {
-                    otpField2.requestFocus();
-                }
-            }
-        });
-
-        otpField4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable text) {
-                if(text.length() == 1)
-                {
-                    otpField5.requestFocus();
-                }
-                else if(text.length() == 0)
-                {
-                    otpField3.requestFocus();
-                }
-            }
-        });
-
-        otpField5.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable text) {
-                if(text.length() == 1)
-                {
-                    otpField6.requestFocus();
-                }
-                else if(text.length() == 0)
-                {
-                    otpField4.requestFocus();
-                }
-            }
-        });
-
-        otpField6.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable text) {
-                if(text.length() == 1)
-                {
-                    otpField6.clearFocus();
-                }
-                else if(text.length() == 0)
-                {
-                    otpField5.requestFocus();
-                }
-            }
-        });
-
-        View.OnFocusChangeListener hideKeyboardFocus = new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
+                    nextField.requestFocus();
                 }
             }
         };
+    }
 
-        otpField1.setOnFocusChangeListener(hideKeyboardFocus);
-        otpField2.setOnFocusChangeListener(hideKeyboardFocus);
-        otpField3.setOnFocusChangeListener(hideKeyboardFocus);
-        otpField4.setOnFocusChangeListener(hideKeyboardFocus);
-        otpField5.setOnFocusChangeListener(hideKeyboardFocus);
-        otpField6.setOnFocusChangeListener(hideKeyboardFocus);
+    private void addCursorPositionFocusListener(final EditText field){
+        field.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    field.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            field.setSelection(field.getText().length());
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(ConfigActivity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

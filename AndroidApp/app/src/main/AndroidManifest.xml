@@ -29,6 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ConfigActivity" />
+        <activity android:name=".activities.OtpActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
