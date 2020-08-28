@@ -105,7 +105,6 @@ public class ConfigActivity extends AppCompatActivity {
                 AuthorizationManager.signOut(getApplicationContext(), new Listener<Void, AuthError>() {
                     @Override
                     public void onSuccess(Void response) {
-                        authService.deleteDevice(userId, deviceId);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
