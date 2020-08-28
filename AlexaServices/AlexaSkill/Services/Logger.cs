@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using Amazon.Lambda.Core;
+﻿using Amazon.Lambda.Core;
 
-namespace AlexaDeviceFinderSkill.Services
+namespace DeviceFinder.AlexaSkill.Services
 {
     public static class Logger
     {

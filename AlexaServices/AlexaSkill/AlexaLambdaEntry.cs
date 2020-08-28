@@ -1,21 +1,17 @@
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
-using AlexaDeviceFinderSkill.Models;
-using AlexaDeviceFinderSkill.RequestHandlers;
-using AlexaDeviceFinderSkill.Services;
 using Amazon.Lambda.Core;
+using DeviceFinder.AlexaSkill.RequestHandlers;
+using DeviceFinder.AlexaSkill.Services;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
-namespace AlexaDeviceFinderSkill
+namespace DeviceFinder.AlexaSkill
 {
     public class AlexaLambdaEntry
     {

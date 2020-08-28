@@ -1,4 +1,4 @@
-﻿namespace AlexaDeviceFinderSkill.Models
+﻿namespace DeviceFinder.Models
 {
     public class Constants
     {
