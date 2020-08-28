@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazon.identity.auth.device.AuthError;
 import com.amazon.identity.auth.device.api.authorization.AuthCancellation;
@@ -17,7 +18,6 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeRequest;
 import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
-import com.jamespfluger.alexadevicefinder.CommonTools;
 import com.jamespfluger.alexadevicefinder.R;
 
 public class LoginActivity extends Activity {
@@ -34,36 +34,38 @@ public class LoginActivity extends Activity {
         requestContext.registerListener(new AuthorizeListener() {
             @Override
             public void onSuccess(AuthorizeResult authorizeResult) {
-                Log.d("DEVICEFINDER",LoginActivity.class.getName() + ":" + "LOGIN SUCCESS -> userid:" + authorizeResult.getUser().getUserId());
+                Log.d("DEVICEFINDER", LoginActivity.class.getName() + ":" + "LOGIN SUCCESS -> userid:" + authorizeResult.getUser().getUserId());
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Successfully logged into Amazon");
+                        Toast.makeText(getApplicationContext(), "Successfully logged into Amazon", Toast.LENGTH_SHORT).show();
                     }
                 });
                 switchToConfigActivity();
             }
+
             @Override
             public void onError(AuthError authError) {
-                Log.w("DEVICEFINDER",LoginActivity.class.getName() + ":" +  authError.getMessage());
-                Log.w("DEVICEFINDER",LoginActivity.class.getName() + ":" +  authError.getStackTrace().toString());
+                Log.w("DEVICEFINDER", LoginActivity.class.getName() + ":" + authError.getMessage());
+                Log.w("DEVICEFINDER", LoginActivity.class.getName() + ":" + authError.getStackTrace().toString());
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Error during authorization.  Please try again.");
-                    setLoggingInState(false);
+                        Toast.makeText(getApplicationContext(), "Error logging in. Please try again.", Toast.LENGTH_SHORT).show();
+                        setLoggingInState(false);
                     }
                 });
             }
+
             @Override
             public void onCancel(AuthCancellation authCancellation) {
-                Log.i("DEVICEFINDER",LoginActivity.class.getName() + ":" +  "login cancelled => " + authCancellation.getDescription());
+                Log.i("DEVICEFINDER", LoginActivity.class.getName() + ":" + "login cancelled => " + authCancellation.getDescription());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Authorization cancelled");
+                        Toast.makeText(getApplicationContext(), "Login cancelled.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -87,13 +89,13 @@ public class LoginActivity extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AuthorizationManager.authorize(
-                new AuthorizeRequest.Builder(requestContext)
-                    .addScopes(ProfileScope.userId())
-                    .build()
-            );
+                AuthorizationManager.authorize(
+                        new AuthorizeRequest.Builder(requestContext)
+                                .addScopes(ProfileScope.userId())
+                                .build()
+                );
 
-            setLoggingInState(true);
+                setLoggingInState(true);
             }
         });
     }
@@ -110,9 +112,9 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void switchToConfigActivity(){
+    private void switchToConfigActivity() {
         Intent configIntent = new Intent(this, ConfigActivity.class);
-        this.overridePendingTransition(R.transition.slide_out_left,R.transition.slide_in_right);
+        this.overridePendingTransition(R.transition.slide_out_left, R.transition.slide_in_right);
         startActivity(configIntent);
         finish();
     }

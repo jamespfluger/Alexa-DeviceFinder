@@ -1,11 +1,8 @@
 package com.jamespfluger.alexadevicefinder.auth.services;
 
-import android.util.Log;
-
 import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
-import com.jamespfluger.alexadevicefinder.auth.UserDevice;
+import com.jamespfluger.alexadevicefinder.auth.AmazonUserDevice;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -14,42 +11,46 @@ import retrofit2.Response;
 
 public class GetService {
 
-    private ArrayList<UserDevice> userDevices;
+    private ArrayList<AmazonUserDevice> userDevices = null;
+    private AmazonUserDevice userDevice = null;
 
-    public ArrayList<UserDevice> getUserDevices(String userId, AuthInterface authApi){
-        Call<ArrayList<UserDevice>> userCall = authApi.getUserDevices(userId);
+    public ArrayList<AmazonUserDevice> getUserDevices(String userId, AuthInterface authApi){
+        Call<ArrayList<AmazonUserDevice>> userCall = authApi.getUserDevices(userId);
 
-        userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
+        userCall.enqueue(new Callback<ArrayList<AmazonUserDevice>>() {
             @Override
-            public void onResponse(Call<ArrayList<UserDevice>> call, Response<ArrayList<UserDevice>> response) {
+            public void onResponse(Call<ArrayList<AmazonUserDevice>> call, Response<ArrayList<AmazonUserDevice>> response) {
                 if(response.isSuccessful()){
                     userDevices = response.body();
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Response AND Success=" + ((Boolean)response.isSuccessful()).toString());
-                }
-                else{
-                    userDevices = null;
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Response AND Failure=" + ((Boolean)response.isSuccessful()).toString());
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.message());
-                    Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.toString());
-                    try {
-                        Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<UserDevice>> call, Throwable t) {
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Complete Failure");
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Call.isExecuted=" + call.isExecuted());
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Call.isExecuted=" + t.getCause());
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Throwable.localizedMessage)=" + t.getLocalizedMessage());
-                Log.d("DEVICEFINDER",GetService.class.getName() + ":" +  "Throwable.toString=" + t.toString());
+            public void onFailure(Call<ArrayList<AmazonUserDevice>> call, Throwable t) {
                 userDevices = null;
             }
         });
 
         return userDevices;
+    }
+
+    public AmazonUserDevice getUserDevice(String userId, String deviceId, AuthInterface authApi){
+        Call<AmazonUserDevice> userCall = authApi.getUserDevice(userId, deviceId);
+
+        userCall.enqueue(new Callback<AmazonUserDevice>() {
+            @Override
+            public void onResponse(Call<AmazonUserDevice> call, Response<AmazonUserDevice> response) {
+                if(response.isSuccessful()){
+                    userDevice = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AmazonUserDevice> call, Throwable t) {
+                userDevice = null;
+            }
+        });
+
+        return userDevice;
     }
 }

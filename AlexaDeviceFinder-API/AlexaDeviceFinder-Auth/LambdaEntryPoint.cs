@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace AlexaDeviceFinderAuth
+namespace DeviceFinder.AuthApi
 {
     /// <summary>
     /// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 

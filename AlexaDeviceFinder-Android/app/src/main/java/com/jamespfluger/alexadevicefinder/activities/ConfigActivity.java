@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.jamespfluger.alexadevicefinder.CommonTools;
 import com.jamespfluger.alexadevicefinder.R;
 import com.jamespfluger.alexadevicefinder.auth.AuthService;
 
@@ -50,13 +50,13 @@ public class ConfigActivity extends AppCompatActivity {
 
         // Establish REST service
         authService = new AuthService();
-    
+
         establishUserDevicePair();
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(!notificationManager.isNotificationPolicyAccessGranted()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!notificationManager.isNotificationPolicyAccessGranted()) {
                 Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 startActivity(intent);
             }
@@ -109,15 +109,16 @@ public class ConfigActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.i("DEVICEFINDER",ConfigActivity.class.getName() + ":" +  "LOGOUT SUCCESS");
+                                Log.i("DEVICEFINDER", ConfigActivity.class.getName() + ":" + "LOGOUT SUCCESS");
                                 setLoggingOutState(true);
                                 switchToLoginActivity();
                             }
                         });
                     }
+
                     @Override
                     public void onError(AuthError authError) {
-                        Log.w("DEVICEFINDER",ConfigActivity.class.getName() + ":" +  "LOGOUT ERROR -> " + authError.toString());
+                        Log.w("DEVICEFINDER", ConfigActivity.class.getName() + ":" + "LOGOUT ERROR -> " + authError.toString());
                         setLoggingOutState(false);
                     }
                 });
@@ -135,32 +136,31 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(ConfigActivity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(ConfigActivity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private void setLoggingOutState(boolean isLoggingOut){
-        if (isLoggingOut){
+    private void setLoggingOutState(boolean isLoggingOut) {
+        if (isLoggingOut) {
             logoutProgressBar.setVisibility(ProgressBar.VISIBLE);
-        }
-        else{
+        } else {
             logoutProgressBar.setVisibility(ProgressBar.GONE);
         }
     }
 
-    private void switchToLoginActivity(){
+    private void switchToLoginActivity() {
         Intent myIntent = new Intent(this, LoginActivity.class);
-        overridePendingTransition(R.transition.slide_out_left,R.transition.slide_in_right);
+        overridePendingTransition(R.transition.slide_out_left, R.transition.slide_in_right);
         startActivity(myIntent);
         finish();
     }
 
-    private void establishUserDevicePair(){
+    private void establishUserDevicePair() {
         setUserId();
         setDeviceId();
     }
 
-    private void setUserId(){
+    private void setUserId() {
         User.fetch(this, new Listener<User, AuthError>() {
             @Override
             public void onSuccess(User user) {
@@ -174,32 +174,32 @@ public class ConfigActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    CommonTools.ShowToast(getApplicationContext(), "Error retrieving profile information.\nPlease log in again");
+                        Toast.makeText(getApplicationContext(), "Error retrieving profile information.\nPlease log in again", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
     }
 
-    private void setDeviceId(){
+    private void setDeviceId() {
         FirebaseInstanceId.getInstance().getInstanceId()
-            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                @Override
-                public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                deviceId = task.getResult().getToken();
-                updateUserDevice();
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    CommonTools.ShowToast(getApplicationContext(), "Error receiving Firebase token.\nPlease log in again");
-                }
-            });
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        deviceId = task.getResult().getToken();
+                        updateUserDevice();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error receiving Firebase token.\nPlease log in again", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    private void updateUserDevice(){
-        if(userId!=null && deviceId!=null){
+    private void updateUserDevice() {
+        if (userId != null && deviceId != null) {
             authService.addUserDevice(userId, deviceId);
         }
     }

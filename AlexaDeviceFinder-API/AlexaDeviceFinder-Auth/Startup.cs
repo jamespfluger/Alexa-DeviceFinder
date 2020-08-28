@@ -1,10 +1,11 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AlexaDeviceFinderAuth
+namespace DeviceFinder.AuthApi
 {
     public class Startup
     {
@@ -18,10 +19,9 @@ namespace AlexaDeviceFinderAuth
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            // Add S3 to the ASP.NET Core dependency injection framework.
-            services.AddAWSService<Amazon.S3.IAmazonS3>();
+            services.AddControllers().AddJsonOptions(option =>
+                option.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+            services.AddAWSService<Amazon.DynamoDBv2.AmazonDynamoDBClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

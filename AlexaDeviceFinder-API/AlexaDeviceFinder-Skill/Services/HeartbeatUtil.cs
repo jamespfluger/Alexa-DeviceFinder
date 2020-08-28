@@ -1,35 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using Alexa.NET;
 using Alexa.NET.Response;
-using AlexaDeviceFinderSkill.Models;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.Models;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
 
-namespace AlexaDeviceFinderSkill.Utils
+namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
-    public static class HeartbeatUtil
+    public class HeartbeatUtil
     {
         public static SkillResponse SendHeartbeat()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             char successfulDynamo = LoadDynamo() ? 'Y' : 'N';
-            stopwatch.Stop();
             long dynamoTime = stopwatch.ElapsedMilliseconds;
 
             stopwatch.Restart();
             char successfulFirebase = LoadFirebase() ? 'Y' : 'N';
-            stopwatch.Stop();
             long firebaseTime = stopwatch.ElapsedMilliseconds;
 
-            return ResponseBuilder.Tell(@$"Heartbeat complete | DynamoDB={successfulDynamo}:Firebase={successfulFirebase} | Dynamo={dynamoTime}ms:Firebase={firebaseTime}ms");
+            return ResponseBuilder.Tell($"Heartbeat complete | DynamoDB={successfulDynamo}:Firebase={successfulFirebase} | Dynamo={dynamoTime}ms:Firebase={firebaseTime}ms");
         }
 
         private static bool LoadDynamo()
@@ -38,11 +34,11 @@ namespace AlexaDeviceFinderSkill.Utils
             {
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
                 DynamoDBContext context = new DynamoDBContext(client);
-                context.QueryAsync<UserDevice>("HEARTBEAT");
+                context.LoadAsync<AmazonUserDevice>("HEARTBEAT");
 
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -62,7 +58,7 @@ namespace AlexaDeviceFinderSkill.Utils
                 FirebaseMessaging.DefaultInstance.SendAsync(new Message());
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
