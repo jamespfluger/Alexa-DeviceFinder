@@ -3,7 +3,6 @@ package com.jamespfluger.alexadevicefinder.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -35,22 +34,17 @@ public class LoginActivity extends Activity {
         requestContext.registerListener(new AuthorizeListener() {
             @Override
             public void onSuccess(AuthorizeResult authorizeResult) {
-                Log.d("DEVICEFINDER", LoginActivity.class.getName() + ":" + "LOGIN SUCCESS -> userid:" + authorizeResult.getUser().getUserId());
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Successfully logged into Amazon", Toast.LENGTH_SHORT).show();
                     }
                 });
-                switchToConfigActivity();
+                switchToOtpActivity();
             }
 
             @Override
             public void onError(AuthError authError) {
-                Log.w("DEVICEFINDER", LoginActivity.class.getName() + ":" + authError.getMessage());
-                Log.w("DEVICEFINDER", LoginActivity.class.getName() + ":" + authError.getStackTrace().toString());
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -62,7 +56,6 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onCancel(AuthCancellation authCancellation) {
-                Log.i("DEVICEFINDER", LoginActivity.class.getName() + ":" + "login cancelled => " + authCancellation.getDescription());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -96,7 +89,6 @@ public class LoginActivity extends Activity {
                                 .addScopes(ProfileScope.userId())
                                 .build()
                 );
-
                 setLoggingInState(true);
             }
         });
@@ -104,7 +96,12 @@ public class LoginActivity extends Activity {
         alexaConnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToOtpActivity();
+                AuthorizationManager.authorize(
+                        new AuthorizeRequest.Builder(requestContext)
+                                .addScopes(ProfileScope.userId())
+                                .build()
+                );
+                setLoggingInState(true);
             }
         });
     }
@@ -128,9 +125,9 @@ public class LoginActivity extends Activity {
         finish();
     }
 
-    private void switchToOtpActivity(){
+    private void switchToOtpActivity() {
         Intent otpIntent = new Intent(this, OtpActivity.class);
-        this.overridePendingTransition(R.transition.slide_out_left,R.transition.slide_in_right);
+        this.overridePendingTransition(R.transition.slide_out_left, R.transition.slide_in_right);
         startActivity(otpIntent);
         finish();
     }
