@@ -16,4 +16,5 @@
     <string name="batteryOptimizationWarning">Ignore Battery Optimization permission is HIGHLY RECOMMENDED in order for this app to alert you when your phone is in silent mode. Otherwise there may be a significant delay in finding your phone!!</string>
     <string name="resourcePackage">android.resource://com.jamespfluger.alexadevicefinder/</string>
     <string name="deviceAlertChannelName">Device Alert (Required)</string>
+    <string name="preference_file_key">com.jamespfluger.alexadevicefinder.SHARED_PREFERENCES</string>
 </resources>

@@ -13,12 +13,16 @@ import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
 import com.jamespfluger.alexadevicefinder.PermissionsRequester;
 import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.notifications.FirebaseService;
 
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseService firebaseService = new FirebaseService(getApplicationContext());
+        firebaseService.refreshToken();
 
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
@@ -34,7 +38,7 @@ public class LaunchActivity extends AppCompatActivity {
             public void onSuccess(AuthorizeResult result) {
 
                 if (result.getAccessToken() != null) {
-                    intentToLaunch = new Intent(getApplicationContext(), ConfigActivity.class);
+                    intentToLaunch = new Intent(getApplicationContext(), OtpActivity.class);
                 } else {
                     intentToLaunch = new Intent(getApplicationContext(), LoginActivity.class);
                 }
