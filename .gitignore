@@ -363,3 +363,7 @@ AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/.lambda-test-tool
 AlexaDeviceFinder-Android/.idea
 AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/Properties/launchSettings.json
 AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/aws-lambda-tools-defaults.json
+AlexaDeviceFinder-API/AlexaSkill/.lambda-test-tool
+AlexaDeviceFinder-API/AlexaSkill/Properties/launchSettings.json
+AlexaDeviceFinder-API/AlexaSkill/key.json
+AlexaDeviceFinder-API/AlexaSkill/aws-lambda-tools-defaults.json
