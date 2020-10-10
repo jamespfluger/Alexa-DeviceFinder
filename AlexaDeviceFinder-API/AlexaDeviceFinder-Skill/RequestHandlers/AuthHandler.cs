@@ -5,7 +5,7 @@ using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Response;
 using DeviceFinder.AlexaSkill.Services;
-using DeviceFinder.Models;
+using DeviceFinder.Models.Auth;
 using OtpNet;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
@@ -23,7 +23,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                 {
                     computedOtp = GenerateOtp();
 
-                    AlexaAuthUser queriedAuthUser = await DynamoService.Instance.LoadItem<AlexaAuthUser>(int.Parse(computedOtp));
+                    AuthAlexaUser queriedAuthUser = await DynamoService.Instance.LoadItem<AuthAlexaUser>(computedOtp);
 
                     if (queriedAuthUser != null)
                     {
@@ -33,12 +33,12 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                     }
                     else
                     {
-                        AlexaAuthUser newAlexaAuthUser = new AlexaAuthUser();
-                        newAlexaAuthUser.OneTimePassword = int.Parse(computedOtp);
+                        AuthAlexaUser newAlexaAuthUser = new AuthAlexaUser();
+                        newAlexaAuthUser.OneTimePassword = computedOtp;
                         newAlexaAuthUser.AlexaUserId = request.Context.System.User.UserId;
                         newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddSeconds(120).ToUnixTimeSeconds();
 
-                        bool didSaveSucceed = await DynamoService.Instance.SaveItem<AlexaAuthUser>(newAlexaAuthUser);
+                        bool didSaveSucceed = await DynamoService.Instance.SaveItem<AuthAlexaUser>(newAlexaAuthUser);
 
                         if (didSaveSucceed)
                             break;

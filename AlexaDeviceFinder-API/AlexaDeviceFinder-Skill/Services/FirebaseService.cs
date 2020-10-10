@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using DeviceFinder.Models;
+using DeviceFinder.Models.Auth;
+using DeviceFinder.Models.Devices;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
@@ -14,6 +15,8 @@ namespace DeviceFinder.AlexaSkill.Services
         public static FirebaseService Instance { get { return lazyFirebaseService.Value; } }
 
         private static readonly Lazy<FirebaseService> lazyFirebaseService = new Lazy<FirebaseService>(() => new FirebaseService());
+        private const string DEVICE_RING_CHANNEL_ID = "CHANNEL_4096";
+        private const string NOTIFICATION_TITLE = "Device Finder (swipe to dismiss)";
 
         public FirebaseService()
         {
@@ -27,7 +30,7 @@ namespace DeviceFinder.AlexaSkill.Services
             }
         }
 
-        public async Task<string> SendFirebaseMessage(AmazonUserDevice request)
+        public async Task<string> SendFirebaseMessage(AuthDevice request)
         {
             try
             {
@@ -35,7 +38,7 @@ namespace DeviceFinder.AlexaSkill.Services
 
                 Message message;
 
-                if (request.DeviceOs == AmazonUserDevice.DeviceOperatingSystem.Android)
+                if (request.DeviceOs == DeviceOperatingSystem.Android)
                     message = CreateAndroidNotification(request.DeviceId);
                 else
                     message = CreateAppleNotification(request.DeviceId);
@@ -56,12 +59,12 @@ namespace DeviceFinder.AlexaSkill.Services
         private Message CreateAndroidNotification(string token)
         {
             Notification notification = new Notification();
-            notification.Title = Constants.NOTIFICATION_TITLE;
+            notification.Title = NOTIFICATION_TITLE;
 
             AndroidConfig androidConfig = new AndroidConfig();
             androidConfig.Priority = Priority.High;
             androidConfig.Notification = new AndroidNotification();
-            androidConfig.Notification.ChannelId = Constants.DEVICE_RING_CHANNEL_ID;
+            androidConfig.Notification.ChannelId = DEVICE_RING_CHANNEL_ID;
 
             Message message = new Message();
             message.Notification = notification;
@@ -74,7 +77,7 @@ namespace DeviceFinder.AlexaSkill.Services
         private Message CreateAppleNotification(string token)
         {
             Notification notification = new Notification();
-            notification.Title = Constants.NOTIFICATION_TITLE;
+            notification.Title = NOTIFICATION_TITLE;
 
             ApnsConfig apnsConfig = new ApnsConfig();
             apnsConfig.FcmOptions = new ApnsFcmOptions();
