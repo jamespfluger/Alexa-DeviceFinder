@@ -4,7 +4,7 @@ using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Response;
 using DeviceFinder.AlexaSkill.Services;
-using DeviceFinder.Models;
+using DeviceFinder.Models.Auth;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
@@ -15,7 +15,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             try
             {
                 // Grab the device information from Dynamo and immediately send the notification
-                AmazonUserDevice userDevice = await DynamoService.Instance.LoadItem<AmazonUserDevice>(skillRequest.Session.User.UserId);
+                AuthDevice userDevice = await DynamoService.Instance.LoadItem<AuthDevice>(skillRequest.Session.User.UserId);
 
                 // Immediately send the notification
                 await FirebaseService.Instance.SendFirebaseMessage(userDevice);

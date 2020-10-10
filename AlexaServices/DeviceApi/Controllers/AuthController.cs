@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models;
+using DeviceFinder.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeviceFinder.AuthApi.Controllers
@@ -28,9 +28,9 @@ namespace DeviceFinder.AuthApi.Controllers
         /// <param name="userId">Amazon user ID</param>
         /// <param name="deviceId">Android device ID</param>
         [HttpGet("users/{userid}/devices/{deviceid}")]
-        public async Task<ActionResult<AmazonUserDevice>> GetUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
+        public async Task<ActionResult<AuthDevice>> GetUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
         {
-            AmazonUserDevice foundDevice = await context.LoadAsync<AmazonUserDevice>(userId, deviceId);
+            AuthDevice foundDevice = await context.LoadAsync<AuthDevice>(userId, deviceId);
 
             if (foundDevice != null)
                 return Ok(foundDevice);
@@ -43,7 +43,7 @@ namespace DeviceFinder.AuthApi.Controllers
         /// </summary>
         /// <param name="userDevice">Pair of User and Android IDs</param>
         [HttpPost("users")]
-        public async Task<ActionResult> AddAmazonUserDevice([FromBody] AmazonUserDevice userDevice)
+        public async Task<ActionResult> AddAmazonUserDevice([FromBody] AuthDevice userDevice)
         {
             try
             {
