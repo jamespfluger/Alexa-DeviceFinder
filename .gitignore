@@ -303,6 +303,7 @@ obj/
 .idea/shelf/
 .idea/.name
 .idea/compiler.xml
+.idea/codeStyles/Project.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml
 .idea/misc.xml
@@ -352,14 +353,10 @@ hs_err_pid*
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/gradle,android,eclipse,intellij,androidstudio
-AlexaDeviceFinder-Android/.idea/dictionaries/James.xml
-AlexaDeviceFinder-Android/app/src/main/assets/api_key.txt
-AlexaDeviceFinder-Android/app/google-services.json
-AlexaDeviceFinder-Android/.idea/codeStyles/Project.xml
+#AndroidApp/app/src/main/assets/api_key.txt
+#AndroidApp/app/google-services.json
+AlexaServices/AlexaSkill/key.json
+*.vs
 *.user
-AlexaDeviceFinder-API/.vs
-AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/key.json
-AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/.lambda-test-tool
-AlexaDeviceFinder-Android/.idea
-AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/Properties/launchSettings.json
-AlexaDeviceFinder-API/AlexaDeviceFinder-Skill/aws-lambda-tools-defaults.json
+AndroidApp/.idea/codeStyles/Project.xml
+AlexaServices/AlexaSkill/Properties/launchSettings.json

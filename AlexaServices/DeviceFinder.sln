@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder.AuthApi", "AlexaDeviceFinder-Auth\DeviceFinder.AuthApi.csproj", "{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaSkill", "AlexaSkill\AlexaSkill.csproj", "{B16D12C1-D302-4EB2-85EE-143490AF1168}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder.AlexaSkill", "AlexaDeviceFinder-Skill\DeviceFinder.AlexaSkill.csproj", "{2FAD5259-4EE4-46F3-9064-6A4BD578035F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceApi", "DeviceApi\DeviceApi.csproj", "{E55A5236-1198-40B2-84BC-2445AA9F8359}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder.Models", "AlexaDeviceFinderModels\DeviceFinder.Models.csproj", "{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{DB437E06-A584-44BF-82B3-7EC14B5937C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40D68AB7-FD0F-47CA-8895-4BE12DFABDA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FAD5259-4EE4-46F3-9064-6A4BD578035F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCBBCA92-6DF5-4E50-BFEE-2A51AA7A0B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16D12C1-D302-4EB2-85EE-143490AF1168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16D12C1-D302-4EB2-85EE-143490AF1168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16D12C1-D302-4EB2-85EE-143490AF1168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16D12C1-D302-4EB2-85EE-143490AF1168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
