@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
+using Amazon.Lambda.Core;
+using Amazon.Runtime.Internal.Util;
 using DeviceFinder.Models.Auth;
+using DeviceFinder.Models.Devices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
-namespace DeviceFinder.AuthApi.Controllers
+namespace DeviceFinder.DeviceApi.Controllers
 {
     /// <summary>
     /// ASP.NET Core controller acting as a DynamoDB Proxy.
@@ -23,39 +31,43 @@ namespace DeviceFinder.AuthApi.Controllers
         }
 
         /// <summary>
-        /// Gets a user/device pair
-        /// </summary>
-        /// <param name="userId">Amazon user ID</param>
-        /// <param name="deviceId">Android device ID</param>
-        [HttpGet("users/{userid}/devices/{deviceid}")]
-        public async Task<ActionResult<AuthDevice>> GetUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
-        {
-            AuthDevice foundDevice = await context.LoadAsync<AuthDevice>(userId, deviceId);
-
-            if (foundDevice != null)
-                return Ok(foundDevice);
-            else
-                return NotFound();
-        }
-
-        /// <summary>
         /// Inserts/Updates a Amazon user ID and Android device ID pair
         /// </summary>
-        /// <param name="userDevice">Pair of User and Android IDs</param>
+        /// <param name="authDevice">Pair of User and Android IDs</param>
+        /// TODO: rename this to "devices"
         [HttpPost("users")]
-        public async Task<ActionResult> AddAmazonUserDevice([FromBody] AuthDevice userDevice)
+        public async Task<ActionResult> AddNewAuthDevice([FromBody] AuthDevice authDevice)
         {
             try
             {
-                if (userDevice == null || string.IsNullOrEmpty(userDevice.AmazonUserId) || string.IsNullOrEmpty(userDevice.DeviceId))
-                    return BadRequest("AmazonUserDevice body is missing or malformed");
+                if (authDevice == null || string.IsNullOrEmpty(authDevice.AmazonUserId) || string.IsNullOrEmpty(authDevice.DeviceId))
+                    return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice.ToString()}");
 
-                await context.SaveAsync(userDevice);
-                return Ok();
+                await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);
+                AuthAlexaUser alexaUser = await context.LoadAsync<AuthAlexaUser>(authDevice.OneTimePassword);
+
+                if (alexaUser == null)
+                {
+                    return NotFound("Linked device could not be found in the database.");
+                }
+                else if (alexaUser.TimeToLive >= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                {
+                    return Unauthorized("The entered code has expired. Please ask Alexa for a new one.");
+                }
+                else
+                {
+                    UserDevice fullUserDevice = new UserDevice(alexaUser, authDevice);
+                    Task saveResult = context.SaveAsync<UserDevice>(fullUserDevice);
+                    Task deleteResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
+
+                    Task.WaitAll(saveResult, deleteResult);
+
+                    return Created(nameof(AddNewAuthDevice), fullUserDevice);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.ToString() + Environment.NewLine + authDevice.ToString());
             }
         }
     }

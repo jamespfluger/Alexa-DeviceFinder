@@ -26,6 +26,9 @@ namespace DeviceFinder.Models.Auth
         [DynamoDBProperty("OneTimePassword")]
         public string OneTimePassword { get; set; }
 
+        [DynamoDBProperty("DeviceOS")]
+        public DeviceOperatingSystem DeviceOs { get; set; }
+
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
         public static object DeviceOperatingSystem { get; internal set; }

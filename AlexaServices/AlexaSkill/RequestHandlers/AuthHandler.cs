@@ -36,7 +36,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                         AuthAlexaUser newAlexaAuthUser = new AuthAlexaUser();
                         newAlexaAuthUser.OneTimePassword = computedOtp;
                         newAlexaAuthUser.AlexaUserId = request.Context.System.User.UserId;
-                        newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddSeconds(120).ToUnixTimeSeconds();
+                        newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds();
 
                         bool didSaveSucceed = await DynamoService.Instance.SaveItem<AuthAlexaUser>(newAlexaAuthUser);
 
@@ -70,18 +70,18 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             ssmlSpeech.Append("<speak>");
             ssmlSpeech.Append("Enter this code into the app: ");
 
+            StringBuilder otpSpeech = new StringBuilder();
             for (int i = 0; i < 6; i++)
             {
                 ssmlSpeech.Append(computedOtp[i]);
                 ssmlSpeech.Append("<break time=\"500ms\"/>");
             }
-            ssmlSpeech.Append("This code will expire in 60 seconds. ");
-            ssmlSpeech.Append("Again, enter this code into the app: ");
-            for (int i = 0; i < 6; i++)
-            {
-                ssmlSpeech.Append(computedOtp[i]);
-                ssmlSpeech.Append(" <break time=\"500ms\"/>");
-            }
+
+            ssmlSpeech.Append(otpSpeech.ToString());
+            ssmlSpeech.Append("Again, the code is: ");
+            ssmlSpeech.Append(otpSpeech.ToString());
+
+            ssmlSpeech.Append("This code will expire in 2 minutes. ");
             ssmlSpeech.Append("</speak>");
 
             return new SsmlOutputSpeech(ssmlSpeech.ToString());
