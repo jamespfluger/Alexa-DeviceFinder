@@ -30,7 +30,7 @@ namespace DeviceFinder.AlexaSkill.Services
             }
         }
 
-        public async Task<string> SendFirebaseMessage(AuthDevice request)
+        public async Task<string> SendFirebaseMessage(UserDevice request)
         {
             try
             {

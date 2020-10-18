@@ -5,6 +5,8 @@ using DeviceFinder.Models.Auth;
 
 namespace DeviceFinder.Models.Devices
 {
+
+    [DynamoDBTable("DeviceFinder_UserDevices")]
     public class UserDevice
     {
         [DynamoDBHashKey("AlexaUserID")]
@@ -31,17 +33,15 @@ namespace DeviceFinder.Models.Devices
         public UserDevice() { this.ModifiedDate = DateTime.UtcNow; }
 
 
-        public UserDevice(AuthAlexaUser alexaUser, AuthDevice userDevice)
+        public UserDevice(AuthAlexaUser alexaUser, AuthDevice authDevice)
         {
-            UserDevice newFullUserDevice = new UserDevice()
-            {
-                AlexaUserId = alexaUser.AlexaUserId,
-                AlexaDeviceId = alexaUser.AlexaDeviceId,
-                DeviceId = userDevice.DeviceId,
-                AmazonUserId = userDevice.AmazonUserId,
-                DeviceName = userDevice.DeviceName,
-                DeviceOs = userDevice.DeviceOs,
-            };
+            AlexaUserId = alexaUser.AlexaUserId;
+            AlexaDeviceId = alexaUser.AlexaDeviceId;
+            DeviceId = authDevice.DeviceId;
+            AmazonUserId = authDevice.AmazonUserId;
+            DeviceName = authDevice.DeviceName;
+            DeviceOs = authDevice.DeviceOs;
+            ModifiedDate = DateTime.UtcNow;
         }
         public override string ToString()
         {

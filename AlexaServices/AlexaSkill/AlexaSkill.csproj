@@ -4,6 +4,7 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AWSProjectType>Lambda</AWSProjectType>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AssemblyName>DeviceFinder.AlexaSkill</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="key.json" />

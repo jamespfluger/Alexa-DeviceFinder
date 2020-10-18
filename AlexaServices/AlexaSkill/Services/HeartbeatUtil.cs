@@ -6,7 +6,7 @@ using Alexa.NET.Response;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models.Auth;
+using DeviceFinder.Models.Devices;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
@@ -34,7 +34,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             {
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
                 DynamoDBContext context = new DynamoDBContext(client);
-                context.LoadAsync<AuthDevice>("HEARTBEAT");
+                context.LoadAsync<UserDevice>("HEARTBEAT");
 
                 return true;
             }

@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Response;
+using Amazon.DynamoDBv2.Model;
 using DeviceFinder.AlexaSkill.Services;
 using DeviceFinder.Models.Auth;
+using DeviceFinder.Models.Devices;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
@@ -15,7 +17,9 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             try
             {
                 // Grab the device information from Dynamo and immediately send the notification
-                AuthDevice userDevice = await DynamoService.Instance.LoadItem<AuthDevice>(skillRequest.Session.User.UserId);
+                UserDevice userDevice = await DynamoService.Instance.LoadItem<UserDevice>(skillRequest.Session.User.UserId);
+                if (userDevice == null)
+                    throw new ResourceNotFoundException("This device may not have been set up yet.");
 
                 // Immediately send the notification
                 await FirebaseService.Instance.SendFirebaseMessage(userDevice);

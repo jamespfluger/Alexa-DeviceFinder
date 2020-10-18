@@ -1,5 +1,6 @@
 package com.jamespfluger.alexadevicefinder.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -90,6 +91,7 @@ public class OtpActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
+                            switchToConfigActivity();
                         } else {
                             try {
                                 Toast.makeText(OtpActivity.this, response.code() + " - " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
@@ -163,5 +165,11 @@ public class OtpActivity extends AppCompatActivity {
                 setViewAndChildrenEnabled(child, enabled);
             }
         }
+    }
+
+    private void switchToConfigActivity() {
+        Intent otpIntent = new Intent(this, ConfigActivityOld.class);
+        startActivity(otpIntent);
+        finish();
     }
 }

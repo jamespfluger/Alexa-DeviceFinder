@@ -1,0 +1,16 @@
+
+{
+    "region" : "us-west-2",
+    "profile" : "default",
+    "configuration" : "Release",
+    "framework"     : "netcoreapp3.1",
+    "function-name" : "DeviceFinder-AlexaSkill",
+    "function-description" : "",
+    "function-handler"     : "DeviceFinder.AlexaSkill::DeviceFinder.AlexaSkill.AlexaLambdaEntry::AlexaHandler",
+    "function-memory-size" : 512,
+    "function-role"        : "arn:aws:iam::109578389425:role/DeviceFInder-LambdaExec",
+    "function-timeout"     : 15,
+    "function-runtime"     : "dotnetcore3.1",
+    "tracing-mode"         : "PassThrough",
+    "environment-variables" : ""
+}

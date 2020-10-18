@@ -23,6 +23,7 @@ namespace DeviceFinder.AlexaSkill
             Stopwatch s = Stopwatch.StartNew();
             Logger.Init(context);
             s.Stop();
+            Logger.Log("What the heck dude.");
 
             if (input.Request is IntentRequest)
                 return await HandleIntent(input);
