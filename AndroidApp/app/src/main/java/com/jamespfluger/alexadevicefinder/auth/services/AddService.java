@@ -6,6 +6,7 @@ import com.jamespfluger.alexadevicefinder.auth.AuthUserDevice;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 public class AddService {
     private Boolean isSuccessful;
@@ -15,11 +16,13 @@ public class AddService {
 
         userCall.enqueue(new Callback<Void>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call call, Response response) {
                 isSuccessful = response.isSuccessful();
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call call, Throwable t) {
                 isSuccessful = false;
             }
@@ -33,11 +36,13 @@ public class AddService {
 
         userCall.enqueue(new Callback<Void>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call call, Response response) {
                 isSuccessful = response.isSuccessful();
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call call, Throwable t) {
                 isSuccessful = false;
             }

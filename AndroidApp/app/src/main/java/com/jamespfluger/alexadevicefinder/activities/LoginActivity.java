@@ -18,17 +18,21 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
 import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
+
+import java.util.Random;
 
 public class LoginActivity extends Activity {
     private RequestContext requestContext;
-    private View loginButton;
-    private View alexaConnectButton;
+    private Button loginButton;
     private TextView loginText;
     private ProgressBar loginProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: remove before release
+        AmazonLoginHelper.signOut(getApplicationContext());
         requestContext = RequestContext.create(getApplicationContext());
 
         requestContext.registerListener(new AuthorizeListener() {
@@ -37,10 +41,10 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Successfully logged into Amazon", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Successfully logged into Amazon.", Toast.LENGTH_SHORT).show();
                     }
                 });
-                switchToOtpActivity();
+                switchToNameActivity();
             }
 
             @Override
@@ -60,6 +64,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Login cancelled.", Toast.LENGTH_SHORT).show();
+                        setLoggingInState(false);
                     }
                 });
             }
@@ -79,23 +84,20 @@ public class LoginActivity extends Activity {
         loginProgressBar = findViewById(R.id.loginProgressBar);
         loginButton = findViewById(R.id.loginButton);
         loginText = (TextView) findViewById(R.id.loginText);
-        alexaConnectButton = findViewById(R.id.alexaConnectButton);
+
+        // TODO: implement way to pick between these
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            loginButton.setText("LOGIN WITH AMAZON");
+            loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
+        } else {
+            loginButton.setText("CONNECT WITH ALEXA");
+            loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_alexa_logo, 0, 0, 0);
+        }
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthorizationManager.authorize(
-                        new AuthorizeRequest.Builder(requestContext)
-                                .addScopes(ProfileScope.userId())
-                                .build()
-                );
-                setLoggingInState(true);
-            }
-        });
-
-        alexaConnectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 AuthorizationManager.authorize(
                         new AuthorizeRequest.Builder(requestContext)
                                 .addScopes(ProfileScope.userId())
@@ -118,16 +120,8 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void switchToConfigActivity() {
-        Intent configIntent = new Intent(this, ConfigActivity.class);
-        this.overridePendingTransition(R.transition.slide_out_left, R.transition.slide_in_right);
-        startActivity(configIntent);
-        finish();
-    }
-
-    private void switchToOtpActivity() {
-        Intent otpIntent = new Intent(this, OtpActivity.class);
-        this.overridePendingTransition(R.transition.slide_out_left, R.transition.slide_in_right);
+    private void switchToNameActivity() {
+        Intent otpIntent = new Intent(this, NameActivity.class);
         startActivity(otpIntent);
         finish();
     }

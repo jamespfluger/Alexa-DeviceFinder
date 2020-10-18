@@ -5,10 +5,10 @@
     android:id="@+id/configActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
     android:clickable="true"
+    android:descendantFocusability="beforeDescendants"
     android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".activities.ConfigActivity">
 
     <ProgressBar
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logoutProgressBar" />
 
     <EditText
-        android:id="@+id/deviceNameField"
+        android:id="@+id/configDeviceNameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -87,6 +87,7 @@
         app:layout_constraintBottom_toTopOf="@+id/volumeSlider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
         <Switch
             android:id="@+id/overrideVolumeControls"
             android:layout_width="152dp"

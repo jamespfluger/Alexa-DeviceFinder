@@ -5,9 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.ACTION_NOTIFICATION_POLICY_ACCESS_GRANTED_CHANGED"/>
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-
+    <uses-permission android:name="android.permission.ACTION_NOTIFICATION_POLICY_ACCESS_GRANTED_CHANGED" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="false"
@@ -35,11 +34,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ConfigActivity" />
-        <activity android:name=".activities.OtpActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activities.OtpActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity
             android:name="com.amazon.identity.auth.device.workflow.WorkflowActivity"
             android:allowTaskReparenting="true"
@@ -69,15 +69,15 @@
         <receiver
             android:name=".notifications.NotificationReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </receiver>
 
-        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_notification"
-        />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_notification" />
     </application>
 
 </manifest>

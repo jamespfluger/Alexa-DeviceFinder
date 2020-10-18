@@ -15,10 +15,10 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.jamespfluger.alexadevicefinder.R;
 
 public final class NotificationForge {
+    private final String CHANNEL_ID = "CHANNEL_4096";
     private Context context;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder notificationBuilder;
-    private final String CHANNEL_ID = "CHANNEL_4096";
 
     public NotificationForge(Context context) {
         this.context = context;

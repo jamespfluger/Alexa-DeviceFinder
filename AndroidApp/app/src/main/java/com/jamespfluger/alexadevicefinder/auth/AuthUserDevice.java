@@ -7,10 +7,15 @@ public class AuthUserDevice {
     private String userId;
     @SerializedName("DeviceID")
     private String deviceId;
+    @SerializedName("DeviceName")
+    private String deviceName;
     @SerializedName("DeviceOS")
     private String deviceOs = "Android";
     @SerializedName("OneTimePassword")
     private String otp;
+
+    public AuthUserDevice() {
+    }
 
     public AuthUserDevice(String userId, String deviceId) {
         this.userId = userId;
@@ -37,6 +42,14 @@ public class AuthUserDevice {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getDeviceName() {
+        return this.deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
     public String getDeviceOs() {
