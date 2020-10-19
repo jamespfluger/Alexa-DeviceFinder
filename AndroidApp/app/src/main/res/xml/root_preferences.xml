@@ -1,0 +1,55 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="Settings">
+
+        <EditTextPreference
+            app:key="devicename"
+            app:title="Device name"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="shouldUseWifiOnly"
+            app:summaryOff="Notification will play on any WiFi network or cellular"
+            app:summaryOn="Notification will only display when device is connected to the configured WiFi network"
+            app:title="Limit to single WiFi network" />
+
+        <ListPreference
+            app:defaultValue="Something"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="wifiNetworkList"
+            app:title="WiFi networks"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="shouldUseFlashlight"
+            app:summaryOff="Flashlight will not turn on/off when finding device"
+            app:summaryOn="Flashlight will turn on/off when finding device"
+            app:title="Enable flashlight" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="shouldUseVibration"
+            app:summaryOff="Device will not vibrate when finding device"
+            app:summaryOn="Device will vibrate when finding device"
+            app:title="Enable vibration" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="shouldOverrideVolume"
+            app:summaryOff="Notification will play at device's maximum volume"
+            app:summaryOn="Notification will play at the configured volume"
+            app:title="Override max volume" />
+
+        <SeekBarPreference
+
+            app:defaultValue="100"
+            app:dependency="shouldOverrideVolume"
+            app:key="overrideVolumeValue"
+            app:title="Volume to use" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

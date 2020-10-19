@@ -17,9 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.ConfigActivity"
-            android:label="@string/title_activity_config"
+            android:name=".activities.DeviceNavigationActivity"
+            android:label="@string/title_activity_device_navigation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activities.ConfigActivity"
+            android:label="Device Finder"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NameActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -33,7 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ConfigActivity" />
         <activity
             android:name=".activities.OtpActivity"
             android:windowSoftInputMode="adjustPan" />

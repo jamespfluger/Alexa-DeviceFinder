@@ -156,7 +156,7 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void switchToConfigActivity() {
-        Intent otpIntent = new Intent(this, ConfigActivityOld.class);
+        Intent otpIntent = new Intent(this, ConfigActivity.class);
         startActivity(otpIntent);
         finish();
     }
