@@ -12,7 +12,7 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBHashKey("AlexaUserID")]
         public string AlexaUserId { get; set; }
 
-        [DynamoDBProperty("DeviceID")]
+        [DynamoDBRangeKey("DeviceID")]
         public string DeviceId { get; set; }
 
         [DynamoDBProperty("AmazonUserID")]

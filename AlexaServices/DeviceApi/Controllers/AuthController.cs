@@ -58,9 +58,10 @@ namespace DeviceFinder.DeviceApi.Controllers
                 {
                     UserDevice fullUserDevice = new UserDevice(alexaUser, authDevice);
                     Task saveResult = context.SaveAsync<UserDevice>(fullUserDevice);
-                    Task deleteResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
+                    Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
+                    Task deleteAlexaAuthResult = context.DeleteAsync<AuthAlexaUser>(alexaUser.AlexaUserId);
 
-                    Task.WaitAll(saveResult, deleteResult);
+                    Task.WaitAll(saveResult, deleteAuthDeviceResult);
 
                     return Created(nameof(AddNewAuthDevice), fullUserDevice);
                 }

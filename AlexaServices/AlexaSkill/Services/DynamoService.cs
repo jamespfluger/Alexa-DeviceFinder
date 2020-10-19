@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Amazon;
@@ -30,6 +31,40 @@ namespace DeviceFinder.AlexaSkill.Services
                 Logger.Log($"Dynamo load time: {s.ElapsedMilliseconds}ms");
 
                 return item;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Failure when loading object: {ex}");
+                return default;
+            }
+        }
+
+        public async Task<T> LoadItem<T>(object hashKey, object rangeKey)
+        {
+            try
+            {
+                Stopwatch s = Stopwatch.StartNew();
+                T item = await context.LoadAsync<T>(hashKey, rangeKey);
+                Logger.Log($"Dynamo load time: {s.ElapsedMilliseconds}ms");
+
+                return item;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Failure when loading object: {ex}");
+                return default;
+            }
+        }
+
+        public async Task<List<T>> QueryItems<T>(object hashKey)
+        {
+            try
+            {
+                Stopwatch s = Stopwatch.StartNew();
+                List<T> items = await context.QueryAsync<T>(hashKey).GetRemainingAsync();
+                Logger.Log($"Dynamo load time: {s.ElapsedMilliseconds}ms");
+
+                return items;
             }
             catch (Exception ex)
             {
