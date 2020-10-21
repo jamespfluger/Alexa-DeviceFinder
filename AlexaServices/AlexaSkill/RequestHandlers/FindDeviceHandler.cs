@@ -33,10 +33,11 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                 }
                 else
                 {
-                    if (intent.Slots["Name"].Value != null)
+                    foundDevice = userDevices.Single(u => u.DeviceName.Contains("James", StringComparison.OrdinalIgnoreCase) || u.DeviceName.Contains("Jim", StringComparison.OrdinalIgnoreCase));
+                    /*if (intent.Slots["Name"].Value != null)
                     {
                         string name = intent.Slots["Name"].Value.Replace("'s","");
-                        foundDevice = userDevices.SingleOrDefault(u => u.DeviceName == name);
+                        foundDevice = userDevices.Single(u => u.DeviceName.Contains("James", StringComparison.OrdinalIgnoreCase) || u.DeviceName.Contains("Jim", StringComparison.OrdinalIgnoreCase));
 
                         if (foundDevice == null)
                         {
@@ -46,7 +47,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                     else
                     {
                         throw new ResourceNotFoundException($"There are multiple devices associated with this account, but no name was supplied.");
-                    }
+                    }*/
                 }
                     
 

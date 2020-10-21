@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.DeviceNavigationActivity"
+            android:name=".activities.DevicesConfigActivity"
             android:label="@string/title_activity_device_navigation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

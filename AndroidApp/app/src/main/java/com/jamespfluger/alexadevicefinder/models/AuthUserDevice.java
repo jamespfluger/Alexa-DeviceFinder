@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.auth;
+package com.jamespfluger.alexadevicefinder.models;
 
 import com.google.gson.annotations.SerializedName;
 

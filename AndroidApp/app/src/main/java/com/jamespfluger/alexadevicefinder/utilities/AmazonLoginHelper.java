@@ -16,7 +16,7 @@ public class AmazonLoginHelper {
             @Override
             public void onSuccess(User user) {
                 PreferencesManager preferencesManager = new PreferencesManager(context);
-                preferencesManager.setUserId(user.getUserId());
+                preferencesManager.setAmazonUserId(user.getUserId());
             }
 
             @Override

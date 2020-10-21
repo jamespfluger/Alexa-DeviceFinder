@@ -30,8 +30,10 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
 
-        public UserDevice() { this.ModifiedDate = DateTime.UtcNow; }
+        [DynamoDBProperty("DeviceSettings")]
+        public DeviceSettings DeviceSettings { get; set; }
 
+        public UserDevice() { this.ModifiedDate = DateTime.UtcNow; }
 
         public UserDevice(AuthAlexaUser alexaUser, AuthDevice authDevice)
         {

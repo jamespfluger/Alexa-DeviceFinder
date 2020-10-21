@@ -43,14 +43,14 @@ namespace DeviceFinder.DeviceApi.Controllers
                 if (authDevice == null || string.IsNullOrEmpty(authDevice.AmazonUserId) || string.IsNullOrEmpty(authDevice.DeviceId))
                     return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice.ToString()}");
 
-                await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);
+                //await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);
                 AuthAlexaUser alexaUser = await context.LoadAsync<AuthAlexaUser>(authDevice.OneTimePassword);
 
                 if (alexaUser == null)
                 {
                     return NotFound("Linked device could not be found in the database.");
                 }
-                else if (alexaUser.TimeToLive >= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                else if (alexaUser.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
                 {
                     return Unauthorized("The entered code has expired. Please ask Alexa for a new one.");
                 }
@@ -58,10 +58,11 @@ namespace DeviceFinder.DeviceApi.Controllers
                 {
                     UserDevice fullUserDevice = new UserDevice(alexaUser, authDevice);
                     Task saveResult = context.SaveAsync<UserDevice>(fullUserDevice);
-                    Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
-                    Task deleteAlexaAuthResult = context.DeleteAsync<AuthAlexaUser>(alexaUser.AlexaUserId);
+                    //Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
+                    //Task deleteAlexaAuthResult = context.DeleteAsync<AuthAlexaUser>(alexaUser.AlexaUserId);
 
-                    Task.WaitAll(saveResult, deleteAuthDeviceResult);
+                    //Task.WaitAll(saveResult, deleteAuthDeviceResult, deleteAlexaAuthResult);
+                    Task.WaitAll(saveResult);
 
                     return Created(nameof(AddNewAuthDevice), fullUserDevice);
                 }

@@ -15,7 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jamespfluger.alexadevicefinder.OtpEditText;
 import com.jamespfluger.alexadevicefinder.R;
 import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
-import com.jamespfluger.alexadevicefinder.auth.AuthUserDevice;
+import com.jamespfluger.alexadevicefinder.models.AuthUserDevice;
+import com.jamespfluger.alexadevicefinder.models.UserDevice;
 import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 import java.io.IOException;
@@ -71,19 +72,21 @@ public class OtpActivity extends AppCompatActivity {
 
                 // Build auth device
                 AuthUserDevice authUserDevices = new AuthUserDevice();
-                authUserDevices.setUserId(preferencesManager.getUserId());
+                authUserDevices.setUserId(preferencesManager.getAmazonUserId());
                 authUserDevices.setDeviceId(preferencesManager.getDeviceId());
                 authUserDevices.setDeviceName(preferencesManager.getDeviceName());
                 authUserDevices.setOtp(otpBuilder.toString());
 
                 // Execute authorization
-                Call<Void> userCall = authApi.addUserDevice(authUserDevices);
-                userCall.enqueue(new Callback<Void>() {
+                Call<UserDevice> userCall = authApi.addUserDevice(authUserDevices);
+                userCall.enqueue(new Callback<UserDevice>() {
                     @Override
                     @EverythingIsNonNull
                     public void onResponse(Call call, Response response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
+                            UserDevice newDevice = (UserDevice)response.body();
+                            preferencesManager.setUserId(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {
                             try {
@@ -156,7 +159,7 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void switchToConfigActivity() {
-        Intent otpIntent = new Intent(this, ConfigActivity.class);
+        Intent otpIntent = new Intent(this, DevicesConfigActivity.class);
         startActivity(otpIntent);
         finish();
     }

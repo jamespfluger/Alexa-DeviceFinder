@@ -12,14 +12,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DeviceFinder.DeviceApi.Controllers
 {
-    [Route("devicefinder/[controller]")]
+    [Route("devicefinder/management")]
     [ApiController]
-    public class DevicesController : ControllerBase
+    public class DeviceManagementController : ControllerBase
     {
 
         private readonly DynamoDBContext context;
 
-        public DevicesController()
+        public DeviceManagementController()
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
             context = new DynamoDBContext(client);
@@ -42,7 +42,7 @@ namespace DeviceFinder.DeviceApi.Controllers
         }
 
         /// <summary>
-        /// Gets a user/device pair
+        /// Gets all devices for a user
         /// </summary>
         /// <param name="userId">Amazon user ID</param>
         /// <param name="deviceId">Android device ID</param>
@@ -54,7 +54,12 @@ namespace DeviceFinder.DeviceApi.Controllers
                 AsyncSearch<UserDevice> searchResults = context.QueryAsync<UserDevice>(userId);
                 List<UserDevice> allUserDevices = await searchResults.GetRemainingAsync();
 
-                return Ok(allUserDevices);
+                if (allUserDevices.Any())
+                    return Ok(allUserDevices);
+                else
+                    return NotFound();
+
+
             }
             catch (Exception ex)
             {

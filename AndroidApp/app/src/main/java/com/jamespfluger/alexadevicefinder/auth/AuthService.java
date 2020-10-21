@@ -1,15 +1,12 @@
 package com.jamespfluger.alexadevicefinder.auth;
 
-import com.jamespfluger.alexadevicefinder.auth.services.AddService;
-import com.jamespfluger.alexadevicefinder.auth.services.GetService;
-import com.jamespfluger.alexadevicefinder.auth.services.UpdateService;
+import com.jamespfluger.alexadevicefinder.models.AuthUserDevice;
 
 import java.util.ArrayList;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@SuppressWarnings("ALL")
 public class AuthService {
 
     private AuthInterface authApi;
@@ -23,6 +20,7 @@ public class AuthService {
         authApi = retrofit.create(AuthInterface.class);
     }
 
+    /*
     public ArrayList<AuthUserDevice> getUserDevices(String userId) {
         GetService getService = new GetService();
         return getService.getUserDevices(userId, authApi);
@@ -56,5 +54,5 @@ public class AuthService {
     public void updateUserDevice(String userId, String deviceId, String otp) {
         UpdateService updateService = new UpdateService();
         updateService.updateUserDevice(userId, deviceId, otp, authApi);
-    }
+    }*/
 }
