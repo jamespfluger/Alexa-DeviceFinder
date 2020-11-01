@@ -4,23 +4,32 @@
 Alexa – Device Finder is a combination of an Alexa skill with an Android companion app.  
 It is a skill used to locate any Android device by asking Alexa where it is. The Android app will receive a notification to play a sound at maximum volume
 
+
+High level overview:  
+1. Android app connects with AWS Lambda REST API for account linking. All information is stored in DynamoDB
+2. User asks Alexa to trigger the skill, which is also hosted as an AWS Lambda function 
+3. Device rings. Bring bring.
+
+---
+
 #### How is the application organized?
 
 There are two parts to the application:
-1. The Android application, written in Java (may be converted to Kotlin in the future)
+1. The Android application, written in Java
 2. The .NET Core solution, which is broken down into two additional parts
     1. The authentication API between the Android device and the DynamoDB database, which stores the user's Amazon ID + Device ID for notifications 
     2. The Alexa skill itself that the user will interact with
 
 #### Ok, but give me the details on how the application works
 
-1. The user signs into the Android app with their phone.
-2. This sends a request to an AWS or Azure serverless function with their Amazon ID, device ID, and phone name.
-3. This function inserts the values into an AWS DynamoDB or Azure CosmosDB. The key will always be the user's amazon ID.
-4. The user enables the Amazon skill, which will ensure they have the Android app installed by. This skill (currently) has to be hosted on AWS, but Azure options are being explored.
-5. The user asks Alexa to find a phone (e.g., "Alexa where is James's phone?").
-6. This triggers the AWS Lambda function which queries the database and sends a Firebase Cloud Message (FCM) to the user's phone
-7. The Android app receives the notification and plays a sound at max volume.
+1. The user will login to the Android app via their Amazon account to connect with their Amazon account. This component uses the Login With Amazon library for Android
+2. The user asks Alexa to begin set up of the Device Finder skill, which is hosted as an AWS Lambda function
+3. Alexa provides a 6-digit one time passcode that the user will enter in the Android companion app. This is used to confirm the link between the devices. The expiration of this code is ~3-5 minutes
+4. The user enters a device name, which can later be used to identify specific devices if they choose to link several. All devices can be managed from any device
+5. All user information is not personal information. None of it can be used to identify a user. All information resides in DynamoDB
+6. The user asks Alexa to find a phone (e.g., "Alexa where's James's phone?")
+7. This triggers the AWS Lambda function which queries the database and sends a Firebase Cloud Message (FCM) to the user's phone
+8. The Android app receives the notification and plays a sound at max volume
 
 ## FAQ
 
@@ -56,4 +65,9 @@ First, select an issue you'd like to work on and comment on it. If you have any 
 
 #### .NET Core solution 
 
-*(Instructions coming soon)*
+1. Install Visual Studio 2019
+2. Install the [AWS SDK for Visual Studio](https://aws.amazon.com/visualstudio/)
+3. Install [Postman](https://www.postman.com/) to make REST API calls *(or your preferred client)*
+4. Build the solution
+5. To run the Alexa skill, you will need to use the mock Lambda test tool included with the AWS toolkit
+6. To run the Device API, you can use the IIS Express profile to launch the browser. You can test requests with the Postman collection provided

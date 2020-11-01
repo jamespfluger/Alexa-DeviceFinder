@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "75a2203b-8f26-4c06-8fe1-90e31b0ff46c",
+		"name": "Device Finder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add a new AuthUserDevice",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amazonUserId\": \"D79D13A1-BFEC-4F23-ACA7-0C3EF77397DF\",\r\n    \"deviceId\": \"0C3EF77397D-BFEC-D79D13A1-4F23-ACA7-F\",\r\n    \"onetimepassword\": \"059130\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/devicefinder/auth/users/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"devicefinder",
+						"auth",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all UserDevices for a user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/devicefinder/management/users/:userId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"devicefinder",
+						"management",
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "amzn1.ask.account.AHQ7TNJP3ADTHLMVAEECQQGSCQQKMFQGARQ4GI4NMYLJ6DHLQPUYTXQA2HYUZWEG4ITKC2DAMX3JHE7KR2ITOQJIPM6JSJ6FTEJ6I47GMWME26W4LTERLP3HZ6GKM3WSVLOZ4OQTQE4CXOXBCDZHDKW52U2M2Q3KXJ662QXCLH7WYX43YB5ITLRLDQI7V65VIJAD7X4LMBQ4YTI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a new DeviceSettings",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"alexaUserId\": \"amzn1.ask.account.AHQ7TNJP3ADTHLMVAEECQQGSCQQKMFQGARQ4GI4NMYLJ6DHLQPUYTXQA2HYUZWEG4ITKC2DAMX3JHE7KR2ITOQJIPM6JSJ6FTEJ6I47GMWME26W4LTERLP3HZ6GKM3WSVLOZ4OQTQE4CXOXBCDZHDKW52U2M2Q3KXJ662QXCLH7WYX43YB5ITLRLDQI7V65VIJAD7X4LMBQ4YTI\",\r\n    \"deviceId\": \"RgUDJAyyBaLT4YVxlMNwRRuW_xS_kpSZtPwKJDxNqvoDWOZxGzrYRgmFLRgiD0agh177cF-miQXewIuYzUu0RBztjUqZU7K0ngoUt\",\r\n    \"deviceName\": \"Abigail\",\r\n    \"overriddenVolumeValue\": 100,\r\n    \"shouldLimitToWifi\": true,\r\n    \"useFlashlight\": false,\r\n    \"useVibrate\": true,\r\n    \"useVolumeOverride\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/devicefinder/management/users/:userId/devices/:deviceId/settings",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"devicefinder",
+						"management",
+						"users",
+						":userId",
+						"devices",
+						":deviceId",
+						"settings"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "amzn1.ask.account.AHQ7TNJP3ADTHLMVAEECQQGSCQQKMFQGARQ4GI4NMYLJ6DHLQPUYTXQA2HYUZWEG4ITKC2DAMX3JHE7KR2ITOQJIPM6JSJ6FTEJ6I47GMWME26W4LTERLP3HZ6GKM3WSVLOZ4OQTQE4CXOXBCDZHDKW52U2M2Q3KXJ662QXCLH7WYX43YB5ITLRLDQI7V65VIJAD7X4LMBQ4YTI"
+						},
+						{
+							"key": "deviceId",
+							"value": "RgUDJAyyBaLT4YVxlMNwRRuW_xS_kpSZtPwKJDxNqvoDWOZxGzrYRgmFLRgiD0agh177cF-miQXewIuYzUu0RBztjUqZU7K0ngoUt"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
