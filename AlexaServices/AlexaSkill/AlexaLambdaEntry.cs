@@ -15,20 +15,17 @@ namespace DeviceFinder.AlexaSkill
 {
     public class AlexaLambdaEntry
     {
-        public async Task<SkillResponse> AlexaHandler(SkillRequest input, ILambdaContext context)
+        public async Task<SkillResponse> AlexaHandler(SkillRequest skillRequest, ILambdaContext lambdaContext)
         {
-            if (input.Request is IntentRequest && input.Request.RequestId == "HEARTBEAT")
+            if (skillRequest.Request is IntentRequest && skillRequest.Request.RequestId == "HEARTBEAT")
                 return HeartbeatUtil.SendHeartbeat();
 
-            Stopwatch s = Stopwatch.StartNew();
-            Logger.Init(context);
-            s.Stop();
-            Logger.Log("What the heck dude.");
+            Logger.Init(lambdaContext);
 
-            if (input.Request is IntentRequest)
-                return await HandleIntent(input);
-            else if (input.Request is SkillEventRequest)
-                return await HandleSkillEvent(input);
+            if (skillRequest.Request is IntentRequest)
+                return await HandleIntent(skillRequest);
+            else if (skillRequest.Request is SkillEventRequest)
+                return await HandleSkillEvent(skillRequest);
             else
                 return ResponseBuilder.Tell("I'm sorry, I couldn't understand your request. Please rephrase it or try again later.");
         }
@@ -37,14 +34,14 @@ namespace DeviceFinder.AlexaSkill
         {
             IRequestHandler requestHandler;
 
-            IntentRequest intentRequest = request.Request as IntentRequest;
+            Intent intent = ((IntentRequest)request.Request).Intent;
 
-            if (intentRequest.Intent.Name == "FindDevice")
+            if (intent.Name == "FindDevice")
                 requestHandler = new FindDeviceHandler();
             else
                 requestHandler = new AuthHandler();
 
-            return await requestHandler.ProcessRequest(request);
+            return await requestHandler.ProcessRequest(intent, request.Context.System);
         }
 
         private async Task<SkillResponse> HandleSkillEvent(SkillRequest skillEventRequest)

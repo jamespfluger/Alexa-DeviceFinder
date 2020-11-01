@@ -1,7 +1,6 @@
 package com.jamespfluger.alexadevicefinder.notifications;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,25 +12,25 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
+import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 public class FirebaseService extends FirebaseMessagingService {
+    private PreferencesManager preferencesManager;
     private NotificationForge notificationForge;
     private Context context;
-    private final String sharedPrefsName = "com.jamespfluger.alexadevicefinder.SHARED_PREFERENCES";
 
     public FirebaseService(Context context) {
         this.context = context;
+        this.preferencesManager = new PreferencesManager(context);
     }
 
     public FirebaseService() {
     }
 
     @Override
-    public void onNewToken(String newToken) {
+    public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
-        sharedPref.edit().putString("firebasetoken", newToken).apply();
+        preferencesManager.setDeviceId(newToken);
     }
 
     @Override
@@ -44,25 +43,19 @@ public class FirebaseService extends FirebaseMessagingService {
         notificationForge.issueNotification(remoteMessage);
     }
 
-    public String getToken() {
-        SharedPreferences sharedPref = context.getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
-        String firebaseToken = sharedPref.getString("firebasetoken", null);
-        if (firebaseToken != null) {
-            return firebaseToken;
-        } else {
-            refreshToken();
-            return sharedPref.getString("firebasetoken", null);
-        }
-    }
-
     public void refreshToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        String newToken = task.getResult().getToken();
-                        SharedPreferences sharedPref = context.getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE);
-                        sharedPref.edit().putString("firebasetoken", newToken).apply();
+                        //TODO: handle instance where task istself is null
+                        //TODO: make sure the deviceis actually online
+                        InstanceIdResult taskResult = task.getResult();
+
+                        if (taskResult != null) {
+                            String newToken = taskResult.getToken();
+                            preferencesManager.setDeviceId(newToken);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

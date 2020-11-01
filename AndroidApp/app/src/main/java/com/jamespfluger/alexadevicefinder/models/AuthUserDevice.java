@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.auth;
+package com.jamespfluger.alexadevicefinder.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,20 +7,14 @@ public class AuthUserDevice {
     private String userId;
     @SerializedName("DeviceID")
     private String deviceId;
+    @SerializedName("DeviceName")
+    private String deviceName;
     @SerializedName("DeviceOS")
     private String deviceOs = "Android";
     @SerializedName("OneTimePassword")
     private String otp;
 
-    public AuthUserDevice(String userId, String deviceId) {
-        this.userId = userId;
-        this.deviceId = deviceId;
-    }
-
-    public AuthUserDevice(String userId, String deviceId, String otp) {
-        this.userId = userId;
-        this.deviceId = deviceId;
-        this.otp = otp;
+    public AuthUserDevice() {
     }
 
     public String getUserId() {
@@ -37,6 +31,14 @@ public class AuthUserDevice {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getDeviceName() {
+        return this.deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
     public String getDeviceOs() {

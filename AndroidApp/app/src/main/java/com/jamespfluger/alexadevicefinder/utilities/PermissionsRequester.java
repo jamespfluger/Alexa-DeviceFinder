@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder;
+package com.jamespfluger.alexadevicefinder.utilities;
 
 import android.app.AlertDialog;
 import android.app.NotificationManager;
@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+
+import com.jamespfluger.alexadevicefinder.R;
 
 import static android.content.Context.POWER_SERVICE;
 

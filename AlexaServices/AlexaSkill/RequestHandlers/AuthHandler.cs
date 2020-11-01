@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
+using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using DeviceFinder.AlexaSkill.Services;
 using DeviceFinder.Models.Auth;
@@ -12,7 +13,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class AuthHandler : IRequestHandler
     {
-        public async Task<SkillResponse> ProcessRequest(SkillRequest request)
+        public async Task<SkillResponse> ProcessRequest(Intent request, AlexaSystem system)
         {
             try
             {
@@ -35,7 +36,8 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                     {
                         AuthAlexaUser newAlexaAuthUser = new AuthAlexaUser();
                         newAlexaAuthUser.OneTimePassword = computedOtp;
-                        newAlexaAuthUser.AlexaUserId = request.Context.System.User.UserId;
+                        newAlexaAuthUser.AlexaUserId = system.User.UserId;
+                        newAlexaAuthUser.AlexaDeviceId = system.Device.DeviceID;
                         newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds();
 
                         bool didSaveSucceed = await DynamoService.Instance.SaveItem<AuthAlexaUser>(newAlexaAuthUser);

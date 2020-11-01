@@ -11,18 +11,18 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
 import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
-import com.jamespfluger.alexadevicefinder.PermissionsRequester;
 import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.notifications.FirebaseService;
+import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
+import com.jamespfluger.alexadevicefinder.utilities.PermissionsRequester;
+import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        FirebaseService firebaseService = new FirebaseService(getApplicationContext());
-        firebaseService.refreshToken();
+        PreferencesManager preferencesManager = new PreferencesManager(getApplicationContext());
+        preferencesManager.refreshDeviceId();
 
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
@@ -36,26 +36,32 @@ public class LaunchActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(AuthorizeResult result) {
-
-                if (result.getAccessToken() != null) {
-                    intentToLaunch = new Intent(getApplicationContext(), OtpActivity.class);
-                } else {
-                    intentToLaunch = new Intent(getApplicationContext(), LoginActivity.class);
-                }
-
                 PermissionsRequester permissionsRequester = new PermissionsRequester();
                 permissionsRequester.requestPermissions(LaunchActivity.this);
 
-                startActivity(intentToLaunch);
-                finish();
+                Class<?> activityToLaunch;
+
+                // TODO: before release, update activities swapped to
+                if (result.getAccessToken() != null) {
+                    activityToLaunch = DevicesConfigActivity.class;
+                    AmazonLoginHelper.setUserId(getApplicationContext());
+                } else {
+                    activityToLaunch = LoginActivity.class;
+                }
+
+                switchToActivity(activityToLaunch);
             }
 
             @Override
             public void onError(AuthError ae) {
-                intentToLaunch = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intentToLaunch);
-                finish();
+                switchToActivity(LoginActivity.class);
             }
         });
+    }
+
+    private void switchToActivity(Class<?> newActivity) {
+        Intent otpIntent = new Intent(this, newActivity);
+        startActivity(otpIntent);
+        finish();
     }
 }

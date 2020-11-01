@@ -33,8 +33,8 @@ public class OtpEditText extends AppCompatEditText {
     }
 
     public void setErrorState() {
-        getBackground().mutate().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
-        setTextColor(getResources().getColor(R.color.red));
+        getBackground().mutate().setColorFilter(getResources().getColor(R.color.errorred), PorterDuff.Mode.SRC_ATOP);
+        setTextColor(getResources().getColor(R.color.errorred));
     }
 
     public void clearErrorState() {
