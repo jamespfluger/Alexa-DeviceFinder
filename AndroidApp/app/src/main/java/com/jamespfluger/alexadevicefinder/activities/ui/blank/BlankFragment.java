@@ -1,12 +1,11 @@
 package com.jamespfluger.alexadevicefinder.activities.ui.blank;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.jamespfluger.alexadevicefinder.R;
 

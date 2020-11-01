@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jamespfluger.alexadevicefinder.OtpEditText;
 import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.auth.AuthInterface;
+import com.jamespfluger.alexadevicefinder.api.ApiService;
+import com.jamespfluger.alexadevicefinder.api.AuthInterface;
 import com.jamespfluger.alexadevicefinder.models.AuthUserDevice;
 import com.jamespfluger.alexadevicefinder.models.UserDevice;
 import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
@@ -24,16 +25,9 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.internal.EverythingIsNonNull;
 
 public class OtpActivity extends AppCompatActivity {
-    private Retrofit retrofitEntity = new Retrofit.Builder()
-            .baseUrl("https://qsbrgmx8u1.execute-api.us-west-2.amazonaws.com/prd/devicefinder/auth/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    private AuthInterface authApi = retrofitEntity.create(AuthInterface.class);
     private PreferencesManager preferencesManager;
 
     @Override
@@ -78,6 +72,7 @@ public class OtpActivity extends AppCompatActivity {
                 authUserDevices.setOtp(otpBuilder.toString());
 
                 // Execute authorization
+                AuthInterface authApi = ApiService.createAuthInstance();
                 Call<UserDevice> userCall = authApi.addUserDevice(authUserDevices);
                 userCall.enqueue(new Callback<UserDevice>() {
                     @Override
@@ -85,7 +80,7 @@ public class OtpActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
-                            UserDevice newDevice = (UserDevice)response.body();
+                            UserDevice newDevice = (UserDevice) response.body();
                             preferencesManager.setUserId(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {

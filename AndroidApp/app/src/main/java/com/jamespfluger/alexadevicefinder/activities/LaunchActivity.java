@@ -43,13 +43,13 @@ public class LaunchActivity extends AppCompatActivity {
 
                 // TODO: before release, update activities swapped to
                 if (result.getAccessToken() != null) {
-                    activityToLaunch = LoginActivity.class;
+                    activityToLaunch = DevicesConfigActivity.class;
                     AmazonLoginHelper.setUserId(getApplicationContext());
                 } else {
                     activityToLaunch = LoginActivity.class;
                 }
-                switchToActivity(activityToLaunch);
 
+                switchToActivity(activityToLaunch);
             }
 
             @Override

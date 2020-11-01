@@ -5,7 +5,7 @@ using DeviceFinder.Models.Auth;
 
 namespace DeviceFinder.Models.Devices
 {
-
+    // Instead of using a separate table for DeviceSettings, we reduce read capacity with one object
     [DynamoDBTable("DeviceFinder_UserDevices")]
     public class UserDevice
     {
@@ -30,7 +30,7 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
 
-        [DynamoDBProperty("DeviceSettings")]
+        [DynamoDBIgnore()]
         public DeviceSettings DeviceSettings { get; set; }
 
         public UserDevice() { this.ModifiedDate = DateTime.UtcNow; }
@@ -44,6 +44,7 @@ namespace DeviceFinder.Models.Devices
             DeviceName = authDevice.DeviceName;
             DeviceOs = authDevice.DeviceOs;
             ModifiedDate = DateTime.UtcNow;
+            DeviceSettings = new DeviceSettings();
         }
         public override string ToString()
         {

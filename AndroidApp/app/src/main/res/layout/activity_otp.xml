@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
-        android:windowSoftInputMode="adjustPan"
         android:focusableInTouchMode="true"
+        android:windowSoftInputMode="adjustPan"
         android:gravity="center">
 
         <ImageView

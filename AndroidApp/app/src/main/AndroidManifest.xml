@@ -19,10 +19,6 @@
         <activity
             android:name=".activities.DevicesConfigActivity"
             android:label="@string/title_activity_device_navigation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".activities.ConfigActivity"
-            android:label="Device Finder"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NameActivity"

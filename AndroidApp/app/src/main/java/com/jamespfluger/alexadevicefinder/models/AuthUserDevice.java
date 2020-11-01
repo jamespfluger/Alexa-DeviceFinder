@@ -17,17 +17,6 @@ public class AuthUserDevice {
     public AuthUserDevice() {
     }
 
-    public AuthUserDevice(String userId, String deviceId) {
-        this.userId = userId;
-        this.deviceId = deviceId;
-    }
-
-    public AuthUserDevice(String userId, String deviceId, String otp) {
-        this.userId = userId;
-        this.deviceId = deviceId;
-        this.otp = otp;
-    }
-
     public String getUserId() {
         return this.userId;
     }

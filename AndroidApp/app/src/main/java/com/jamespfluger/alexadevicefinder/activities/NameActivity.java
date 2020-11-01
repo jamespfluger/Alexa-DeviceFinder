@@ -37,7 +37,7 @@ public class NameActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(ConfigActivity.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(NameActivity.INPUT_METHOD_SERVICE);
 
                     if (inputMethodManager != null) {
                         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);

@@ -1,17 +1,44 @@
-﻿namespace DeviceFinder.Models.Devices
+﻿using System;
+using Amazon.DynamoDBv2.DataModel;
+
+namespace DeviceFinder.Models.Devices
 {
+    [DynamoDBTable("DeviceFinder_DeviceSettings")]
     public class DeviceSettings
     {
-        public bool UseVolumeOverride { get; set; }
+        [DynamoDBHashKey("AlexaUserID")]
+        public string AlexaUserId { get; set; }
 
-        public int Volume { get; set; }
+        [DynamoDBRangeKey("DeviceID")]
+        public string DeviceId { get; set; }
 
-        public bool ShouldUseFlash { get; set; }
+        [DynamoDBProperty("DeviceName")]
+        public string DeviceName { get; set; }
 
-        public bool ShouldUseVibrate { get; set; }
+        [DynamoDBProperty("UseFlashlight")]
+        public bool UseFlashlight { get; set; }
 
+        [DynamoDBProperty("UseVibrate")]
+        public bool UseVibrate { get; set; }
+
+        [DynamoDBProperty("ShouldLimitToWifi")]
         public bool ShouldLimitToWifi { get; set; }
 
+        [DynamoDBProperty("ConfiguredWifiSsid")]
         public string ConfiguredWifiSsid { get; set; }
+
+        [DynamoDBProperty("UseVolumeOverride")]
+        public bool UseVolumeOverride { get; set; }
+
+        [DynamoDBProperty("OverriddenVolumeValue")]
+        public int OverriddenVolumeValue { get; set; }
+
+        [DynamoDBProperty("ModifiedDate")]
+        public DateTime ModifiedDate { get; set; }
+
+        public DeviceSettings()
+        {
+            ModifiedDate = DateTime.UtcNow;
+        }
     }
 }

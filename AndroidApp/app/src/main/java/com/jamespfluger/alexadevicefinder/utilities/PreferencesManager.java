@@ -61,7 +61,7 @@ public class PreferencesManager {
         return preferences.getString(PREFERENCE_NAME_ALEXA_USER_ID, null);
     }
 
-    public void setUserId(String userId){
+    public void setUserId(String userId) {
         preferences.edit().putString(PREFERENCE_NAME_ALEXA_USER_ID, userId).apply();
     }
 }

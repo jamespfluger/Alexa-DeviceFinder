@@ -19,6 +19,7 @@ namespace DeviceFinder.DeviceApi.Controllers
     /// <summary>
     /// ASP.NET Core controller acting as a DynamoDB Proxy.
     /// </summary>
+    [ApiController]
     [Route("devicefinder/[controller]")]
     public class AuthController : Controller
     {

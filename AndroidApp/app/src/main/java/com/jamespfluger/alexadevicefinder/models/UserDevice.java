@@ -11,7 +11,7 @@ public class UserDevice {
     @SerializedName("amazonUserId")
     private String amazonUserId;
     @SerializedName("alexaDeviceId")
-    private Object alexaDeviceId;
+    private String alexaDeviceId;
     @SerializedName("deviceName")
     private String deviceName;
     @SerializedName("deviceOs")
@@ -19,7 +19,7 @@ public class UserDevice {
     @SerializedName("modifiedDate")
     private String modifiedDate;
     @SerializedName("deviceSettings")
-    private Object deviceSettings;
+    private DeviceSettings deviceSettings;
 
     public UserDevice() {
     }
@@ -48,11 +48,11 @@ public class UserDevice {
         this.amazonUserId = amazonUserId;
     }
 
-    public Object getAlexaDeviceId() {
+    public String getAlexaDeviceId() {
         return alexaDeviceId;
     }
 
-    public void setAlexaDeviceId(Object alexaDeviceId) {
+    public void setAlexaDeviceId(String alexaDeviceId) {
         this.alexaDeviceId = alexaDeviceId;
     }
 
@@ -80,11 +80,11 @@ public class UserDevice {
         this.modifiedDate = modifiedDate;
     }
 
-    public Object getDeviceSettings() {
+    public DeviceSettings getDeviceSettings() {
         return deviceSettings;
     }
 
-    public void setDeviceSettings(Object deviceSettings) {
+    public void setDeviceSettings(DeviceSettings deviceSettings) {
         this.deviceSettings = deviceSettings;
     }
 }
