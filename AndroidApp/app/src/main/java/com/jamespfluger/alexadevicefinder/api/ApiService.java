@@ -1,26 +1,24 @@
 package com.jamespfluger.alexadevicefinder.api;
 
+import com.jamespfluger.alexadevicefinder.models.EndpointType;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
     private static final String BASE_URL = "https://qsbrgmx8u1.execute-api.us-west-2.amazonaws.com/prd/devicefinder/";
 
-    public static AuthInterface createAuthInstance() {
+    public static <T> T createInstance(EndpointType type) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL + "auth/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        return retrofit.create(AuthInterface.class);
-    }
-
-    public static ManagementInterface createManagementInstance() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL + "management/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        return retrofit.create(ManagementInterface.class);
+        if (type == EndpointType.MANAGEMENT) {
+            return (T)retrofit.create(ManagementInterface.class);
+        }
+        else {
+            return (T)retrofit.create(AuthInterface.class);
+        }
     }
 }

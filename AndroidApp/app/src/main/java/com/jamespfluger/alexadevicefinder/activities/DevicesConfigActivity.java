@@ -23,6 +23,7 @@ import com.jamespfluger.alexadevicefinder.activities.ui.device.DeviceFragment;
 import com.jamespfluger.alexadevicefinder.activities.ui.home.HomeFragment;
 import com.jamespfluger.alexadevicefinder.api.ApiService;
 import com.jamespfluger.alexadevicefinder.api.ManagementInterface;
+import com.jamespfluger.alexadevicefinder.models.EndpointType;
 import com.jamespfluger.alexadevicefinder.models.UserDevice;
 import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
@@ -61,12 +62,6 @@ public class DevicesConfigActivity extends AppCompatActivity {
         // Create the normal menu items
         final Menu menu = navigationView.getMenu();
         createDefaultMenuItems(drawer, menu);
-        /* TODO:
-            - Load all devices from API into global list
-            - Somehow associate menu items with IDs
-            - Pass device into fragments
-         */
-
         getDevices();
     }
 
@@ -80,12 +75,11 @@ public class DevicesConfigActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 
     private void getDevices() {
-        ManagementInterface managementApi = ApiService.createManagementInstance();
+        ManagementInterface managementApi = ApiService.createInstance(EndpointType.MANAGEMENT);
         Call<ArrayList<UserDevice>> userCall = managementApi.getAllUserDevices(preferencesManager.getUserId());
         userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
             @Override

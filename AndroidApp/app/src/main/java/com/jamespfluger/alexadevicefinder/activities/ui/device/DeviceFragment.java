@@ -21,6 +21,7 @@ import com.jamespfluger.alexadevicefinder.R;
 import com.jamespfluger.alexadevicefinder.api.ApiService;
 import com.jamespfluger.alexadevicefinder.api.ManagementInterface;
 import com.jamespfluger.alexadevicefinder.models.DeviceSettings;
+import com.jamespfluger.alexadevicefinder.models.EndpointType;
 import com.jamespfluger.alexadevicefinder.models.UserDevice;
 
 import java.io.IOException;
@@ -46,15 +47,16 @@ public class DeviceFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         final EditText deviceName = view.findViewById(R.id.settingsDeviceNameField);
+        Button saveButton = view.findViewById(R.id.settingsSaveButton);
+        Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
+
+        deviceName.setText(userDevice.getDeviceSettings().getDeviceName());
+
         final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlightSwitch);
         final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibrationSwitch);
         final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifiSwitch);
         final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolumeSwitch);
         final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
-        Button saveButton = view.findViewById(R.id.settingsSaveButton);
-        Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
-
-        deviceName.setText(userDevice.getDeviceSettings().getDeviceName());
         useFlashlight.setChecked(userDevice.getDeviceSettings().getUseFlashlight());
         useVibration.setChecked(userDevice.getDeviceSettings().getUseVibrate());
         useWifi.setChecked(userDevice.getDeviceSettings().getShouldLimitToWifi());
@@ -90,7 +92,11 @@ public class DeviceFragment extends Fragment {
                 deviceSettings.setUseVolumeOverride(overrideMaxVolume.isChecked());
                 deviceSettings.setOverriddenVolumeValue(overrideMaxVolumeValue.getProgress());
 
-                ManagementInterface managementService = ApiService.createManagementInstance();
+                //ManagementInterface managementService = ApiService.createManagementInstance();
+
+                ManagementInterface managementService = ApiService.createInstance(EndpointType.MANAGEMENT);
+
+
                 Call<Void> updateSettingsCall = managementService.saveDeviceSettings(deviceSettings);
                 updateSettingsCall.enqueue(new Callback<Void>() {
                     @Override

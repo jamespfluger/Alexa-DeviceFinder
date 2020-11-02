@@ -39,17 +39,12 @@ public class LaunchActivity extends AppCompatActivity {
                 PermissionsRequester permissionsRequester = new PermissionsRequester();
                 permissionsRequester.requestPermissions(LaunchActivity.this);
 
-                Class<?> activityToLaunch;
-
-                // TODO: before release, update activities swapped to
                 if (result.getAccessToken() != null) {
-                    activityToLaunch = DevicesConfigActivity.class;
                     AmazonLoginHelper.setUserId(getApplicationContext());
+                    switchToActivity(DevicesConfigActivity.class);
                 } else {
-                    activityToLaunch = LoginActivity.class;
+                    switchToActivity(LoginActivity.class);
                 }
-
-                switchToActivity(activityToLaunch);
             }
 
             @Override
@@ -60,8 +55,8 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void switchToActivity(Class<?> newActivity) {
-        Intent otpIntent = new Intent(this, newActivity);
-        startActivity(otpIntent);
+        Intent newIntent = new Intent(this, newActivity);
+        startActivity(newIntent);
         finish();
     }
 }

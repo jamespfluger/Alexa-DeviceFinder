@@ -17,6 +17,7 @@ import com.jamespfluger.alexadevicefinder.R;
 import com.jamespfluger.alexadevicefinder.api.ApiService;
 import com.jamespfluger.alexadevicefinder.api.AuthInterface;
 import com.jamespfluger.alexadevicefinder.models.AuthUserDevice;
+import com.jamespfluger.alexadevicefinder.models.EndpointType;
 import com.jamespfluger.alexadevicefinder.models.UserDevice;
 import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
@@ -72,8 +73,8 @@ public class OtpActivity extends AppCompatActivity {
                 authUserDevices.setOtp(otpBuilder.toString());
 
                 // Execute authorization
-                AuthInterface authApi = ApiService.createAuthInstance();
-                Call<UserDevice> userCall = authApi.addUserDevice(authUserDevices);
+                AuthInterface authApi = ApiService.createInstance(EndpointType.AUTH);
+                Call<UserDevice> userCall = authApi.addAuthUserDevice(authUserDevices);
                 userCall.enqueue(new Callback<UserDevice>() {
                     @Override
                     @EverythingIsNonNull
@@ -82,7 +83,7 @@ public class OtpActivity extends AppCompatActivity {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
                             UserDevice newDevice = (UserDevice) response.body();
                             preferencesManager.setUserId(newDevice.getAlexaUserId());
-                            switchToConfigActivity();
+                            switchToActivity(DevicesConfigActivity.class);
                         } else {
                             try {
                                 String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
@@ -153,9 +154,9 @@ public class OtpActivity extends AppCompatActivity {
         }
     }
 
-    private void switchToConfigActivity() {
-        Intent otpIntent = new Intent(this, DevicesConfigActivity.class);
-        startActivity(otpIntent);
+    private void switchToActivity(Class<?> newActivity) {
+        Intent newIntent = new Intent(this, newActivity);
+        startActivity(newIntent);
         finish();
     }
 }

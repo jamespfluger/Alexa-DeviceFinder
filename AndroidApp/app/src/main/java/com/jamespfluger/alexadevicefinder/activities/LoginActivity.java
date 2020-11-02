@@ -20,8 +20,6 @@ import com.amazon.identity.auth.device.api.workflow.RequestContext;
 import com.jamespfluger.alexadevicefinder.R;
 import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
 
-import java.util.Random;
-
 public class LoginActivity extends Activity {
     private RequestContext requestContext;
     private Button loginButton;
@@ -33,8 +31,8 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         // TODO: remove before release
         AmazonLoginHelper.signOut(getApplicationContext());
-        requestContext = RequestContext.create(getApplicationContext());
 
+        requestContext = RequestContext.create(getApplicationContext());
         requestContext.registerListener(new AuthorizeListener() {
             @Override
             public void onSuccess(AuthorizeResult authorizeResult) {
@@ -44,7 +42,7 @@ public class LoginActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Successfully logged into Amazon.", Toast.LENGTH_SHORT).show();
                     }
                 });
-                switchToNameActivity();
+                switchToActivity(NameActivity.class);
             }
 
             @Override
@@ -85,15 +83,13 @@ public class LoginActivity extends Activity {
         loginButton = findViewById(R.id.loginButton);
         loginText = (TextView) findViewById(R.id.loginText);
 
-        // TODO: implement way to pick between these
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            loginButton.setText("LOGIN WITH AMAZON");
-            loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
-        } else {
-            loginButton.setText("CONNECT WITH ALEXA");
-            loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_alexa_logo, 0, 0, 0);
-        }
+        //
+        loginButton.setText("LOGIN WITH AMAZON");
+        loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
+
+        /* TODO: verify this is not needed
+        loginButton.setText("CONNECT WITH ALEXA");
+        loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_alexa_logo, 0, 0, 0); */
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,9 +116,9 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void switchToNameActivity() {
-        Intent otpIntent = new Intent(this, NameActivity.class);
-        startActivity(otpIntent);
+    private void switchToActivity(Class<?> newActivity) {
+        Intent newIntent = new Intent(this, newActivity);
+        startActivity(newIntent);
         finish();
     }
 }
