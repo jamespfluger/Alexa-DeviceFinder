@@ -13,11 +13,8 @@ import com.jamespfluger.alexadevicefinder.R;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         container.clearDisappearingChildren();
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;

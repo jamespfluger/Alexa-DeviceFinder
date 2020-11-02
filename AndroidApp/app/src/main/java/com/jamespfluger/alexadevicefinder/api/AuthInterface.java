@@ -10,9 +10,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public interface AuthInterface {
-    @POST("users")
-    Call<UserDevice> addUserDevice(@Body AuthUserDevice userDevice);
-
-    @PUT("users")
-    Call<UserDevice> updateUserDevice(@Body AuthUserDevice userDevice);
+    @POST("auth/users")
+    Call<UserDevice> addAuthUserDevice(@Body AuthUserDevice userDevice);
 }

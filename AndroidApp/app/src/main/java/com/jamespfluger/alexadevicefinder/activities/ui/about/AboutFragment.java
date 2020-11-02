@@ -13,11 +13,8 @@ import com.jamespfluger.alexadevicefinder.R;
 
 public class AboutFragment extends Fragment {
 
-    private AboutViewModel galleryViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel = ViewModelProviders.of(this).get(AboutViewModel.class);
         container.clearDisappearingChildren();
         getActivity().getFragmentManager().popBackStack();
         View root = inflater.inflate(R.layout.fragment_about, container, false);
