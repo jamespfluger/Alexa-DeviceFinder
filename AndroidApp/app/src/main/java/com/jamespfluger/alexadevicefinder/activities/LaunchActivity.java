@@ -12,6 +12,7 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
 import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.models.CommonData;
 import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
 import com.jamespfluger.alexadevicefinder.utilities.PermissionsRequester;
 import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
@@ -23,6 +24,7 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         PreferencesManager preferencesManager = new PreferencesManager(getApplicationContext());
         preferencesManager.refreshDeviceId();
+        new CommonData().initData(getAssets());
 
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
