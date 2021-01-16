@@ -75,13 +75,13 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             StringBuilder otpSpeech = new StringBuilder();
             for (int i = 0; i < 6; i++)
             {
-                ssmlSpeech.Append(computedOtp[i]);
-                ssmlSpeech.Append("<break time=\"500ms\"/>");
+                otpSpeech.Append(computedOtp[i]);
+                otpSpeech.Append("<break time=\"500ms\"/>");
             }
 
             ssmlSpeech.Append(otpSpeech.ToString());
-            ssmlSpeech.Append("Again, the code is: ");
-            ssmlSpeech.Append(otpSpeech.ToString());
+            ssmlSpeech.Append(". Again, the code is: ");
+            ssmlSpeech.Append(otpSpeech.ToString() + ".");
 
             ssmlSpeech.Append("This code will expire in 2 minutes. ");
             ssmlSpeech.Append("</speak>");

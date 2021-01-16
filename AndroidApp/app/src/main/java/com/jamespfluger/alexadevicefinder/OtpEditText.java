@@ -18,7 +18,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class OtpEditText extends AppCompatEditText {
-    private ColorStateList defaultTextColors = getTextColors();
+    private final ColorStateList defaultTextColors = getTextColors();
 
     public OtpEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -47,12 +47,8 @@ public class OtpEditText extends AppCompatEditText {
         super.onFocusChanged(hasFocus, direction, previouslyFocusedRect);
 
         if (hasFocus) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    setSelection(getText().length());
-                }
-            });
+            requestFocus();
+            setText("");
 
             ViewGroup viewGroup = (ViewGroup) getParent();
 
@@ -70,35 +66,36 @@ public class OtpEditText extends AppCompatEditText {
     }
 
     private class OtpInputConnection extends InputConnectionWrapper {
-
         public OtpInputConnection(InputConnection target, boolean mutable) {
             super(target, mutable);
         }
 
         @Override
         public boolean sendKeyEvent(KeyEvent event) {
-            Boolean keyEventResult = super.sendKeyEvent(event);
-
-            OtpEditText currentView = findViewById(getId());
+            boolean keyEventResult = super.sendKeyEvent(event);
 
             if (!hasFocus())
                 return keyEventResult;
 
             if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                View nextLeftFocus = currentView.focusSearch(FOCUS_LEFT);
-                currentView.setText("");
+                View nextLeftFocus = focusSearch(FOCUS_LEFT);
+                setText("");
 
                 if (nextLeftFocus != null)
                     nextLeftFocus.requestFocus();
             } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                View nextRightFocus = currentView.focusSearch(FOCUS_RIGHT);
+                if (!Character.isDigit(event.getNumber()))
+                    return false;
 
-                if (currentView.getText().length() > 0 && nextRightFocus != null) {
+                View nextRightFocus = focusSearch(FOCUS_RIGHT);
+                setText(event.getNumber() + "");
+
+                if (getText().length() > 0 && nextRightFocus != null) {
                     nextRightFocus.requestFocus();
                 } else if (nextRightFocus == null) {
                     InputMethodManager imm = (InputMethodManager) getContext().getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(currentView.getWindowToken(), 0);
-                    currentView.clearFocus();
+                    imm.hideSoftInputFromWindow(getWindowToken(), 0);
+                    clearFocus();
                 }
             }
 

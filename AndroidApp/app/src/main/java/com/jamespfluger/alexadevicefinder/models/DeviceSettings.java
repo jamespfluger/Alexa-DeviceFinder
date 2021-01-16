@@ -26,14 +26,10 @@ public class DeviceSettings {
     public DeviceSettings() {
     }
 
-    ;
-
     public DeviceSettings(String alexaUserId, String deviceId) {
         this.alexaUserId = alexaUserId;
         this.deviceId = deviceId;
     }
-
-    ;
 
     public String getAlexaUserId() {
         return alexaUserId;

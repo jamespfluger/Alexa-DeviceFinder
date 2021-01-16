@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
     private void initializeUI() {
         loginProgressBar = findViewById(R.id.loginProgressBar);
         loginButton = findViewById(R.id.loginButton);
-        loginText = (TextView) findViewById(R.id.loginText);
+        loginText = findViewById(R.id.loginText);
 
         //
         loginButton.setText("LOGIN WITH AMAZON");

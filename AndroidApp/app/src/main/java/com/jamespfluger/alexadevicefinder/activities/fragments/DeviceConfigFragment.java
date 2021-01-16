@@ -1,9 +1,13 @@
-package com.jamespfluger.alexadevicefinder.activities.ui.device;
+package com.jamespfluger.alexadevicefinder.activities.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,12 +21,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
+import com.amazon.identity.auth.device.AuthError;
+import com.amazon.identity.auth.device.api.Listener;
+import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
 import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.activities.LoginActivity;
 import com.jamespfluger.alexadevicefinder.api.ApiService;
 import com.jamespfluger.alexadevicefinder.api.ManagementInterface;
 import com.jamespfluger.alexadevicefinder.models.DeviceSettings;
 import com.jamespfluger.alexadevicefinder.models.EndpointType;
 import com.jamespfluger.alexadevicefinder.models.UserDevice;
+import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
 
 import java.io.IOException;
 
@@ -32,10 +41,10 @@ import retrofit2.Response;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-public class DeviceFragment extends Fragment {
-    private UserDevice userDevice;
+public class DeviceConfigFragment extends Fragment {
+    private final UserDevice userDevice;
 
-    public DeviceFragment(UserDevice userDevice) {
+    public DeviceConfigFragment(UserDevice userDevice) {
         this.userDevice = userDevice;
     }
 
@@ -81,6 +90,9 @@ public class DeviceFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.VISIBLE);
+
                 DeviceSettings deviceSettings = userDevice.getDeviceSettings();
                 deviceSettings.setAlexaUserId(userDevice.getAlexaUserId());
                 deviceSettings.setDeviceId(userDevice.getDeviceId());
@@ -92,10 +104,7 @@ public class DeviceFragment extends Fragment {
                 deviceSettings.setUseVolumeOverride(overrideMaxVolume.isChecked());
                 deviceSettings.setOverriddenVolumeValue(overrideMaxVolumeValue.getProgress());
 
-                //ManagementInterface managementService = ApiService.createManagementInstance();
-
                 ManagementInterface managementService = ApiService.createInstance(EndpointType.MANAGEMENT);
-
 
                 Call<Void> updateSettingsCall = managementService.saveDeviceSettings(deviceSettings);
                 updateSettingsCall.enqueue(new Callback<Void>() {
@@ -110,19 +119,56 @@ public class DeviceFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "Successfully saved settings" + response.message(), Toast.LENGTH_SHORT).show();
                         }
+
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        int b = 1;
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
                     }
                 });
             }
         });
 
-        Spinner wifiDropdown = (Spinner) view.findViewById(R.id.settingsWifiSsdDropdown);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthorizationManager.signOut(getContext(), new Listener<Void, AuthError>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        switchToActivity(LoginActivity.class);
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getContext(), "Signed out", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(AuthError authError) {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getContext(), "Failed to sign out", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        Spinner wifiDropdown = view.findViewById(R.id.settingsWifiSsdDropdown);
         wifiDropdown.setEnabled(false);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{"(Feature not yet available)"});
         wifiDropdown.setAdapter(adapter);
+    }
+
+    private void switchToActivity(Class<?> newActivity) {
+        Intent newIntent = new Intent(getActivity(), newActivity);
+        startActivity(newIntent);
     }
 }

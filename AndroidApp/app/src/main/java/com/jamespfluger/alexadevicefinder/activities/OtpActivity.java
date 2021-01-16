@@ -83,11 +83,12 @@ public class OtpActivity extends AppCompatActivity {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
                             UserDevice newDevice = (UserDevice) response.body();
                             preferencesManager.setUserId(newDevice.getAlexaUserId());
-                            switchToActivity(DevicesConfigActivity.class);
+                            switchToConfigActivity();
                         } else {
                             try {
                                 String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
                                 Toast.makeText(OtpActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_SHORT).show();
+                                displayUiErrors();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -154,9 +155,9 @@ public class OtpActivity extends AppCompatActivity {
         }
     }
 
-    private void switchToActivity(Class<?> newActivity) {
-        Intent newIntent = new Intent(this, newActivity);
-        startActivity(newIntent);
+    private void switchToConfigActivity() {
+        Intent otpIntent = new Intent(this, DevicesConfigActivity.class);
+        startActivity(otpIntent);
         finish();
     }
 }
