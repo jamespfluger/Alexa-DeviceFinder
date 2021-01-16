@@ -1,6 +1,6 @@
 ﻿using Amazon.Lambda.Core;
 
-namespace DeviceFinder.AlexaSkill.Services
+namespace DeviceFinder.AlexaSkill.Utility
 {
     public static class Logger
     {

@@ -5,6 +5,7 @@
     <AWSProjectType>Lambda</AWSProjectType>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <AssemblyName>DeviceFinder.AlexaSkill</AssemblyName>
+    <RootNamespace>DeviceFinder.AlexaSkill</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="key.json" />
@@ -15,11 +16,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alexa.NET" Version="1.14.0" />
-    <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
-    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.7.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.0.3" />
-    <PackageReference Include="FirebaseAdmin" Version="1.15.0" />
+    <PackageReference Include="Alexa.NET" Version="1.15.0" />
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.2.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.8.0" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.4.18" />
+    <PackageReference Include="FirebaseAdmin" Version="2.0.0" />
     <PackageReference Include="Otp.NET" Version="1.2.2" />
   </ItemGroup>
   <ItemGroup>
