@@ -62,7 +62,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             {
                 return false;
             }
-                
+
         }
     }
 }

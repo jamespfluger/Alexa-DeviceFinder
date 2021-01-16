@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
-using Amazon.Lambda.Core;
-using Amazon.Runtime.Internal.Util;
 using DeviceFinder.Models.Auth;
 using DeviceFinder.Models.Devices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace DeviceFinder.DeviceApi.Controllers
 {
@@ -42,7 +35,7 @@ namespace DeviceFinder.DeviceApi.Controllers
             try
             {
                 if (authDevice == null || string.IsNullOrEmpty(authDevice.AmazonUserId) || string.IsNullOrEmpty(authDevice.DeviceId))
-                    return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice.ToString()}");
+                    return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice}");
 
                 //await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);
                 AuthAlexaUser alexaUser = await context.LoadAsync<AuthAlexaUser>(authDevice.OneTimePassword);
@@ -58,7 +51,7 @@ namespace DeviceFinder.DeviceApi.Controllers
                 else
                 {
                     UserDevice fullUserDevice = new UserDevice(alexaUser, authDevice);
-                    Task saveResult = context.SaveAsync<UserDevice>(fullUserDevice);
+                    Task saveResult = context.SaveAsync(fullUserDevice);
                     //Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
                     //Task deleteAlexaAuthResult = context.DeleteAsync<AuthAlexaUser>(alexaUser.AlexaUserId);
 
