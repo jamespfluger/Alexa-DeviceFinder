@@ -32,7 +32,7 @@ namespace DeviceFinder.AlexaSkill.Utility
         {
             foreach (char speechChar in speechChars)
             {
-                ssmlSpeech.Append(speechChars);
+                ssmlSpeech.Append(speechChar);
                 AddBreak(milliseconds);
             }
             ssmlSpeech.Append('.');
