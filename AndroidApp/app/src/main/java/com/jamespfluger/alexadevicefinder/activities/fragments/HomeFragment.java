@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.activities.ui.about;
+package com.jamespfluger.alexadevicefinder.activities.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.jamespfluger.alexadevicefinder.R;
 
-public class AboutFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         container.clearDisappearingChildren();
-        getActivity().getFragmentManager().popBackStack();
-        View root = inflater.inflate(R.layout.fragment_about, container, false);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
     }
 }

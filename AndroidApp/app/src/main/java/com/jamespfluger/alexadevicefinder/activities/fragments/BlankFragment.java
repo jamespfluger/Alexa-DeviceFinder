@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.activities.ui.blank;
+package com.jamespfluger.alexadevicefinder.activities.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

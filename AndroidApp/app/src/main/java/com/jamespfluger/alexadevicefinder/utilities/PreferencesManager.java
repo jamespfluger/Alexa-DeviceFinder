@@ -11,8 +11,8 @@ public class PreferencesManager {
     private final String PREFERENCE_NAME_AMAZON_USER_ID = "amazonuserid";
     private final String PREFERENCE_NAME_ALEXA_USER_ID = "alexauserid";
     private final String PREFERENCE_NAME_DEVICE_NAME = "devicename";
-    private SharedPreferences preferences;
-    private Context context;
+    private final SharedPreferences preferences;
+    private final Context context;
 
     public PreferencesManager(Context context) {
         this.preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
