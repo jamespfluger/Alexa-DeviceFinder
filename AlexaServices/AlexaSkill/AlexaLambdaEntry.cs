@@ -37,10 +37,8 @@ namespace DeviceFinder.AlexaSkill
 
             if (intent.Name == "FindDevice")
                 requestHandler = new FindDeviceHandler();
-            else if (intent.Name == "AddDevice")
-                requestHandler = new AddDeviceHandler();
             else
-                requestHandler = new AuthHandler();
+                requestHandler = new AddDeviceHandler();
 
             return await requestHandler.ProcessRequest(intent, request.Context.System);
         }
