@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using DeviceFinder.Models.Auth;
+using DeviceFinder.AlexaSkill.Utility;
 using DeviceFinder.Models.Devices;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
@@ -12,7 +12,7 @@ namespace DeviceFinder.AlexaSkill.Services
 {
     public class FirebaseService
     {
-        public static FirebaseService Instance { get { return lazyFirebaseService.Value; } }
+        public static FirebaseService Instance => lazyFirebaseService.Value;
 
         private static readonly Lazy<FirebaseService> lazyFirebaseService = new Lazy<FirebaseService>(() => new FirebaseService());
         private const string DEVICE_RING_CHANNEL_ID = "CHANNEL_4096";
@@ -25,8 +25,8 @@ namespace DeviceFinder.AlexaSkill.Services
             {
                 Logger.Log("Creating a new instance of the FirebaseApp");
                 AppOptions appOptions = new AppOptions();
-                appOptions.Credential = GoogleCredential.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("AlexaSkill.key.json"));
-                
+                appOptions.Credential = GoogleCredential.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("DeviceFinder.AlexaSkill.key.json"));
+
                 FirebaseApp.Create(appOptions);
             }
         }

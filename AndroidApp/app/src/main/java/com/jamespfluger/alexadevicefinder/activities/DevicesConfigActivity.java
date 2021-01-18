@@ -18,9 +18,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.activities.ui.about.AboutFragment;
-import com.jamespfluger.alexadevicefinder.activities.ui.device.DeviceFragment;
-import com.jamespfluger.alexadevicefinder.activities.ui.home.HomeFragment;
+import com.jamespfluger.alexadevicefinder.activities.fragments.AboutFragment;
+import com.jamespfluger.alexadevicefinder.activities.fragments.DeviceConfigFragment;
+import com.jamespfluger.alexadevicefinder.activities.fragments.HomeFragment;
 import com.jamespfluger.alexadevicefinder.api.ApiService;
 import com.jamespfluger.alexadevicefinder.api.ManagementInterface;
 import com.jamespfluger.alexadevicefinder.models.EndpointType;
@@ -126,7 +126,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
         for (final UserDevice device : allUserDevices) {
             MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
-            newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceFragment(device)));
+            newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(device)));
         }
     }
 

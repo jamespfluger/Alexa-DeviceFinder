@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.AlexaSkill.Utility;
 
 namespace DeviceFinder.AlexaSkill.Services
 {
     public class DynamoService
     {
-        public static DynamoService Instance { get { return lazyDynamoService.Value; } }
+        public static DynamoService Instance => lazyDynamoService.Value;
 
         private static readonly Lazy<DynamoService> lazyDynamoService = new Lazy<DynamoService>(() => new DynamoService());
         private readonly AmazonDynamoDBClient client;
@@ -78,7 +79,7 @@ namespace DeviceFinder.AlexaSkill.Services
             try
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
-                await context.SaveAsync<T>(objectToCreate);
+                await context.SaveAsync(objectToCreate);
                 Logger.Log($"Dynamo save time: {stopwatch.ElapsedMilliseconds}ms");
 
                 return true;

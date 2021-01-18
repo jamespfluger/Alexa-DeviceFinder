@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
-using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Amazon.DynamoDBv2.Model;
 using DeviceFinder.AlexaSkill.Services;
-using DeviceFinder.Models.Auth;
+using DeviceFinder.AlexaSkill.Utility;
 using DeviceFinder.Models.Devices;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
@@ -49,7 +48,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                         throw new ResourceNotFoundException($"There are multiple devices associated with this account, but no name was supplied.");
                     }*/
                 }
-                    
+
 
                 // Immediately send the notification
                 await FirebaseService.Instance.SendFirebaseMessage(foundDevice);

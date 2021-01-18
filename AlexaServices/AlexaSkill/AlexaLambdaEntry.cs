@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
@@ -6,7 +5,7 @@ using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Amazon.Lambda.Core;
 using DeviceFinder.AlexaSkill.RequestHandlers;
-using DeviceFinder.AlexaSkill.Services;
+using DeviceFinder.AlexaSkill.Utility;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -18,7 +17,7 @@ namespace DeviceFinder.AlexaSkill
         public async Task<SkillResponse> AlexaHandler(SkillRequest skillRequest, ILambdaContext lambdaContext)
         {
             if (skillRequest.Request is IntentRequest && skillRequest.Request.RequestId == "HEARTBEAT")
-                return HeartbeatUtil.SendHeartbeat();
+                return HeartbeatService.SendHeartbeat();
 
             Logger.Init(lambdaContext);
 
@@ -39,7 +38,7 @@ namespace DeviceFinder.AlexaSkill
             if (intent.Name == "FindDevice")
                 requestHandler = new FindDeviceHandler();
             else
-                requestHandler = new AuthHandler();
+                requestHandler = new AddDeviceHandler();
 
             return await requestHandler.ProcessRequest(intent, request.Context.System);
         }

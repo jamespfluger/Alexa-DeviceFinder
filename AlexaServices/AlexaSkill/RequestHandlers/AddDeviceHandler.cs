@@ -3,15 +3,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
-using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using DeviceFinder.AlexaSkill.Services;
+using DeviceFinder.AlexaSkill.Utility;
 using DeviceFinder.Models.Auth;
 using OtpNet;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
-    public class AuthHandler : IRequestHandler
+    public class AddDeviceHandler : IRequestHandler
     {
         public async Task<SkillResponse> ProcessRequest(Intent request, AlexaSystem system)
         {
@@ -40,7 +40,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                         newAlexaAuthUser.AlexaDeviceId = system.Device.DeviceID;
                         newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds();
 
-                        bool didSaveSucceed = await DynamoService.Instance.SaveItem<AuthAlexaUser>(newAlexaAuthUser);
+                        bool didSaveSucceed = await DynamoService.Instance.SaveItem(newAlexaAuthUser);
 
                         if (didSaveSucceed)
                             break;
@@ -67,32 +67,27 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
 
         private static SsmlOutputSpeech BuildSsmlResponseMessage(string computedOtp)
         {
-            StringBuilder ssmlSpeech = new StringBuilder();
+            SsmlBuilder ssml = new SsmlBuilder();
 
-            ssmlSpeech.Append("<speak>");
-            ssmlSpeech.Append("Enter this code into the app: ");
+            ssml.StartSpeech();
 
-            StringBuilder otpSpeech = new StringBuilder();
-            for (int i = 0; i < 6; i++)
-            {
-                ssmlSpeech.Append(computedOtp[i]);
-                ssmlSpeech.Append("<break time=\"500ms\"/>");
-            }
+            ssml.AddSpeech("Enter this code into the app: ");
+            ssml.AddSpeechWithBreaks(computedOtp.ToCharArray(), 500);
 
-            ssmlSpeech.Append(otpSpeech.ToString());
-            ssmlSpeech.Append("Again, the code is: ");
-            ssmlSpeech.Append(otpSpeech.ToString());
+            ssml.AddSpeech("Again, the code is: ");
+            ssml.AddSpeechWithBreaks(computedOtp.ToCharArray(), 500);
 
-            ssmlSpeech.Append("This code will expire in 2 minutes. ");
-            ssmlSpeech.Append("</speak>");
+            ssml.AddSpeech("This code will expire in 5 minutes.");
 
-            return new SsmlOutputSpeech(ssmlSpeech.ToString());
+            ssml.EndSpeech();
+
+            return new SsmlOutputSpeech(ssml.Speak());
         }
 
         private string GenerateOtp()
         {
             byte[] otpKey = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
-            Totp totp = new Totp(otpKey, 120);
+            Totp totp = new Totp(otpKey, 600);
 
             return totp.ComputeTotp();
         }

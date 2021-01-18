@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models.Auth;
 using DeviceFinder.Models.Devices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeviceFinder.DeviceApi.Controllers
@@ -77,7 +75,7 @@ namespace DeviceFinder.DeviceApi.Controllers
                 if (device == null || string.IsNullOrEmpty(device.AlexaUserId) || string.IsNullOrEmpty(device.DeviceId))
                     return BadRequest($"Error in settings save: UserDevice body is missing ({device == null}) or malformed: {device.ToString()}");
 
-                await context.SaveAsync<UserDevice>(device);
+                await context.SaveAsync(device);
 
                 return Ok();
             }
@@ -96,7 +94,7 @@ namespace DeviceFinder.DeviceApi.Controllers
                 if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.DeviceId))
                     return BadRequest($"Error in settings save: DeviceSettings body is missing ({deviceSettings == null}) or malformed: {deviceSettings.ToString()}");
 
-                await context.SaveAsync<DeviceSettings>(deviceSettings);
+                await context.SaveAsync(deviceSettings);
 
                 return Ok();
             }

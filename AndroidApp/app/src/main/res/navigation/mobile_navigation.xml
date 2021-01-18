@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.jamespfluger.alexadevicefinder.activities.ui.blank.BlankFragment"
+        android:name="com.jamespfluger.alexadevicefinder.activities.fragments.BlankFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_blank" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/nav_gallery"-->
-<!--        android:name="com.jamespfluger.alexadevicefinder.activities.ui.about.AboutFragment"-->
+<!--        android:name="com.jamespfluger.alexadevicefinder.activities.fragments.AboutFragment"-->
 <!--        android:label="@string/menu_gallery"-->
 <!--        tools:layout="@layout/fragment_about" />-->
 
 <!--    <fragment-->
 <!--        android:id="@+id/nav_device_config"-->
-<!--        android:name="com.jamespfluger.alexadevicefinder.activities.ui.device.DeviceFragment"-->
+<!--        android:name="com.jamespfluger.alexadevicefinder.activities.fragments.DeviceFragment"-->
 <!--        android:label="@string/menu_device_config"-->
 <!--        tools:layout="@layout/fragment_device_config" />-->
 </navigation>

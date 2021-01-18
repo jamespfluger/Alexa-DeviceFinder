@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ui.device.DeviceFragment"
+    tools:context=".activities.fragments.DeviceConfigFragment"
     android:clickable="true"
     android:focusableInTouchMode="true"
     android:focusable="true">
 
     <ProgressBar
-        android:id="@+id/deviceConfigLogoutProgressBar"
+        android:id="@+id/settingsSaveWaitPanel"
         style="@android:style/Widget.ProgressBar.Inverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

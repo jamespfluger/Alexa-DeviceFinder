@@ -13,7 +13,7 @@ using Google.Apis.Auth.OAuth2;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
-    public class HeartbeatUtil
+    public class HeartbeatService
     {
         public static SkillResponse SendHeartbeat()
         {
@@ -62,7 +62,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             {
                 return false;
             }
-                
+
         }
     }
 }
