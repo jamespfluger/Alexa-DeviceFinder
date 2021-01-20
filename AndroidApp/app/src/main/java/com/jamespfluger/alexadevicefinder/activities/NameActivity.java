@@ -1,7 +1,9 @@
 package com.jamespfluger.alexadevicefinder.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -10,9 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.models.CommonData;
 import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 public class NameActivity extends AppCompatActivity {
@@ -52,19 +56,46 @@ public class NameActivity extends AppCompatActivity {
         deviceNameContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (deviceNameField.getText().length() == 0) {
-                    TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
-                    deviceNameErrorDescription.setText("You must provide a device name before continuing.");
-                    deviceNameErrorDescription.setVisibility(View.VISIBLE);
-
-                    final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                    deviceNameField.startAnimation(errorAnimation);
-                } else {
-                    preferencesManager.setDeviceName(deviceNameField.getText().toString());
-                    switchToActivity(OtpActivity.class);
-                }
+                validateDeviceNameField(deviceNameField);
             }
         });
+    }
+
+    private void validateDeviceNameField(final EditText deviceNameField) {
+        String deviceName = deviceNameField.getText().toString();
+
+        if (deviceNameField.getText().length() == 0) {
+            TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
+            deviceNameErrorDescription.setText("You must provide a device name before continuing.");
+            deviceNameErrorDescription.setVisibility(View.VISIBLE);
+
+            final Animation errorAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
+            deviceNameField.startAnimation(errorAnimation);
+        } else if (!CommonData.names.contains(deviceName.toLowerCase())) {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            preferencesManager.setDeviceName(deviceNameField.getText().toString());
+                            switchToActivity(OtpActivity.class);
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setTitle("Warning");
+            alertBuilder.setMessage("The name \"" + deviceName + "\" is not a common first name.\nWhile not required, the skill works best if you use a first name.\n\nAre you sure you want to continue?");
+            alertBuilder.setPositiveButton("Yes", dialogClickListener);
+            alertBuilder.setNegativeButton("No", dialogClickListener);
+            alertBuilder.show();
+
+        } else {
+            preferencesManager.setDeviceName(deviceNameField.getText().toString());
+            switchToActivity(OtpActivity.class);
+        }
     }
 
     private void switchToActivity(Class<?> newActivity) {

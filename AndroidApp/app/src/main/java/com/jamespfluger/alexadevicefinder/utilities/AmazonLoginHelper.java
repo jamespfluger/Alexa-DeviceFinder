@@ -38,7 +38,7 @@ public class AmazonLoginHelper {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Signed out", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Signed out", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

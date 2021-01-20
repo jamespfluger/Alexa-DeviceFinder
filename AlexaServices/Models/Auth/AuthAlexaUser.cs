@@ -16,9 +16,6 @@ namespace DeviceFinder.Models.Auth
         [DynamoDBProperty("AlexaUserID")]
         public string AlexaUserId { get; set; }
 
-        [DynamoDBProperty("AlexaDeviceID")]
-        public string AlexaDeviceId { get; set; }
-
         [DynamoDBProperty("TimeToLive")]
         public long TimeToLive { get; set; }
 

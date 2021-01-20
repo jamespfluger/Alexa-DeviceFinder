@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 
 public final class CommonData {
@@ -19,7 +20,7 @@ public final class CommonData {
     private static class AsyncFileReader extends AsyncTask<AssetManager, Void, HashSet<String>> {
         @Override
         protected HashSet<String> doInBackground(AssetManager... assets) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets[0].open("names.txt"), "UTF-8"))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets[0].open("names.txt"), StandardCharsets.UTF_8))) {
                 String name;
                 while ((name = reader.readLine()) != null) {
                     names.add(name);

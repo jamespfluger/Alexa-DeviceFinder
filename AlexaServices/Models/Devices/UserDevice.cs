@@ -18,9 +18,6 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBProperty("AmazonUserID")]
         public string AmazonUserId { get; set; }
 
-        [DynamoDBProperty("AlexaDeviceID")]
-        public string AlexaDeviceId { get; set; }
-
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
 
@@ -38,7 +35,6 @@ namespace DeviceFinder.Models.Devices
         public UserDevice(AuthAlexaUser alexaUser, AuthDevice authDevice)
         {
             AlexaUserId = alexaUser.AlexaUserId;
-            AlexaDeviceId = alexaUser.AlexaDeviceId;
             DeviceId = authDevice.DeviceId;
             AmazonUserId = authDevice.AmazonUserId;
             DeviceName = authDevice.DeviceName;
