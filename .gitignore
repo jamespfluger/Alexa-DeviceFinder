@@ -365,3 +365,5 @@ AndroidApp/app/google-services.json
 AlexaServices/AlexaSkill/.lambda-test-tool
 MobileApp/AlexaDeviceFinder/AlexaDeviceFinder.Android/Assets/api_key.txt
 MobileApp/AlexaDeviceFinder/AlexaDeviceFinder.Android/google-services.json
+MobileApp/DeviceFinder.Android/google-services.json
+MobileApp/DeviceFinder.Android/Assets/api_key.txt

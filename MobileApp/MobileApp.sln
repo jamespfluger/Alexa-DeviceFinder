@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexaDeviceFinder.Android", "AlexaDeviceFinder\AlexaDeviceFinder.Android\AlexaDeviceFinder.Android.csproj", "{15898438-3AA4-40C5-B40A-18A2B776B736}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceFinder.Android", "DeviceFinder.Android\DeviceFinder.Android.csproj", "{15898438-3AA4-40C5-B40A-18A2B776B736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexaDeviceFinder.iOS", "AlexaDeviceFinder\AlexaDeviceFinder.iOS\AlexaDeviceFinder.iOS.csproj", "{4D9B86D3-61AC-48DB-85E0-1B40787EE409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceFinder.iOS", "DeviceFinder.iOS\DeviceFinder.iOS.csproj", "{4D9B86D3-61AC-48DB-85E0-1B40787EE409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexaDeviceFinder", "AlexaDeviceFinder\AlexaDeviceFinder\AlexaDeviceFinder.csproj", "{A257C8CA-2E61-4AA3-8B1F-0727CD28322B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceFinder", "DeviceFinder\DeviceFinder.csproj", "{A257C8CA-2E61-4AA3-8B1F-0727CD28322B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
