@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -46,7 +46,7 @@ namespace DeviceFinder.Droid.Abstractions
                     requireBatteryOptimization.SetMessage(Resource.String.batteryOptimizationWarning);
 
                     Intent intent = new Intent();
-                    intent.SetAction(Settings.ActionRequestIgnoreBatteryOptimizations);
+                    intent.SetAction(Android.Provider.Settings.ActionRequestIgnoreBatteryOptimizations);
                     intent.SetData(Uri.Parse("package:" + packageName));
                     context.StartActivity(intent);
                 }
