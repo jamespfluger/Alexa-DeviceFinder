@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,11 +15,9 @@ namespace DeviceFinder.Droid.Utilities
         {
             Task.Run(() =>
             {
-                using (StreamReader sr = new StreamReader(assets.Open("names.txt")))
-                {
-                    string rawNamesContent = sr.ReadToEnd();
-                    Names = rawNamesContent.Split('\n').ToHashSet();
-                }
+                using StreamReader sr = new StreamReader(assets.Open("names.txt"));
+                string rawNamesContent = sr.ReadToEnd();
+                Names = rawNamesContent.Split('\n').ToHashSet();
             });
         }
     }

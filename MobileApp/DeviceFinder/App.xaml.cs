@@ -1,7 +1,5 @@
-﻿using System;
-using DeviceFinder;
+﻿using DeviceFinder.Pages;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace DeviceFinder
 {
@@ -9,10 +7,9 @@ namespace DeviceFinder
     {
         public App()
         {
-            Application.Current.UserAppTheme = OSAppTheme.Light;
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            this.MainPage = new LoginPage();
         }
 
         protected override void OnStart()

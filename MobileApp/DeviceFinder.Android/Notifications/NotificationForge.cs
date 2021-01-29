@@ -11,18 +11,18 @@ namespace DeviceFinder.Droid.Notifications
 {
     public class NotificationForge
     {
-        private string CHANNEL_ID = "CHANNEL_4096";
-        private Context context;
-        private NotificationManager notificationManager;
-        private NotificationCompat.Builder notificationBuilder;
+        private readonly string channelId = "CHANNEL_4096";
+        private readonly Context context;
+        private readonly NotificationManager notificationManager;
+        private readonly NotificationCompat.Builder notificationBuilder;
 
         public NotificationForge(Context context)
         {
             this.context = context;
-            notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
+            this.notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
 
-            notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
-            notificationBuilder.SetChannelId(CHANNEL_ID)
+            this.notificationBuilder = new NotificationCompat.Builder(context, this.channelId);
+            this.notificationBuilder.SetChannelId(this.channelId)
                     .SetLargeIcon(BitmapFactory.DecodeResource(context.Resources, Resource.Mipmap.ic_launcher))
                     .SetSmallIcon(Resource.Mipmap.ic_notification)
                     .SetAutoCancel(true)
@@ -30,23 +30,23 @@ namespace DeviceFinder.Droid.Notifications
                     .SetPriority(NotificationCompat.PriorityMax)
                     .SetCategory(NotificationCompat.CategoryCall);
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O && notificationManager.GetNotificationChannel(CHANNEL_ID) == null)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O && this.notificationManager.GetNotificationChannel(this.channelId) == null)
             {
-                createNotificationChannel();
+                CreateNotificationChannel();
             }
         }
 
-        public void issueNotification(RemoteMessage remoteMessage)
+        public void IssueNotification(RemoteMessage remoteMessage)
         {
-            notificationBuilder.SetContentText(remoteMessage.GetNotification().Title);
-            notificationManager.Notify((int)DateTime.Today.Millisecond, notificationBuilder.Build());
+            this.notificationBuilder.SetContentText(remoteMessage.GetNotification().Title);
+            this.notificationManager.Notify(DateTime.Today.Millisecond, this.notificationBuilder.Build());
         }
 
-        private void createNotificationChannel()
+        private void CreateNotificationChannel()
         {
             NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    context.GetString(Resource.String.deviceAlertChannelName),
+                    this.channelId,
+                    this.context.GetString(Resource.String.deviceAlertChannelName),
                     NotificationImportance.Max);
 
             AudioAttributes ringtoneAttributes = new AudioAttributes.Builder()
@@ -56,8 +56,8 @@ namespace DeviceFinder.Droid.Notifications
             channel.SetBypassDnd(true);
             channel.SetSound(RingtoneManager.GetActualDefaultRingtoneUri(this.context, RingtoneType.Ringtone), ringtoneAttributes);
 
-            notificationBuilder.SetChannelId(CHANNEL_ID);
-            notificationManager.CreateNotificationChannel(channel);
+            this.notificationBuilder.SetChannelId(this.channelId);
+            this.notificationManager.CreateNotificationChannel(channel);
         }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using DeviceFinder.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DeviceFinder
+namespace DeviceFinder.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NamePage : ContentPage
@@ -15,12 +11,13 @@ namespace DeviceFinder
         public NamePage()
         {
             InitializeComponent();
-            ContinueButton.Clicked += OnContinueButtonClicked;
+            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(NamePage));
+            this.ContinueButton.Clicked += OnContinueButtonClicked;
         }
 
         private void OnContinueButtonClicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new AuthPage();
+            Application.Current.MainPage = new VerificationPage();
         }
     }
 }

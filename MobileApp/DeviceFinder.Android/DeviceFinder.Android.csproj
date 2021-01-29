@@ -35,7 +35,7 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <MandroidI18n />
     <AndroidSupportedAbis />
@@ -78,6 +78,12 @@
     <PackageReference Include="RestSharp">
       <Version>106.11.7</Version>
     </PackageReference>
+    <PackageReference Include="SimpleInjector">
+      <Version>5.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Design">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Browser">
       <Version>1.3.0.4</Version>
     </PackageReference>
@@ -105,18 +111,22 @@
     <PackageReference Include="Xamarin.Firebase.Messaging">
       <Version>121.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Google.Android.Material">
       <Version>1.2.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\LoginWithAmazonManager.cs" />
-    <Compile Include="Abstractions\PermissionsManager.cs" />
+    <Compile Include="Abstractions\DependencyForgeInjector.cs" />
+    <Compile Include="Abstractions\DroidAmazonAuthManager.cs" />
+    <Compile Include="Abstractions\DroidDebugger.cs" />
+    <Compile Include="Abstractions\DroidPermissionsManager.cs" />
     <Compile Include="Listeners\FetchUserListener.cs" />
+    <Compile Include="Listeners\AmazonTokenListener.cs" />
     <Compile Include="Listeners\LoginListener.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="SplashActivity.cs" />
     <Compile Include="Utilities\CommonData.cs" />
     <Compile Include="Notifications\FirebaseService.cs" />
     <Compile Include="Notifications\NotificationForge.cs" />
@@ -340,10 +350,15 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\api_key.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_screen.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionDeviceFinderAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

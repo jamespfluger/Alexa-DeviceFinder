@@ -1,21 +1,17 @@
-using System;
 using Android.Content;
-using Android.Gms.Extensions;
 using Android.Gms.Tasks;
-using Android.Widget;
-using DeviceFinder.Droid.Utilities;
 using Firebase.Messaging;
 
 namespace DeviceFinder.Droid.Notifications
 {
     public class FirebaseService : FirebaseMessagingService
     {
-        private NotificationForge NotificationForge;
-        private Context Context;
+        private NotificationForge forge;
+        private readonly Context context;
 
         public FirebaseService(Context context)
         {
-            this.Context = context;
+            this.context = context;
         }
 
         public FirebaseService()
@@ -32,10 +28,10 @@ namespace DeviceFinder.Droid.Notifications
         {
             base.OnMessageReceived(remoteMessage);
 
-            if (NotificationForge == null)
-                NotificationForge = new NotificationForge(ApplicationContext);
+            if (this.forge == null)
+                this.forge = new NotificationForge(this.ApplicationContext);
 
-            NotificationForge.issueNotification(remoteMessage);
+            this.forge.IssueNotification(remoteMessage);
         }
 
         public void RefreshToken()

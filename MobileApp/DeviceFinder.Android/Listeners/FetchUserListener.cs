@@ -1,40 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Content;
+using Android.Util;
 using Android.Widget;
+using DeviceFinder.Utility;
+using Xamarin.Essentials;
+using Xamarin.LoginWithAmazon;
 using Xamarin.LoginWithAmazon.Additions;
 
 namespace DeviceFinder.Droid.Listeners
 {
     public class FetchUserListener : UserListener
     {
-        private Context _context;
-
-        public FetchUserListener(Context context)
+        public override void OnSuccess(Java.Lang.Object userObj)
         {
-            this._context = context;
+            User user = userObj as User;
+            Log.Debug("DEVICEFINDERDROID", $"User fetched in: {user?.UserId}");
+            SavedData.AmazonUserId = user.UserId;
         }
 
-        public override void OnSuccess(Java.Lang.Object p0)
+        public override void OnError(Java.Lang.Object error)
         {
-
+            Log.Debug("DEVICEFINDERDROID", $"Error fetching user: {error.GetType().FullName}", ToastLength.Short);
+            SavedData.AmazonUserId = null;
         }
 
-        public override void OnError(Java.Lang.Object p0)
+        public override void OnCancel(Java.Lang.Object cancel)
         {
-
-        }
-
-        public override void OnCancel(Java.Lang.Object p0)
-        {
-
+            Log.Debug("DEVICEFINDERDROID", $"Cancel fetching user: {cancel.GetType().FullName}", ToastLength.Short);
+            SavedData.AmazonUserId = null;
         }
     }
 }

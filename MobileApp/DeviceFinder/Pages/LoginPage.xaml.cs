@@ -1,33 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DeviceFinder.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DeviceFinder
+namespace DeviceFinder.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public static ILoginWithAmazonManager LoginManager { get; set; }
-
-        public static void Init(ILoginWithAmazonManager loginManager)
-        {
-            LoginPage.LoginManager = loginManager;
-        }
-
         public LoginPage()
         {
             InitializeComponent();
-            LoginButton.Clicked += OnLoginButtonClicked;
+            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(LoginPage));
+            this.LoginButton.Clicked += OnLoginButtonClicked;
         }
 
         private void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            LoginManager.SignIn();
+            //IPermissionsManager permissionsManager = DependencyForge.Get<IPermissionsManager>();
+            //permissionsManager.RequestPermissions();
+            IAmazonAuthManager authManager = DependencyForge.Get<IAmazonAuthManager>();
+            authManager.SignIn();
             //App.Current.MainPage = new NamePage();
         }
     }
