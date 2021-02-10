@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DeviceFinder.Abstractions;
+using DeviceFinder.Utility;
+using Xamarin.Extensions.GoogleAuth;
+using Xamarin.Extensions.GoogleAuth.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,17 +15,29 @@ namespace DeviceFinder.Pages
         public LoginPage()
         {
             InitializeComponent();
+            CommonData.Init();
             DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(LoginPage));
             this.LoginButton.Clicked += OnLoginButtonClicked;
         }
 
-        private void OnLoginButtonClicked(object sender, EventArgs e)
+        private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            //IPermissionsManager permissionsManager = DependencyForge.Get<IPermissionsManager>();
-            //permissionsManager.RequestPermissions();
-            IAmazonAuthManager authManager = DependencyForge.Get<IAmazonAuthManager>();
-            authManager.SignIn();
-            //App.Current.MainPage = new NamePage();
+            AuthResult authResponse = null;
+
+            try
+            {
+                authResponse = await GoogleAuthProvider.Provider.LoginAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            if (GoogleAuthProvider.Provider.IsLoggedIn)
+            {
+                App.Current.MainPage = new NamePage();
+                var authData = authResponse.Account;
+            }
         }
     }
 }

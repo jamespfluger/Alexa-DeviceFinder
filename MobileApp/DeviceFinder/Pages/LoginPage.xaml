@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DeviceFinder.Pages.LoginPage">
+             x:Class="DeviceFinder.Pages.LoginPage"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="#F1F3F4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="51*"/>
                 <RowDefinition Height="18*"/>
@@ -18,8 +19,10 @@
                 Alexa&#10;Device Finder
             </Label>
             <Button x:Name="LoginButton" Grid.Row="2" Margin="0, 0, 0, 18"
-                    ImageSource="Images/amazon_logo" Text="LOGIN WITH AMAZON"
-                    HorizontalOptions="Center" VerticalOptions="Center">
+                    ImageSource="google_logo.png" Text="SIGN IN WITH GOOGLE" 
+                    BackgroundColor="#FFFFFF" TextColor="#99000000"
+                    HorizontalOptions="Center" VerticalOptions="Center"
+                    android:Button.UseDefaultShadow="true">
             </Button>
         </Grid>
     </ContentPage.Content>

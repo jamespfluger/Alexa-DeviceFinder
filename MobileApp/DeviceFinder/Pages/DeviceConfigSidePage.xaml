@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DeviceFinder.Pages"
+             x:Class="DeviceFinder.Pages.DeviceConfigSidePage"
+             Padding="0,40,0,0"
+             Title="Device Finder">
+    <!--IconImageSource="hamburger.png"-->
+    <StackLayout>
+        <ListView x:Name="menuItemsListView" x:FieldModifier="public"
+              SeparatorVisibility="None"
+              HasUnevenRows="true">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type local:DeviceConfigPageItem}">
+                    <local:DeviceConfigPageItem Title="Home" IconSource="contacts.png" TargetType="{x:Type local:AboutPage}" />
+                    <local:DeviceConfigPageItem Title="About" IconSource="todo.png" TargetType="{x:Type local:HomePage}" />
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!-- <Image Source="{Binding IconSource}" /> -->
+                            <Label Grid.Column="1" Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView x:Name="DevicesListView"
+              SeparatorVisibility="None"
+              HasUnevenRows="true"
+              ItemsSource="{Binding MenuItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!-- <Image Source="{Binding IconSource}" /> -->
+                            <Label Grid.Column="1" Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

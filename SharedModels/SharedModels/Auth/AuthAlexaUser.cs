@@ -36,7 +36,7 @@ namespace DeviceFinder.Models.Auth
             modelInformation.Add(nameof(AuthAlexaUser.TimeToLive) + ":" + TimeToLive);
             modelInformation.Add(nameof(AuthAlexaUser.ModifiedDate) + ":" + ModifiedDate);
 
-            return string.Join('|', modelInformation);
+            return string.Join("|", modelInformation);
         }
     }
 }

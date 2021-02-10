@@ -1,6 +1,6 @@
 ﻿namespace DeviceFinder.Abstractions
 {
-    public interface IAmazonAuthManager
+    public interface IAuthManager
     {
         void SignIn();
 

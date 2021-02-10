@@ -34,7 +34,7 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                if (authDevice == null || string.IsNullOrEmpty(authDevice.AmazonUserId) || string.IsNullOrEmpty(authDevice.DeviceId))
+                if (authDevice == null || string.IsNullOrEmpty(authDevice.UserId) || string.IsNullOrEmpty(authDevice.DeviceId))
                     return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice}");
 
                 //await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);

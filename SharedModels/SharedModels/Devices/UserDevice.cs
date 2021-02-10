@@ -15,8 +15,8 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBRangeKey("DeviceID")]
         public string DeviceId { get; set; }
 
-        [DynamoDBProperty("AmazonUserID")]
-        public string AmazonUserId { get; set; }
+        [DynamoDBProperty("LoginUserID")]
+        public string LoginUserId { get; set; }
 
         [DynamoDBProperty("AlexaDeviceID")]
         public string AlexaDeviceId { get; set; }
@@ -40,24 +40,23 @@ namespace DeviceFinder.Models.Devices
             AlexaUserId = alexaUser.AlexaUserId;
             AlexaDeviceId = alexaUser.AlexaDeviceId;
             DeviceId = authDevice.DeviceId;
-            AmazonUserId = authDevice.AmazonUserId;
-            DeviceName = authDevice.DeviceName;
-            DeviceOs = authDevice.DeviceOs;
+            LoginUserId = authDevice.LoginUserId;
             ModifiedDate = DateTime.UtcNow;
             DeviceSettings = new DeviceSettings();
         }
+
         public override string ToString()
         {
             List<string> modelInformation = new List<string>();
 
             modelInformation.Add(nameof(UserDevice.AlexaUserId) + ":" + AlexaUserId);
             modelInformation.Add(nameof(UserDevice.DeviceId) + ":" + DeviceId);
-            modelInformation.Add(nameof(UserDevice.AmazonUserId) + ":" + AmazonUserId);
+            modelInformation.Add(nameof(UserDevice.LoginUserId) + ":" + LoginUserId);
             modelInformation.Add(nameof(UserDevice.DeviceName) + ":" + DeviceName);
             modelInformation.Add(nameof(UserDevice.DeviceOs) + ":" + DeviceOs.ToString());
             modelInformation.Add(nameof(UserDevice.ModifiedDate) + ":" + ModifiedDate);
 
-            return string.Join('|', modelInformation);
+            return string.Join("|", modelInformation);
         }
     }
 }

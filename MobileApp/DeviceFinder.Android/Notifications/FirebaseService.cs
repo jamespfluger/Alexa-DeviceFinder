@@ -1,27 +1,33 @@
+using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
+using DeviceFinder.Utility;
+using Firebase;
 using Firebase.Messaging;
+using Xamarin.Essentials;
 
 namespace DeviceFinder.Droid.Notifications
 {
+    [Service]
+    [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class FirebaseService : FirebaseMessagingService
     {
         private NotificationForge forge;
-        private readonly Context context;
-
-        public FirebaseService(Context context)
-        {
-            this.context = context;
-        }
 
         public FirebaseService()
         {
+            FirebaseApp.InitializeApp(Platform.AppContext);
+        }
+
+        public FirebaseService(Context context)
+        {
+            FirebaseApp.InitializeApp(context);
         }
 
         public override void OnNewToken(string newToken)
         {
             base.OnNewToken(newToken);
-            //PreferencesManager.SetDeviceId(newToken);
+            SavedData.FirebaseToken = newToken;
         }
 
         public override void OnMessageReceived(RemoteMessage remoteMessage)
@@ -36,8 +42,7 @@ namespace DeviceFinder.Droid.Notifications
 
         public void RefreshToken()
         {
-            Task tokenResult = FirebaseMessaging.Instance.GetToken();
-            //tokenResult.Result;
+            FirebaseMessaging.Instance.GetToken();
         }
     }
 }

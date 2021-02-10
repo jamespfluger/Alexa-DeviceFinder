@@ -60,6 +60,7 @@
                 <Entry x:Name="otpField3" Grid.Column="4" Keyboard="Telephone" MaxLength="1" HorizontalTextAlignment="Center" FontSize="30" TabIndex="3" ReturnType="Next" TextChanged="OnOtpFieldTextChanged"/>
                 <Entry x:Name="otpField4" Grid.Column="5" Keyboard="Telephone" MaxLength="1" HorizontalTextAlignment="Center" FontSize="30" TabIndex="4" ReturnType="Next" TextChanged="OnOtpFieldTextChanged"/>
                 <Entry x:Name="otpField5" Grid.Column="6" Keyboard="Telephone" MaxLength="1" HorizontalTextAlignment="Center" FontSize="30" TabIndex="5" ReturnType="Send" TextChanged="OnOtpFieldTextChanged"/>
+
             </Grid>
 
             <!-- Continue button -->
