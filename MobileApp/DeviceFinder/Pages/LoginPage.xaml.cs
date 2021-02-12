@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DeviceFinder.Abstractions;
 using DeviceFinder.Utility;
 using Xamarin.Extensions.GoogleAuth;
+using Xamarin.Extensions.GoogleAuth.Exceptions;
 using Xamarin.Extensions.GoogleAuth.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -28,15 +30,16 @@ namespace DeviceFinder.Pages
             {
                 authResponse = await GoogleAuthProvider.Provider.LoginAsync();
             }
-            catch (Exception ex)
+            catch (AuthException authEx)
             {
+                IToaster toaster = DependencyForge.Get<IToaster>();
 
+                toaster.ShowLongToast(authEx.ErrorMessage);
             }
 
             if (GoogleAuthProvider.Provider.IsLoggedIn)
             {
                 App.Current.MainPage = new NamePage();
-                var authData = authResponse.Account;
             }
         }
     }

@@ -7,40 +7,33 @@ namespace DeviceFinder.Utility
 {
     public static class SavedData
     {
-        private const string amazonUserId = "amazonuserid";
-        private const string alexaUserId = "alexauserid";
-        private const string amazonToken = "amazonToken";
+        private const string userId = "userid";
         private const string deviceName = "devicename";
+        private const string alexaUserId = "alexauserid";
         private const string firebaseToken = "firebasetoken";
 
-        public static string AmazonUserId
+        public static string UserId
         {
-            get { return Preferences.Get(amazonUserId, null); }
-            set { Preferences.Set(amazonUserId, value); }
-        }
-
-        public static string AlexaUserId
-        {
-            get { return Preferences.Get(alexaUserId, null); }
-            set { Preferences.Set(alexaUserId, value); }
-        }
-
-        public static string AmazonToken
-        {
-            get { return Preferences.Get(amazonToken, null); }
-            set { Preferences.Set(amazonToken, value); }
-        }
-
-        public static string DeviceName
-        {
-            get { return Preferences.Get(deviceName, null); }
-            set { Preferences.Set(deviceName, value); }
+            get => Preferences.Get(userId, null);
+            set => Preferences.Set(userId, value);
         }
 
         public static string FirebaseToken
         {
-            get { return Preferences.Get(firebaseToken, null); }
-            set { Preferences.Set(firebaseToken, value); }
+            get => Preferences.Get(firebaseToken, null);
+            set => Preferences.Set(firebaseToken, value);
+        }
+
+        public static string AlexaUserId
+        {
+            get => Preferences.Get(alexaUserId, null);
+            set => Preferences.Set(alexaUserId, value);
+        }
+
+        public static string DeviceName
+        {
+            get => Preferences.Get(deviceName, null);
+            set => Preferences.Set(deviceName, value);
         }
     }
 }

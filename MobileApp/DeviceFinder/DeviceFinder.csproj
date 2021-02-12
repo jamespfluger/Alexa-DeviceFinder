@@ -10,6 +10,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="names.txt" />
@@ -19,12 +22,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="SimpleInjector" Version="5.2.1" />
-    <PackageReference Include="Xamarin.Extensions.GoogleAuth" Version="0.1.2" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Xamarin-GoogleAuth\GoogleAuth\GoogleAuth.csproj" />
     <ProjectReference Include="..\..\SharedModels\SharedModels\Models.csproj" />
   </ItemGroup>
 

@@ -10,9 +10,9 @@ namespace DeviceFinder.Droid.Abstractions
         {
             Container container = new Container();
 
-            container.Register<IAuthManager, DroidAmazonAuthManager>();
-            container.Register<IPermissionsManager, DroidPermissionsManager>();
+            container.Register<IToaster, DroidToaster>();
             container.Register<IDebugger, DroidDebugger>();
+            container.Register<IPermissionsManager, DroidPermissionsManager>();
 
             DependencyForge.Container = container;
         }

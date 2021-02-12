@@ -64,6 +64,9 @@
     <AndroidSigningKeyAlias>dfxamarin</AndroidSigningKeyAlias>
     <AndroidSigningKeyStore>C:\Users\me\AppData\Local\Xamarin\Mono for Android\Keystore\dfxamarin\dfxamarin.keystore</AndroidSigningKeyStore>
   </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
@@ -107,9 +110,6 @@
     <PackageReference Include="Xamarin.AndroidX.Navigation.UI">
       <Version>2.3.2.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Extensions.GoogleAuth">
-      <Version>0.1.2</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Messaging">
       <Version>121.0.1</Version>
     </PackageReference>
@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\DependencyForgeInjector.cs" />
-    <Compile Include="Abstractions\DroidAmazonAuthManager.cs" />
+    <Compile Include="Abstractions\DroidToaster.cs" />
     <Compile Include="Abstractions\DroidDebugger.cs" />
     <Compile Include="Abstractions\DroidPermissionsManager.cs" />
     <Compile Include="MainActivity.cs" />
@@ -146,6 +146,10 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Xamarin-GoogleAuth\GoogleAuth\GoogleAuth.csproj">
+      <Project>{3c22b05b-6454-43bc-a790-5d48bbe55553}</Project>
+      <Name>GoogleAuth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DeviceFinder\DeviceFinder.csproj">
       <Project>{A257C8CA-2E61-4AA3-8B1F-0727CD28322B}</Project>
       <Name>DeviceFinder</Name>
