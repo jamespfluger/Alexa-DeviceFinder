@@ -10,6 +10,7 @@ namespace DeviceFinder.Droid.Abstractions
         {
             Container container = new Container();
 
+            container.RegisterInstance<IGoogleAuthProvider>(new AndroidGoogleAuthProvider());
             container.Register<IToaster, DroidToaster>();
             container.Register<IDebugger, DroidDebugger>();
             container.Register<IPermissionsManager, DroidPermissionsManager>();

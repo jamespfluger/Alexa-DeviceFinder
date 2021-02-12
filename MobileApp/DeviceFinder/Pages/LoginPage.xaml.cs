@@ -24,21 +24,24 @@ namespace DeviceFinder.Pages
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
+            IGoogleAuthProvider authProvider = DependencyForge.Get<IGoogleAuthProvider>();
             AuthResult authResponse = null;
 
             try
             {
-                authResponse = await GoogleAuthProvider.Provider.LoginAsync();
+                authResponse = await authProvider.LoginAsync();
             }
             catch (AuthException authEx)
             {
                 IToaster toaster = DependencyForge.Get<IToaster>();
-
-                toaster.ShowLongToast(authEx.ErrorMessage);
+                toaster.ShowShortToast(authEx.ErrorMessage);
             }
 
-            if (GoogleAuthProvider.Provider.IsLoggedIn)
+            if (authProvider.IsLoggedIn)
             {
+                SavedData.UserId = authResponse.Account.Id;
+                SavedData.DeviceName = authResponse.Account.GivenName;
+
                 App.Current.MainPage = new NamePage();
             }
         }
