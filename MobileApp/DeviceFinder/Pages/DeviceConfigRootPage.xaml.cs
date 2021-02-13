@@ -11,7 +11,6 @@ namespace DeviceFinder.Pages
         public DeviceConfigRootPage()
         {
             InitializeComponent();
-            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(DeviceConfigRootPage));
 
             this.deviceConfigSidePage.menuItemsListView.ItemSelected += OnItemSelected;
         }

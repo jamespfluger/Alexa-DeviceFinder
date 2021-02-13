@@ -12,7 +12,6 @@ namespace DeviceFinder.Pages
         public VerificationPage()
         {
             InitializeComponent();
-            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(VerificationPage));
         }
 
         private void OnSubmitButtonClicked(object sender, EventArgs e)

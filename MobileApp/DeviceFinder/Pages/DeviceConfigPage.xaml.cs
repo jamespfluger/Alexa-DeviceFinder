@@ -9,7 +9,6 @@ namespace DeviceFinder.Pages
     {
         public DeviceConfigPage()
         {
-            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(DeviceConfigPage));
             InitializeComponent();
         }
     }

@@ -12,7 +12,6 @@ namespace DeviceFinder.Pages
         public NamePage()
         {
             InitializeComponent();
-            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(NamePage));
             this.ContinueButton.Clicked += OnContinueButtonClicked;
             this.DeviceNameEntry.Text = SavedData.DeviceName ?? "Your name";
         }

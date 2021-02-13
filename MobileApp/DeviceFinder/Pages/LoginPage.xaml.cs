@@ -17,8 +17,6 @@ namespace DeviceFinder.Pages
         public LoginPage()
         {
             InitializeComponent();
-            CommonData.Init();
-            DependencyForge.Get<IDebugger>().LogDebugInfo(nameof(LoginPage));
             this.LoginButton.Clicked += OnLoginButtonClicked;
         }
 
