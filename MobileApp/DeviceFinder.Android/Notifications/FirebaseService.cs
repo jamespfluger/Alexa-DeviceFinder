@@ -27,7 +27,7 @@ namespace DeviceFinder.Droid.Notifications
         public override void OnNewToken(string newToken)
         {
             base.OnNewToken(newToken);
-            SavedData.FirebaseToken = newToken;
+            CachedData.FirebaseToken = newToken;
         }
 
         public override void OnMessageReceived(RemoteMessage remoteMessage)

@@ -5,12 +5,14 @@ using Xamarin.Essentials;
 
 namespace DeviceFinder.Utility
 {
-    public static class SavedData
+    public static class CachedData
     {
         private const string userId = "userid";
         private const string deviceName = "devicename";
         private const string alexaUserId = "alexauserid";
         private const string firebaseToken = "firebasetoken";
+        private const string firstName = "firstName";
+        private const string email = "email";
 
         public static string UserId
         {
@@ -34,6 +36,18 @@ namespace DeviceFinder.Utility
         {
             get => Preferences.Get(deviceName, null);
             set => Preferences.Set(deviceName, value);
+        }
+
+        public static string FirstName
+        {
+            get => Preferences.Get(firstName, null);
+            set => Preferences.Set(firstName, value);
+        }
+
+        public static string Email
+        {
+            get => Preferences.Get(email, null);
+            set => Preferences.Set(email, value);
         }
     }
 }
