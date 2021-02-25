@@ -1,6 +1,6 @@
 ﻿using DeviceFinder.Abstractions;
 using SimpleInjector;
-using Xamarin.Extensions.GoogleAuth;
+using Xamarin.AuthProviders.Google;
 
 namespace DeviceFinder.Droid.Abstractions
 {
@@ -9,8 +9,7 @@ namespace DeviceFinder.Droid.Abstractions
         public static void Inject()
         {
             Container container = new Container();
-
-            container.RegisterInstance<IGoogleAuthProvider>(new AndroidGoogleAuthProvider());
+            //container.RegisterInstance<IGoogleAuthProvider>(new AndroidGoogleAuthProvider());
             container.Register<IToaster, DroidToaster>();
             container.Register<IDebugger, DroidDebugger>();
             container.Register<IPermissionsManager, DroidPermissionsManager>();

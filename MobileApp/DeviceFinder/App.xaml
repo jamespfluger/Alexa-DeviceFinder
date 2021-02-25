@@ -3,30 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DeviceFinder.App">
     <Application.Resources>
-        <Color x:Key="LightPrimaryColor">#01699B</Color>
-        <Color x:Key="LightSecondaryColor">#015982</Color>
-        <Color x:Key="LightPrimaryDarkColor">#025780</Color>
-        <Color x:Key="LightAccentColor">#B1C8D6</Color>
-        
+        <!-- Primary/secondary text colors -->
         <Color x:Key="LightPrimaryTextColor">#1D1D1D</Color>
         <Color x:Key="LightSecondaryTextColor">#727272</Color>
+        <Color x:Key="DarkPrimaryTextColor">#C2C2C2</Color>
+        <Color x:Key="DarkSecondaryTextColor">#929292</Color>
         
-        <Color x:Key="LightPrimaryDisabledColor">#EDEDED</Color>
-        <Color x:Key="LightSecondaryDisabledColor">#AFAFAF</Color>
+        <!-- Controls - Primary Color -->
+        <Color x:Key="LightPrimaryControlColor">#01699B</Color>
+        <Color x:Key="DarkPrimaryControlColor">#025780</Color>
+        <!-- Controls - Accent Colors -->
+        <Color x:Key="LightSecondaryControlColor">#B1C8D6</Color>
+        <Color x:Key="DarkSecondaryControlColor">#B1C8D6</Color>
+        <!-- Controls - Disabled Colors -->
+        <Color x:Key="NeutralControlPrimaryColor">#EDEDED</Color>
+        <Color x:Key="NeutralControlSecondaryColor">#AFAFAF</Color>
 
-        <Color x:Key="DarkPrimaryColor">#01699B</Color>
-        <Color x:Key="DarkSecondaryColor">#015982</Color>
-        <Color x:Key="DarkPrimaryDarkColor">#025780</Color>
-        <Color x:Key="DarkAccentColor">#B1C8D6</Color>
+        <!-- Misc. colors BF5D60-->
+        <Color x:Key="LightErrorColor">#B82D2D</Color>
+        <Color x:Key="DarkErrorColor">#D83E3E</Color>
+        <Color x:Key="LightBackgroundColor">#F1F3F4</Color>
+        <Color x:Key="DarkBackgroundColor">#373737</Color>
 
-        <Color x:Key="DarkPrimaryTextColor">#1D1D1D</Color>
-        <Color x:Key="DarkSecondaryTextColor">#727272</Color>
+        <!-- Unused -->
+        <Color x:Key="UnusedLightSecondaryColor">#015982</Color>
+        <Color x:Key="UnusedDarkSecondaryColor">#015982</Color>
 
-        <Color x:Key="DarkPrimaryDisabledColor">#EDEDED</Color>
-        <Color x:Key="DarkSecondaryDisabledColor">#AFAFAF</Color>
+        <!-- Switch style -->
+        <Style TargetType="Switch">
+            <Style.Triggers>
+                <Trigger TargetType="Switch" Property="IsToggled" Value="true">
+                    <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryControlColor}, Dark={StaticResource DarkPrimaryControlColor}}" />
+                    <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryControlColor}, Dark={StaticResource DarkSecondaryControlColor}}" />
+                </Trigger>
+                <Trigger TargetType="Switch" Property="IsToggled" Value="false">
+                    <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource NeutralControlPrimaryColor}, Dark={StaticResource NeutralControlPrimaryColor}}" />
+                    <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource NeutralControlSecondaryColor}, Dark={StaticResource NeutralControlSecondaryColor}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-        <Color x:Key="ErrorColor">#B82D2D</Color>
-        <Color x:Key="LightOtherGreyColor">#A0A0A0</Color>
-        <Color x:Key="DarkOtherGreyColor">#A0A0A0</Color>
+        <!-- Slider style -->
+        <Style TargetType="Slider">
+            <Setter Property="MinimumTrackColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryControlColor}, Dark={StaticResource DarkPrimaryControlColor}}" />
+            <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryControlColor}, Dark={StaticResource DarkPrimaryControlColor}}" />
+            <Setter Property="MaximumTrackColor" Value="{AppThemeBinding Light={StaticResource NeutralControlSecondaryColor}, Dark={StaticResource NeutralControlSecondaryColor}}" />
+        </Style>
     </Application.Resources>
 </Application>

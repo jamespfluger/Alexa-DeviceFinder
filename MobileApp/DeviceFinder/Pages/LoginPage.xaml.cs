@@ -3,11 +3,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DeviceFinder.Abstractions;
 using DeviceFinder.Utility;
-using Xamarin.Extensions.GoogleAuth;
-using Xamarin.Extensions.GoogleAuth.Exceptions;
-using Xamarin.Extensions.GoogleAuth.Models;
+using Xamarin.AuthProviders.Google;
+using Xamarin.AuthProviders.Google.Exceptions;
+using Xamarin.AuthProviders.Google.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
 
 namespace DeviceFinder.Pages
 {
@@ -22,7 +23,7 @@ namespace DeviceFinder.Pages
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            IGoogleAuthProvider authProvider = DependencyForge.Get<IGoogleAuthProvider>();
+            IGoogleAuthProvider authProvider = GoogleAuthProvider.Provider;//DependencyForge.Get<IGoogleAuthProvider>();
             AuthResult authResponse = null;
 
             try
@@ -40,7 +41,7 @@ namespace DeviceFinder.Pages
                 CachedData.UserId = authResponse.Account.Id;
                 CachedData.DeviceName = authResponse.Account.GivenName;
 
-                App.Current.MainPage = new NamePage();
+                Application.Current.MainPage = new NamePage();
             }
         }
     }

@@ -110,10 +110,13 @@
     <PackageReference Include="Xamarin.AndroidX.Navigation.UI">
       <Version>2.3.2.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.AuthProviders.Google">
+      <Version>0.1.6</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Messaging">
       <Version>121.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Google.Android.Material">
       <Version>1.2.1.1</Version>
@@ -146,10 +149,6 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Xamarin-GoogleAuth\GoogleAuth\GoogleAuth.csproj">
-      <Project>{3c22b05b-6454-43bc-a790-5d48bbe55553}</Project>
-      <Name>GoogleAuth</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DeviceFinder\DeviceFinder.csproj">
       <Project>{A257C8CA-2E61-4AA3-8B1F-0727CD28322B}</Project>
       <Name>DeviceFinder</Name>
@@ -187,12 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\logo_large.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\name.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\otp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\plain_icon.png" />
@@ -307,6 +300,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash_screen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\otp_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\name_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\name_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\otp_dark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

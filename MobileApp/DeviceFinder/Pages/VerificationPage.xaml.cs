@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using DeviceFinder.Abstractions;
+using DeviceFinder.Utility;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Xamarin.Forms.Grid;
 
 namespace DeviceFinder.Pages
 {
@@ -14,29 +18,37 @@ namespace DeviceFinder.Pages
             InitializeComponent();
         }
 
-        private void OnSubmitButtonClicked(object sender, EventArgs e)
+        private async void OnSubmitButtonClicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new DeviceConfigPage();
+            if (otpContainer.Children.OfType<Entry>().Any(e => string.IsNullOrWhiteSpace(e.Text)))
+            {
+                otpContainerFrame.BorderColor = (Color)Application.Current.Resources["DarkErrorColor"];
+                await AnimationUtil.Shake(otpContainer, 0.9);
+            }
+
+            //Application.Current.MainPage = new DeviceConfigPage();
         }
 
         private void OnOtpFieldTextChanged(object sender, TextChangedEventArgs args)
         {
             Entry currentOtpField = sender as Entry;
-            bool entryHasContent = args.NewTextValue.Length != 0;
-            int currentTabIndex = currentOtpField.TabIndex;
+            int currentTabIndex = otpContainer.Children.IndexOf(currentOtpField);
+            int nextTabIndex = args.NewTextValue.Length != 0 ? currentTabIndex + 1 : currentTabIndex - 1;
 
-            // If content was added and we're at the end OR if content was removed and we're at the beginning, break out
-            if (entryHasContent && currentTabIndex == 5 || !entryHasContent && currentTabIndex == 0)
+            // If we're at the beginning and text was deleted OR if we're at the end and text was added, break out
+            if (nextTabIndex >= 0 && nextTabIndex < otpContainer.Children.Count)
             {
-                currentOtpField.Unfocus();
+                otpContainer.Children[nextTabIndex].Focus();
             }
             else
             {
-                IDictionary<int, List<ITabStopElement>> pageTabIndexes = this.GetTabIndexesOnParentPage(out int _);
-                Entry nextOtpField = this.FindNextElement(entryHasContent, pageTabIndexes, ref currentTabIndex) as Entry;
-
-                nextOtpField.Focus();
+                currentOtpField.Unfocus();
             }
+        }
+
+        private void OnOtpFieldFocus(object sender, FocusEventArgs args)
+        {
+            this.otpContainerFrame.BorderColor = Color.Transparent;
         }
     }
 }

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DeviceFinder.Pages.DeviceConfigPage">
     <ContentPage.Resources>
-
         <!-- Style for Header Label -->
         <Style x:Key="ConfigHeaderStyle" TargetType="Label">
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
@@ -25,20 +24,10 @@
         </Style>
 
         <!-- Style for Switches -->
-        <Style x:Key="ConfigSwitchStyle" TargetType="Switch">
+        <Style x:Key="SwitchGridConfig" TargetType="Switch">
             <Setter Property="Grid.Row" Value="0" />
             <Setter Property="Grid.RowSpan" Value="2" />
             <Setter Property="Grid.Column" Value="1" />
-            <Style.Triggers>
-                <Trigger TargetType="Switch" Property="IsToggled" Value="true">
-                    <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryDarkColor}, Dark={StaticResource DarkPrimaryDarkColor}}" />
-                    <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}" />
-                </Trigger>
-                <Trigger TargetType="Switch" Property="IsToggled" Value="false">
-                    <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryDisabledColor}, Dark={StaticResource DarkPrimaryDisabledColor}}" />
-                    <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryDisabledColor}, Dark={StaticResource DarkSecondaryDisabledColor}}" />
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </ContentPage.Resources>
 
@@ -68,7 +57,7 @@
                 <Label Style="{StaticResource ConfigHeaderStyle}">Use flashlight</Label>
                 <Label Style="{StaticResource ConfigSubtitleStyle}">Flashlight will turn on/off when finding device</Label>
             </StackLayout>
-            <Switch x:Name="UseFlashlightSwitch" Style="{StaticResource ConfigSwitchStyle}" IsToggled="True"></Switch>
+            <Switch x:Name="UseFlashlightSwitch" Style="{StaticResource SwitchGridConfig}" IsToggled="True"></Switch>
         </Grid>
 
         <!-- Vibration section -->
@@ -82,7 +71,7 @@
                 <Label Style="{StaticResource ConfigHeaderStyle}">Use vibrate</Label>
                 <Label Style="{StaticResource ConfigSubtitleStyle}">Device will vibrate when finding device</Label>
             </StackLayout>
-            <Switch x:Name="UseVibrateSwitch" Style="{StaticResource ConfigSwitchStyle}"></Switch>
+            <Switch x:Name="UseVibrateSwitch" Style="{StaticResource SwitchGridConfig}"></Switch>
         </Grid>
 
         <!-- Only ring on wifi section -->
@@ -95,7 +84,7 @@
                 <Label Style="{StaticResource ConfigHeaderStyle}">Only ring on WiFi</Label>
                 <Label Style="{StaticResource ConfigSubtitleStyle}">Device will only ring when connected to WiFi</Label>
             </StackLayout>
-            <Switch x:Name="UseOnlyRingOnWifiSwitch" Style="{StaticResource ConfigSwitchStyle}"></Switch>
+            <Switch x:Name="UseOnlyRingOnWifiSwitch" Style="{StaticResource SwitchGridConfig}"></Switch>
         </Grid>
 
         <!-- Wifi network selections -->
@@ -118,7 +107,7 @@
                 <Label Style="{StaticResource ConfigHeaderStyle}">Override max volume</Label>
                 <Label Style="{StaticResource ConfigSubtitleStyle}">Device will ring at the maximum volume</Label>
             </StackLayout>
-            <Switch x:Name="UseOverrideMaxVolumeSwitch" Style="{StaticResource ConfigSwitchStyle}"></Switch>
+            <Switch x:Name="UseOverrideMaxVolumeSwitch" Style="{StaticResource SwitchGridConfig}"></Switch>
         </Grid>
 
         <!-- Override max volume -->
@@ -128,12 +117,9 @@
                 <RowDefinition Height="60*" />
             </Grid.RowDefinitions>
             <Label Style="{StaticResource ConfigHeaderStyle}">Override max volume</Label>
-            <Slider Value="1" IsEnabled="True" Grid.Row="1"
-                    MinimumTrackColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}"
-                    ThumbColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}"
-                    MaximumTrackColor="{AppThemeBinding Light={StaticResource LightOtherGreyColor}, Dark={StaticResource DarkOtherGreyColor}}"></Slider>
+            <Slider Value="1" IsEnabled="True" Grid.Row="1" />
         </Grid>
-
+        
         <!-- Delete/Save Buttons -->
         <Grid Grid.Row="7">
             <Grid.ColumnDefinitions>

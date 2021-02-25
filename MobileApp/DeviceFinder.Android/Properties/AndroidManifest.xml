@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.jamespfluger.alexadevicefinder" android:installLocation="auto">
     <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="30" />
-    <application android:label="Device Finder X" android:theme="@style/MainTheme">
+    <application android:label="Device Finder" android:theme="@style/MainTheme">
         <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
         <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>

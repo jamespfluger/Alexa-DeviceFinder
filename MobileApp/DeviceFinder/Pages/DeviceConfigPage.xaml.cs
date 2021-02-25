@@ -1,4 +1,5 @@
-﻿using DeviceFinder.Abstractions;
+﻿using System;
+using DeviceFinder.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

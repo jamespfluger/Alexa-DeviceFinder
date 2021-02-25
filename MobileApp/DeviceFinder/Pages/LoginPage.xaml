@@ -4,7 +4,7 @@
              x:Class="DeviceFinder.Pages.LoginPage"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
     <ContentPage.Content>
-        <Grid BackgroundColor="#F1F3F4">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="51*"/>
                 <RowDefinition Height="18*"/>
@@ -13,14 +13,13 @@
             <Image x:Name="LoginLogo" Source="Images/logo_large.png" Grid.Row="0"
                    HorizontalOptions="Center" VerticalOptions="Center">
             </Image>
-            <Label x:Name="LoginLabel" Grid.Row="1" Margin="0, 18, 0, 0" TextColor="Black"
+            <Label x:Name="LoginLabel" Grid.Row="1" Margin="0, 18, 0, 0"
                    FontSize="40" FontFamily="Arial" HorizontalTextAlignment="Center"
                    HorizontalOptions="Center" VerticalOptions="Center">
                 Alexa&#10;Device Finder
             </Label>
             <Button x:Name="LoginButton" Grid.Row="2" Margin="0, 0, 0, 18"
                     ImageSource="google_logo.png" Text="SIGN IN WITH GOOGLE" 
-                    BackgroundColor="#FFFFFF" TextColor="#99000000"
                     HorizontalOptions="Center" VerticalOptions="Center"
                     android:Button.UseDefaultShadow="true">
             </Button>
