@@ -46,7 +46,7 @@
                 </Grid.ColumnDefinitions>
                 <Frame x:Name="nameFieldContainer" Grid.Column="1" Padding="1" BackgroundColor="Transparent" BorderColor="Transparent">
                     <Entry x:Name="nameField" Grid.Column="1"
-                           Keyboard="Text" Placeholder="You first name"
+                           Keyboard="Text" Text="Jim"
                            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
                 </Frame>
             </Grid>

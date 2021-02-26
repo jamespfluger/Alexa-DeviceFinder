@@ -25,7 +25,7 @@ namespace DeviceFinder.Models.Auth
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
 
-        public AuthAlexaUser() { this.ModifiedDate = DateTime.UtcNow; }
+        public AuthAlexaUser() { ModifiedDate = DateTime.UtcNow; }
 
         public override string ToString()
         {

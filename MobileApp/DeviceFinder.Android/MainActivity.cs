@@ -3,12 +3,10 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
-using DeviceFinder.Abstractions;
 using DeviceFinder.Droid.Abstractions;
 using DeviceFinder.Droid.Notifications;
-using Xamarin.Essentials;
 using Xamarin.AuthProviders.Google;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace DeviceFinder.Droid

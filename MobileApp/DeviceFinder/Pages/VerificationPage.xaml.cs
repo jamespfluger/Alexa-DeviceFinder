@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using DeviceFinder.Abstractions;
 using DeviceFinder.Utility;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Xamarin.Forms.Grid;
 
 namespace DeviceFinder.Pages
 {
@@ -24,6 +20,10 @@ namespace DeviceFinder.Pages
             {
                 otpContainerFrame.BorderColor = (Color)Application.Current.Resources["DarkErrorColor"];
                 await AnimationUtil.Shake(otpContainer, 0.9);
+            }
+            else
+            {
+                // Begin saving
             }
 
             //Application.Current.MainPage = new DeviceConfigPage();
@@ -48,7 +48,7 @@ namespace DeviceFinder.Pages
 
         private void OnOtpFieldFocus(object sender, FocusEventArgs args)
         {
-            this.otpContainerFrame.BorderColor = Color.Transparent;
+            otpContainerFrame.BorderColor = Color.Transparent;
         }
     }
 }

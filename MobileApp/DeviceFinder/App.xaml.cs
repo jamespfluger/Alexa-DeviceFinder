@@ -9,7 +9,7 @@ namespace DeviceFinder
         {
             InitializeComponent();
 
-            this.MainPage = new LoginPage();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

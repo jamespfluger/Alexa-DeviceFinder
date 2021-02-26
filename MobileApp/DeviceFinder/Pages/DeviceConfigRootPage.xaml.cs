@@ -1,5 +1,4 @@
 ﻿using System;
-using DeviceFinder.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,16 +11,16 @@ namespace DeviceFinder.Pages
         {
             InitializeComponent();
 
-            this.deviceConfigSidePage.menuItemsListView.ItemSelected += OnItemSelected;
+            deviceConfigSidePage.menuItemsListView.ItemSelected += OnItemSelected;
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is DeviceConfigPageItem item)
             {
-                this.Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
-                this.deviceConfigSidePage.menuItemsListView.SelectedItem = null;
-                this.IsPresented = false;
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                deviceConfigSidePage.menuItemsListView.SelectedItem = null;
+                IsPresented = false;
             }
         }
     }

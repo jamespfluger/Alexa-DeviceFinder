@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using DeviceFinder.Models.Devices;
 using Newtonsoft.Json;
 using RestSharp;
@@ -9,9 +8,9 @@ namespace DeviceFinder.API
 {
     public class ApiService
     {
-        public ApiService Instance { get { return lazyApi.Value; } }
+        public ApiService Instance => lazyApi.Value;
 
-        private static readonly Lazy<ApiService> lazyApi = new Lazy<ApiService> (() => new ApiService());
+        private static readonly Lazy<ApiService> lazyApi = new Lazy<ApiService>(() => new ApiService());
         private const string baseUrl = "https://qsbrgmx8u1.execute-api.us-west-2.amazonaws.com/prd/devicefinder/";
 
         public IRestResponse SaveDevice(UserDevice newDevice)

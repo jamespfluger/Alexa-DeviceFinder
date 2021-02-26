@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models.Devices;
 
 namespace DeviceFinder.Models.Auth
 {
@@ -28,19 +26,19 @@ namespace DeviceFinder.Models.Auth
 
         public AuthDevice(string userId, string deviceId)
         {
-            this.LoginUserId = userId;
-            this.DeviceId = deviceId;
-            this.ModifiedDate = DateTime.UtcNow;
+            LoginUserId = userId;
+            DeviceId = deviceId;
+            ModifiedDate = DateTime.UtcNow;
         }
 
         public override string ToString()
         {
             StringBuilder modelInfo = new StringBuilder();
 
-            modelInfo.Append($"{nameof(LoginUserId)}:{this.LoginUserId}");
-            modelInfo.Append($"{nameof(DeviceId)}:{this.DeviceId}");
-            modelInfo.Append($"{nameof(OneTimePassword)}:{this.OneTimePassword}");
-            modelInfo.Append($"{nameof(ModifiedDate)}:{this.ModifiedDate}");
+            modelInfo.Append($"{nameof(LoginUserId)}:{LoginUserId}");
+            modelInfo.Append($"{nameof(DeviceId)}:{DeviceId}");
+            modelInfo.Append($"{nameof(OneTimePassword)}:{OneTimePassword}");
+            modelInfo.Append($"{nameof(ModifiedDate)}:{ModifiedDate}");
 
             return modelInfo.ToString();
         }

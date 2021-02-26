@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using DeviceFinder.Abstractions;
 using DeviceFinder.Utility;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,9 +19,9 @@ namespace DeviceFinder.Pages
         {
             InitializeComponent();
 
-            this.namesInitTask = InitNamesList();
-            this.continueButton.Clicked += OnContinueButtonClicked;
-            this.nameField.Focused += OnNameFieldFocused;
+            namesInitTask = InitNamesList();
+            continueButton.Clicked += OnContinueButtonClicked;
+            nameField.Focused += OnNameFieldFocused;
         }
 
         private async void OnContinueButtonClicked(object sender, EventArgs e)
@@ -38,6 +36,7 @@ namespace DeviceFinder.Pages
             }
             else if (await ValidateName(nameEntered))
             {
+                CachedData.DeviceName = nameEntered;
                 Application.Current.MainPage = new NavigationPage(new VerificationPage());
             }
         }
@@ -59,13 +58,13 @@ namespace DeviceFinder.Pages
             return Task.Run(async () =>
             {
                 // To get the embedded file we need to get the stream from the assembly using reflection
-                Assembly currentAssembly = IntrospectionExtensions.GetTypeInfo(typeof(NamePage)).Assembly;
+                Assembly currentAssembly = typeof(NamePage).Assembly;
                 Stream resourceStream = currentAssembly.GetManifestResourceStream("DeviceFinder.names.txt");
 
                 // From there we can load the contents of names.txt into a file and split
                 using StreamReader reader = new StreamReader(resourceStream);
                 string rawNamesContent = await reader.ReadToEndAsync();
-                
+
                 commonNames = new HashSet<string>(rawNamesContent.Split('\n'));
             });
         }

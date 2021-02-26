@@ -1,6 +1,5 @@
 using Android.App;
 using Android.Content;
-using Android.Gms.Tasks;
 using DeviceFinder.Utility;
 using Firebase;
 using Firebase.Messaging;
@@ -34,10 +33,10 @@ namespace DeviceFinder.Droid.Notifications
         {
             base.OnMessageReceived(remoteMessage);
 
-            if (this.forge == null)
-                this.forge = new NotificationForge(this.ApplicationContext);
+            if (forge == null)
+                forge = new NotificationForge(ApplicationContext);
 
-            this.forge.IssueNotification(remoteMessage);
+            forge.IssueNotification(remoteMessage);
         }
 
         public void RefreshToken()

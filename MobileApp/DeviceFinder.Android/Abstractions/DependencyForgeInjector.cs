@@ -1,6 +1,5 @@
 ﻿using DeviceFinder.Abstractions;
 using SimpleInjector;
-using Xamarin.AuthProviders.Google;
 
 namespace DeviceFinder.Droid.Abstractions
 {

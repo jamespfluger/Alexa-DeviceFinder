@@ -33,7 +33,7 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBIgnore()]
         public DeviceSettings DeviceSettings { get; set; }
 
-        public UserDevice() { this.ModifiedDate = DateTime.UtcNow; }
+        public UserDevice() { ModifiedDate = DateTime.UtcNow; }
 
         public UserDevice(AuthAlexaUser alexaUser, AuthDevice authDevice)
         {

@@ -33,7 +33,7 @@ namespace DeviceFinder.Droid.Abstractions
                 requireDoNotDisturb.SetMessage(Resource.String.doNotDisturbWarning);
                 requireDoNotDisturb.SetPositiveButton("Ok", OnDialogDismissed);
 
-                this.dialogActionToTake = Settings.ActionNotificationPolicyAccessSettings;
+                dialogActionToTake = Settings.ActionNotificationPolicyAccessSettings;
 
                 requireDoNotDisturb.Show();
             }
@@ -51,7 +51,7 @@ namespace DeviceFinder.Droid.Abstractions
                 requireBatteryOptimization.SetMessage(Resource.String.batteryOptimizationWarning);
                 requireBatteryOptimization.SetPositiveButton("Ok", OnDialogDismissed);
 
-                this.dialogActionToTake = Settings.ActionRequestIgnoreBatteryOptimizations;
+                dialogActionToTake = Settings.ActionRequestIgnoreBatteryOptimizations;
 
                 requireBatteryOptimization.Show();
             }
@@ -59,7 +59,7 @@ namespace DeviceFinder.Droid.Abstractions
 
         private void OnDialogDismissed(object sender, DialogClickEventArgs args)
         {
-            Intent intent = new Intent(this.dialogActionToTake, Uri.Parse($"package:{Platform.AppContext}"));
+            Intent intent = new Intent(dialogActionToTake, Uri.Parse($"package:{Platform.AppContext}"));
             intent.SetFlags(ActivityFlags.NewTask);
 
             Platform.AppContext.StartActivity(intent);
