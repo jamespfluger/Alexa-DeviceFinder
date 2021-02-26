@@ -10,8 +10,8 @@ namespace DeviceFinder.Models.Auth
     [DynamoDBTable("DeviceFinder_AuthAlexaUsers")]
     public class AuthAlexaUser
     {
-        [DynamoDBHashKey("OneTimePassword")]
-        public string OneTimePassword { get; set; }
+        [DynamoDBHashKey("OneTimePasscode")]
+        public string OneTimePasscode { get; set; }
 
         [DynamoDBProperty("AlexaUserID")]
         public string AlexaUserId { get; set; }
@@ -31,7 +31,7 @@ namespace DeviceFinder.Models.Auth
         {
             List<string> modelInformation = new List<string>();
 
-            modelInformation.Add(nameof(AuthAlexaUser.OneTimePassword) + ":" + OneTimePassword);
+            modelInformation.Add(nameof(AuthAlexaUser.OneTimePasscode) + ":" + OneTimePasscode);
             modelInformation.Add(nameof(AuthAlexaUser.AlexaUserId) + ":" + AlexaUserId);
             modelInformation.Add(nameof(AuthAlexaUser.TimeToLive) + ":" + TimeToLive);
             modelInformation.Add(nameof(AuthAlexaUser.ModifiedDate) + ":" + ModifiedDate);
