@@ -5,9 +5,8 @@ using DeviceFinder.Models.Auth;
 
 namespace DeviceFinder.Models.Devices
 {
-    // Instead of using a separate table for DeviceSettings, we reduce read capacity with one object
     [DynamoDBTable("DeviceFinder_UserDevices")]
-    public class UserDevice
+    public class Device
     {
         [DynamoDBHashKey("AlexaUserID")]
         public string AlexaUserId { get; set; }
@@ -17,9 +16,6 @@ namespace DeviceFinder.Models.Devices
 
         [DynamoDBProperty("LoginUserID")]
         public string LoginUserId { get; set; }
-
-        [DynamoDBProperty("AlexaDeviceID")]
-        public string AlexaDeviceId { get; set; }
 
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
@@ -33,12 +29,11 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBIgnore()]
         public DeviceSettings DeviceSettings { get; set; }
 
-        public UserDevice() { ModifiedDate = DateTime.UtcNow; }
+        public Device() { ModifiedDate = DateTime.UtcNow; }
 
-        public UserDevice(AuthAlexaUser alexaUser, AuthDevice authDevice)
+        public Device(AlexaUser alexaUser, AuthDevice authDevice)
         {
             AlexaUserId = alexaUser.AlexaUserId;
-            AlexaDeviceId = alexaUser.AlexaDeviceId;
             DeviceId = authDevice.DeviceId;
             LoginUserId = authDevice.LoginUserId;
             ModifiedDate = DateTime.UtcNow;
@@ -49,12 +44,12 @@ namespace DeviceFinder.Models.Devices
         {
             List<string> modelInformation = new List<string>();
 
-            modelInformation.Add(nameof(UserDevice.AlexaUserId) + ":" + AlexaUserId);
-            modelInformation.Add(nameof(UserDevice.DeviceId) + ":" + DeviceId);
-            modelInformation.Add(nameof(UserDevice.LoginUserId) + ":" + LoginUserId);
-            modelInformation.Add(nameof(UserDevice.DeviceName) + ":" + DeviceName);
-            modelInformation.Add(nameof(UserDevice.DeviceOs) + ":" + DeviceOs.ToString());
-            modelInformation.Add(nameof(UserDevice.ModifiedDate) + ":" + ModifiedDate);
+            modelInformation.Add(nameof(Device.AlexaUserId) + ":" + AlexaUserId);
+            modelInformation.Add(nameof(Device.DeviceId) + ":" + DeviceId);
+            modelInformation.Add(nameof(Device.LoginUserId) + ":" + LoginUserId);
+            modelInformation.Add(nameof(Device.DeviceName) + ":" + DeviceName);
+            modelInformation.Add(nameof(Device.DeviceOs) + ":" + DeviceOs.ToString());
+            modelInformation.Add(nameof(Device.ModifiedDate) + ":" + ModifiedDate);
 
             return string.Join("|", modelInformation);
         }

@@ -34,11 +34,11 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                if (authDevice == null || string.IsNullOrEmpty(authDevice.UserId) || string.IsNullOrEmpty(authDevice.DeviceId))
+                if (authDevice == null || string.IsNullOrEmpty(authDevice.DeviceId) || string.IsNullOrEmpty(authDevice.LoginUserId))
                     return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice}");
 
                 //await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);
-                AuthAlexaUser alexaUser = await context.LoadAsync<AuthAlexaUser>(authDevice.OneTimePassword);
+                AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authDevice.OneTimePasscode);
 
                 if (alexaUser == null)
                 {
@@ -50,9 +50,9 @@ namespace DeviceFinder.DeviceApi.Controllers
                 }
                 else
                 {
-                    UserDevice fullUserDevice = new UserDevice(alexaUser, authDevice);
+                    Device fullUserDevice = new Device(alexaUser, authDevice);
                     Task saveResult = context.SaveAsync(fullUserDevice);
-                    //Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePassword);
+                    //Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePasscode);
                     //Task deleteAlexaAuthResult = context.DeleteAsync<AuthAlexaUser>(alexaUser.AlexaUserId);
 
                     //Task.WaitAll(saveResult, deleteAuthDeviceResult, deleteAlexaAuthResult);

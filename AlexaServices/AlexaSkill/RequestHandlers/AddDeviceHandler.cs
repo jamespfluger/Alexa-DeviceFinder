@@ -13,7 +13,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class AddDeviceHandler : IRequestHandler
     {
-        public async Task<SkillResponse> ProcessRequest(Intent request, AlexaSystem system)
+        public async Task<SkillResponse> ProcessRequest(Intent request, string alexaUserId)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                 {
                     computedOtp = GenerateOtp();
 
-                    AuthAlexaUser queriedAuthUser = await DynamoService.Instance.LoadItem<AuthAlexaUser>(computedOtp);
+                    AlexaUser queriedAuthUser = await DynamoService.Instance.LoadItem<AlexaUser>(computedOtp);
 
                     if (queriedAuthUser != null)
                     {
@@ -34,10 +34,9 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                     }
                     else
                     {
-                        AuthAlexaUser newAlexaAuthUser = new AuthAlexaUser();
-                        newAlexaAuthUser.OneTimePassword = computedOtp;
-                        newAlexaAuthUser.AlexaUserId = system.User.UserId;
-                        newAlexaAuthUser.AlexaDeviceId = system.Device.DeviceID;
+                        AlexaUser newAlexaAuthUser = new AlexaUser();
+                        newAlexaAuthUser.OneTimePasscode = computedOtp;
+                        newAlexaAuthUser.AlexaUserId = alexaUserId;
                         newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds();
 
                         bool didSaveSucceed = await DynamoService.Instance.SaveItem(newAlexaAuthUser);

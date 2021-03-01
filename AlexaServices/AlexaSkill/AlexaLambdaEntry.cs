@@ -21,32 +21,28 @@ namespace DeviceFinder.AlexaSkill
 
             Logger.Init(lambdaContext);
 
-            if (skillRequest.Request is IntentRequest)
-                return await HandleIntent(skillRequest);
+            if (skillRequest.Request is IntentRequest intentRequest)
+                return await HandleIntent(intentRequest.Intent, skillRequest.Session.User.UserId);
             else if (skillRequest.Request is SkillEventRequest)
                 return await HandleSkillEvent(skillRequest);
             else
                 return ResponseBuilder.Tell("I'm sorry, I couldn't understand your request. Please rephrase it or try again later.");
         }
 
-        private async Task<SkillResponse> HandleIntent(SkillRequest request)
+        private async Task<SkillResponse> HandleIntent(Intent intent, string userId)
         {
             IRequestHandler requestHandler;
-
-            Intent intent = ((IntentRequest)request.Request).Intent;
 
             if (intent.Name == "FindDevice")
                 requestHandler = new FindDeviceHandler();
             else
                 requestHandler = new AddDeviceHandler();
 
-            return await requestHandler.ProcessRequest(intent, request.Context.System);
+            return await requestHandler.ProcessRequest(intent, userId);
         }
 
         private async Task<SkillResponse> HandleSkillEvent(SkillRequest skillEventRequest)
         {
-
-
             return ResponseBuilder.Tell("Skill event handled.");
         }
     }

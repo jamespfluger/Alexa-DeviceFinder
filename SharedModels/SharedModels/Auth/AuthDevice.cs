@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Amazon.DynamoDBv2.DataModel;
 
@@ -13,11 +14,11 @@ namespace DeviceFinder.Models.Auth
         [DynamoDBHashKey("DeviceID")]
         public string DeviceId { get; set; }
 
-        [DynamoDBRangeKey("OneTimePasscode")]
-        public string OneTimePasscode { get; set; }
-
-        [DynamoDBProperty("LoginUserID")]
+        [DynamoDBRangeKey("LoginUserID")]
         public string LoginUserId { get; set; }
+
+        [DynamoDBProperty("OneTimePasscode")]
+        public string OneTimePasscode { get; set; }
 
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; set; }
@@ -33,14 +34,15 @@ namespace DeviceFinder.Models.Auth
 
         public override string ToString()
         {
-            StringBuilder modelInfo = new StringBuilder();
+            List<string> modelInfo = new List<string>
+            {
+                nameof(LoginUserId) + ":" + LoginUserId,
+                nameof(DeviceId) + ":" + DeviceId,
+                nameof(OneTimePasscode) + ":" + OneTimePasscode,
+                nameof(ModifiedDate) + ":" + ModifiedDate
+            };
 
-            modelInfo.Append($"{nameof(LoginUserId)}:{LoginUserId}");
-            modelInfo.Append($"{nameof(DeviceId)}:{DeviceId}");
-            modelInfo.Append($"{nameof(OneTimePasscode)}:{OneTimePasscode}");
-            modelInfo.Append($"{nameof(ModifiedDate)}:{ModifiedDate}");
-
-            return modelInfo.ToString();
+            return string.Join("|", modelInfo);
         }
     }
 }

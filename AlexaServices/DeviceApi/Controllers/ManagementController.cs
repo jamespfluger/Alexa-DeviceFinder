@@ -37,19 +37,19 @@ namespace DeviceFinder.DeviceApi.Controllers
 
         /// TODO: add documentation
         [HttpGet("users/{userid}")]
-        public async Task<ActionResult<List<UserDevice>>> GetAllUserDevices([FromRoute] string userId)
+        public async Task<ActionResult<List<Device>>> GetAllUserDevices([FromRoute] string userId)
         {
             try
             {
-                Task<List<UserDevice>> deviceSearchResults = context.QueryAsync<UserDevice>(userId).GetRemainingAsync();
+                Task<List<Device>> deviceSearchResults = context.QueryAsync<Device>(userId).GetRemainingAsync();
                 Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(userId).GetRemainingAsync();
 
                 await Task.WhenAll(deviceSearchResults, settingsSearchResults);
 
-                List<UserDevice> devices = deviceSearchResults.Result;
+                List<Device> devices = deviceSearchResults.Result;
                 List<DeviceSettings> settings = settingsSearchResults.Result;
 
-                foreach (UserDevice device in devices)
+                foreach (Device device in devices)
                 {
                     device.DeviceSettings = settings.FirstOrDefault(setting => device.DeviceId == setting.DeviceId);
                     device.DeviceSettings ??= new DeviceSettings();
@@ -68,7 +68,7 @@ namespace DeviceFinder.DeviceApi.Controllers
 
         /// TODO: add documentation
         [HttpPut("/users/{userid}/devices/{deviceid}")]
-        public async Task<ActionResult> SaveUserDevice([FromBody] UserDevice device)
+        public async Task<ActionResult> SaveUserDevice([FromBody] Device device)
         {
             try
             {
@@ -104,40 +104,25 @@ namespace DeviceFinder.DeviceApi.Controllers
             }
         }
 
-        /*/// TODO: add documentation
-        //[HttpPost("users")]
-        //public async Task<ActionResult> DeleteAuthDevice([FromQuery] string amazonUserId)
-        //{
-        //    try
-        //    {
-        //        await context.DeleteAsync<AuthDevice>(amazonUserId);
-        //        return Ok("Device deleted.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.ToString() + Environment.NewLine + amazonUserId);
-        //    }
-        //}*/
-
         /* /// TODO: add documentation
-        //[HttpGet("devices/settings")]
-        //public async Task<ActionResult<List<DeviceSettings>>> GetSettingsForAllDevices([FromRoute] string userId)
-        //{
-        //    try
-        //    {
-        //        AsyncSearch<DeviceSettings> searchResults = context.QueryAsync<DeviceSettings>(userId);
-        //        List<DeviceSettings> allUserDevices = await searchResults.GetRemainingAsync();
+        [HttpGet("devices/settings")]
+        public async Task<ActionResult<List<DeviceSettings>>> GetSettingsForAllDevices([FromRoute] string userId)
+        {
+            try
+            {
+                AsyncSearch<DeviceSettings> searchResults = context.QueryAsync<DeviceSettings>(userId);
+                List<DeviceSettings> allUserDevices = await searchResults.GetRemainingAsync();
 
-        //        if (allUserDevices.Any())
-        //            return Ok(allUserDevices);
-        //        else
-        //            return NotFound();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.ToString() + Environment.NewLine + userId);
-        //    }
-        //}*/
+                if (allUserDevices.Any())
+                    return Ok(allUserDevices);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString() + Environment.NewLine + userId);
+            }
+        }*/
 
     }
 }
