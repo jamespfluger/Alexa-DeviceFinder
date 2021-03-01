@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using DeviceFinder.Models.Auth;
 using DeviceFinder.Models.Devices;
 using Newtonsoft.Json;
@@ -42,14 +43,14 @@ namespace DeviceFinder.API
             };
         }
 
-        public IRestResponse SaveDevice(AuthDevice newDevice)
+        public async Task<IRestResponse> SaveDevice(AuthDevice newDevice)
         {
             RestRequest addRequest = new RestRequest();
             addRequest.Method = Method.POST;
             addRequest.Resource = "auth/users";
             addRequest.AddJsonBody(newDevice);
 
-            return client.Execute(addRequest);
+            return await client.ExecuteAsync(addRequest);
         }
 
         public IRestResponse SaveDeviceSettings(DeviceSettings deviceSettings)

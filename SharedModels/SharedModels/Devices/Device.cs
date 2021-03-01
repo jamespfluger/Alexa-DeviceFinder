@@ -5,7 +5,7 @@ using DeviceFinder.Models.Auth;
 
 namespace DeviceFinder.Models.Devices
 {
-    [DynamoDBTable("DeviceFinder_UserDevices")]
+    [DynamoDBTable("DeviceFinder_Devices")]
     public class Device
     {
         [DynamoDBHashKey("AlexaUserID")]

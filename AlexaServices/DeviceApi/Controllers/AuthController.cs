@@ -53,7 +53,7 @@ namespace DeviceFinder.DeviceApi.Controllers
                     Device fullUserDevice = new Device(alexaUser, authDevice);
                     Task saveResult = context.SaveAsync(fullUserDevice);
                     //Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePasscode);
-                    //Task deleteAlexaAuthResult = context.DeleteAsync<AuthAlexaUser>(alexaUser.AlexaUserId);
+                    //Task deleteAlexaAuthResult = context.DeleteAsync<AlexaUser>(alexaUser.AlexaUserId);
 
                     //Task.WaitAll(saveResult, deleteAuthDeviceResult, deleteAlexaAuthResult);
                     Task.WaitAll(saveResult);
@@ -63,7 +63,8 @@ namespace DeviceFinder.DeviceApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString() + Environment.NewLine + authDevice.ToString());
+                string errorMessage = $"{ex.Message}\n\n{ex}\n\n{authDevice}";
+                return BadRequest(errorMessage);
             }
         }
     }

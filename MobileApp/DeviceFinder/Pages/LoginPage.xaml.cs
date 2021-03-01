@@ -35,7 +35,7 @@ namespace DeviceFinder.Pages
 
             if (authProvider.IsLoggedIn)
             {
-                CachedData.UserId = authResponse.Account.Id;
+                CachedData.LoginUserId = authResponse.Account.Id;
                 CachedData.DeviceName = authResponse.Account.GivenName;
 
                 Application.Current.MainPage = new NamePage();

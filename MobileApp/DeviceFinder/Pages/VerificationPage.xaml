@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DeviceFinder.Pages.VerificationPage">
+             x:Class="DeviceFinder.Pages.VerificationPage"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms">
     <ContentPage.Resources>
         <Style TargetType="Entry">
             <Setter Property="Keyboard" Value="Telephone"/>
@@ -13,68 +14,89 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="7.3*"/> <!-- Row #0   Blue header box    -->
-                <RowDefinition Height="11.2*"/><!-- Row #1                      -->
-                <RowDefinition Height="17.6*"/><!-- Row #2   OTP image         -->
-                <RowDefinition Height="8.5*"/><!-- Row #3                      -->
-                <RowDefinition Height="7.5*"/> <!-- Row #4   Verification header -->
-                <RowDefinition Height="4.9*"/> <!-- Row #5                      -->
-                <RowDefinition Height="8.6*"/> <!-- Row #6   Instructions label -->
-                <RowDefinition Height="1.7*"/> <!-- Row #7                      -->
-                <RowDefinition Height="8.7*"/> <!-- Row #8   OTP fields -->
-                <RowDefinition Height="7.1*"/> <!-- Row #9                      -->
-                <RowDefinition Height="5.4*"/> <!-- Row #10  Submit button    -->
-                <RowDefinition Height="11.5*"/> <!-- Row #11                     -->
-            </Grid.RowDefinitions>
-            <!-- Top control header -->
-            <!--<Label x:Name="AppNameHeader" Grid.Row="0" Padding="15, 0, 0, 0"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7.3*"/>
+                    <RowDefinition Height="11.2*"/>
+                    <RowDefinition Height="17.6*"/>
+                    <RowDefinition Height="8.5*"/>
+                    <RowDefinition Height="7.5*"/>
+                    <RowDefinition Height="4.9*"/>
+                    <RowDefinition Height="8.6*"/>
+                    <RowDefinition Height="1.7*"/>
+                    <RowDefinition Height="8.7*"/>
+                    <RowDefinition Height="7.1*"/>
+                    <RowDefinition Height="5.4*"/>
+                    <RowDefinition Height="11.5*"/>
+                </Grid.RowDefinitions>
+                <!-- Top control header -->
+                <!--<Label x:Name="AppNameHeader" Grid.Row="0" Padding="15, 0, 0, 0"
                    FontSize="24" FontFamily="Roboto" TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
                    BackgroundColor="#03689E" VerticalTextAlignment="Center" >
                 Alexa Device Finder
             </Label>-->
 
-            <!-- Auth logo icon -->
-            <Image x:Name="AuthLogo" Source="{AppThemeBinding Light=Images/otp_light.png, Dark=Images/otp_dark.png}" Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="40, 0, 0, 0"/>
+                <!-- Auth logo icon -->
+                <Image x:Name="AuthLogo" Grid.Row="2" Margin="40, 0, 0, 0"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                       Source="{AppThemeBinding Light=Images/otp_light.png, Dark=Images/otp_dark.png}" />
 
-            <!-- Authentication header -->
-            <Label x:Name="AuthHeader" Grid.Row="4"
+                <!-- Authentication header -->
+                <Label x:Name="AuthHeader" Grid.Row="4"
                    HorizontalOptions="Center" VerticalTextAlignment="Center"
                    FontSize="36" FontFamily="Roboto">
-                Verification
-            </Label>
+                    Verification
+                </Label>
 
-            <!-- Instructions -->
-            <Label x:Name="AuthInstructions" Grid.Row="6"
+                <!-- Instructions -->
+                <Label x:Name="AuthInstructions" Grid.Row="6"
                    HorizontalOptions="Center" VerticalOptions="Center"
                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                   FontSize="18">
-                Say, 'Alexa, set up Device Finder'
-            </Label>
+                   FontSize="18" FontFamily="Roboto">
+                    Say, 'Alexa, set up Device Finder'
+                </Label>
 
-            <!-- Name input field -->
-            <Frame x:Name="otpContainerFrame" Grid.Row="8" Margin="15,-5,15,-5" BackgroundColor="Transparent" BorderColor="Transparent" />
-            <Grid Grid.Row="8" x:Name="otpContainer">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="14*"/>
-                    <ColumnDefinition Width="14*"/>
-                    <ColumnDefinition Width="14*"/>
-                    <ColumnDefinition Width="14*"/>
-                    <ColumnDefinition Width="14*"/>
-                    <ColumnDefinition Width="14*"/>
-                    <ColumnDefinition Width="8*"/>
-                </Grid.ColumnDefinitions>
-                <Entry x:Name="otpField0" Grid.Column="1" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                <Entry x:Name="otpField1" Grid.Column="2" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                <Entry x:Name="otpField2" Grid.Column="3" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                <Entry x:Name="otpField3" Grid.Column="4" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                <Entry x:Name="otpField4" Grid.Column="5" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                <Entry x:Name="otpField5" Grid.Column="6" ReturnType="Send" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                <!-- Name input field -->
+                <Frame x:Name="otpContainerFrame" Grid.Row="8" Margin="15,-5,15,-5"
+                       BackgroundColor="Transparent" BorderColor="Transparent" />
+                <Grid Grid.Row="8" x:Name="otpContainer">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Entry x:Name="otpField0" Grid.Column="1" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField1" Grid.Column="2" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField2" Grid.Column="3" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField3" Grid.Column="4" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField4" Grid.Column="5" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField5" Grid.Column="6" ReturnType="Send" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                </Grid>
+
+                <!-- Continue button -->
+                <Button x:Name="SubmitButton"
+                        HorizontalOptions="Center" Grid.Row="10" Scale="1.5" 
+                       Text="CONTINUE" Clicked="OnSubmitButtonClicked"/>
             </Grid>
-
-            <!-- Continue button -->
-            <Button x:Name="SubmitButton" HorizontalOptions="Center" Scale="1.5" Text="CONTINUE" Grid.Row="10" Clicked="OnSubmitButtonClicked"/>
+            
+            <!-- Verification loading overlay -->
+            <Grid x:Name="saveOverlay" IsVisible="false">
+                <Rectangle Fill="#000000" Opacity="0.65"></Rectangle>
+                <StackLayout Orientation="Vertical">
+                    <lottie:AnimationView x:Name="animationView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                    Animation="shield_anim.json" AnimationSource="AssetOrBundle" RepeatMode="Infinite" Speed="0.8"/>
+                    <Label x:Name="LoadingShield" HorizontalOptions="Center" VerticalOptions="Center"
+                       FontSize="36" FontFamily="Roboto" VerticalTextAlignment="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}">
+                        Verification
+                    </Label>
+                </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

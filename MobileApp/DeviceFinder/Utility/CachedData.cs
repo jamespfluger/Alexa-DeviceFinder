@@ -11,7 +11,7 @@ namespace DeviceFinder.Utility
         private const string firstName = "firstName";
         private const string email = "email";
 
-        public static string UserId
+        public static string LoginUserId
         {
             get => Preferences.Get(userId, null);
             set => Preferences.Set(userId, value);

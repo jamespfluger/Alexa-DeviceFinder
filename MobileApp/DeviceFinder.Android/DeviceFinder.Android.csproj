@@ -44,6 +44,7 @@
     <AndroidSigningStorePass>EnceladusChristmasCedarVolcano</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>dfxamarin</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>EnceladusChristmasCedarVolcano</AndroidSigningKeyPass>
+    <NoWarn>1603</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -77,6 +78,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>4.0.8</Version>
+    </PackageReference>
     <PackageReference Include="RestSharp">
       <Version>106.11.7</Version>
     </PackageReference>
@@ -85,6 +89,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design">
       <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
+      <Version>1.1.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Browser">
       <Version>1.3.0.4</Version>
@@ -140,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />
+    <AndroidAsset Include="Assets\shield_anim.json" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>

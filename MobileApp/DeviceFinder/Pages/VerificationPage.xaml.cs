@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DeviceFinder.Abstractions;
+using DeviceFinder.API;
+using DeviceFinder.Models.Auth;
 using DeviceFinder.Utility;
+using RestSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,14 +21,27 @@ namespace DeviceFinder.Pages
 
         private async void OnSubmitButtonClicked(object sender, EventArgs e)
         {
-            if (otpContainer.Children.OfType<Entry>().Any(e => string.IsNullOrWhiteSpace(e.Text)))
+            IEnumerable<Entry> otpFields = otpContainer.Children.OfType<Entry>();
+            
+            if (otpFields.Any(e => string.IsNullOrWhiteSpace(e.Text)))
             {
                 otpContainerFrame.BorderColor = (Color)Application.Current.Resources["DarkErrorColor"];
                 await AnimationUtil.Shake(otpContainer, 0.9);
             }
             else
             {
-                // Begin saving
+                saveOverlay.IsVisible = true;
+
+                AuthDevice newDevice = new AuthDevice
+                {
+                    DeviceId = CachedData.FirebaseToken,
+                    LoginUserId = CachedData.LoginUserId,
+                    OneTimePasscode = string.Join("", otpFields.Select(f => f.Text))
+                };
+
+                ApiService api = new ApiService();
+                IRestResponse saveResponse = await api.SaveDevice(newDevice);
+                saveOverlay.IsVisible = false;
             }
 
             //Application.Current.MainPage = new DeviceConfigPage();
