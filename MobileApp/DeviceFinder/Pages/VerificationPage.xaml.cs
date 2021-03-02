@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using DeviceFinder.Abstractions;
 using DeviceFinder.API;
 using DeviceFinder.Models.Auth;
+using DeviceFinder.Models.Devices;
 using DeviceFinder.Utility;
 using RestSharp;
 using Xamarin.Forms;
@@ -36,15 +39,26 @@ namespace DeviceFinder.Pages
                 {
                     DeviceId = CachedData.FirebaseToken,
                     LoginUserId = CachedData.LoginUserId,
+                    DeviceName = CachedData.DeviceName,
+                    DeviceOs = DeviceOperatingSystem.Android,
                     OneTimePasscode = string.Join("", otpFields.Select(f => f.Text))
                 };
 
+                Stopwatch timer = Stopwatch.StartNew();
+                
                 ApiService api = new ApiService();
                 IRestResponse saveResponse = await api.SaveDevice(newDevice);
-                saveOverlay.IsVisible = false;
-            }
+                IToaster toaster = DependencyForge.Get<IToaster>();
 
-            //Application.Current.MainPage = new DeviceConfigPage();
+                timer.Stop();
+
+                if (timer.ElapsedMilliseconds < 500)
+                    await Task.Delay(1000 - (int)timer.ElapsedMilliseconds);
+
+                saveOverlay.IsVisible = false;
+
+                //Application.Current.MainPage = new DeviceConfigPage();
+            }
         }
 
         private void OnOtpFieldTextChanged(object sender, TextChangedEventArgs args)

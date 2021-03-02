@@ -30,36 +30,41 @@ namespace DeviceFinder.DeviceApi.Controllers
         /// <param name="authDevice">Pair of User and Android IDs</param>
         /// TODO: rename this to "devices"
         [HttpPost("users")]
-        public async Task<ActionResult> AddNewAuthDevice([FromBody] AuthDevice authDevice)
+        public async Task<ActionResult> AddNewDevice([FromBody] AuthDevice authDevice)
         {
             try
             {
-                if (authDevice == null || string.IsNullOrEmpty(authDevice.DeviceId) || string.IsNullOrEmpty(authDevice.LoginUserId))
-                    return BadRequest($"Error in add: AuthUserDevice body is missing ({authDevice == null}) or malformed: {authDevice}");
+                // Verify the body we've received has the correct contents
+                if (authDevice == null || !authDevice.IsModelValid())
+                    return BadRequest($"Error in add: AuthUserDevice body is missing (IsNull={authDevice == null}) or malformed: {authDevice}");
 
-                //await context.DeleteAsync<AuthDevice>(authDevice.AmazonUserId);
+                // Find the user created when interacting with Alexa
                 AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authDevice.OneTimePasscode);
 
+                // Ensure the user exists AND that the OTP has not expired
                 if (alexaUser == null)
-                {
-                    return NotFound("Linked device could not be found in the database.");
-                }
-                else if (alexaUser.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
-                {
-                    return Unauthorized("The entered code has expired. Please ask Alexa for a new one.");
-                }
-                else
-                {
-                    Device fullUserDevice = new Device(alexaUser, authDevice);
-                    Task saveResult = context.SaveAsync(fullUserDevice);
-                    //Task deleteAuthDeviceResult = context.DeleteAsync<AuthDevice>(authDevice.OneTimePasscode);
-                    //Task deleteAlexaAuthResult = context.DeleteAsync<AlexaUser>(alexaUser.AlexaUserId);
+                    return NotFound();
+                else if (alexaUser?.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                    return Unauthorized("The entered code has expired.");
 
-                    //Task.WaitAll(saveResult, deleteAuthDeviceResult, deleteAlexaAuthResult);
-                    Task.WaitAll(saveResult);
+                Device fullUserDevice = new Device
+                {
+                    AlexaUserId = alexaUser.AlexaUserId,
+                    DeviceId = authDevice.DeviceId,
+                    LoginUserId = authDevice.LoginUserId,
+                    DeviceName = authDevice.DeviceName,
+                    DeviceOs = authDevice.DeviceOs
+                };
 
-                    return Created(nameof(AddNewAuthDevice), fullUserDevice);
-                }
+                // Save the new device, and delete the old AlexaUser entry
+                Task saveResult = context.SaveAsync(fullUserDevice);
+                Task deleteAlexaAuthResult = context.DeleteAsync<AlexaUser>(alexaUser.AlexaUserId);
+
+                Task.WaitAll(saveResult, deleteAlexaAuthResult);
+
+                var result = CreatedAtAction(nameof(AddNewDevice), fullUserDevice);
+
+                return result;
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace DeviceFinder.Models.Devices
         public int OverriddenVolumeValue { get; set; }
 
         [DynamoDBProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; }
 
         public DeviceSettings()
         {

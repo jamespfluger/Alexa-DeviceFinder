@@ -20,7 +20,7 @@ namespace DeviceFinder.Models.Auth
         public long TimeToLive { get; set; }
 
         [DynamoDBProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; }
 
         public AlexaUser() { ModifiedDate = DateTime.UtcNow; }
 

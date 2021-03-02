@@ -29,13 +29,7 @@
                     <RowDefinition Height="5.4*"/>
                     <RowDefinition Height="11.5*"/>
                 </Grid.RowDefinitions>
-                <!-- Top control header -->
-                <!--<Label x:Name="AppNameHeader" Grid.Row="0" Padding="15, 0, 0, 0"
-                   FontSize="24" FontFamily="Roboto" TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
-                   BackgroundColor="#03689E" VerticalTextAlignment="Center" >
-                Alexa Device Finder
-            </Label>-->
-
+                
                 <!-- Auth logo icon -->
                 <Image x:Name="AuthLogo" Grid.Row="2" Margin="40, 0, 0, 0"
                        HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
@@ -81,7 +75,7 @@
                 <!-- Continue button -->
                 <Button x:Name="SubmitButton"
                         HorizontalOptions="Center" Grid.Row="10" Scale="1.5" 
-                       Text="CONTINUE" Clicked="OnSubmitButtonClicked"/>
+                       Text="VERIFY" Clicked="OnSubmitButtonClicked"/>
             </Grid>
             
             <!-- Verification loading overlay -->
@@ -89,7 +83,7 @@
                 <Rectangle Fill="#000000" Opacity="0.65"></Rectangle>
                 <StackLayout Orientation="Vertical">
                     <lottie:AnimationView x:Name="animationView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                    Animation="shield_anim.json" AnimationSource="AssetOrBundle" RepeatMode="Infinite" Speed="0.8"/>
+                    Animation="shield_anim.json" AnimationSource="AssetOrBundle" RepeatMode="Infinite" Scale="0.65" Speed="0.8"/>
                     <Label x:Name="LoadingShield" HorizontalOptions="Center" VerticalOptions="Center"
                        FontSize="36" FontFamily="Roboto" VerticalTextAlignment="Center"
                        TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}">

@@ -2,35 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.Models.Devices;
 
 namespace DeviceFinder.Models.Auth
 {
-    /// <summary>
-    /// Model coming from device
-    /// </summary>
-    [DynamoDBTable("DeviceFinder_AuthDevices")]
     public class AuthDevice
     {
-        [DynamoDBHashKey("DeviceID")]
         public string DeviceId { get; set; }
 
-        [DynamoDBRangeKey("LoginUserID")]
         public string LoginUserId { get; set; }
 
-        [DynamoDBProperty("OneTimePasscode")]
         public string OneTimePasscode { get; set; }
 
-        [DynamoDBProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+        public string DeviceName { get; set; }
 
-        public AuthDevice() { }
-
-        public AuthDevice(string userId, string deviceId)
-        {
-            LoginUserId = userId;
-            DeviceId = deviceId;
-            ModifiedDate = DateTime.UtcNow;
-        }
+        public DeviceOperatingSystem DeviceOs { get; set; }
 
         public override string ToString()
         {
@@ -38,11 +24,16 @@ namespace DeviceFinder.Models.Auth
             {
                 nameof(LoginUserId) + ":" + LoginUserId,
                 nameof(DeviceId) + ":" + DeviceId,
-                nameof(OneTimePasscode) + ":" + OneTimePasscode,
-                nameof(ModifiedDate) + ":" + ModifiedDate
+                nameof(OneTimePasscode) + ":" + OneTimePasscode
             };
 
             return string.Join("|", modelInfo);
+        }
+
+        public bool IsModelValid()
+        {
+            return !string.IsNullOrEmpty(DeviceId) && !string.IsNullOrEmpty(LoginUserId) &&
+                   !string.IsNullOrEmpty(OneTimePasscode) && !string.IsNullOrEmpty(DeviceName);
         }
     }
 }

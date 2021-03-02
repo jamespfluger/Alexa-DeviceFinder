@@ -24,18 +24,20 @@ namespace DeviceFinder.Models.Devices
         public DeviceOperatingSystem DeviceOs { get; set; }
 
         [DynamoDBProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; }
 
         [DynamoDBIgnore()]
         public DeviceSettings DeviceSettings { get; set; }
 
-        public Device() { ModifiedDate = DateTime.UtcNow; }
+        public Device()
+        {
+            ModifiedDate = DateTime.UtcNow;
+            DeviceSettings = new DeviceSettings();
+        }
 
         public Device(AlexaUser alexaUser, AuthDevice authDevice)
         {
-            AlexaUserId = alexaUser.AlexaUserId;
-            DeviceId = authDevice.DeviceId;
-            LoginUserId = authDevice.LoginUserId;
+            
             ModifiedDate = DateTime.UtcNow;
             DeviceSettings = new DeviceSettings();
         }
