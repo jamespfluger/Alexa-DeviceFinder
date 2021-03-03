@@ -38,7 +38,7 @@ namespace DeviceFinder.Droid.Notifications
 
         public void IssueNotification(RemoteMessage remoteMessage)
         {
-            notificationBuilder.SetContentText(remoteMessage.GetNotification().Title);
+            notificationBuilder.SetContentText(remoteMessage.GetNotification()?.Title ?? "Device Finder (null title)");
             notificationManager.Notify(DateTime.Today.Millisecond, notificationBuilder.Build());
         }
 

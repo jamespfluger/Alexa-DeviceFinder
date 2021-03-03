@@ -11,16 +11,18 @@ namespace DeviceFinder.Droid.Notifications
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class FirebaseService : FirebaseMessagingService
     {
-        private NotificationForge forge;
+        private readonly NotificationForge forge;
 
         public FirebaseService()
         {
             FirebaseApp.InitializeApp(Platform.AppContext);
+            forge = new NotificationForge(ApplicationContext);
         }
 
         public FirebaseService(Context context)
         {
             FirebaseApp.InitializeApp(context);
+            forge = new NotificationForge(ApplicationContext);
         }
 
         public override void OnNewToken(string newToken)
@@ -32,9 +34,6 @@ namespace DeviceFinder.Droid.Notifications
         public override void OnMessageReceived(RemoteMessage remoteMessage)
         {
             base.OnMessageReceived(remoteMessage);
-
-            if (forge == null)
-                forge = new NotificationForge(ApplicationContext);
 
             forge.IssueNotification(remoteMessage);
         }
