@@ -6,13 +6,13 @@ using DeviceFinder.Models.Devices;
 
 namespace DeviceFinder.Models.Auth
 {
-    public class AuthDevice
+    public class AuthData
     {
-        public string DeviceId { get; set; }
+        public string OneTimePasscode { get; set; }
+
+        public string FirebaseToken { get; set; }
 
         public string LoginUserId { get; set; }
-
-        public string OneTimePasscode { get; set; }
 
         public string DeviceName { get; set; }
 
@@ -23,7 +23,7 @@ namespace DeviceFinder.Models.Auth
             List<string> modelInfo = new List<string>
             {
                 nameof(LoginUserId) + ":" + LoginUserId,
-                nameof(DeviceId) + ":" + DeviceId,
+                nameof(FirebaseToken) + ":" + FirebaseToken,
                 nameof(OneTimePasscode) + ":" + OneTimePasscode
             };
 
@@ -32,7 +32,7 @@ namespace DeviceFinder.Models.Auth
 
         public bool IsModelValid()
         {
-            return !string.IsNullOrEmpty(DeviceId) && !string.IsNullOrEmpty(LoginUserId) &&
+            return !string.IsNullOrEmpty(FirebaseToken) && !string.IsNullOrEmpty(LoginUserId) &&
                    !string.IsNullOrEmpty(OneTimePasscode) && !string.IsNullOrEmpty(DeviceName);
         }
     }

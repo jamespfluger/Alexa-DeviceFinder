@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.Models.Auth;
 using DeviceFinder.Models.Devices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,48 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
             context = new DynamoDBContext(client);
+        }
+
+        [HttpPost("users")]
+        public async Task<ActionResult> AddNewDevice([FromBody] AuthData authData)
+        {
+            try
+            {
+                // Verify the body we've received has the correct contents
+                if (authData == null || !authData.IsModelValid())
+                    return BadRequest($"Error in add: AuthUserDevice body is missing (IsNull={authData == null}) or malformed: {authData}");
+
+                // Find the user created when interacting with Alexa
+                AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authData.OneTimePasscode);
+
+                // Ensure the user exists AND that the OTP has not expired
+                if (alexaUser?.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                    return Unauthorized("The entered code has expired.");
+                else if (alexaUser == null)
+                    return NotFound();
+
+                Device newDevice = new Device
+                {
+                    AlexaUserId = alexaUser.AlexaUserId,
+                    FirebaseToken = authData.FirebaseToken,
+                    LoginUserId = authData.LoginUserId,
+                    DeviceName = authData.DeviceName,
+                    DeviceOs = authData.DeviceOs
+                };
+
+                // Save the new device, and delete the old AlexaUser entry
+                Task saveResult = context.SaveAsync(newDevice);
+                Task deleteAlexaAuthResult = context.DeleteAsync<AlexaUser>(alexaUser.AlexaUserId);
+
+                Task.WaitAll(saveResult, deleteAlexaAuthResult);
+
+                return CreatedAtAction(nameof(AddNewDevice), newDevice);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = $"{ex.Message}\n\n{ex}\n\n{authData}";
+                return BadRequest(errorMessage);
+            }
         }
 
         /*/// TODO: add documentation
@@ -51,7 +94,7 @@ namespace DeviceFinder.DeviceApi.Controllers
 
                 foreach (Device device in devices)
                 {
-                    device.DeviceSettings = settings.FirstOrDefault(setting => device.DeviceId == setting.DeviceId);
+                    device.DeviceSettings = settings.FirstOrDefault(setting => device.FirebaseToken == setting.FirebaseToken);
                     device.DeviceSettings ??= new DeviceSettings();
                 }
 
@@ -72,7 +115,7 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                if (device == null || string.IsNullOrEmpty(device.AlexaUserId) || string.IsNullOrEmpty(device.DeviceId))
+                if (device == null || string.IsNullOrEmpty(device.AlexaUserId) || string.IsNullOrEmpty(device.FirebaseToken))
                     return BadRequest($"Error in settings save: UserDevice body is missing ({device == null}) or malformed: {device.ToString()}");
 
                 await context.SaveAsync(device);
@@ -91,7 +134,7 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.DeviceId))
+                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.FirebaseToken))
                     return BadRequest($"Error in settings save: DeviceSettings body is missing ({deviceSettings == null}) or malformed: {deviceSettings.ToString()}");
 
                 await context.SaveAsync(deviceSettings);

@@ -15,14 +15,14 @@ namespace DeviceFinder.Droid.Notifications
 
         public FirebaseService()
         {
-            FirebaseApp.InitializeApp(Platform.AppContext);
-            forge = new NotificationForge(ApplicationContext);
+            FirebaseApp.InitializeApp(Platform.CurrentActivity);
+            forge = new NotificationForge(Platform.CurrentActivity);
         }
 
         public FirebaseService(Context context)
         {
-            FirebaseApp.InitializeApp(context);
-            forge = new NotificationForge(ApplicationContext);
+            FirebaseApp.InitializeApp(Platform.CurrentActivity);
+            forge = new NotificationForge(Platform.CurrentActivity);
         }
 
         public override void OnNewToken(string newToken)

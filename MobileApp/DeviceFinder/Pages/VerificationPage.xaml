@@ -64,12 +64,12 @@
                         <ColumnDefinition Width="14*"/>
                         <ColumnDefinition Width="8*"/>
                     </Grid.ColumnDefinitions>
-                    <Entry x:Name="otpField0" Grid.Column="1" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                    <Entry x:Name="otpField1" Grid.Column="2" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                    <Entry x:Name="otpField2" Grid.Column="3" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                    <Entry x:Name="otpField3" Grid.Column="4" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                    <Entry x:Name="otpField4" Grid.Column="5" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
-                    <Entry x:Name="otpField5" Grid.Column="6" ReturnType="Send" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField0" Text="1" Grid.Column="1" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField1" Text="2" Grid.Column="2" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField2" Text="3" Grid.Column="3" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField3" Text="4" Grid.Column="4" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField4" Text="5" Grid.Column="5" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
+                    <Entry x:Name="otpField5" Text="6" Grid.Column="6" ReturnType="Send" TextChanged="OnOtpFieldTextChanged" Focused="OnOtpFieldFocus"/>
                 </Grid>
 
                 <!-- Continue button -->

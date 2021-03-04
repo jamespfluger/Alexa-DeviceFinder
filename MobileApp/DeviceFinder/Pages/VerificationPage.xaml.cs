@@ -10,9 +10,11 @@ using DeviceFinder.API;
 using DeviceFinder.Models.Auth;
 using DeviceFinder.Models.Devices;
 using DeviceFinder.Utility;
+using Newtonsoft.Json;
 using RestSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Device = DeviceFinder.Models.Devices.Device;
 
 namespace DeviceFinder.Pages
 {
@@ -32,42 +34,45 @@ namespace DeviceFinder.Pages
             {
                 otpContainerFrame.BorderColor = (Color)Application.Current.Resources["DarkErrorColor"];
                 await AnimationUtil.Shake(otpContainer, 0.9);
+                return;
             }
-            else
+
+            saveOverlay.IsVisible = true;
+
+            AuthData authData = new AuthData
             {
-                saveOverlay.IsVisible = true;
+                OneTimePasscode = string.Join("", otpFields.Select(f => f.Text)),
+                FirebaseToken = CachedData.FirebaseToken,
+                LoginUserId = CachedData.LoginUserId,
+                DeviceName = CachedData.DeviceName,
+                DeviceOs = DeviceOperatingSystem.Android
+            };
 
-                AuthDevice newDevice = new AuthDevice
-                {
-                    DeviceId = CachedData.FirebaseToken,
-                    LoginUserId = CachedData.LoginUserId,
-                    DeviceName = CachedData.DeviceName,
-                    DeviceOs = DeviceOperatingSystem.Android,
-                    OneTimePasscode = string.Join("", otpFields.Select(f => f.Text))
-                };
+            IRestResponse saveResponse = null;
 
-                IRestResponse saveResponse = null; ;
+            try
+            {
+                ApiService api = new ApiService();
+                saveResponse = await api.CreateDevice(authData);
 
-                try
-                {
-                    ApiService api = new ApiService();
-                    saveResponse = await api.SaveDevice(newDevice);
-                }
-                catch (Exception ex)
-                {
-                    IToaster toaster = DependencyForge.Get<IToaster>();
-                    toaster.ShowShortToast(ex.Message);
-                }
-                finally
-                {
-                    if (saveResponse.ResponseStatus != ResponseStatus.Completed || saveResponse.StatusCode != HttpStatusCode.Created)
-                        HandleSaveError(saveResponse);
-                }
+                Device newDevice = JsonConvert.DeserializeObject<Device>(saveResponse.Content);
+                CachedData.AlexaUserId = newDevice.AlexaUserId;
 
                 saveOverlay.IsVisible = false;
-
-                //Application.Current.MainPage = new DeviceConfigPage();
             }
+            catch (Exception ex)
+            {
+                IToaster toaster = DependencyForge.Get<IToaster>();
+                toaster.ShowShortToast(ex.Message);
+            }
+            finally
+            {
+                if (saveResponse.ResponseStatus != ResponseStatus.Completed || saveResponse.StatusCode != HttpStatusCode.Created)
+                    HandleSaveError(saveResponse);
+            }
+
+            if (saveResponse.ResponseStatus == ResponseStatus.Completed && saveResponse.StatusCode == HttpStatusCode.Created)
+                Application.Current.MainPage = new DeviceConfigRootPage();
         }
 
         private void HandleSaveError(IRestResponse saveResponse)

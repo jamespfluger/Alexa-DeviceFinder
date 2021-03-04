@@ -11,11 +11,11 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBHashKey("AlexaUserID")]
         public string AlexaUserId { get; set; }
 
-        [DynamoDBRangeKey("DeviceID")]
-        public string DeviceId { get; set; }
-
-        [DynamoDBProperty("LoginUserID")]
+        [DynamoDBRangeKey("LoginUserID")]
         public string LoginUserId { get; set; }
+
+        [DynamoDBProperty("FirebaseToken")]
+        public string FirebaseToken { get; set; }
 
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
@@ -35,9 +35,12 @@ namespace DeviceFinder.Models.Devices
             DeviceSettings = new DeviceSettings();
         }
 
-        public Device(AlexaUser alexaUser, AuthDevice authDevice)
+        public Device(AlexaUser alexaUser, AuthData authData)
         {
-            
+            AlexaUserId = alexaUser.AlexaUserId;
+            DeviceName = authData.DeviceName;
+            DeviceOs = authData.DeviceOs;
+            FirebaseToken = authData.FirebaseToken;
             ModifiedDate = DateTime.UtcNow;
             DeviceSettings = new DeviceSettings();
         }
@@ -47,7 +50,7 @@ namespace DeviceFinder.Models.Devices
             List<string> modelInformation = new List<string>();
 
             modelInformation.Add(nameof(Device.AlexaUserId) + ":" + AlexaUserId);
-            modelInformation.Add(nameof(Device.DeviceId) + ":" + DeviceId);
+            modelInformation.Add(nameof(Device.FirebaseToken) + ":" + FirebaseToken);
             modelInformation.Add(nameof(Device.LoginUserId) + ":" + LoginUserId);
             modelInformation.Add(nameof(Device.DeviceName) + ":" + DeviceName);
             modelInformation.Add(nameof(Device.DeviceOs) + ":" + DeviceOs.ToString());

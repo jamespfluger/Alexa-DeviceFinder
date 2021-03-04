@@ -35,14 +35,14 @@ namespace DeviceFinder.AlexaSkill.Services
         {
             try
             {
-                Logger.Log($"Sending notification to {request.DeviceId}");
+                Logger.Log($"Sending notification to {request.FirebaseToken}");
 
                 Message message;
 
                 if (request.DeviceOs == DeviceOperatingSystem.Android)
-                    message = CreateAndroidNotification(request.DeviceId);
+                    message = CreateAndroidNotification(request.FirebaseToken);
                 else
-                    message = CreateAppleNotification(request.DeviceId);
+                    message = CreateAppleNotification(request.FirebaseToken);
 
                 Stopwatch s = Stopwatch.StartNew();
                 string sendResult = await FirebaseMessaging.DefaultInstance.SendAsync(message);
@@ -52,7 +52,7 @@ namespace DeviceFinder.AlexaSkill.Services
             }
             catch (Exception ex)
             {
-                Logger.Log($"An unhandled exception occured when sending the message for token {request.DeviceId}: {ex}");
+                Logger.Log($"An unhandled exception occured when sending the message for token {request.FirebaseToken}: {ex}");
                 throw;
             }
         }

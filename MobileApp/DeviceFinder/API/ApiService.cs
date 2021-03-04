@@ -11,7 +11,7 @@ namespace DeviceFinder.API
 {
     public class ApiService
     {
-        public ApiService Instance => lazyApi.Value;
+        public static ApiService Instance => lazyApi.Value;
 
         private readonly IRestClient client = new RestClient(baseUrl);
         private const string baseUrl = "https://qsbrgmx8u1.execute-api.us-west-2.amazonaws.com/prd/devicefinder/";
@@ -25,30 +25,30 @@ namespace DeviceFinder.API
         {
             saveResourceEndpoints = new Dictionary<Type, string>
             {
-                [typeof(AuthDevice)] = "auth/users",
+                [typeof(AuthData)] = "auth/users",
                 [typeof(Device)] = "",
                 [typeof(DeviceSettings)] = ""
             };
             updateResourceEndpoints = new Dictionary<Type, string>
             {
-                [typeof(AuthDevice)] = "users/{userid}",
+                [typeof(AuthData)] = "users/{userid}",
                 [typeof(Device)] = "",
                 [typeof(DeviceSettings)] = ""
             };
             getResourceEndpoints = new Dictionary<Type, string>
             {
-                [typeof(AuthDevice)] = "auth/users",
+                [typeof(AuthData)] = "auth/users",
                 [typeof(Device)] = "",
                 [typeof(DeviceSettings)] = ""
             };
         }
 
-        public async Task<IRestResponse> SaveDevice(AuthDevice newDevice)
+        public async Task<IRestResponse> CreateDevice(AuthData authData)
         {
             RestRequest addRequest = new RestRequest();
             addRequest.Method = Method.POST;
-            addRequest.Resource = "auth/users";
-            addRequest.AddJsonBody(newDevice);
+            addRequest.Resource = "management/users";
+            addRequest.AddJsonBody(authData);
 
             return await client.ExecuteAsync(addRequest);
         }

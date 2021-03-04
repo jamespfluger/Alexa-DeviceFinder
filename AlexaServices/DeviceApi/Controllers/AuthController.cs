@@ -27,19 +27,19 @@ namespace DeviceFinder.DeviceApi.Controllers
         /// <summary>
         /// Inserts/Updates a Amazon user ID and Android device ID pair
         /// </summary>
-        /// <param name="authDevice">Pair of User and Android IDs</param>
+        /// <param name="authData">Pair of User and Android IDs</param>
         /// TODO: rename this to "devices"
         [HttpPost("users")]
-        public async Task<ActionResult> AddNewDevice([FromBody] AuthDevice authDevice)
+        public async Task<ActionResult> AddNewDevice([FromBody] AuthData authData)
         {
             try
             {
                 // Verify the body we've received has the correct contents
-                if (authDevice == null || !authDevice.IsModelValid())
-                    return BadRequest($"Error in add: AuthUserDevice body is missing (IsNull={authDevice == null}) or malformed: {authDevice}");
+                if (authData == null || !authData.IsModelValid())
+                    return BadRequest($"Error in add: AuthUserDevice body is missing (IsNull={authData == null}) or malformed: {authData}");
 
                 // Find the user created when interacting with Alexa
-                AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authDevice.OneTimePasscode);
+                AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authData.OneTimePasscode);
 
                 // Ensure the user exists AND that the OTP has not expired
                 if (alexaUser == null)
@@ -50,10 +50,10 @@ namespace DeviceFinder.DeviceApi.Controllers
                 Device fullUserDevice = new Device
                 {
                     AlexaUserId = alexaUser.AlexaUserId,
-                    DeviceId = authDevice.DeviceId,
-                    LoginUserId = authDevice.LoginUserId,
-                    DeviceName = authDevice.DeviceName,
-                    DeviceOs = authDevice.DeviceOs
+                    FirebaseToken = authData.FirebaseToken,
+                    LoginUserId = authData.LoginUserId,
+                    DeviceName = authData.DeviceName,
+                    DeviceOs = authData.DeviceOs
                 };
 
                 // Save the new device, and delete the old AlexaUser entry
@@ -62,13 +62,11 @@ namespace DeviceFinder.DeviceApi.Controllers
 
                 Task.WaitAll(saveResult, deleteAlexaAuthResult);
 
-                var result = CreatedAtAction(nameof(AddNewDevice), fullUserDevice);
-
-                return result;
+                return CreatedAtAction(nameof(AddNewDevice), fullUserDevice);
             }
             catch (Exception ex)
             {
-                string errorMessage = $"{ex.Message}\n\n{ex}\n\n{authDevice}";
+                string errorMessage = $"{ex.Message}\n\n{ex}\n\n{authData}";
                 return BadRequest(errorMessage);
             }
         }
