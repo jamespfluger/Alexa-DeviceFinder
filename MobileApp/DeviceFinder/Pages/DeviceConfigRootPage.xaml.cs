@@ -1,6 +1,11 @@
-﻿using System;
+﻿using DeviceFinder.API;
+using DeviceFinder.Utility;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Device = DeviceFinder.Models.Devices.Device;
 
 namespace DeviceFinder.Pages
 {

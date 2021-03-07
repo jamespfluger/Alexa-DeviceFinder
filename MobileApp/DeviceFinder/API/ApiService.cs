@@ -67,7 +67,7 @@ namespace DeviceFinder.API
         {
             RestClient client = new RestClient(baseUrl);
             RestRequest getDevicesRequest = new RestRequest("management/users/{userid}", Method.GET);
-            getDevicesRequest.AddParameter("userid", alexaUserId);
+            getDevicesRequest.AddUrlSegment("userid", alexaUserId);
 
             IRestResponse response = client.Execute(getDevicesRequest);
             List<Device> userDevices = JsonConvert.DeserializeObject<List<Device>>(response.Content);

@@ -84,24 +84,23 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                Task<List<Device>> deviceSearchResults = context.QueryAsync<Device>(userId).GetRemainingAsync();
-                Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(userId).GetRemainingAsync();
+                //Task<List<Device>> deviceSearchResults = context.QueryAsync<Device>(userId).GetRemainingAsync();
+                //Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(userId).GetRemainingAsync();
+                //await Task.WhenAll(deviceSearchResults, settingsSearchResults);
+                //List<Device> devices = deviceSearchResults.Result;
+                //List<DeviceSettings> settings = settingsSearchResults.Result;
 
-                await Task.WhenAll(deviceSearchResults, settingsSearchResults);
-
-                List<Device> devices = deviceSearchResults.Result;
-                List<DeviceSettings> settings = settingsSearchResults.Result;
+                List<Device> devices = await context.QueryAsync<Device>(userId).GetRemainingAsync();
 
                 foreach (Device device in devices)
                 {
-                    device.DeviceSettings = settings.FirstOrDefault(setting => device.FirebaseToken == setting.FirebaseToken);
                     device.DeviceSettings ??= new DeviceSettings();
                 }
 
                 if (devices.Any())
                     return Ok(devices);
                 else
-                    return NotFound();
+                    return NotFound($"No devices found for user {userId}");
             }
             catch (Exception ex)
             {
