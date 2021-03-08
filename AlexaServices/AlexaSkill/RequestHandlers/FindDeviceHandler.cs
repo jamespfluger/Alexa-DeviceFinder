@@ -8,21 +8,22 @@ using Alexa.NET.Response;
 using Amazon.DynamoDBv2.Model;
 using DeviceFinder.AlexaSkill.Services;
 using DeviceFinder.AlexaSkill.Utility;
-using DeviceFinder.Models.Devices;
+using Extendy.Strings.Common;
+using Device = DeviceFinder.Models.Devices.Device;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class FindDeviceHandler : IRequestHandler
     {
-        public async Task<SkillResponse> ProcessRequest(Intent intent, AlexaSystem system)
+        public async Task<SkillResponse> ProcessRequest(Intent intent, string alexaUserId)
         {
             try
             {
                 // Grab the device information from Dynamo and immediately send the notification
-                List<UserDevice> userDevices = await DynamoService.Instance.QueryItems<UserDevice>(system.User.UserId);
-                UserDevice foundDevice = null;
+                List<Device> userDevices = await DynamoService.Instance.QueryItems<Device>(alexaUserId);
+                Device foundDevice = null;
 
-                if (userDevices == null || userDevices.Count == 0)
+                if (userDevices?.Count == 0)
                 {
                     throw new ResourceNotFoundException("This device may not have been set up yet.");
                 }
@@ -32,11 +33,10 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                 }
                 else
                 {
-                    foundDevice = userDevices.Single(u => u.DeviceName.Contains("James", StringComparison.OrdinalIgnoreCase) || u.DeviceName.Contains("Jim", StringComparison.OrdinalIgnoreCase));
-                    /*if (intent.Slots["Name"].Value != null)
+                    if (intent.Slots["Name"].Value != null)
                     {
                         string name = intent.Slots["Name"].Value.Replace("'s","");
-                        foundDevice = userDevices.Single(u => u.DeviceName.Contains("James", StringComparison.OrdinalIgnoreCase) || u.DeviceName.Contains("Jim", StringComparison.OrdinalIgnoreCase));
+                        foundDevice = userDevices.FirstOrDefault(d => d.DeviceName.ContainsIgnoreCase(name));
 
                         if (foundDevice == null)
                         {
@@ -46,9 +46,8 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                     else
                     {
                         throw new ResourceNotFoundException($"There are multiple devices associated with this account, but no name was supplied.");
-                    }*/
+                    }
                 }
-
 
                 // Immediately send the notification
                 await FirebaseService.Instance.SendFirebaseMessage(foundDevice);

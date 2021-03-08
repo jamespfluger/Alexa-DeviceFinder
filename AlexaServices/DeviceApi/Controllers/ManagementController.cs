@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using DeviceFinder.Models.Auth;
 using DeviceFinder.Models.Devices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,48 @@ namespace DeviceFinder.DeviceApi.Controllers
             context = new DynamoDBContext(client);
         }
 
+        [HttpPost("users")]
+        public async Task<ActionResult> AddNewDevice([FromBody] AuthData authData)
+        {
+            try
+            {
+                // Verify the body we've received has the correct contents
+                if (authData == null || !authData.IsModelValid())
+                    return BadRequest($"Error in add: AuthUserDevice body is missing (IsNull={authData == null}) or malformed: {authData}");
+
+                // Find the user created when interacting with Alexa
+                AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authData.OneTimePasscode);
+
+                // Ensure the user exists AND that the OTP has not expired
+                if (alexaUser?.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                    return Unauthorized("The entered code has expired.");
+                else if (alexaUser == null)
+                    return NotFound();
+
+                Device newDevice = new Device
+                {
+                    AlexaUserId = alexaUser.AlexaUserId,
+                    FirebaseToken = authData.FirebaseToken,
+                    DeviceID = authData.LoginUserId,
+                    DeviceName = authData.DeviceName,
+                    DeviceOs = authData.DeviceOs
+                };
+
+                // Save the new device, and delete the old AlexaUser entry
+                Task saveResult = context.SaveAsync(newDevice);
+                Task deleteAlexaAuthResult = context.DeleteAsync<AlexaUser>(alexaUser.AlexaUserId);
+
+                Task.WaitAll(saveResult, deleteAlexaAuthResult);
+
+                return CreatedAtAction(nameof(AddNewDevice), newDevice);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = $"{ex.Message}\n\n{ex}\n\n{authData}";
+                return BadRequest(errorMessage);
+            }
+        }
+
         /*/// TODO: add documentation
         //[HttpGet("users/{userid}/devices/{deviceid}")]
         //public async Task<ActionResult<UserDevice>> GetSingleUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
@@ -37,28 +80,27 @@ namespace DeviceFinder.DeviceApi.Controllers
 
         /// TODO: add documentation
         [HttpGet("users/{userid}")]
-        public async Task<ActionResult<List<UserDevice>>> GetAllUserDevices([FromRoute] string userId)
+        public async Task<ActionResult<List<Device>>> GetAllUserDevices([FromRoute] string userId)
         {
             try
             {
-                Task<List<UserDevice>> deviceSearchResults = context.QueryAsync<UserDevice>(userId).GetRemainingAsync();
-                Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(userId).GetRemainingAsync();
+                //Task<List<Device>> deviceSearchResults = context.QueryAsync<Device>(userId).GetRemainingAsync();
+                //Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(userId).GetRemainingAsync();
+                //await Task.WhenAll(deviceSearchResults, settingsSearchResults);
+                //List<Device> devices = deviceSearchResults.Result;
+                //List<DeviceSettings> settings = settingsSearchResults.Result;
 
-                await Task.WhenAll(deviceSearchResults, settingsSearchResults);
+                List<Device> devices = await context.QueryAsync<Device>(userId).GetRemainingAsync();
 
-                List<UserDevice> devices = deviceSearchResults.Result;
-                List<DeviceSettings> settings = settingsSearchResults.Result;
-
-                foreach (UserDevice device in devices)
+                foreach (Device device in devices)
                 {
-                    device.DeviceSettings = settings.FirstOrDefault(setting => device.DeviceId == setting.DeviceId);
                     device.DeviceSettings ??= new DeviceSettings();
                 }
 
                 if (devices.Any())
                     return Ok(devices);
                 else
-                    return NotFound();
+                    return NotFound($"No devices found for user {userId}");
             }
             catch (Exception ex)
             {
@@ -68,11 +110,11 @@ namespace DeviceFinder.DeviceApi.Controllers
 
         /// TODO: add documentation
         [HttpPut("/users/{userid}/devices/{deviceid}")]
-        public async Task<ActionResult> SaveUserDevice([FromBody] UserDevice device)
+        public async Task<ActionResult> SaveUserDevice([FromBody] Device device)
         {
             try
             {
-                if (device == null || string.IsNullOrEmpty(device.AlexaUserId) || string.IsNullOrEmpty(device.DeviceId))
+                if (device == null || string.IsNullOrEmpty(device.AlexaUserId) || string.IsNullOrEmpty(device.FirebaseToken))
                     return BadRequest($"Error in settings save: UserDevice body is missing ({device == null}) or malformed: {device.ToString()}");
 
                 await context.SaveAsync(device);
@@ -91,7 +133,7 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.DeviceId))
+                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.DeviceID))
                     return BadRequest($"Error in settings save: DeviceSettings body is missing ({deviceSettings == null}) or malformed: {deviceSettings.ToString()}");
 
                 await context.SaveAsync(deviceSettings);
@@ -104,40 +146,25 @@ namespace DeviceFinder.DeviceApi.Controllers
             }
         }
 
-        /*/// TODO: add documentation
-        //[HttpPost("users")]
-        //public async Task<ActionResult> DeleteAuthDevice([FromQuery] string amazonUserId)
-        //{
-        //    try
-        //    {
-        //        await context.DeleteAsync<AuthDevice>(amazonUserId);
-        //        return Ok("Device deleted.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.ToString() + Environment.NewLine + amazonUserId);
-        //    }
-        //}*/
-
         /* /// TODO: add documentation
-        //[HttpGet("devices/settings")]
-        //public async Task<ActionResult<List<DeviceSettings>>> GetSettingsForAllDevices([FromRoute] string userId)
-        //{
-        //    try
-        //    {
-        //        AsyncSearch<DeviceSettings> searchResults = context.QueryAsync<DeviceSettings>(userId);
-        //        List<DeviceSettings> allUserDevices = await searchResults.GetRemainingAsync();
+        [HttpGet("devices/settings")]
+        public async Task<ActionResult<List<DeviceSettings>>> GetSettingsForAllDevices([FromRoute] string userId)
+        {
+            try
+            {
+                AsyncSearch<DeviceSettings> searchResults = context.QueryAsync<DeviceSettings>(userId);
+                List<DeviceSettings> allUserDevices = await searchResults.GetRemainingAsync();
 
-        //        if (allUserDevices.Any())
-        //            return Ok(allUserDevices);
-        //        else
-        //            return NotFound();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.ToString() + Environment.NewLine + userId);
-        //    }
-        //}*/
+                if (allUserDevices.Any())
+                    return Ok(allUserDevices);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString() + Environment.NewLine + userId);
+            }
+        }*/
 
     }
 }
