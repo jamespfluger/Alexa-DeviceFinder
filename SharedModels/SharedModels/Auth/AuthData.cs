@@ -16,15 +16,14 @@ namespace DeviceFinder.Models.Auth
 
         public string DeviceName { get; set; }
 
-        public DeviceOperatingSystem DeviceOs { get; set; }
-
         public override string ToString()
         {
             List<string> modelInfo = new List<string>
             {
-                nameof(LoginUserId) + ":" + LoginUserId,
-                nameof(FirebaseToken) + ":" + FirebaseToken,
-                nameof(OneTimePasscode) + ":" + OneTimePasscode
+                $"{nameof(DeviceName)}:{DeviceName}",
+                $"{nameof(OneTimePasscode)}:{OneTimePasscode}",
+                $"{nameof(LoginUserId)}:{LoginUserId}",
+                $"{nameof(FirebaseToken)}:{FirebaseToken}",
             };
 
             return string.Join("|", modelInfo);

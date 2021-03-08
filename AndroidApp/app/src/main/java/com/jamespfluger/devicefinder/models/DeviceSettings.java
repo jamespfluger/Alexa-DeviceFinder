@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.models;
+package com.jamespfluger.devicefinder.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -102,5 +102,4 @@ public class DeviceSettings {
     public void setOverriddenVolumeValue(int overriddenVolumeValue) {
         this.overriddenVolumeValue = overriddenVolumeValue;
     }
-
 }

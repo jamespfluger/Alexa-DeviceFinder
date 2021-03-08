@@ -1,8 +1,8 @@
-package com.jamespfluger.alexadevicefinder.models;
+package com.jamespfluger.devicefinder.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AuthUserDevice {
+public class AuthData {
     @SerializedName("AmazonUserID")
     private String userId;
     @SerializedName("DeviceID")
@@ -14,7 +14,7 @@ public class AuthUserDevice {
     @SerializedName("OneTimePasscode")
     private String otp;
 
-    public AuthUserDevice() {
+    public AuthData() {
     }
 
     public String getUserId() {

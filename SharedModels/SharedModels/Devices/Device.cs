@@ -11,7 +11,10 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBHashKey("AlexaUserID")]
         public string AlexaUserId { get; set; }
 
-        [DynamoDBRangeKey("LoginUserID")]
+        [DynamoDBRangeKey("DeviceID")]
+        public string DeviceID { get; set; }
+
+        [DynamoDBProperty("LoginUserID")]
         public string LoginUserId { get; set; }
 
         [DynamoDBProperty("FirebaseToken")]
@@ -19,9 +22,6 @@ namespace DeviceFinder.Models.Devices
 
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
-
-        [DynamoDBProperty("DeviceOS")]
-        public DeviceOperatingSystem DeviceOs { get; set; }
 
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; }
@@ -39,7 +39,6 @@ namespace DeviceFinder.Models.Devices
         {
             AlexaUserId = alexaUser.AlexaUserId;
             DeviceName = authData.DeviceName;
-            DeviceOs = authData.DeviceOs;
             FirebaseToken = authData.FirebaseToken;
             ModifiedDate = DateTime.UtcNow;
             DeviceSettings = new DeviceSettings();
@@ -47,14 +46,15 @@ namespace DeviceFinder.Models.Devices
 
         public override string ToString()
         {
-            List<string> modelInformation = new List<string>();
-
-            modelInformation.Add(nameof(Device.AlexaUserId) + ":" + AlexaUserId);
-            modelInformation.Add(nameof(Device.FirebaseToken) + ":" + FirebaseToken);
-            modelInformation.Add(nameof(Device.LoginUserId) + ":" + LoginUserId);
-            modelInformation.Add(nameof(Device.DeviceName) + ":" + DeviceName);
-            modelInformation.Add(nameof(Device.DeviceOs) + ":" + DeviceOs.ToString());
-            modelInformation.Add(nameof(Device.ModifiedDate) + ":" + ModifiedDate);
+            List<string> modelInformation = new List<string>
+            {
+                $"{nameof(Device.DeviceName)}:{DeviceName}",
+                $"{nameof(Device.AlexaUserId)}:{AlexaUserId}",
+                $"{nameof(Device.DeviceID)}:{DeviceID}",
+                $"{nameof(Device.LoginUserId)}:{LoginUserId}",
+                $"{nameof(Device.FirebaseToken)}:{FirebaseToken}",
+                $"{nameof(Device.ModifiedDate)}:{ModifiedDate}"
+            };
 
             return string.Join("|", modelInformation);
         }

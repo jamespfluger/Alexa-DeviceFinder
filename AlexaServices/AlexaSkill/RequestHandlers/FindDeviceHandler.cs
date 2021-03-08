@@ -8,7 +8,6 @@ using Alexa.NET.Response;
 using Amazon.DynamoDBv2.Model;
 using DeviceFinder.AlexaSkill.Services;
 using DeviceFinder.AlexaSkill.Utility;
-using DeviceFinder.Models.Devices;
 using Extendy.Strings.Common;
 using Device = DeviceFinder.Models.Devices.Device;
 

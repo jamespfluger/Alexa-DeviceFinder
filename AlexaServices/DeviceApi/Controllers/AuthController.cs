@@ -51,9 +51,8 @@ namespace DeviceFinder.DeviceApi.Controllers
                 {
                     AlexaUserId = alexaUser.AlexaUserId,
                     FirebaseToken = authData.FirebaseToken,
-                    LoginUserId = authData.LoginUserId,
-                    DeviceName = authData.DeviceName,
-                    DeviceOs = authData.DeviceOs
+                    DeviceID = authData.LoginUserId,
+                    DeviceName = authData.DeviceName
                 };
 
                 // Save the new device, and delete the old AlexaUser entry

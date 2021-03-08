@@ -46,7 +46,7 @@ namespace DeviceFinder.DeviceApi.Controllers
                 {
                     AlexaUserId = alexaUser.AlexaUserId,
                     FirebaseToken = authData.FirebaseToken,
-                    LoginUserId = authData.LoginUserId,
+                    DeviceID = authData.LoginUserId,
                     DeviceName = authData.DeviceName,
                     DeviceOs = authData.DeviceOs
                 };
@@ -133,7 +133,7 @@ namespace DeviceFinder.DeviceApi.Controllers
         {
             try
             {
-                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.FirebaseToken))
+                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.DeviceID))
                     return BadRequest($"Error in settings save: DeviceSettings body is missing ({deviceSettings == null}) or malformed: {deviceSettings.ToString()}");
 
                 await context.SaveAsync(deviceSettings);

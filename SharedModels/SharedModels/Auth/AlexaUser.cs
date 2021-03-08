@@ -28,10 +28,10 @@ namespace DeviceFinder.Models.Auth
         {
             List<string> modelInfo = new List<string>
             {
-                nameof(OneTimePasscode) + ":" + OneTimePasscode,
-                nameof(AlexaUserId) + ":" + AlexaUserId,
-                nameof(TimeToLive) + ":" + TimeToLive,
-                nameof(ModifiedDate) + ":" + ModifiedDate
+                $"{nameof(OneTimePasscode)}:{OneTimePasscode}",
+                $"{nameof(AlexaUserId)}:{AlexaUserId}",
+                $"{nameof(TimeToLive)}:{TimeToLive}",
+                $"{nameof(ModifiedDate)}:{ModifiedDate}"
             };
 
             return string.Join("|", modelInfo);

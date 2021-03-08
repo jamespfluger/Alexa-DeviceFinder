@@ -9,8 +9,8 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBHashKey("AlexaUserID")]
         public string AlexaUserId { get; set; }
 
-        [DynamoDBRangeKey("FirebaseToken")]
-        public string FirebaseToken { get; set; }
+        [DynamoDBRangeKey("DeviceID")]
+        public string DeviceID { get; set; }
 
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
