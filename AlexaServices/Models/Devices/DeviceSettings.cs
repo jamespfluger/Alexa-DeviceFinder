@@ -10,7 +10,7 @@ namespace DeviceFinder.Models.Devices
         public string AlexaUserId { get; set; }
 
         [DynamoDBRangeKey("DeviceID")]
-        public string DeviceId { get; set; }
+        public string DeviceID { get; set; }
 
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
@@ -34,7 +34,7 @@ namespace DeviceFinder.Models.Devices
         public int OverriddenVolumeValue { get; set; }
 
         [DynamoDBProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; }
 
         public DeviceSettings()
         {

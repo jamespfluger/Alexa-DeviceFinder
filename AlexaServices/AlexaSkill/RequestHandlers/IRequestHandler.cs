@@ -6,6 +6,6 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public interface IRequestHandler
     {
-        public Task<SkillResponse> ProcessRequest(Intent intent, AlexaSystem system);
+        public Task<SkillResponse> ProcessRequest(Intent intent, string alexaUserId);
     }
 }

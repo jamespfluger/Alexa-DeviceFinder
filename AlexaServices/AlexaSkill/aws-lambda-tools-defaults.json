@@ -12,5 +12,7 @@
     "function-timeout"     : 15,
     "function-runtime"     : "dotnetcore3.1",
     "tracing-mode"         : "PassThrough",
-    "environment-variables" : ""
+    "environment-variables" : "\"LAMBDA_NET_SERIALIZER_DEBUG\"=\"true\"",
+    "package-type"          : "Zip",
+    "image-tag"             : ""
 }

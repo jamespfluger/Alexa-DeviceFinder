@@ -13,7 +13,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
     public class AddDeviceHandler : IRequestHandler
     {
-        public async Task<SkillResponse> ProcessRequest(Intent request, AlexaSystem system)
+        public async Task<SkillResponse> ProcessRequest(Intent request, string alexaUserId)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                 {
                     computedOtp = GenerateOtp();
 
-                    AuthAlexaUser queriedAuthUser = await DynamoService.Instance.LoadItem<AuthAlexaUser>(computedOtp);
+                    AlexaUser queriedAuthUser = await DynamoService.Instance.LoadItem<AlexaUser>(computedOtp);
 
                     if (queriedAuthUser != null)
                     {
@@ -32,23 +32,20 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
                         numAttempts++;
                         continue;
                     }
+
+                    AlexaUser newAlexaAuthUser = new AlexaUser();
+                    newAlexaAuthUser.OneTimePasscode = computedOtp;
+                    newAlexaAuthUser.AlexaUserId = alexaUserId;
+                    newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddMinutes(5).ToUnixTimeSeconds();
+
+                    bool didSaveSucceed = await DynamoService.Instance.SaveItem(newAlexaAuthUser);
+
+                    if (didSaveSucceed)
+                        break;
                     else
-                    {
-                        AuthAlexaUser newAlexaAuthUser = new AuthAlexaUser();
-                        newAlexaAuthUser.OneTimePassword = computedOtp;
-                        newAlexaAuthUser.AlexaUserId = system.User.UserId;
-                        newAlexaAuthUser.AlexaDeviceId = system.Device.DeviceID;
-                        newAlexaAuthUser.TimeToLive = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds();
+                        Logger.Log($"Error saving OTP value '{computedOtp}'. Attempting to generate a new one.");
 
-                        bool didSaveSucceed = await DynamoService.Instance.SaveItem(newAlexaAuthUser);
-
-                        if (didSaveSucceed)
-                            break;
-                        else
-                            Logger.Log($"Error saving OTP value '{computedOtp}'. Attempting to generate a new one.");
-
-                        numAttempts++;
-                    }
+                    numAttempts++;
                 } while (numAttempts < 10);
 
                 SsmlOutputSpeech responseMessage = BuildSsmlResponseMessage(computedOtp);
