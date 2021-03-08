@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.notifications;
+package com.jamespfluger.devicefinder.notifications;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -12,7 +12,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
+import com.jamespfluger.devicefinder.utilities.PreferencesManager;
 
 public class FirebaseService extends FirebaseMessagingService {
     private PreferencesManager preferencesManager;

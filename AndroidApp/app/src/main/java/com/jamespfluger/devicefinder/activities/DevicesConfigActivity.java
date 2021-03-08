@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.activities;
+package com.jamespfluger.devicefinder.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,15 +17,15 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.activities.fragments.AboutFragment;
-import com.jamespfluger.alexadevicefinder.activities.fragments.DeviceConfigFragment;
-import com.jamespfluger.alexadevicefinder.activities.fragments.HomeFragment;
-import com.jamespfluger.alexadevicefinder.api.ApiService;
-import com.jamespfluger.alexadevicefinder.api.ManagementInterface;
-import com.jamespfluger.alexadevicefinder.models.EndpointType;
-import com.jamespfluger.alexadevicefinder.models.UserDevice;
-import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
+import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
+import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
+import com.jamespfluger.devicefinder.activities.fragments.HomeFragment;
+import com.jamespfluger.devicefinder.api.ApiService;
+import com.jamespfluger.devicefinder.api.ManagementInterface;
+import com.jamespfluger.devicefinder.models.EndpointType;
+import com.jamespfluger.devicefinder.models.UserDevice;
+import com.jamespfluger.devicefinder.utilities.PreferencesManager;
 
 import java.io.IOException;
 import java.util.ArrayList;

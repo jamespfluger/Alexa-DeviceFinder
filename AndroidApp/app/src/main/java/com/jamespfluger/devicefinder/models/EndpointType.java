@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.models;
+package com.jamespfluger.devicefinder.models;
 
 public enum EndpointType {
     AUTH,
