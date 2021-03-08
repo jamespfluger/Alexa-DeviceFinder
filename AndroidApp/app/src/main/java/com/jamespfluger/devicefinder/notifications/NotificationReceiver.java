@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.notifications;
+package com.jamespfluger.devicefinder.notifications;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

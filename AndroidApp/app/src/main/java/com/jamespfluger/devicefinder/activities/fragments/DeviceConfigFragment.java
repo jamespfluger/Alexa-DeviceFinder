@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.activities.fragments;
+package com.jamespfluger.devicefinder.activities.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,14 +24,13 @@ import androidx.fragment.app.Fragment;
 import com.amazon.identity.auth.device.AuthError;
 import com.amazon.identity.auth.device.api.Listener;
 import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
-import com.jamespfluger.alexadevicefinder.R;
-import com.jamespfluger.alexadevicefinder.activities.LoginActivity;
-import com.jamespfluger.alexadevicefinder.api.ApiService;
-import com.jamespfluger.alexadevicefinder.api.ManagementInterface;
-import com.jamespfluger.alexadevicefinder.models.DeviceSettings;
-import com.jamespfluger.alexadevicefinder.models.EndpointType;
-import com.jamespfluger.alexadevicefinder.models.UserDevice;
-import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
+import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.devicefinder.activities.LoginActivity;
+import com.jamespfluger.devicefinder.api.ApiService;
+import com.jamespfluger.devicefinder.api.ManagementInterface;
+import com.jamespfluger.devicefinder.models.DeviceSettings;
+import com.jamespfluger.devicefinder.models.EndpointType;
+import com.jamespfluger.devicefinder.models.UserDevice;
 
 import java.io.IOException;
 

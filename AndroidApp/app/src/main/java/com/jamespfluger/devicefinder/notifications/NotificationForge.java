@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.notifications;
+package com.jamespfluger.devicefinder.notifications;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
-import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.devicefinder.R;
 
 public final class NotificationForge {
     private final String CHANNEL_ID = "CHANNEL_4096";

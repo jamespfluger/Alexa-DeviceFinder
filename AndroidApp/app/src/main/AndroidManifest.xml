@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jamespfluger.alexadevicefinder">
+    package="com.jamespfluger.devicefinder">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,14 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.DevicesConfigActivity"
+            android:name="com.jamespfluger.devicefinder.activities.DevicesConfigActivity"
             android:label="@string/title_activity_device_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.NameActivity"
+            android:name="com.jamespfluger.devicefinder.activities.NameActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.LaunchActivity"
+            android:name="com.jamespfluger.devicefinder.activities.LaunchActivity"
             android:label="@string/title_activity_launch"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -34,10 +34,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.OtpActivity"
+            android:name="com.jamespfluger.devicefinder.activities.OtpActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.jamespfluger.devicefinder.activities.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity
             android:name="com.amazon.identity.auth.device.workflow.WorkflowActivity"
@@ -58,7 +58,7 @@
         </activity>
 
         <service
-            android:name=".notifications.FirebaseService"
+            android:name="com.jamespfluger.devicefinder.notifications.FirebaseService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -66,7 +66,7 @@
         </service>
 
         <receiver
-            android:name=".notifications.NotificationReceiver"
+            android:name="com.jamespfluger.devicefinder.notifications.NotificationReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
