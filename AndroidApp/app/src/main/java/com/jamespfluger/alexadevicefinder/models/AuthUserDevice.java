@@ -11,7 +11,7 @@ public class AuthUserDevice {
     private String deviceName;
     @SerializedName("DeviceOS")
     private String deviceOs = "Android";
-    @SerializedName("OneTimePassword")
+    @SerializedName("OneTimePasscode")
     private String otp;
 
     public AuthUserDevice() {
