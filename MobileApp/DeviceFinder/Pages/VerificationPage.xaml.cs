@@ -44,8 +44,7 @@ namespace DeviceFinder.Pages
                 OneTimePasscode = string.Join("", otpFields.Select(f => f.Text)),
                 FirebaseToken = CachedData.FirebaseToken,
                 LoginUserId = CachedData.LoginUserId,
-                DeviceName = CachedData.DeviceName,
-                DeviceOs = DeviceOperatingSystem.Android
+                DeviceName = CachedData.DeviceName
             };
 
             IRestResponse saveResponse = null;
