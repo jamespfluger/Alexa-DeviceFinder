@@ -2,26 +2,21 @@ package com.jamespfluger.devicefinder.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserDevice {
-
+public class Device {
     @SerializedName("alexaUserId")
     private String alexaUserId;
     @SerializedName("deviceId")
     private String deviceId;
     @SerializedName("amazonUserId")
     private String amazonUserId;
-    @SerializedName("alexaDeviceId")
-    private String alexaDeviceId;
+    @SerializedName("firebaseToken")
+    private String firebaseToken;
     @SerializedName("deviceName")
     private String deviceName;
-    @SerializedName("deviceOs")
-    private String deviceOs;
-    @SerializedName("modifiedDate")
-    private String modifiedDate;
     @SerializedName("deviceSettings")
     private DeviceSettings deviceSettings;
 
-    public UserDevice() {
+    public Device() {
     }
 
     public String getAlexaUserId() {
@@ -48,12 +43,12 @@ public class UserDevice {
         this.amazonUserId = amazonUserId;
     }
 
-    public String getAlexaDeviceId() {
-        return alexaDeviceId;
+    public String getFirebaseToken() {
+        return amazonUserId;
     }
 
-    public void setAlexaDeviceId(String alexaDeviceId) {
-        this.alexaDeviceId = alexaDeviceId;
+    public void setFirebaseToken(String amazonUserId) {
+        this.amazonUserId = amazonUserId;
     }
 
     public String getDeviceName() {
@@ -62,22 +57,6 @@ public class UserDevice {
 
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
-    }
-
-    public String getDeviceOs() {
-        return deviceOs;
-    }
-
-    public void setDeviceOs(String deviceOs) {
-        this.deviceOs = deviceOs;
-    }
-
-    public String getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(String modifiedDate) {
-        this.modifiedDate = modifiedDate;
     }
 
     public DeviceSettings getDeviceSettings() {
