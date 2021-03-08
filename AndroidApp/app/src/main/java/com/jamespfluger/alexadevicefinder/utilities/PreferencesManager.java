@@ -1,12 +1,12 @@
-package com.jamespfluger.devicefinder.utilities;
+package com.jamespfluger.alexadevicefinder.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.jamespfluger.devicefinder.notifications.FirebaseService;
+import com.jamespfluger.alexadevicefinder.notifications.FirebaseService;
 
 public class PreferencesManager {
-    private final String PREFERENCES_NAME = "com.jamespfluger.devicefinder.SHARED_PREFERENCES";
+    private final String PREFERENCES_NAME = "com.jamespfluger.alexadevicefinder.SHARED_PREFERENCES";
     private final String PREFERENCE_NAME_FIREBASE = "firebasetoken";
     private final String PREFERENCE_NAME_AMAZON_USER_ID = "amazonuserid";
     private final String PREFERENCE_NAME_ALEXA_USER_ID = "alexauserid";

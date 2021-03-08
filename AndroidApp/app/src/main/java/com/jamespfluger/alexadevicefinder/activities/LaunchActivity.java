@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder.activities;
+package com.jamespfluger.alexadevicefinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
 import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
-import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
-import com.jamespfluger.devicefinder.utilities.PermissionsRequester;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
+import com.jamespfluger.alexadevicefinder.utilities.PermissionsRequester;
+import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 public class LaunchActivity extends AppCompatActivity {
 

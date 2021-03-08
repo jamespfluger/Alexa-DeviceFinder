@@ -1,6 +1,6 @@
-package com.jamespfluger.devicefinder.api;
+package com.jamespfluger.alexadevicefinder.api;
 
-import com.jamespfluger.devicefinder.models.EndpointType;
+import com.jamespfluger.alexadevicefinder.models.EndpointType;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

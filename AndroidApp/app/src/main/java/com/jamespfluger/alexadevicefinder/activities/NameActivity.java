@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder.activities;
+package com.jamespfluger.alexadevicefinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 public class NameActivity extends AppCompatActivity {
     private PreferencesManager preferencesManager;

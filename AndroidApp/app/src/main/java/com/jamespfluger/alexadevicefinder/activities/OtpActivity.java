@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder.activities;
+package com.jamespfluger.alexadevicefinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,14 +12,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jamespfluger.devicefinder.OtpEditText;
-import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.api.ApiService;
-import com.jamespfluger.devicefinder.api.AuthInterface;
-import com.jamespfluger.devicefinder.models.AuthUserDevice;
-import com.jamespfluger.devicefinder.models.EndpointType;
-import com.jamespfluger.devicefinder.models.UserDevice;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.alexadevicefinder.OtpEditText;
+import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.api.ApiService;
+import com.jamespfluger.alexadevicefinder.api.AuthInterface;
+import com.jamespfluger.alexadevicefinder.models.AuthUserDevice;
+import com.jamespfluger.alexadevicefinder.models.EndpointType;
+import com.jamespfluger.alexadevicefinder.models.UserDevice;
+import com.jamespfluger.alexadevicefinder.utilities.PreferencesManager;
 
 import java.io.IOException;
 

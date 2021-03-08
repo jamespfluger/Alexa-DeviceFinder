@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder.activities.fragments;
+package com.jamespfluger.alexadevicefinder.activities.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.alexadevicefinder.R;
 
 public class BlankFragment extends Fragment {
     public BlankFragment() {

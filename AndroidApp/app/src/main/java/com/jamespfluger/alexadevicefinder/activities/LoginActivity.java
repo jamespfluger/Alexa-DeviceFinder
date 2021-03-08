@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder.activities;
+package com.jamespfluger.alexadevicefinder.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,8 +17,8 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeRequest;
 import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
-import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
+import com.jamespfluger.alexadevicefinder.R;
+import com.jamespfluger.alexadevicefinder.utilities.AmazonLoginHelper;
 
 public class LoginActivity extends Activity {
     private RequestContext requestContext;

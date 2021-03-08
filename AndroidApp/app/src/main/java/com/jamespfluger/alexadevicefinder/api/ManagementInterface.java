@@ -1,7 +1,7 @@
-package com.jamespfluger.devicefinder.api;
+package com.jamespfluger.alexadevicefinder.api;
 
-import com.jamespfluger.devicefinder.models.DeviceSettings;
-import com.jamespfluger.devicefinder.models.UserDevice;
+import com.jamespfluger.alexadevicefinder.models.DeviceSettings;
+import com.jamespfluger.alexadevicefinder.models.UserDevice;
 
 import java.util.ArrayList;
 
