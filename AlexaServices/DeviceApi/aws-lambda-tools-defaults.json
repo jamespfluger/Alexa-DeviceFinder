@@ -17,6 +17,8 @@
     "function-name"        : "DeviceFinder-DeviceApi",
     "function-role"        : "arn:aws:iam::109578389425:role/DeviceFInder-LambdaExec",
     "tracing-mode"         : "PassThrough",
-    "environment-variables" : "",
-    "function-description"  : ""
+    "environment-variables" : "\"LAMBDA_NET_SERIALIZER_DEBUG\"=\"true\"",
+    "function-description"  : "",
+    "package-type"          : "Zip",
+    "image-tag"             : ""
 }

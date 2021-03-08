@@ -34,7 +34,7 @@ namespace DeviceFinder.AlexaSkill.RequestHandlers
             {
                 AmazonDynamoDBClient client = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
                 DynamoDBContext context = new DynamoDBContext(client);
-                context.LoadAsync<UserDevice>("HEARTBEAT");
+                context.LoadAsync<Device>("HEARTBEAT");
 
                 return true;
             }
