@@ -102,5 +102,4 @@ public class DeviceSettings {
     public void setOverriddenVolumeValue(int overriddenVolumeValue) {
         this.overriddenVolumeValue = overriddenVolumeValue;
     }
-
 }

@@ -29,8 +29,7 @@ import com.jamespfluger.devicefinder.activities.LoginActivity;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.DeviceSettings;
-import com.jamespfluger.devicefinder.models.EndpointType;
-import com.jamespfluger.devicefinder.models.UserDevice;
+import com.jamespfluger.devicefinder.models.Device;
 
 import java.io.IOException;
 
@@ -41,10 +40,10 @@ import retrofit2.Response;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
-    private final UserDevice userDevice;
+    private final Device device;
 
-    public DeviceConfigFragment(UserDevice userDevice) {
-        this.userDevice = userDevice;
+    public DeviceConfigFragment(Device device) {
+        this.device = device;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,18 +57,18 @@ public class DeviceConfigFragment extends Fragment {
         Button saveButton = view.findViewById(R.id.settingsSaveButton);
         Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
 
-        deviceName.setText(userDevice.getDeviceSettings().getDeviceName());
+        deviceName.setText(device.getDeviceSettings().getDeviceName());
 
         final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlightSwitch);
         final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibrationSwitch);
         final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifiSwitch);
         final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolumeSwitch);
         final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
-        useFlashlight.setChecked(userDevice.getDeviceSettings().getUseFlashlight());
-        useVibration.setChecked(userDevice.getDeviceSettings().getUseVibrate());
-        useWifi.setChecked(userDevice.getDeviceSettings().getShouldLimitToWifi());
-        overrideMaxVolume.setChecked(userDevice.getDeviceSettings().getUseVolumeOverride());
-        overrideMaxVolumeValue.setProgress(userDevice.getDeviceSettings().getOverriddenVolumeValue());
+        useFlashlight.setChecked(device.getDeviceSettings().getUseFlashlight());
+        useVibration.setChecked(device.getDeviceSettings().getUseVibrate());
+        useWifi.setChecked(device.getDeviceSettings().getShouldLimitToWifi());
+        overrideMaxVolume.setChecked(device.getDeviceSettings().getUseVolumeOverride());
+        overrideMaxVolumeValue.setProgress(device.getDeviceSettings().getOverriddenVolumeValue());
 
         deviceName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -92,9 +91,9 @@ public class DeviceConfigFragment extends Fragment {
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.VISIBLE);
 
-                DeviceSettings deviceSettings = userDevice.getDeviceSettings();
-                deviceSettings.setAlexaUserId(userDevice.getAlexaUserId());
-                deviceSettings.setDeviceId(userDevice.getDeviceId());
+                DeviceSettings deviceSettings = device.getDeviceSettings();
+                deviceSettings.setAlexaUserId(device.getAlexaUserId());
+                deviceSettings.setDeviceId(device.getDeviceId());
                 deviceSettings.setDeviceName(deviceName.getText().toString());
                 deviceSettings.setUseFlashlight(useFlashlight.isChecked());
                 deviceSettings.setUseVibrate(useVibration.isChecked());
@@ -103,7 +102,7 @@ public class DeviceConfigFragment extends Fragment {
                 deviceSettings.setUseVolumeOverride(overrideMaxVolume.isChecked());
                 deviceSettings.setOverriddenVolumeValue(overrideMaxVolumeValue.getProgress());
 
-                ManagementInterface managementService = ApiService.createInstance(EndpointType.MANAGEMENT);
+                ManagementInterface managementService = ApiService.createInstance();
 
                 Call<Void> updateSettingsCall = managementService.saveDeviceSettings(deviceSettings);
                 updateSettingsCall.enqueue(new Callback<Void>() {

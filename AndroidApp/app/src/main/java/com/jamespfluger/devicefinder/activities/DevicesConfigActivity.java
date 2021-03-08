@@ -23,8 +23,7 @@ import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
 import com.jamespfluger.devicefinder.activities.fragments.HomeFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
-import com.jamespfluger.devicefinder.models.EndpointType;
-import com.jamespfluger.devicefinder.models.UserDevice;
+import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.utilities.PreferencesManager;
 
 import java.io.IOException;
@@ -38,7 +37,7 @@ import retrofit2.internal.EverythingIsNonNull;
 public class DevicesConfigActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private PreferencesManager preferencesManager;
-    private ArrayList<UserDevice> allUserDevices = new ArrayList<UserDevice>();
+    private ArrayList<Device> allDevices = new ArrayList<Device>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +78,14 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     private void getDevices() {
-        ManagementInterface managementApi = ApiService.createInstance(EndpointType.MANAGEMENT);
-        Call<ArrayList<UserDevice>> userCall = managementApi.getAllUserDevices(preferencesManager.getUserId());
-        userCall.enqueue(new Callback<ArrayList<UserDevice>>() {
+        ManagementInterface managementApi = ApiService.createInstance();
+        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(preferencesManager.getUserId());
+        userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             @EverythingIsNonNull
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
-                    allUserDevices = (ArrayList<UserDevice>) response.body();
+                    allDevices = (ArrayList<Device>) response.body();
                     populateDeviceList();
                 } else {
                     try {
@@ -124,7 +123,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
 
-        for (final UserDevice device : allUserDevices) {
+        for (final Device device : allDevices) {
             MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
             newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(device)));
         }

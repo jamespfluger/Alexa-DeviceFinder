@@ -15,10 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jamespfluger.devicefinder.OtpEditText;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.api.ApiService;
-import com.jamespfluger.devicefinder.api.AuthInterface;
-import com.jamespfluger.devicefinder.models.AuthUserDevice;
-import com.jamespfluger.devicefinder.models.EndpointType;
-import com.jamespfluger.devicefinder.models.UserDevice;
+import com.jamespfluger.devicefinder.api.ManagementInterface;
+import com.jamespfluger.devicefinder.models.AuthData;
+import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.utilities.PreferencesManager;
 
 import java.io.IOException;
@@ -66,22 +65,22 @@ public class OtpActivity extends AppCompatActivity {
                 }
 
                 // Build auth device
-                AuthUserDevice authUserDevices = new AuthUserDevice();
+                AuthData authUserDevices = new AuthData();
                 authUserDevices.setUserId(preferencesManager.getAmazonUserId());
                 authUserDevices.setDeviceId(preferencesManager.getDeviceId());
                 authUserDevices.setDeviceName(preferencesManager.getDeviceName());
                 authUserDevices.setOtp(otpBuilder.toString());
 
                 // Execute authorization
-                AuthInterface authApi = ApiService.createInstance(EndpointType.AUTH);
-                Call<UserDevice> userCall = authApi.addAuthUserDevice(authUserDevices);
-                userCall.enqueue(new Callback<UserDevice>() {
+                ManagementInterface authApi = ApiService.createInstance();
+                Call<Device> userCall = authApi.addNewDevice(authUserDevices);
+                userCall.enqueue(new Callback<Device>() {
                     @Override
                     @EverythingIsNonNull
                     public void onResponse(Call call, Response response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
-                            UserDevice newDevice = (UserDevice) response.body();
+                            Device newDevice = (Device) response.body();
                             preferencesManager.setUserId(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {
