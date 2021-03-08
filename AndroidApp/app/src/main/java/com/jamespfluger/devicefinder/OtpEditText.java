@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder;
+package com.jamespfluger.devicefinder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

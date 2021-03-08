@@ -1,4 +1,4 @@
-package com.jamespfluger.alexadevicefinder.utilities;
+package com.jamespfluger.devicefinder.utilities;
 
 import android.content.Context;
 import android.os.Handler;
