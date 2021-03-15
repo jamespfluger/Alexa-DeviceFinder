@@ -65,7 +65,7 @@ namespace DeviceFinder.Pages
                 using StreamReader reader = new StreamReader(resourceStream);
                 string rawNamesContent = await reader.ReadToEndAsync();
 
-                commonNames = new HashSet<string>(rawNamesContent.Split('\n'));
+                commonNames = new HashSet<string>(rawNamesContent.Split(","));
             });
         }
 
