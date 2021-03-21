@@ -1,4 +1,7 @@
-﻿using DeviceFinder.Pages;
+﻿using DeviceFinder.Abstractions;
+using DeviceFinder.Pages;
+using DeviceFinder.Utility;
+using Xamarin.AuthProviders.Google;
 using Xamarin.Forms;
 
 namespace DeviceFinder
@@ -9,7 +12,7 @@ namespace DeviceFinder
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = !string.IsNullOrEmpty(CachedData.AlexaUserId) ? new DeviceConfigRootPage() : new LoginPage();
         }
 
         protected override void OnStart()

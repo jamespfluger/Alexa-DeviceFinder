@@ -70,6 +70,8 @@ namespace DeviceFinder.Pages
                     HandleSaveError(saveResponse);
             }
 
+            saveOverlay.IsVisible = false;
+
             if (saveResponse.ResponseStatus == ResponseStatus.Completed && saveResponse.StatusCode == HttpStatusCode.Created)
                 Application.Current.MainPage = new DeviceConfigRootPage();
         }

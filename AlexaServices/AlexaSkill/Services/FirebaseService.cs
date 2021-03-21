@@ -39,10 +39,10 @@ namespace DeviceFinder.AlexaSkill.Services
 
                 Message message;
 
-                if (request.DeviceOs == DeviceOperatingSystem.Android)
+                //if (request.DeviceOs == DeviceOperatingSystem.Android)
                     message = CreateAndroidNotification(request.FirebaseToken);
-                else
-                    message = CreateAppleNotification(request.FirebaseToken);
+                //else
+                //    message = CreateAppleNotification(request.FirebaseToken);
 
                 Stopwatch s = Stopwatch.StartNew();
                 string sendResult = await FirebaseMessaging.DefaultInstance.SendAsync(message);

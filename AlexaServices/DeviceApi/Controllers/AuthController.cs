@@ -32,6 +32,8 @@ namespace DeviceFinder.DeviceApi.Controllers
         [HttpPost("users")]
         public async Task<ActionResult> AddNewDevice([FromBody] AuthData authData)
         {
+            throw new Exception($"This endpoint is no longer supported: {nameof(AuthController)} {nameof(AddNewDevice)}");
+
             try
             {
                 // Verify the body we've received has the correct contents
@@ -51,7 +53,8 @@ namespace DeviceFinder.DeviceApi.Controllers
                 {
                     AlexaUserId = alexaUser.AlexaUserId,
                     FirebaseToken = authData.FirebaseToken,
-                    DeviceID = authData.LoginUserId,
+                    LoginUserId = authData.LoginUserId,
+                    DeviceId = Guid.NewGuid().ToString(),
                     DeviceName = authData.DeviceName
                 };
 

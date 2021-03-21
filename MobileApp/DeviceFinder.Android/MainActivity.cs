@@ -27,7 +27,7 @@ namespace DeviceFinder.Droid
             DroidGoogleAuthProvider.Initialize();
             DependencyForgeInjector.Inject();
 
-            FirebaseService firebaseService = new FirebaseService(this);
+            FirebaseService firebaseService = new FirebaseService();
             firebaseService.RefreshToken();
 
             LoadApplication(new App());

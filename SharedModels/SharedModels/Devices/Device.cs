@@ -12,7 +12,7 @@ namespace DeviceFinder.Models.Devices
         public string AlexaUserId { get; set; }
 
         [DynamoDBRangeKey("DeviceID")]
-        public string DeviceID { get; set; }
+        public string DeviceId { get; set; }
 
         [DynamoDBProperty("LoginUserID")]
         public string LoginUserId { get; set; }
@@ -50,7 +50,7 @@ namespace DeviceFinder.Models.Devices
             {
                 $"{nameof(Device.DeviceName)}:{DeviceName}",
                 $"{nameof(Device.AlexaUserId)}:{AlexaUserId}",
-                $"{nameof(Device.DeviceID)}:{DeviceID}",
+                $"{nameof(Device.DeviceId)}:{DeviceId}",
                 $"{nameof(Device.LoginUserId)}:{LoginUserId}",
                 $"{nameof(Device.FirebaseToken)}:{FirebaseToken}",
                 $"{nameof(Device.ModifiedDate)}:{ModifiedDate}"

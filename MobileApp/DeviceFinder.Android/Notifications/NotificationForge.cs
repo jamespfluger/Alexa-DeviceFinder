@@ -4,8 +4,10 @@ using Android.Content;
 using Android.Graphics;
 using Android.Media;
 using Android.OS;
+using Android.Util;
 using AndroidX.Core.App;
 using Firebase.Messaging;
+using Xamarin.Essentials;
 
 namespace DeviceFinder.Droid.Notifications
 {
@@ -18,6 +20,9 @@ namespace DeviceFinder.Droid.Notifications
 
         public NotificationForge(Context context)
         {
+            Log.Error("SAVEMEHELPME-NF", $"Context ctor: {context is not null}");
+            Log.Error("SAVEMEHELPME-NF", $"Platform.AppContext: {Platform.AppContext is not null}");
+            Log.Error("SAVEMEHELPME-NF", $"Platform.CurrentActvitity: {Platform.CurrentActivity is not null}");
             this.context = context;
             notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
 
