@@ -30,7 +30,6 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: remove before release
-        AmazonLoginHelper.signOut(getApplicationContext());
 
         requestContext = RequestContext.create(getApplicationContext());
         requestContext.registerListener(new AuthorizeListener() {

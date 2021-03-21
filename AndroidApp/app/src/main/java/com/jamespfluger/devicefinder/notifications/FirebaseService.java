@@ -30,7 +30,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-        preferencesManager.setDeviceId(newToken);
+        preferencesManager.setFirebaseToken(newToken);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FirebaseService extends FirebaseMessagingService {
 
                         if (taskResult != null) {
                             String newToken = taskResult.getToken();
-                            preferencesManager.setDeviceId(newToken);
+                            preferencesManager.setFirebaseToken(newToken);
                         }
                     }
                 })

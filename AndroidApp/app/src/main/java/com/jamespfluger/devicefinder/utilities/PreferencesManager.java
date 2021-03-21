@@ -19,7 +19,7 @@ public class PreferencesManager {
         this.context = context;
     }
 
-    public String getDeviceId() {
+    public String getFirebaseToken() {
         String firebaseToken = preferences.getString(PREFERENCE_NAME_FIREBASE, null);
 
         if (firebaseToken != null) {
@@ -32,11 +32,11 @@ public class PreferencesManager {
         return preferences.getString(PREFERENCE_NAME_FIREBASE, null);
     }
 
-    public void setDeviceId(String deviceId) {
+    public void setFirebaseToken(String deviceId) {
         preferences.edit().putString(PREFERENCE_NAME_FIREBASE, deviceId).apply();
     }
 
-    public void refreshDeviceId() {
+    public void refreshFirebaseToken() {
         FirebaseService firebaseService = new FirebaseService(context);
         firebaseService.refreshToken();
     }

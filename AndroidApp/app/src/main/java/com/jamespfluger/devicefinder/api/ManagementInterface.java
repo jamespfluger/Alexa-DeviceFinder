@@ -14,7 +14,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ManagementInterface {
-    @POST("auth/users")
+    @POST("management/users")
     Call<Device> addNewDevice(@Body AuthData deviceInfo);
 
     @GET("management/users/{userid}")

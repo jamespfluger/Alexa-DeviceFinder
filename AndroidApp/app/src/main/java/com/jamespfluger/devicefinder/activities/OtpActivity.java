@@ -66,8 +66,8 @@ public class OtpActivity extends AppCompatActivity {
 
                 // Build auth device
                 AuthData authUserDevices = new AuthData();
-                authUserDevices.setUserId(preferencesManager.getAmazonUserId());
-                authUserDevices.setDeviceId(preferencesManager.getDeviceId());
+                authUserDevices.setLoginUserId(preferencesManager.getAmazonUserId());
+                authUserDevices.setFirebaseToken(preferencesManager.getFirebaseToken());
                 authUserDevices.setDeviceName(preferencesManager.getDeviceName());
                 authUserDevices.setOtp(otpBuilder.toString());
 

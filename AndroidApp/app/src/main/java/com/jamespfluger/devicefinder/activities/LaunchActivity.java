@@ -22,7 +22,7 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PreferencesManager preferencesManager = new PreferencesManager(getApplicationContext());
-        preferencesManager.refreshDeviceId();
+        preferencesManager.refreshFirebaseToken();
 
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
