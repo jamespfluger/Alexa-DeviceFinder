@@ -32,7 +32,7 @@ namespace DeviceFinder.Models.Auth
         public bool IsModelValid()
         {
             return !string.IsNullOrEmpty(OneTimePasscode) && !string.IsNullOrEmpty(LoginUserId)
-                && !string.IsNullOrEmpty(FirebaseToken) && !string.IsNullOrEmpty(DeviceName);
+                   && !string.IsNullOrEmpty(FirebaseToken) && !string.IsNullOrEmpty(DeviceName);
         }
     }
 }

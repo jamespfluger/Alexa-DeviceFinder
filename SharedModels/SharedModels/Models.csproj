@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>DeviceFinder.Models</RootNamespace>
     <LangVersion>9.0</LangVersion>
+    <RootNamespace>DeviceFinder.Models</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -369,3 +369,5 @@ MobileApp/DeviceFinder.Android/google-services.json
 MobileApp/DeviceFinder.Android/Assets/api_key.txt
 MobileApp/DeviceFinder.Android/Resources/Resource.designer.cs
 AndroidApp/.local
+MobileApp/DeviceFinder.Android/google-services.json
+MobileApp/DeviceFinder.Android/Resources/Resource.designer.cs
