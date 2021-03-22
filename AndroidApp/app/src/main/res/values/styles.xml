@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
@@ -25,5 +25,13 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Controls.OtpEditText" parent="@android:style/Widget.EditText">
+        <item name="android:digits">0123456789</item>
+        <item name="android:importantForAutofill" tools:targetApi="o">no</item>
+        <item name="android:inputType" tools:targetApi="o">phone</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 
 </resources>

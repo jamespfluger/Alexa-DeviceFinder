@@ -15,6 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.jamespfluger.devicefinder.R;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class OtpEditText extends AppCompatEditText {
