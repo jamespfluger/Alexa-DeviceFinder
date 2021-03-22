@@ -23,6 +23,6 @@
     <PackageReference Include="Otp.NET" Version="1.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharedModels\SharedModels\Models.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 </Project>
