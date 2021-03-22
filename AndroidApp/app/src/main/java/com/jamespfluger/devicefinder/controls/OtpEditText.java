@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder;
+package com.jamespfluger.devicefinder.controls;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
