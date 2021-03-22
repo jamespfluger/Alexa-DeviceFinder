@@ -364,3 +364,5 @@ AndroidApp/app/src/main/assets/api_key.txt
 AndroidApp/app/google-services.json
 AlexaServices/AlexaSkill/.lambda-test-tool
 AndroidApp/.local
+MobileApp/DeviceFinder.Android/google-services.json
+MobileApp/DeviceFinder.Android/Resources/Resource.designer.cs

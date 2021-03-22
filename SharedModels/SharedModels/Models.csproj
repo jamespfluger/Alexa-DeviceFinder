@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>DeviceFinder.Models</RootNamespace>
     <LangVersion>9.0</LangVersion>
+    <RootNamespace>DeviceFinder.Models</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.4.31" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.4.37" />
   </ItemGroup>
 
 </Project>
