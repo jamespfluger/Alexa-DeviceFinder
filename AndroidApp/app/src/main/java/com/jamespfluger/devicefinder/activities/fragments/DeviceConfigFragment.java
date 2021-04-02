@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.amazon.identity.auth.device.AuthError;
@@ -29,8 +28,8 @@ import com.jamespfluger.devicefinder.activities.LoginActivity;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.controls.SettingsView;
-import com.jamespfluger.devicefinder.models.DeviceSettings;
 import com.jamespfluger.devicefinder.models.Device;
+import com.jamespfluger.devicefinder.models.DeviceSettings;
 
 import java.io.IOException;
 

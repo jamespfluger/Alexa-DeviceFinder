@@ -12,10 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jamespfluger.devicefinder.controls.OtpEditText;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
+import com.jamespfluger.devicefinder.controls.OtpEditText;
 import com.jamespfluger.devicefinder.models.AuthData;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.utilities.PreferencesManager;

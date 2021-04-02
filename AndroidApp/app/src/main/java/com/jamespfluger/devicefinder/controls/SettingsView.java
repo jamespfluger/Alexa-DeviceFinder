@@ -1,18 +1,9 @@
 package com.jamespfluger.devicefinder.controls;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,16 +24,16 @@ public class SettingsView extends LinearLayout {
         init(context, attrs, defStyle);
     }
 
-    public boolean isChecked(){
+    public boolean isChecked() {
         return settingsSwitch.isChecked();
     }
 
-    public void setChecked(boolean checked){
+    public void setChecked(boolean checked) {
         settingsSwitch.setChecked(checked);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
-        inflate(getContext(),R.layout.component_settings_view,this);
+        inflate(getContext(), R.layout.component_settings_view, this);
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SettingsView);
 

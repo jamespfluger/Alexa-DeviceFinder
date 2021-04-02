@@ -3,22 +3,13 @@ package com.jamespfluger.devicefinder.utilities;
 import android.util.Log;
 
 public class Logger {
-    public enum LogLevel{
-        Verbose,
-        Debug,
-        Information,
-        Warning,
-        Error,
-        Wtf
-    }
-
     private static final String TAG = "DEVICEFINDER";
 
-    public static void Log(String message){
+    public static void Log(String message) {
         Log.i(TAG, message);
     }
 
-    public static void Log(String message, LogLevel logLevel){
+    public static void Log(String message, LogLevel logLevel) {
         if (logLevel == LogLevel.Verbose)
             Log.v(TAG, message);
         else if (logLevel == LogLevel.Debug)
@@ -31,5 +22,14 @@ public class Logger {
             Log.e(TAG, message);
         else if (logLevel == LogLevel.Wtf)
             Log.wtf(TAG, message);
+    }
+
+    public enum LogLevel {
+        Verbose,
+        Debug,
+        Information,
+        Warning,
+        Error,
+        Wtf
     }
 }

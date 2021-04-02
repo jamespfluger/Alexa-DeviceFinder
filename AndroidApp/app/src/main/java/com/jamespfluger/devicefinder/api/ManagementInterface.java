@@ -1,8 +1,8 @@
 package com.jamespfluger.devicefinder.api;
 
 import com.jamespfluger.devicefinder.models.AuthData;
-import com.jamespfluger.devicefinder.models.DeviceSettings;
 import com.jamespfluger.devicefinder.models.Device;
+import com.jamespfluger.devicefinder.models.DeviceSettings;
 
 import java.util.ArrayList;
 
