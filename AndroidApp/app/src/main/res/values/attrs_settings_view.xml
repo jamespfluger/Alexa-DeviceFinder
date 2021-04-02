@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="SettingsView">
+        <attr name="settingsTitle" format="string|reference" />
+        <attr name="settingsSubtitle" format="string|reference" />
+    </declare-styleable>
+</resources>

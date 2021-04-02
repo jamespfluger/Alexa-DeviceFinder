@@ -41,7 +41,7 @@ public class LaunchActivity extends AppCompatActivity {
 
                 if (result.getAccessToken() != null) {
                     AmazonLoginHelper.setUserId(getApplicationContext());
-                    switchToActivity(OtpActivity.class);
+                    switchToActivity(DevicesConfigActivity.class);
                 } else {
                     switchToActivity(LoginActivity.class);
                 }

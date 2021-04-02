@@ -87,10 +87,6 @@ public class LoginActivity extends Activity {
         loginButton.setText("LOGIN WITH AMAZON");
         loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
 
-        /* TODO: verify this is not needed
-        loginButton.setText("CONNECT WITH ALEXA");
-        loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_alexa_logo, 0, 0, 0); */
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
