@@ -48,8 +48,6 @@ public class FirebaseService extends FirebaseMessagingService {
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        //TODO: handle instance where task istself is null
-                        //TODO: make sure the deviceis actually online
                         InstanceIdResult taskResult = task.getResult();
 
                         if (taskResult != null) {

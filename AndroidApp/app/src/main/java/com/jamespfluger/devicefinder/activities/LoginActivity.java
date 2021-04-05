@@ -28,8 +28,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: remove before release
-
         requestContext = RequestContext.create(getApplicationContext());
         requestContext.registerListener(new AuthorizeListener() {
             @Override
@@ -37,8 +35,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //TODO: display toast again when logging in
-                        //Toast.makeText(getApplicationContext(), "Successfully logged into Amazon.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Successfully logged into Amazon.", Toast.LENGTH_SHORT).show();
                     }
                 });
                 switchToActivity(NameActivity.class);
