@@ -30,8 +30,6 @@ public class NameActivity extends AppCompatActivity {
     private void initializeUi() {
         final EditText deviceNameField = findViewById(R.id.deviceNameField);
         final Button deviceNameContinueButton = findViewById(R.id.deviceNameContinueButton);
-        // TODO: remove this before going live
-        deviceNameField.setText("James");
 
         deviceNameField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

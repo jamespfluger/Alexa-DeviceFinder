@@ -22,7 +22,7 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PreferencesManager preferencesManager = new PreferencesManager(getApplicationContext());
-        preferencesManager.refreshDeviceId();
+        preferencesManager.refreshFirebaseToken();
 
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
@@ -41,7 +41,7 @@ public class LaunchActivity extends AppCompatActivity {
 
                 if (result.getAccessToken() != null) {
                     AmazonLoginHelper.setUserId(getApplicationContext());
-                    switchToActivity(LoginActivity.class);
+                    switchToActivity(DevicesConfigActivity.class);
                 } else {
                     switchToActivity(LoginActivity.class);
                 }

@@ -366,3 +366,4 @@ AlexaServices/AlexaSkill/.lambda-test-tool
 AndroidApp/.local
 MobileApp/DeviceFinder.Android/google-services.json
 MobileApp/DeviceFinder.Android/Resources/Resource.designer.cs
+AndroidApp/google-services.json

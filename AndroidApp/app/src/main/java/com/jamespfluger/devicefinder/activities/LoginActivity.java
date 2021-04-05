@@ -18,7 +18,6 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 
 public class LoginActivity extends Activity {
     private RequestContext requestContext;
@@ -29,9 +28,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: remove before release
-        AmazonLoginHelper.signOut(getApplicationContext());
-
         requestContext = RequestContext.create(getApplicationContext());
         requestContext.registerListener(new AuthorizeListener() {
             @Override
@@ -86,10 +82,6 @@ public class LoginActivity extends Activity {
         //
         loginButton.setText("LOGIN WITH AMAZON");
         loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
-
-        /* TODO: verify this is not needed
-        loginButton.setText("CONNECT WITH ALEXA");
-        loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_alexa_logo, 0, 0, 0); */
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

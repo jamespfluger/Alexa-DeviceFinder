@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaSkill", "AlexaSkill\Al
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceApi", "DeviceApi\DeviceApi.csproj", "{E55A5236-1198-40B2-84BC-2445AA9F8359}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{DB437E06-A584-44BF-82B3-7EC14B5937C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{1883BA56-4CAC-4623-9B00-9DD2B1CEFD1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E55A5236-1198-40B2-84BC-2445AA9F8359}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB437E06-A584-44BF-82B3-7EC14B5937C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1883BA56-4CAC-4623-9B00-9DD2B1CEFD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1883BA56-4CAC-4623-9B00-9DD2B1CEFD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1883BA56-4CAC-4623-9B00-9DD2B1CEFD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1883BA56-4CAC-4623-9B00-9DD2B1CEFD1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

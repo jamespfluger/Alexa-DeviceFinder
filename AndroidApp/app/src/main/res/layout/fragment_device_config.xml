@@ -1,275 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.fragments.DeviceConfigFragment"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
-    android:focusable="true">
-
-    <ProgressBar
-        android:id="@+id/settingsSaveWaitPanel"
-        style="@android:style/Widget.ProgressBar.Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <LinearLayout
+<layout>
+    <data>    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:context=".activities.fragments.DeviceConfigFragment"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
+        <ProgressBar
+            android:id="@+id/settingsSaveWaitPanel"
+            style="@android:style/Widget.ProgressBar.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Device name -->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="vertical"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp">
-            <TextView
-                android:id="@+id/settingsDeviceNameTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Device Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/settingsDeviceNameField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Device name"/>
-        </LinearLayout>
-
-        <!-- Enable flashlight -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="horizontal"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp"
-            android:weightSum="1">
-
+            <!-- Device name -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.15">
-
-                <TextView
-                    android:id="@+id/settingsEnableFlashlightTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Use flashlight"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp"/>
-
-                <TextView
-                    android:id="@+id/settingsEnableFlashlightDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Flashlight will turn on/off when finding device"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:paddingTop="3dp"
-                    android:textSize="15sp"
-                    android:maxLines="100"
-                    />
-            </LinearLayout>
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingsEnableFlashlightSwitch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.85"/>
-        </LinearLayout>
-
-        <!-- Enable vibration -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="horizontal"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center|top"
                 android:orientation="vertical"
-                android:gravity="left">
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="30dp">
                 <TextView
-                    android:id="@+id/settingsEnableVibrationTitle"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/settingsDeviceNameTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Use vibrate"
+                    android:text="Device Name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/settingsEnableVibrationDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Device will vibrate when finding device"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-            </LinearLayout>
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingsEnableVibrationSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
 
-        <!-- Only ring on wifi -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="horizontal"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="left"
-                android:layout_weight="0.15">
-                <TextView
-                    android:id="@+id/settingsEnableWifiTitle"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/settingsDeviceNameField"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Only ring on wifi"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Device name"/>
+            </LinearLayout>
+
+            <!-- Enable flashlight -->
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsEnableFlashlight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:settingsTitle="Use flashlight"
+                app:settingsSubtitle="Flashlight will turn on/off when finding device"/>
+
+            <!-- Enable vibration -->
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsEnableVibration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:settingsTitle="Use vibrate"
+                app:settingsSubtitle="Device will vibrate when finding device"/>
+
+            <!-- Only ring on wifi -->
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsEnableWifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:settingsTitle="Only ring on wifi"
+                app:settingsSubtitle="Device will ring even when not connected to WiFi"/>
+
+            <!-- Override max volume -->
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsOverrideMaxVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:settingsTitle="Override max volume"
+                app:settingsSubtitle="Device will ring at the maximum volume"/>
+
+            <!-- Specific WiFi network -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="30dp">
+                <TextView
+                    android:id="@+id/settingsWifiSsdTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(Optional) WiFi network to use"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/settingsEnableWifiDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Device will ring even when not connected to WiFi"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:maxLines="100"/>
+
+                <Spinner
+                    android:id="@+id/settingsWifiSsdDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false" />
             </LinearLayout>
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingsEnableWifiSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.85"/>
-        </LinearLayout>
 
-        <!-- Specific WiFi network -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="vertical"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp">
-            <TextView
-                android:id="@+id/settingsWifiSsdTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="(Optional) WiFi network to use"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="18sp" />\
-
-            <Spinner
-                android:id="@+id/settingsWifiSsdDropdown"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="false" />
-        </LinearLayout>
-
-        <!-- Override max volume -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="horizontal"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp">
+            <!-- Volume to use -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="30dp">
                 <TextView
-                    android:id="@+id/settingsOverrideMaxVolumeTitle"
+                    android:id="@+id/settingsVolumeToUseTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Override max volume"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/settingsOverrideMaxVolumeDescription"
-                    android:layout_width="wrap_content"
+
+                <SeekBar
+                    android:id="@+id/settingsVolumeToUseSlider"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Device will ring at the maximum volume"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:max="100"
+                    android:progress="100" />
             </LinearLayout>
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingsOverrideMaxVolumeSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </LinearLayout>
 
-        <!-- Volume to use -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/settingsDeleteButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="30dp">
-            <TextView
-                android:id="@+id/settingsVolumeToUseTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Override max volume"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="18sp" />
-
-            <SeekBar
-                android:id="@+id/settingsVolumeToUseSlider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:enabled="false"
-                android:max="100"
-                android:progress="100" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/settingsDeleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="DELETE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <Button
-        android:id="@+id/settingsSaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="SAVE"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="DELETE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/settingsSaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="SAVE"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

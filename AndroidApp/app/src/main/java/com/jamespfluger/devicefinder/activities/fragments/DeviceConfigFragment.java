@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.amazon.identity.auth.device.AuthError;
@@ -28,8 +27,9 @@ import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.LoginActivity;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
-import com.jamespfluger.devicefinder.models.DeviceSettings;
+import com.jamespfluger.devicefinder.controls.SettingsView;
 import com.jamespfluger.devicefinder.models.Device;
+import com.jamespfluger.devicefinder.models.DeviceSettings;
 
 import java.io.IOException;
 
@@ -54,22 +54,7 @@ public class DeviceConfigFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         final EditText deviceName = view.findViewById(R.id.settingsDeviceNameField);
-        Button saveButton = view.findViewById(R.id.settingsSaveButton);
-        Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
-
         deviceName.setText(device.getDeviceSettings().getDeviceName());
-
-        final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlightSwitch);
-        final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibrationSwitch);
-        final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifiSwitch);
-        final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolumeSwitch);
-        final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
-        useFlashlight.setChecked(device.getDeviceSettings().getUseFlashlight());
-        useVibration.setChecked(device.getDeviceSettings().getUseVibrate());
-        useWifi.setChecked(device.getDeviceSettings().getShouldLimitToWifi());
-        overrideMaxVolume.setChecked(device.getDeviceSettings().getUseVolumeOverride());
-        overrideMaxVolumeValue.setProgress(device.getDeviceSettings().getOverriddenVolumeValue());
-
         deviceName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -84,6 +69,20 @@ public class DeviceConfigFragment extends Fragment {
                 }
             }
         });
+
+        final SettingsView useFlashlight = view.findViewById(R.id.settingsEnableFlashlight);
+        final SettingsView useVibration = view.findViewById(R.id.settingsEnableVibration);
+        final SettingsView useWifi = view.findViewById(R.id.settingsEnableWifi);
+        final SettingsView overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolume);
+        final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
+        final Button saveButton = view.findViewById(R.id.settingsSaveButton);
+        final Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
+
+        useFlashlight.setChecked(device.getDeviceSettings().getUseFlashlight());
+        useVibration.setChecked(device.getDeviceSettings().getUseVibrate());
+        useWifi.setChecked(device.getDeviceSettings().getShouldLimitToWifi());
+        overrideMaxVolume.setChecked(device.getDeviceSettings().getUseVolumeOverride());
+        overrideMaxVolumeValue.setProgress(device.getDeviceSettings().getOverriddenVolumeValue());
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

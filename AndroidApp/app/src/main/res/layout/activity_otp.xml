@@ -61,101 +61,71 @@
             app:layout_constraintTop_toBottomOf="@+id/verificationTitle"
             app:layout_constraintVertical_bias="0.29000002">
 
-            <com.jamespfluger.devicefinder.OtpEditText
+            <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField1"
+                android:nextFocusRight="@id/otpField2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:digits="0123456789"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:labelFor="@id/otpField1"
-                android:maxLength="1"
-                android:nextFocusRight="@id/otpField2"
-                android:textAlignment="center"/>
+                style="@style/Controls.OtpEditText"/>
 
             <Space
                 android:layout_width="2dp"
                 android:layout_height="0dp" />
 
-            <com.jamespfluger.devicefinder.OtpEditText
+            <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:digits="0123456789"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:labelFor="@id/otpField2"
-                android:maxLength="1"
                 android:nextFocusLeft="@id/otpField1"
                 android:nextFocusRight="@id/otpField3"
-                android:textAlignment="center" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                style="@style/Controls.OtpEditText"/>
 
             <Space
                 android:layout_width="2dp"
                 android:layout_height="0dp" />
 
-            <com.jamespfluger.devicefinder.OtpEditText
+            <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:digits="0123456789"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:labelFor="@id/otpField3"
-                android:maxLength="1"
                 android:nextFocusLeft="@id/otpField2"
                 android:nextFocusRight="@id/otpField4"
-                android:textAlignment="center" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                style="@style/Controls.OtpEditText"/>
 
             <Space
                 android:layout_width="2dp"
                 android:layout_height="0dp" />
 
-            <com.jamespfluger.devicefinder.OtpEditText
+            <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:digits="0123456789"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:labelFor="@id/otpField4"
-                android:maxLength="1"
                 android:nextFocusLeft="@id/otpField3"
                 android:nextFocusRight="@id/otpField5"
-                android:textAlignment="center" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                style="@style/Controls.OtpEditText"/>
 
             <Space
                 android:layout_width="2dp"
                 android:layout_height="0dp" />
 
-            <com.jamespfluger.devicefinder.OtpEditText
+            <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField5"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:digits="0123456789"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:labelFor="@id/otpField5"
-                android:maxLength="1"
                 android:nextFocusLeft="@id/otpField4"
                 android:nextFocusRight="@id/otpField6"
-                android:textAlignment="center" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                style="@style/Controls.OtpEditText"/>
 
             <Space
                 android:layout_width="2dp"
                 android:layout_height="0dp" />
 
-            <com.jamespfluger.devicefinder.OtpEditText
+            <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField6"
+                android:nextFocusLeft="@id/otpField5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:digits="0123456789"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:labelFor="@id/otpField6"
-                android:maxLength="1"
-                android:nextFocusLeft="@id/otpField5"
-                android:textAlignment="center" />
+                style="@style/Controls.OtpEditText"/>
 
         </LinearLayout>
 
@@ -183,8 +153,6 @@
             app:layout_constraintTop_toBottomOf="@+id/otpFieldRow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     <RelativeLayout
         android:id="@+id/otpVerificationPanel"

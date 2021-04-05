@@ -1,4 +1,4 @@
-package com.jamespfluger.devicefinder;
+package com.jamespfluger.devicefinder.controls;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -14,6 +14,8 @@ import android.view.inputmethod.InputConnectionWrapper;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.widget.AppCompatEditText;
+
+import com.jamespfluger.devicefinder.R;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
