@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data>    </data>
+    <data>
+        <variable
+            name="device"
+            type="com.jamespfluger.devicefinder.models.Device" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -61,7 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:settingsTitle="Use flashlight"
-                app:settingsSubtitle="Flashlight will turn on/off when finding device"/>
+                app:settingsSubtitle="Flashlight will turn on/off when finding device"
+                android:checked="@={device.deviceSettings.useFlashlight}"/>
 
             <!-- Enable vibration -->
             <com.jamespfluger.devicefinder.controls.SettingsView
@@ -69,7 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:settingsTitle="Use vibrate"
-                app:settingsSubtitle="Device will vibrate when finding device"/>
+                app:settingsSubtitle="Device will vibrate when finding device"
+                android:checked="@={device.deviceSettings.useVibrate}"/>
 
             <!-- Only ring on wifi -->
             <com.jamespfluger.devicefinder.controls.SettingsView
@@ -77,7 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:settingsTitle="Only ring on wifi"
-                app:settingsSubtitle="Device will ring even when not connected to WiFi"/>
+                app:settingsSubtitle="Device will ring even when not connected to WiFi"
+                android:checked="@={device.deviceSettings.shouldLimitToWifi}"/>
 
             <!-- Override max volume -->
             <com.jamespfluger.devicefinder.controls.SettingsView
@@ -85,7 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:settingsTitle="Override max volume"
-                app:settingsSubtitle="Device will ring at the maximum volume"/>
+                app:settingsSubtitle="Device will ring at the maximum volume"
+                android:checked="@={device.deviceSettings.useVolumeOverride}"/>
 
             <!-- Specific WiFi network -->
             <LinearLayout
@@ -111,6 +119,7 @@
                     android:clickable="false" />
             </LinearLayout>
 
+
             <!-- Volume to use -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,7 +143,7 @@
                     android:clickable="false"
                     android:enabled="false"
                     android:max="100"
-                    android:progress="100" />
+                    android:progress="@={device.deviceSettings.overriddenVolumeValue}"/>
             </LinearLayout>
         </LinearLayout>
 

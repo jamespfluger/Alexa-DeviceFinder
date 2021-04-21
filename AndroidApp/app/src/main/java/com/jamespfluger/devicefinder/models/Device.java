@@ -1,14 +1,18 @@
 package com.jamespfluger.devicefinder.models;
 
-import com.google.gson.annotations.SerializedName;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
-public class Device {
+import com.google.gson.annotations.SerializedName;
+import com.jamespfluger.devicefinder.BR;
+
+public class Device extends BaseObservable {
     @SerializedName("alexaUserId")
     private String alexaUserId;
     @SerializedName("deviceId")
     private String deviceId;
-    @SerializedName("amazonUserId")
-    private String amazonUserId;
+    @SerializedName("loginUserId")
+    private String loginUserId;
     @SerializedName("firebaseToken")
     private String firebaseToken;
     @SerializedName("deviceName")
@@ -35,35 +39,39 @@ public class Device {
         this.deviceId = deviceId;
     }
 
-    public String getAmazonUserId() {
-        return amazonUserId;
+    public String getLoginUserId() {
+        return loginUserId;
     }
 
-    public void setAmazonUserId(String amazonUserId) {
-        this.amazonUserId = amazonUserId;
+    public void setLoginUserId(String loginUserId) {
+        this.loginUserId = loginUserId;
     }
 
     public String getFirebaseToken() {
-        return amazonUserId;
+        return firebaseToken;
     }
 
-    public void setFirebaseToken(String amazonUserId) {
-        this.amazonUserId = amazonUserId;
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
     }
 
+    @Bindable
     public String getDeviceName() {
         return deviceName;
     }
 
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
+        notifyPropertyChanged(BR.deviceName);
     }
 
+    @Bindable
     public DeviceSettings getDeviceSettings() {
         return deviceSettings;
     }
 
     public void setDeviceSettings(DeviceSettings deviceSettings) {
         this.deviceSettings = deviceSettings;
+        notifyPropertyChanged(BR.deviceSettings);
     }
 }

@@ -138,7 +138,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.nav_host_fragment, newFragment, "").commit();
+                ft.replace(R.id.nav_host_fragment, newFragment).commit();
                 clearAllChecks(menu);
                 item.setChecked(true);
                 drawer.close();
