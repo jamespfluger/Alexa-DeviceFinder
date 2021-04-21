@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import com.jamespfluger.devicefinder.BR;
 
 public class DeviceSettings extends BaseObservable {
-
     @SerializedName("alexaUserId")
     private String alexaUserId;
     @SerializedName("deviceId")

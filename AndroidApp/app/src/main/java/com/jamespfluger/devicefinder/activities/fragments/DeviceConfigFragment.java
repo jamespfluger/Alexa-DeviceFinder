@@ -73,10 +73,10 @@ public class DeviceConfigFragment extends Fragment {
             }
         });
 
-        final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlight);
-        final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibration);
-        final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifi);
-        final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolume);
+        final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlightSwitch);
+        final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibrationSwitch);
+        final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifiSwitch);
+        final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolumeSwitch);
         final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
         final Button saveButton = view.findViewById(R.id.settingsSaveButton);
         final Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
