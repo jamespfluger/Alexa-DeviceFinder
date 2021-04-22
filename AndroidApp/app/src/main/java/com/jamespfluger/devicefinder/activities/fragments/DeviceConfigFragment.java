@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.amazon.identity.auth.device.AuthError;
@@ -27,7 +28,7 @@ import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.LoginActivity;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
-import com.jamespfluger.devicefinder.controls.SettingsView;
+import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.models.DeviceSettings;
 
@@ -41,14 +42,16 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
     private final Device device;
+    private FragmentDeviceConfigBinding binding;
 
     public DeviceConfigFragment(Device device) {
         this.device = device;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_device_config, container, false);
-        return root;
+        binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
+        binding.setDevice(device);
+        return binding.getRoot();
     }
 
     @Override
@@ -70,10 +73,10 @@ public class DeviceConfigFragment extends Fragment {
             }
         });
 
-        final SettingsView useFlashlight = view.findViewById(R.id.settingsEnableFlashlight);
-        final SettingsView useVibration = view.findViewById(R.id.settingsEnableVibration);
-        final SettingsView useWifi = view.findViewById(R.id.settingsEnableWifi);
-        final SettingsView overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolume);
+        final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlightSwitch);
+        final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibrationSwitch);
+        final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifiSwitch);
+        final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolumeSwitch);
         final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
         final Button saveButton = view.findViewById(R.id.settingsSaveButton);
         final Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
@@ -90,20 +93,10 @@ public class DeviceConfigFragment extends Fragment {
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.VISIBLE);
 
-                DeviceSettings deviceSettings = device.getDeviceSettings();
-                deviceSettings.setAlexaUserId(device.getAlexaUserId());
-                deviceSettings.setDeviceId(device.getDeviceId());
-                deviceSettings.setDeviceName(deviceName.getText().toString());
-                deviceSettings.setUseFlashlight(useFlashlight.isChecked());
-                deviceSettings.setUseVibrate(useVibration.isChecked());
-                deviceSettings.setShouldLimitToWifi(useWifi.isChecked());
-                deviceSettings.setConfiguredWifiSsid(null);
-                deviceSettings.setUseVolumeOverride(overrideMaxVolume.isChecked());
-                deviceSettings.setOverriddenVolumeValue(overrideMaxVolumeValue.getProgress());
 
                 ManagementInterface managementService = ApiService.createInstance();
 
-                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(deviceSettings);
+                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings());
                 updateSettingsCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
