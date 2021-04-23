@@ -18,6 +18,7 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.workflow.RequestContext;
 import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 
 public class LoginActivity extends Activity {
     private RequestContext requestContext;
@@ -32,6 +33,7 @@ public class LoginActivity extends Activity {
         requestContext.registerListener(new AuthorizeListener() {
             @Override
             public void onSuccess(AuthorizeResult authorizeResult) {
+                AmazonLoginHelper.setUserId(getApplicationContext());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

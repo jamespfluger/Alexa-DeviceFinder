@@ -81,7 +81,7 @@ public class OtpActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
                             Device newDevice = (Device) response.body();
-                            preferencesManager.setUserId(newDevice.getAlexaUserId());
+                            preferencesManager.setAlexaUserId(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {
                             try {

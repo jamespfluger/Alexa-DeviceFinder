@@ -12,13 +12,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.amazon.identity.auth.device.AuthError;
@@ -30,7 +28,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.models.DeviceSettings;
+import com.jamespfluger.devicefinder.utilities.PreferencesManager;
 
 import java.io.IOException;
 
@@ -42,14 +40,15 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
     private final Device device;
-    private FragmentDeviceConfigBinding binding;
+    private PreferencesManager preferencesManager;
 
     public DeviceConfigFragment(Device device) {
         this.device = device;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
+        preferencesManager = new PreferencesManager(getActivity());
+        FragmentDeviceConfigBinding binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
         binding.setDevice(device);
         return binding.getRoot();
     }
@@ -57,7 +56,7 @@ public class DeviceConfigFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         final EditText deviceName = view.findViewById(R.id.settingsDeviceNameField);
-        deviceName.setText(device.getDeviceSettings().getDeviceName());
+        deviceName.setText(device.getDeviceName());
         deviceName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -73,19 +72,8 @@ public class DeviceConfigFragment extends Fragment {
             }
         });
 
-        final SwitchCompat useFlashlight = view.findViewById(R.id.settingsEnableFlashlightSwitch);
-        final SwitchCompat useVibration = view.findViewById(R.id.settingsEnableVibrationSwitch);
-        final SwitchCompat useWifi = view.findViewById(R.id.settingsEnableWifiSwitch);
-        final SwitchCompat overrideMaxVolume = view.findViewById(R.id.settingsOverrideMaxVolumeSwitch);
-        final SeekBar overrideMaxVolumeValue = view.findViewById(R.id.settingsVolumeToUseSlider);
         final Button saveButton = view.findViewById(R.id.settingsSaveButton);
         final Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
-
-        useFlashlight.setChecked(device.getDeviceSettings().getUseFlashlight());
-        useVibration.setChecked(device.getDeviceSettings().getUseVibrate());
-        useWifi.setChecked(device.getDeviceSettings().getShouldLimitToWifi());
-        overrideMaxVolume.setChecked(device.getDeviceSettings().getUseVolumeOverride());
-        overrideMaxVolumeValue.setProgress(device.getDeviceSettings().getOverriddenVolumeValue());
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,16 +81,15 @@ public class DeviceConfigFragment extends Fragment {
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.VISIBLE);
 
-
                 ManagementInterface managementService = ApiService.createInstance();
 
-                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings());
+                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings(), preferencesManager.getAlexaUserId(), device.getDeviceId());
                 updateSettingsCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (!response.isSuccessful()) {
                             try {
-                                Toast.makeText(getContext(), "Failed to save settings - " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Failed to save settings - " + response.errorBody().string(), Toast.LENGTH_LONG).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

@@ -32,8 +32,6 @@ public class LaunchActivity extends AppCompatActivity {
         Scope[] scopes = {ProfileScope.userId()};
 
         AuthorizationManager.getToken(this, scopes, new Listener<AuthorizeResult, AuthError>() {
-            Intent intentToLaunch;
-
             @Override
             public void onSuccess(AuthorizeResult result) {
                 PermissionsRequester permissionsRequester = new PermissionsRequester();

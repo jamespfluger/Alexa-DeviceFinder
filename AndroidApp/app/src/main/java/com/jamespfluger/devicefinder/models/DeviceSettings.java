@@ -7,12 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import com.jamespfluger.devicefinder.BR;
 
 public class DeviceSettings extends BaseObservable {
-    @SerializedName("alexaUserId")
-    private String alexaUserId;
-    @SerializedName("deviceId")
-    private String deviceId;
-    @SerializedName("deviceName")
-    private String deviceName;
     @SerializedName("useFlashlight")
     private boolean useFlashlight;
     @SerializedName("useVibrate")
@@ -27,37 +21,6 @@ public class DeviceSettings extends BaseObservable {
     private int overriddenVolumeValue;
 
     public DeviceSettings() {
-    }
-
-    public DeviceSettings(String alexaUserId, String deviceId) {
-        this.alexaUserId = alexaUserId;
-        this.deviceId = deviceId;
-    }
-
-    public String getAlexaUserId() {
-        return alexaUserId;
-    }
-
-    public void setAlexaUserId(String alexaUserId) {
-        this.alexaUserId = alexaUserId;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    @Bindable
-    public String getDeviceName() {
-        return deviceName;
-    }
-
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
-        notifyPropertyChanged(BR.deviceName);
     }
 
     @Bindable

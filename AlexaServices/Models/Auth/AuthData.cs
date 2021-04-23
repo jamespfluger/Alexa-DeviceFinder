@@ -6,7 +6,7 @@ using DeviceFinder.Models.Devices;
 
 namespace DeviceFinder.Models.Auth
 {
-    public class AuthData
+    public class AuthData : IModel
     {
         public string OneTimePasscode { get; set; }
 
@@ -31,8 +31,10 @@ namespace DeviceFinder.Models.Auth
 
         public bool IsModelValid()
         {
-            return !string.IsNullOrEmpty(OneTimePasscode) && !string.IsNullOrEmpty(LoginUserId)
-                   && !string.IsNullOrEmpty(FirebaseToken) && !string.IsNullOrEmpty(DeviceName);
+            return !string.IsNullOrEmpty(OneTimePasscode)
+                && !string.IsNullOrEmpty(LoginUserId)
+                && !string.IsNullOrEmpty(FirebaseToken) 
+                && !string.IsNullOrEmpty(DeviceName);
         }
     }
 }
