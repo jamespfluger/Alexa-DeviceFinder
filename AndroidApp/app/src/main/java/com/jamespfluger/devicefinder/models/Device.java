@@ -39,22 +39,6 @@ public class Device extends BaseObservable {
         this.deviceId = deviceId;
     }
 
-    public String getLoginUserId() {
-        return loginUserId;
-    }
-
-    public void setLoginUserId(String loginUserId) {
-        this.loginUserId = loginUserId;
-    }
-
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-
-    public void setFirebaseToken(String firebaseToken) {
-        this.firebaseToken = firebaseToken;
-    }
-
     @Bindable
     public String getDeviceName() {
         return deviceName;

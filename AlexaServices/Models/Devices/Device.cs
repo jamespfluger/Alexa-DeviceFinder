@@ -6,7 +6,7 @@ using DeviceFinder.Models.Auth;
 namespace DeviceFinder.Models.Devices
 {
     [DynamoDBTable("DeviceFinder_Devices")]
-    public class Device
+    public class Device : IModel
     {
         [DynamoDBHashKey("AlexaUserID")]
         public string AlexaUserId { get; set; }
@@ -42,6 +42,12 @@ namespace DeviceFinder.Models.Devices
             FirebaseToken = authData.FirebaseToken;
             ModifiedDate = DateTime.UtcNow;
             DeviceSettings = new DeviceSettings();
+        }
+
+        public bool IsModelValid()
+        {
+            return !string.IsNullOrEmpty(AlexaUserId)
+                && !string.IsNullOrEmpty(FirebaseToken);
         }
 
         public override string ToString()

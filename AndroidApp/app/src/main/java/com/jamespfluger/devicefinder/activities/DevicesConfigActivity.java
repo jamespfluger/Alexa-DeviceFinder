@@ -79,7 +79,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
     private void getDevices() {
         ManagementInterface managementApi = ApiService.createInstance();
-        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(preferencesManager.getUserId());
+        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(preferencesManager.getAlexaUserId());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             @EverythingIsNonNull
@@ -90,7 +90,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
                 } else {
                     try {
                         String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
-                        Toast.makeText(DevicesConfigActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DevicesConfigActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

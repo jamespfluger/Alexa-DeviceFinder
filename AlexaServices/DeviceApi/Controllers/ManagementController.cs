@@ -15,7 +15,6 @@ namespace DeviceFinder.DeviceApi.Controllers
     [Route("devicefinder/[controller]")]
     public class ManagementController : ControllerBase
     {
-
         private readonly DynamoDBContext context;
 
         public ManagementController()
@@ -31,15 +30,12 @@ namespace DeviceFinder.DeviceApi.Controllers
             {
                 // Verify the body we've received has the correct contents
                 if (authData == null || !authData.IsModelValid())
-                    return BadRequest($"Error in add: AuthUserDevice body is missing (IsNull={authData == null}) or malformed: {authData}");
+                    return BadRequest($"Error in add: {nameof(AuthData)} body is malformed: {authData?.ToString() ?? "NULL"}");
 
                 // Find the user created when interacting with Alexa
                 AlexaUser alexaUser = await context.LoadAsync<AlexaUser>(authData.OneTimePasscode);
 
-                // Ensure the user exists AND that the OTP has not expired
-                if (alexaUser?.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
-                    return Unauthorized("The entered code has expired.");
-                else if (alexaUser == null)
+                if (alexaUser == null || alexaUser.TimeToLive <= DateTimeOffset.UtcNow.ToUnixTimeSeconds())
                     return NotFound();
 
                 Device newDevice = new Device
@@ -51,70 +47,57 @@ namespace DeviceFinder.DeviceApi.Controllers
                 };
 
                 // Save the new device, and delete the old AlexaUser entry
-                Task saveResult = context.SaveAsync(newDevice);
+                Task newDeviceSaveResult = context.SaveAsync(newDevice);
                 Task deleteAlexaAuthResult = context.DeleteAsync<AlexaUser>(alexaUser.AlexaUserId);
 
-                Task.WaitAll(saveResult, deleteAlexaAuthResult);
+                Task.WaitAll(newDeviceSaveResult, deleteAlexaAuthResult);
 
                 return CreatedAtAction(nameof(AddNewDevice), newDevice);
             }
             catch (Exception ex)
             {
-                string errorMessage = $"{ex.Message}\n\n{ex}\n\n{authData}";
-                return BadRequest(errorMessage);
+                return BadRequest(ex);
             }
         }
 
-        /*/// TODO: add documentation
-        //[HttpGet("users/{userid}/devices/{deviceid}")]
-        //public async Task<ActionResult<UserDevice>> GetSingleUserDevice([FromRoute] string userId, [FromRoute] string deviceId)
-        //{
-        //    UserDevice foundDevice = await context.LoadAsync<UserDevice>(userId, deviceId);
-
-        //    if (foundDevice != null)
-        //        return Ok(foundDevice);
-        //    else
-        //        return NotFound();
-        //}*/
-
         /// TODO: add documentation
-        [HttpGet("users/{userid}")]
-        public async Task<ActionResult<List<Device>>> GetAllUserDevices([FromRoute] string userId)
+        [HttpGet("users/{alexauserid}")]
+        public async Task<ActionResult<List<Device>>> GetAllUserDevices([FromRoute] string alexaUserId)
         {
             try
             {
-                //Task<List<Device>> deviceSearchResults = context.QueryAsync<Device>(userId).GetRemainingAsync();
-                //Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(userId).GetRemainingAsync();
-                //await Task.WhenAll(deviceSearchResults, settingsSearchResults);
-                //List<Device> devices = deviceSearchResults.Result;
-                //List<DeviceSettings> settings = settingsSearchResults.Result;
+                Task<List<Device>> deviceSearchResults = context.QueryAsync<Device>(alexaUserId).GetRemainingAsync();
+                Task<List<DeviceSettings>> settingsSearchResults = context.QueryAsync<DeviceSettings>(alexaUserId).GetRemainingAsync();
+                await Task.WhenAll(deviceSearchResults, settingsSearchResults);
+                
+                List<Device> devices = deviceSearchResults.Result;
+                List<DeviceSettings> settings = settingsSearchResults.Result;
 
-                List<Device> devices = await context.QueryAsync<Device>(userId).GetRemainingAsync();
+                if (!devices.Any())
+                    return NotFound($"No devices found for user {alexaUserId}");
 
                 foreach (Device device in devices)
                 {
+                    device.DeviceSettings = settings.FirstOrDefault(s => device.DeviceId == s.DeviceId);
                     device.DeviceSettings ??= new DeviceSettings();
                 }
 
-                if (devices.Any())
-                    return Ok(devices);
-                else
-                    return NotFound($"No devices found for user {userId}");
+                return Ok(devices);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString() + Environment.NewLine + userId);
+                return BadRequest(ex.ToString());
             }
         }
 
         /// TODO: add documentation
-        [HttpPut("/users/{userid}/devices/{deviceid}")]
+        [HttpPut("/users/{alexauserid}/devices/{deviceid}")]
         public async Task<ActionResult> SaveUserDevice([FromBody] Device device)
         {
             try
             {
-                if (device == null || string.IsNullOrEmpty(device.AlexaUserId) || string.IsNullOrEmpty(device.FirebaseToken))
-                    return BadRequest($"Error in settings save: UserDevice body is missing ({device == null}) or malformed: {device.ToString()}");
+                if (!device.IsModelValid())
+                    return BadRequest($"Error in settings save: UserDevice body is missing ({device == null}) or malformed: {device}");
 
                 await context.SaveAsync(device);
 
@@ -127,43 +110,24 @@ namespace DeviceFinder.DeviceApi.Controllers
         }
 
         /// TODO: add documentation
-        [HttpPut("users/{userid}/devices/{deviceid}/settings")]
-        public async Task<ActionResult> SaveDeviceSettings([FromBody] DeviceSettings deviceSettings, [FromRoute] string userId, [FromRoute] string deviceId)
+        [HttpPut("users/{alexauserid}/devices/{deviceid}/settings")]
+        public async Task<ActionResult> SaveDeviceSettings([FromBody] DeviceSettings deviceSettings, [FromRoute] string alexaUserId, [FromRoute] string deviceId)
         {
             try
             {
-                if (deviceSettings == null || string.IsNullOrEmpty(deviceSettings.AlexaUserId) || string.IsNullOrEmpty(deviceSettings.DeviceID))
-                    return BadRequest($"Error in settings save: DeviceSettings body is missing ({deviceSettings == null}) or malformed: {deviceSettings.ToString()}");
+                if (deviceSettings == null || alexaUserId == null || deviceId == null)
+                    return BadRequest($"Error in settings save: DeviceSettings body is malformed: {deviceSettings}");
 
+                deviceSettings.AlexaUserId = alexaUserId;
+                deviceSettings.DeviceId = deviceId;
                 await context.SaveAsync(deviceSettings);
 
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString() + Environment.NewLine + deviceSettings.ToString());
+                return BadRequest(ex);
             }
         }
-
-        /* /// TODO: add documentation
-        [HttpGet("devices/settings")]
-        public async Task<ActionResult<List<DeviceSettings>>> GetSettingsForAllDevices([FromRoute] string userId)
-        {
-            try
-            {
-                AsyncSearch<DeviceSettings> searchResults = context.QueryAsync<DeviceSettings>(userId);
-                List<DeviceSettings> allUserDevices = await searchResults.GetRemainingAsync();
-
-                if (allUserDevices.Any())
-                    return Ok(allUserDevices);
-                else
-                    return NotFound();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString() + Environment.NewLine + userId);
-            }
-        }*/
-
     }
 }

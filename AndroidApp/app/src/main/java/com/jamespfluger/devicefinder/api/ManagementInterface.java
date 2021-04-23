@@ -17,9 +17,9 @@ public interface ManagementInterface {
     @POST("management/users")
     Call<Device> addNewDevice(@Body AuthData deviceInfo);
 
-    @GET("management/users/{userid}")
-    Call<ArrayList<Device>> getAllDevices(@Path("userid") String userId);
+    @GET("management/users/{alexauserid}")
+    Call<ArrayList<Device>> getAllDevices(@Path("alexauserid") String alexaUserId);
 
-    @PUT("management/users/{userid}/devices/{deviceid}/settings")
-    Call<Void> saveDeviceSettings(@Body DeviceSettings deviceSettings);
+    @PUT("management/users/{alexauserid}/devices/{deviceid}/settings")
+    Call<Void> saveDeviceSettings(@Body DeviceSettings deviceSettings, @Path("alexauserid") String alexaUserId, @Path("deviceid") String deviceId);
 }

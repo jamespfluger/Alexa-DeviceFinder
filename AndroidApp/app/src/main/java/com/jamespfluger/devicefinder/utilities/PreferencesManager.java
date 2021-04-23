@@ -57,11 +57,11 @@ public class PreferencesManager {
         preferences.edit().putString(PREFERENCE_NAME_DEVICE_NAME, deviceName).apply();
     }
 
-    public String getUserId() {
+    public String getAlexaUserId() {
         return preferences.getString(PREFERENCE_NAME_ALEXA_USER_ID, null);
     }
 
-    public void setUserId(String userId) {
-        preferences.edit().putString(PREFERENCE_NAME_ALEXA_USER_ID, userId).apply();
+    public void setAlexaUserId(String alexaUserId) {
+        preferences.edit().putString(PREFERENCE_NAME_ALEXA_USER_ID, alexaUserId).apply();
     }
 }
