@@ -28,8 +28,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.settings.ConfigType;
-import com.jamespfluger.devicefinder.settings.PreferencesManager;
+import com.jamespfluger.devicefinder.settings.SettingsManager;
 
 import java.io.IOException;
 
@@ -83,7 +82,7 @@ public class DeviceConfigFragment extends Fragment {
 
                 ManagementInterface managementService = ApiService.createInstance();
 
-                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings(), PreferencesManager.getConfig(ConfigType.AlexaUserId), device.getDeviceId());
+                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings(), SettingsManager.getAlexaUserIdConfig(), device.getDeviceId());
                 updateSettingsCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
