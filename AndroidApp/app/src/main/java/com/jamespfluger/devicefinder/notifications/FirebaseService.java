@@ -11,8 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.jamespfluger.devicefinder.settings.ConfigType;
-import com.jamespfluger.devicefinder.settings.PreferencesManager;
+import com.jamespfluger.devicefinder.settings.SettingsManager;
 import com.jamespfluger.devicefinder.utilities.Logger;
 
 public class FirebaseService extends FirebaseMessagingService {
@@ -24,7 +23,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-        PreferencesManager.setConfig(ConfigType.FirebaseToken, newToken);
+        SettingsManager.setFirebaseTokenConfig(newToken);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class FirebaseService extends FirebaseMessagingService {
 
                         if (taskResult != null) {
                             String newToken = taskResult.getToken();
-                            PreferencesManager.setConfig(ConfigType.FirebaseToken, newToken);
+                            SettingsManager.setFirebaseTokenConfig(newToken);
                         }
                     }
                 })

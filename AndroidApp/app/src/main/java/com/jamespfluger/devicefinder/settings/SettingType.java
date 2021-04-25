@@ -6,6 +6,6 @@ public enum SettingType {
     UseVibrate,
     UseOnWifiOnly,
     UseVolumeOverride,
-    ConfiguredWifiSsid,
+    WifiSsid,
     VolumeOverrideValue
 }

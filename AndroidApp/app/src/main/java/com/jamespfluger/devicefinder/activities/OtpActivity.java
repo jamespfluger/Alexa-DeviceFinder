@@ -18,8 +18,7 @@ import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.controls.OtpEditText;
 import com.jamespfluger.devicefinder.models.AuthData;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.settings.ConfigType;
-import com.jamespfluger.devicefinder.settings.PreferencesManager;
+import com.jamespfluger.devicefinder.settings.SettingsManager;
 
 import java.io.IOException;
 
@@ -67,9 +66,9 @@ public class OtpActivity extends AppCompatActivity {
                 // Build auth device
                 AuthData authUserDevices = new AuthData();
 
-                authUserDevices.setLoginUserId(PreferencesManager.getConfig(ConfigType.LoginUserId));
-                authUserDevices.setFirebaseToken(PreferencesManager.getConfig(ConfigType.FirebaseToken));
-                authUserDevices.setDeviceName(PreferencesManager.getConfig(ConfigType.DeviceName));
+                authUserDevices.setLoginUserId(SettingsManager.getLoginUserIdConfig());
+                authUserDevices.setFirebaseToken(SettingsManager.getFirebaseTokenConfig());
+                authUserDevices.setDeviceName(SettingsManager.getDeviceNameConfig());
                 authUserDevices.setOtp(otpBuilder.toString());
 
                 // Execute authorization
@@ -82,7 +81,7 @@ public class OtpActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
                             Device newDevice = (Device) response.body();
-                            PreferencesManager.setConfig(ConfigType.AlexaUserId, newDevice.getAlexaUserId());
+                            SettingsManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {
                             try {
