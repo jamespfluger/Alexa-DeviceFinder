@@ -258,7 +258,7 @@
                     android:clickable="false"
                     android:enabled="false"
                     android:max="100"
-                    android:progress="@={device.deviceSettings.overriddenVolumeValue}"/>
+                    android:progress="@={device.deviceSettings.volumeOverrideValue}"/>
             </LinearLayout>
         </LinearLayout>
 

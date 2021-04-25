@@ -12,17 +12,18 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
 import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.devicefinder.settings.PreferencesManager;
 import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 import com.jamespfluger.devicefinder.utilities.PermissionsRequester;
-import com.jamespfluger.devicefinder.utilities.UserManager;
 
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserManager userManager = new UserManager(getApplicationContext());
-        userManager.refreshFirebaseToken();
+        PreferencesManager.setInstance(getApplicationContext());
+
+        PreferencesManager.refreshFirebaseToken();
 
         setContentView(R.layout.activity_launch);
         selectActivityToLaunch();
