@@ -28,7 +28,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.devicefinder.utilities.UserManager;
 
 import java.io.IOException;
 
@@ -40,14 +40,14 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
     private final Device device;
-    private PreferencesManager preferencesManager;
+    private UserManager userManager;
 
     public DeviceConfigFragment(Device device) {
         this.device = device;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        preferencesManager = new PreferencesManager(getActivity());
+        userManager = new UserManager(getActivity());
         FragmentDeviceConfigBinding binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
         binding.setDevice(device);
         return binding.getRoot();
@@ -83,7 +83,7 @@ public class DeviceConfigFragment extends Fragment {
 
                 ManagementInterface managementService = ApiService.createInstance();
 
-                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings(), preferencesManager.getAlexaUserId(), device.getDeviceId());
+                Call<Void> updateSettingsCall = managementService.saveDeviceSettings(device.getDeviceSettings(), userManager.getAlexaUserId(), device.getDeviceId());
                 updateSettingsCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {

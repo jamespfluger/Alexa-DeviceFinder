@@ -12,25 +12,21 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.devicefinder.utilities.Logger;
+import com.jamespfluger.devicefinder.utilities.UserManager;
 
 public class FirebaseService extends FirebaseMessagingService {
-    private PreferencesManager preferencesManager;
+    private final UserManager userManager;
     private NotificationForge notificationForge;
-    private Context context;
-
-    public FirebaseService(Context context) {
-        this.context = context;
-        this.preferencesManager = new PreferencesManager(context);
-    }
 
     public FirebaseService() {
+        this.userManager = new UserManager(getApplicationContext());
     }
 
     @Override
     public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-        preferencesManager.setFirebaseToken(newToken);
+        userManager.setFirebaseToken(newToken);
     }
 
     @Override
@@ -52,14 +48,15 @@ public class FirebaseService extends FirebaseMessagingService {
 
                         if (taskResult != null) {
                             String newToken = taskResult.getToken();
-                            preferencesManager.setFirebaseToken(newToken);
+                            userManager.setFirebaseToken(newToken);
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Error receiving Firebase token.\nPlease log in again", Toast.LENGTH_SHORT).show();
+                    public void onFailure(@NonNull Exception ex) {
+                        Logger.Log("Failed to refresh FirebaseToken with exception: " + ex.toString());
+                        Toast.makeText(getApplicationContext(), "Error receiving Firebase token.\n" + ex.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

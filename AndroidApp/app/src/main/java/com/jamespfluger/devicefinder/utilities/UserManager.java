@@ -5,22 +5,27 @@ import android.content.SharedPreferences;
 
 import com.jamespfluger.devicefinder.notifications.FirebaseService;
 
-public class PreferencesManager {
-    private final String PREFERENCES_NAME = "com.jamespfluger.devicefinder.SHARED_PREFERENCES";
+public class UserManager {
     private final String PREFERENCE_NAME_FIREBASE = "firebasetoken";
     private final String PREFERENCE_NAME_AMAZON_USER_ID = "amazonuserid";
     private final String PREFERENCE_NAME_ALEXA_USER_ID = "alexauserid";
     private final String PREFERENCE_NAME_DEVICE_NAME = "devicename";
+
     private final SharedPreferences preferences;
     private final Context context;
 
-    public PreferencesManager(Context context) {
-        this.preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+    public UserManager(Context context) {
+        this.preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         this.context = context;
     }
 
+    public void refreshFirebaseToken() {
+        FirebaseService firebaseService = new FirebaseService(context);
+        firebaseService.refreshToken();
+    }
+
     public String getFirebaseToken() {
-        String firebaseToken = preferences.getString(PREFERENCE_NAME_FIREBASE, null);
+        String firebaseToken = getPreference(PREFERENCE_NAME_FIREBASE);
 
         if (firebaseToken != null) {
             return firebaseToken;
@@ -29,39 +34,42 @@ public class PreferencesManager {
             firebaseService.refreshToken();
         }
 
-        return preferences.getString(PREFERENCE_NAME_FIREBASE, null);
+        return getPreference(PREFERENCE_NAME_FIREBASE);
     }
 
     public void setFirebaseToken(String deviceId) {
         preferences.edit().putString(PREFERENCE_NAME_FIREBASE, deviceId).apply();
     }
 
-    public void refreshFirebaseToken() {
-        FirebaseService firebaseService = new FirebaseService(context);
-        firebaseService.refreshToken();
+    public String getLoginUserId() {
+        return getPreference(PREFERENCE_NAME_AMAZON_USER_ID);
     }
 
-    public String getAmazonUserId() {
-        return preferences.getString(PREFERENCE_NAME_AMAZON_USER_ID, null);
-    }
-
-    public void setAmazonUserId(String userId) {
-        preferences.edit().putString(PREFERENCE_NAME_AMAZON_USER_ID, userId).apply();
+    public void setLoginUserId(String userId) {
+        setPreference(PREFERENCE_NAME_AMAZON_USER_ID, userId);
     }
 
     public String getDeviceName() {
-        return preferences.getString(PREFERENCE_NAME_DEVICE_NAME, null);
+        return getPreference(PREFERENCE_NAME_DEVICE_NAME);
     }
 
     public void setDeviceName(String deviceName) {
-        preferences.edit().putString(PREFERENCE_NAME_DEVICE_NAME, deviceName).apply();
+        setPreference(PREFERENCE_NAME_DEVICE_NAME, deviceName);
     }
 
     public String getAlexaUserId() {
-        return preferences.getString(PREFERENCE_NAME_ALEXA_USER_ID, null);
+        return getPreference(PREFERENCE_NAME_ALEXA_USER_ID);
     }
 
     public void setAlexaUserId(String alexaUserId) {
-        preferences.edit().putString(PREFERENCE_NAME_ALEXA_USER_ID, alexaUserId).apply();
+        setPreference(PREFERENCE_NAME_ALEXA_USER_ID, alexaUserId);
+    }
+    
+    private void setPreference(String preferenceName, String preferenceValue){
+        preferences.edit().putString(preferenceName, preferenceValue).apply();
+    }
+    
+    private String getPreference(String preferenceName){
+        return preferences.getString(preferenceName, null);
     }
 }

@@ -11,8 +11,8 @@ public class DeviceSettings extends BaseObservable {
     private boolean useFlashlight;
     @SerializedName("useVibrate")
     private boolean useVibrate;
-    @SerializedName("shouldLimitToWifi")
-    private boolean shouldLimitToWifi;
+    @SerializedName("useOnWifiOnly")
+    private boolean useOnWifiOnly;
     @SerializedName("configuredWifiSsid")
     private String configuredWifiSsid;
     @SerializedName("useVolumeOverride")
@@ -45,12 +45,12 @@ public class DeviceSettings extends BaseObservable {
 
     @Bindable
     public boolean getShouldLimitToWifi() {
-        return shouldLimitToWifi;
+        return useOnWifiOnly;
     }
 
-    public void setShouldLimitToWifi(boolean shouldLimitToWifi) {
-        this.shouldLimitToWifi = shouldLimitToWifi;
-        notifyPropertyChanged(BR.shouldLimitToWifi);
+    public void setShouldLimitToWifi(boolean useOnWifiOnly) {
+        this.useOnWifiOnly = useOnWifiOnly;
+        notifyPropertyChanged(BR.useOnWifiOnly);
     }
 
     @Bindable
