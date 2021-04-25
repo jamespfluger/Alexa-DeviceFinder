@@ -13,15 +13,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.devicefinder.settings.ConfigType;
+import com.jamespfluger.devicefinder.settings.PreferencesManager;
 
 public class NameActivity extends AppCompatActivity {
-    private PreferencesManager preferencesManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferencesManager = new PreferencesManager(getApplicationContext());
 
         setContentView(R.layout.activity_name);
         initializeUi();
@@ -58,7 +56,7 @@ public class NameActivity extends AppCompatActivity {
                     final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     deviceNameField.startAnimation(errorAnimation);
                 } else {
-                    preferencesManager.setDeviceName(deviceNameField.getText().toString());
+                    PreferencesManager.setConfig(ConfigType.DeviceName, deviceNameField.getText().toString());
                     switchToActivity(OtpActivity.class);
                 }
             }

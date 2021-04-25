@@ -174,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.85"
-                    android:checked="@={device.deviceSettings.shouldLimitToWifi}"/>
+                    android:checked="@={device.deviceSettings.useOnWifiOnly}"/>
             </LinearLayout>
 
             <!-- Specific WiFi network -->
@@ -258,7 +258,7 @@
                     android:clickable="false"
                     android:enabled="false"
                     android:max="100"
-                    android:progress="@={device.deviceSettings.overriddenVolumeValue}"/>
+                    android:progress="@={device.deviceSettings.volumeOverrideValue}"/>
             </LinearLayout>
         </LinearLayout>
 

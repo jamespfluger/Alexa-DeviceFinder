@@ -24,7 +24,8 @@ import com.jamespfluger.devicefinder.activities.fragments.HomeFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.utilities.PreferencesManager;
+import com.jamespfluger.devicefinder.settings.ConfigType;
+import com.jamespfluger.devicefinder.settings.PreferencesManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,13 +37,12 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class DevicesConfigActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-    private PreferencesManager preferencesManager;
+
     private ArrayList<Device> allDevices = new ArrayList<Device>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferencesManager = new PreferencesManager(getApplicationContext());
 
         setContentView(R.layout.activity_device_navigation);
         final Toolbar toolbar = findViewById(R.id.toolbar);
@@ -79,7 +79,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
     private void getDevices() {
         ManagementInterface managementApi = ApiService.createInstance();
-        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(preferencesManager.getAlexaUserId());
+        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(PreferencesManager.getConfig(ConfigType.AlexaUserId));
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             @EverythingIsNonNull
