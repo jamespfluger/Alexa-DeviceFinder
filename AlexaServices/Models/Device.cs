@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models.Auth;
 
-namespace DeviceFinder.Models.Devices
+namespace DeviceFinder.Models
 {
     [DynamoDBTable("DeviceFinder_Devices")]
     public class Device : IModel
@@ -23,31 +22,35 @@ namespace DeviceFinder.Models.Devices
         [DynamoDBProperty("DeviceName")]
         public string DeviceName { get; set; }
 
+        [DynamoDBProperty("UseFlashlight")]
+        public bool UseFlashlight { get; set; }
+
+        [DynamoDBProperty("UseVibrate")]
+        public bool UseVibrate { get; set; }
+
+        [DynamoDBProperty("UseOnWifiOnly")]
+        public bool UseOnWifiOnly { get; set; }
+
+        [DynamoDBProperty("ConfiguredWifiSsid")]
+        public string ConfiguredWifiSsid { get; set; }
+
+        [DynamoDBProperty("UseVolumeOverride")]
+        public bool UseVolumeOverride { get; set; }
+
+        [DynamoDBProperty("VolumeOverrideValue")]
+        public int VolumeOverrideValue { get; set; }
+
+        [DynamoDBProperty("CreatedDate")]
+        public DateTime CreatedDate { get; set; }
+
         [DynamoDBProperty("ModifiedDate")]
-        public DateTime ModifiedDate { get; }
-
-        [DynamoDBIgnore()]
-        public DeviceSettings DeviceSettings { get; set; }
-
-        public Device()
-        {
-            ModifiedDate = DateTime.UtcNow;
-            DeviceSettings = new DeviceSettings();
-        }
-
-        public Device(AlexaUser alexaUser, AuthData authData)
-        {
-            AlexaUserId = alexaUser.AlexaUserId;
-            DeviceName = authData.DeviceName;
-            FirebaseToken = authData.FirebaseToken;
-            ModifiedDate = DateTime.UtcNow;
-            DeviceSettings = new DeviceSettings();
-        }
+        public DateTime ModifiedDate { get; set; }
 
         public bool IsModelValid()
         {
             return !string.IsNullOrEmpty(AlexaUserId)
-                && !string.IsNullOrEmpty(FirebaseToken);
+                && !string.IsNullOrEmpty(FirebaseToken)
+                && !string.IsNullOrEmpty(DeviceName);
         }
 
         public override string ToString()

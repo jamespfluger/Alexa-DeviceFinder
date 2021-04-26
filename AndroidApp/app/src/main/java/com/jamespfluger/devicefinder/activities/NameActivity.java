@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.settings.ConfigManager;
 
 public class NameActivity extends AppCompatActivity {
     @Override
@@ -55,7 +55,7 @@ public class NameActivity extends AppCompatActivity {
                     final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     deviceNameField.startAnimation(errorAnimation);
                 } else {
-                    SettingsManager.setDeviceNameConfig(deviceNameField.getText().toString());
+                    ConfigManager.setDeviceNameConfig(deviceNameField.getText().toString());
                     switchToActivity(OtpActivity.class);
                 }
             }

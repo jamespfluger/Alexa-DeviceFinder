@@ -9,14 +9,14 @@ import com.amazon.identity.auth.device.AuthError;
 import com.amazon.identity.auth.device.api.Listener;
 import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
 import com.amazon.identity.auth.device.api.authorization.User;
-import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.settings.ConfigManager;
 
 public class AmazonLoginHelper {
     public static void setUserId(final Context context) {
         User.fetch(context, new Listener<User, AuthError>() {
             @Override
             public void onSuccess(User user) {
-                SettingsManager.setLoginUserIdConfig(user.getUserId());
+                ConfigManager.setLoginUserIdConfig(user.getUserId());
             }
 
             @Override

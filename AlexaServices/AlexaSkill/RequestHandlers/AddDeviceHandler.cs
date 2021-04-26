@@ -6,7 +6,7 @@ using Alexa.NET.Request;
 using Alexa.NET.Response;
 using DeviceFinder.AlexaSkill.Services;
 using DeviceFinder.AlexaSkill.Utility;
-using DeviceFinder.Models.Auth;
+using DeviceFinder.Models;
 using OtpNet;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers

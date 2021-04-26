@@ -6,7 +6,7 @@ using Alexa.NET.Response;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models.Devices;
+using DeviceFinder.Models;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
