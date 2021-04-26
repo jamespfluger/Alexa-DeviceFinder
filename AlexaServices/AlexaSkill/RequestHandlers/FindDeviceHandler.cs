@@ -9,7 +9,7 @@ using Amazon.DynamoDBv2.Model;
 using DeviceFinder.AlexaSkill.Services;
 using DeviceFinder.AlexaSkill.Utility;
 using Extendy.Strings.Common;
-using Device = DeviceFinder.Models.Devices.Device;
+using Device = DeviceFinder.Models.Device;
 
 namespace DeviceFinder.AlexaSkill.RequestHandlers
 {
