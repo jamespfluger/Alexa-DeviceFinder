@@ -5,8 +5,7 @@ import androidx.databinding.Bindable;
 
 import com.google.gson.annotations.SerializedName;
 import com.jamespfluger.devicefinder.BR;
-import com.jamespfluger.devicefinder.settings.PreferencesManager;
-import com.jamespfluger.devicefinder.settings.SettingType;
+import com.jamespfluger.devicefinder.settings.SettingsManager;
 
 public class DeviceSettings extends BaseObservable {
     @SerializedName("useFlashlight")
@@ -32,7 +31,7 @@ public class DeviceSettings extends BaseObservable {
 
     public void setUseFlashlight(boolean useFlashlight) {
         this.useFlashlight = useFlashlight;
-        PreferencesManager.setUseFlashlightSetting(useFlashlight);
+        SettingsManager.setUseFlashlightSetting(useFlashlight);
         notifyPropertyChanged(BR.useFlashlight);
     }
 
@@ -43,7 +42,7 @@ public class DeviceSettings extends BaseObservable {
 
     public void setUseVibrate(boolean useVibrate) {
         this.useVibrate = useVibrate;
-        PreferencesManager.setUseVibrateSetting(useVibrate);
+        SettingsManager.setUseVibrateSetting(useVibrate);
         notifyPropertyChanged(BR.useVibrate);
     }
 
@@ -54,7 +53,7 @@ public class DeviceSettings extends BaseObservable {
 
     public void setUseOnWifiOnly(boolean useOnWifiOnly) {
         this.useOnWifiOnly = useOnWifiOnly;
-        PreferencesManager.setUseOnWifiOnlySetting(useOnWifiOnly);
+        SettingsManager.setUseOnWifiOnlySetting(useOnWifiOnly);
         notifyPropertyChanged(BR.useOnWifiOnly);
     }
 
@@ -65,7 +64,7 @@ public class DeviceSettings extends BaseObservable {
 
     public void setUseVolumeOverride(boolean useVolumeOverride) {
         this.useVolumeOverride = useVolumeOverride;
-        PreferencesManager.setUseVolumeOverrideSetting(useVolumeOverride);
+        SettingsManager.setUseVolumeOverrideSetting(useVolumeOverride);
         notifyPropertyChanged(BR.useVolumeOverride);
     }
 
@@ -76,7 +75,7 @@ public class DeviceSettings extends BaseObservable {
 
     public void setWifiSsid(String wifiSsid) {
         this.wifiSsid = wifiSsid;
-        PreferencesManager.setWifiSsidSetting(wifiSsid);
+        SettingsManager.setWifiSsidSetting(wifiSsid);
         notifyPropertyChanged(BR.wifiSsid);
     }
 
@@ -87,7 +86,7 @@ public class DeviceSettings extends BaseObservable {
 
     public void setVolumeOverrideValue(int volumeOverrideValue) {
         this.volumeOverrideValue = volumeOverrideValue;
-        PreferencesManager.setVolumeOverrideValueSetting(volumeOverrideValue);
+        SettingsManager.setVolumeOverrideValueSetting(volumeOverrideValue);
         notifyPropertyChanged(BR.volumeOverrideValue);
     }
 }

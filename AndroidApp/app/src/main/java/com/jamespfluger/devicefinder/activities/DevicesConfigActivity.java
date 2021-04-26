@@ -24,7 +24,7 @@ import com.jamespfluger.devicefinder.activities.fragments.HomeFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.settings.ConfigManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
     private void getDevices() {
         ManagementInterface managementApi = ApiService.createInstance();
-        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(SettingsManager.getAlexaUserIdConfig());
+        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserIdConfig());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             @EverythingIsNonNull

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.DataModel;
 
-namespace DeviceFinder.Models.Auth
+namespace DeviceFinder.Models
 {
     /// <summary>
     /// OTP model sent to DynamoDB
@@ -21,8 +21,6 @@ namespace DeviceFinder.Models.Auth
 
         [DynamoDBProperty("ModifiedDate")]
         public DateTime ModifiedDate { get; }
-
-        public AlexaUser() { ModifiedDate = DateTime.UtcNow; }
 
         public override string ToString()
         {

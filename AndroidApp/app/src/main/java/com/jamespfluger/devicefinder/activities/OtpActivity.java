@@ -18,7 +18,7 @@ import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.controls.OtpEditText;
 import com.jamespfluger.devicefinder.models.AuthData;
 import com.jamespfluger.devicefinder.models.Device;
-import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.settings.ConfigManager;
 
 import java.io.IOException;
 
@@ -66,14 +66,14 @@ public class OtpActivity extends AppCompatActivity {
                 // Build auth device
                 AuthData authUserDevices = new AuthData();
 
-                authUserDevices.setLoginUserId(SettingsManager.getLoginUserIdConfig());
-                authUserDevices.setFirebaseToken(SettingsManager.getFirebaseTokenConfig());
-                authUserDevices.setDeviceName(SettingsManager.getDeviceNameConfig());
+                authUserDevices.setLoginUserId(ConfigManager.getLoginUserIdConfig());
+                authUserDevices.setFirebaseToken(ConfigManager.getFirebaseTokenConfig());
+                authUserDevices.setDeviceName(ConfigManager.getDeviceNameConfig());
                 authUserDevices.setOtp(otpBuilder.toString());
 
                 // Execute authorization
                 ManagementInterface authApi = ApiService.createInstance();
-                Call<Device> userCall = authApi.addNewDevice(authUserDevices);
+                Call<Device> userCall = authApi.createDevice(authUserDevices);
                 userCall.enqueue(new Callback<Device>() {
                     @Override
                     @EverythingIsNonNull
@@ -81,7 +81,7 @@ public class OtpActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
                             Device newDevice = (Device) response.body();
-                            SettingsManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
+                            ConfigManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {
                             try {

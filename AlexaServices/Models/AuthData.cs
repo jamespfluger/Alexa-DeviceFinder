@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Amazon.DynamoDBv2.DataModel;
-using DeviceFinder.Models.Devices;
+using DeviceFinder.Models;
 
-namespace DeviceFinder.Models.Auth
+namespace DeviceFinder.Models
 {
     public class AuthData : IModel
     {
