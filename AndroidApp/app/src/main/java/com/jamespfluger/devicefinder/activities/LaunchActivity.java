@@ -26,7 +26,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         SettingsManager.setInstance(getApplicationContext());
         ConfigManager.setInstance(getApplicationContext());
-        NotificationForge forge = new NotificationForge(getApplicationContext());
+        NotificationForge.initializeNotificationChannel(getApplicationContext());
 
         ConfigManager.refreshFirebaseToken();
 
