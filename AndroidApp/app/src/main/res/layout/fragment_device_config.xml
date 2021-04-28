@@ -66,129 +66,31 @@
             </LinearLayout>
 
             <!-- Enable flashlight -->
-            <LinearLayout
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsEnableFlashlight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:orientation="horizontal"
-                android:paddingStart="30dp"
-                android:paddingTop="30dp"
-                android:paddingEnd="20dp"
-                android:weightSum="1">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.15"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/settingsEnableFlashlightTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Use flashlight"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/settingsEnableFlashlightDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="100"
-                        android:paddingTop="3dp"
-                        android:text="Flashlight will turn on/off when finding device"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsEnableFlashlightSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.85"
-                    android:checked="@={device.useFlashlight}" />
-            </LinearLayout>
+                app:settingsTitle="Use flashlight"
+                app:settingsSubtitle="Flashlight will turn on/off when finding device"
+                android:checked="@={device.useFlashlight}" />
 
             <!-- Enable vibration -->
-            <LinearLayout
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsEnableVibration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:orientation="horizontal"
-                android:paddingStart="30dp"
-                android:paddingTop="30dp"
-                android:paddingEnd="20dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/settingsEnableVibrationTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Use vibrate"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/settingsEnableVibrationDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Device will vibrate when finding device"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsEnableVibrationSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:checked="@={device.useVibrate}" />
-            </LinearLayout>
+                app:settingsTitle="Use vibrate"
+                app:settingsSubtitle="Device will vibrate when finding device"
+                android:checked="@={device.useVibrate}" />
 
             <!-- Only ring on wifi -->
-            <LinearLayout
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsEnableWifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:orientation="horizontal"
-                android:paddingStart="30dp"
-                android:paddingTop="30dp"
-                android:paddingEnd="20dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.15"
-                    android:gravity="left"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/settingsEnableWifiTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Only ring on wifi"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/settingsEnableWifiDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="100"
-                        android:text="Device will ring even when not connected to WiFi"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsEnableWifiSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.85"
-                    android:checked="@={device.useOnWifiOnly}" />
-            </LinearLayout>
+                app:settingsTitle="Only ring on wifi"
+                app:settingsSubtitle="Device will ring even when not connected to WiFi"
+                android:checked="@={device.useOnWifiOnly}" />
 
             <!-- Specific WiFi network -->
             <LinearLayout
@@ -201,7 +103,6 @@
                 android:paddingEnd="20dp">
 
                 <TextView
-                    android:id="@+id/settingsWifiSsdTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="(Optional) WiFi network to use"
@@ -216,42 +117,13 @@
             </LinearLayout>
 
             <!-- Override max volume -->
-            <LinearLayout
+            <com.jamespfluger.devicefinder.controls.SettingsView
+                android:id="@+id/settingsOverrideMaxVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:orientation="horizontal"
-                android:paddingStart="30dp"
-                android:paddingTop="30dp"
-                android:paddingEnd="20dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/settingsOverrideMaxVolumeTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Override max volume"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/settingsOverrideMaxVolumeDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Device will ring at the maximum volume"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsOverrideMaxVolumeSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:checked="@={device.useVolumeOverride}" />
-            </LinearLayout>
+                app:settingsTitle="Override max volume"
+                app:settingsSubtitle="Device will ring at the maximum volume"
+                android:checked="@={device.useVolumeOverride}" />
 
             <!-- Volume to use -->
             <LinearLayout
@@ -263,7 +135,6 @@
                 android:paddingEnd="20dp">
 
                 <TextView
-                    android:id="@+id/settingsVolumeToUseTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Override max volume"
@@ -275,7 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:enabled="false"
+                    android:enabled="@{device.useVolumeOverride}"
                     android:max="100"
                     android:progress="@={device.volumeOverrideValue}" />
             </LinearLayout>

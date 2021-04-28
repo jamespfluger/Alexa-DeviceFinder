@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.ACTION_NOTIFICATION_POLICY_ACCESS_GRANTED_CHANGED" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="false"
@@ -72,6 +73,11 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.jamespfluger.devicefinder.notifications.NotificationDismissedReceiver"
+            android:exported="false" >
         </receiver>
 
         <meta-data
