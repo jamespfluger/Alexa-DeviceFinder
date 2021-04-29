@@ -8,13 +8,11 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
-import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.settings.SettingsManager;
 
 public final class NotificationForge {
     private static final String CHANNEL_ID = "CHANNEL_4096";
@@ -22,6 +20,24 @@ public final class NotificationForge {
 
     public NotificationForge(Context context) {
         this.context = context;
+    }
+
+    public static void initializeNotificationChannel(Context context) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.deviceAlertChannelName), NotificationManager.IMPORTANCE_HIGH);
+
+            AudioAttributes ringtoneAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+            channel.setBypassDnd(true);
+            channel.setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE), ringtoneAttributes);
+
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     public void issueNotification(RemoteMessage remoteMessage) {
@@ -46,23 +62,5 @@ public final class NotificationForge {
     private PendingIntent createOnDismissedIntent(int notificationId) {
         Intent intent = new Intent(context, NotificationDismissedReceiver.class);
         return PendingIntent.getBroadcast(context, notificationId, intent, 0);
-    }
-
-    public static void initializeNotificationChannel(Context context) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.deviceAlertChannelName), NotificationManager.IMPORTANCE_HIGH);
-
-            AudioAttributes ringtoneAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
-
-            channel.setBypassDnd(true);
-            channel.setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE), ringtoneAttributes);
-
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }
