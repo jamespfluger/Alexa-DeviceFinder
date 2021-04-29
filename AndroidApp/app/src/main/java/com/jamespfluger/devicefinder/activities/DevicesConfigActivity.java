@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -32,7 +33,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.internal.EverythingIsNonNull;
 
 public class DevicesConfigActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -81,15 +81,14 @@ public class DevicesConfigActivity extends AppCompatActivity {
         Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserIdConfig());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
-            @EverythingIsNonNull
-            public void onResponse(Call call, Response response) {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
                     allDevices = (ArrayList<Device>) response.body();
                     populateDeviceList();
                 } else {
                     try {
-                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
-                        Toast.makeText(DevicesConfigActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_LONG).show();
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format("Unknown error (%s)", response.code());
+                        Toast.makeText(DevicesConfigActivity.this, "Unable to load devices - " + errorMessage, Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -97,8 +96,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
             }
 
             @Override
-            @EverythingIsNonNull
-            public void onFailure(Call call, Throwable t) {
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
 
             }
         });

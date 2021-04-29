@@ -81,7 +81,6 @@ public class LoginActivity extends Activity {
         loginButton = findViewById(R.id.loginButton);
         loginText = findViewById(R.id.loginText);
 
-        //
         loginButton.setText("LOGIN WITH AMAZON");
         loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
 

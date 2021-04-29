@@ -92,7 +92,7 @@ public class OtpEditText extends AppCompatEditText {
                 View nextRightFocus = focusSearch(FOCUS_RIGHT);
                 setText(event.getNumber() + "");
 
-                if (getText().length() > 0 && nextRightFocus != null) {
+                if (getText() != null && getText().length() > 0 && nextRightFocus != null) {
                     nextRightFocus.requestFocus();
                 } else if (nextRightFocus == null) {
                     InputMethodManager imm = (InputMethodManager) getContext().getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);

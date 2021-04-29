@@ -2,7 +2,6 @@ package com.jamespfluger.devicefinder.controls;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 
 import com.jamespfluger.devicefinder.R;

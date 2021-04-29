@@ -41,7 +41,6 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class DeviceConfigFragment extends Fragment {
     private final Device device;
 
-
     public DeviceConfigFragment(Device device) {
         this.device = device;
     }
@@ -85,15 +84,16 @@ public class DeviceConfigFragment extends Fragment {
                 Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserIdConfig(), device.getDeviceId());
                 updateSettingsCall.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (!response.isSuccessful()) {
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Successfully saved settings" + response.message(), Toast.LENGTH_SHORT).show();
+                        } else {
                             try {
-                                Toast.makeText(getContext(), "Failed to save settings - " + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format("Unknown error (%s)", response.code());
+                                Toast.makeText(getContext(), "Failed to save settings - " + errorMessage, Toast.LENGTH_LONG).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        } else {
-                            Toast.makeText(getContext(), "Successfully saved settings" + response.message(), Toast.LENGTH_SHORT).show();
                         }
 
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -101,7 +101,7 @@ public class DeviceConfigFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
                     }
