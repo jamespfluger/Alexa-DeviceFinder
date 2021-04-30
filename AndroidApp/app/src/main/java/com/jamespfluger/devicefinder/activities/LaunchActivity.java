@@ -12,6 +12,7 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
 import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.devicefinder.controls.PermissionsView;
 import com.jamespfluger.devicefinder.notifications.NotificationForge;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
@@ -31,7 +32,8 @@ public class LaunchActivity extends AppCompatActivity {
         ConfigManager.refreshFirebaseToken();
 
         setContentView(R.layout.activity_launch);
-        selectActivityToLaunch();
+        switchToActivity(PermissionsActivity.class);
+        //selectActivityToLaunch();
     }
 
     private void selectActivityToLaunch() {

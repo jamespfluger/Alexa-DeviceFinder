@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="PermissionsView">
+        <attr name="permissionsTitle" format="string" />
+        <attr name="permissionsExplanation" format="string" />
+    </declare-styleable>
+</resources>
