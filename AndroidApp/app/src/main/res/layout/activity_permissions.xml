@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/permissionsImage" />
 
     <com.jamespfluger.devicefinder.controls.PermissionsView
-        android:id="@+id/permissionsDisableBatteryLayout"
+        android:id="@+id/permissionsDisableBatteryView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDescription"
@@ -54,10 +54,10 @@
         app:permissionsTitle="Disable Battery Optimization" />
 
     <com.jamespfluger.devicefinder.controls.PermissionsView
-        android:id="@+id/permissionsOverrideDndLayout"
+        android:id="@+id/permissionsOverrideDndView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/permissionsDisableBatteryLayout"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsDisableBatteryView"
         app:permissionsTitle="Allow Override Do Not Disturb"
         app:permissionsExplanation="This allows the notification to reach your phone even if you accidentally put it on silent." />
 
