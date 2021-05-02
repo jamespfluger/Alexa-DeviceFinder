@@ -155,8 +155,9 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void switchToConfigActivity() {
-        Intent otpIntent = new Intent(this, DevicesConfigActivity.class);
-        startActivity(otpIntent);
+        Intent configIntent = new Intent(this, DevicesConfigActivity.class);
+        configIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(configIntent);
         finish();
     }
 }
