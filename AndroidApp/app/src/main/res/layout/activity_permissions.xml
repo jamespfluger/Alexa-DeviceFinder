@@ -64,13 +64,29 @@
         app:permissionToGrant="DO_NOT_DISTURB_OVERRIDE" />
 
     <Button
+        android:id="@+id/permissionsContinueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="18dp"
+        android:text="CONTINUE"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsOverrideDndView"
+        android:onClick="onContinueClick" />
+
+    <ImageView
+        android:id="@+id/permissionsHelpIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Continue"
+        android:src="@drawable/help_circle"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="onContinueClick"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

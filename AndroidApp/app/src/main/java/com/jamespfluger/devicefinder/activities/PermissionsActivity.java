@@ -62,12 +62,27 @@ public class PermissionsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Quit")
+                .setMessage("Are you sure you want to quit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    PermissionsActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     public void onContinueClick(View view) {
         if (!hasGrantedDisableBatteryPermissions() || !hasGrantedDisableBatteryPermissions()) {
             validatePermissions();
         }
         else {
-            switchToActivity();
+            switchToDeviceNameActivity();
         }
     }
 
@@ -76,7 +91,7 @@ public class PermissionsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                    switchToActivity();
+                    switchToDeviceNameActivity();
                 }
             }
         };
@@ -90,9 +105,8 @@ public class PermissionsActivity extends AppCompatActivity {
         alertBuilder.show();
     }
 
-    private void switchToActivity() {
+    private void switchToDeviceNameActivity() {
         Intent newIntent = new Intent(this, NameActivity.class);
         startActivity(newIntent);
-        finish();
     }
 }

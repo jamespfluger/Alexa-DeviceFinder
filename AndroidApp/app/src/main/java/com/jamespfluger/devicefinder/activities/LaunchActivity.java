@@ -12,12 +12,10 @@ import com.amazon.identity.auth.device.api.authorization.AuthorizeResult;
 import com.amazon.identity.auth.device.api.authorization.ProfileScope;
 import com.amazon.identity.auth.device.api.authorization.Scope;
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.controls.PermissionsView;
 import com.jamespfluger.devicefinder.notifications.NotificationForge;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
 import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
-import com.jamespfluger.devicefinder.utilities.PermissionsRequester;
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -42,9 +40,6 @@ public class LaunchActivity extends AppCompatActivity {
         AuthorizationManager.getToken(this, scopes, new Listener<AuthorizeResult, AuthError>() {
             @Override
             public void onSuccess(AuthorizeResult result) {
-                PermissionsRequester permissionsRequester = new PermissionsRequester();
-                permissionsRequester.requestPermissions(LaunchActivity.this);
-
                 if (result.getAccessToken() != null) {
                     AmazonLoginHelper.setUserId(getApplicationContext());
                     switchToActivity(DevicesConfigActivity.class);
