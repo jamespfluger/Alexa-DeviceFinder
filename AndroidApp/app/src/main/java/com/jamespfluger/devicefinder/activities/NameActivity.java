@@ -56,14 +56,14 @@ public class NameActivity extends AppCompatActivity {
                     deviceNameField.startAnimation(errorAnimation);
                 } else {
                     ConfigManager.setDeviceNameConfig(deviceNameField.getText().toString());
-                    switchToActivity(OtpActivity.class);
+                    switchToActivity();
                 }
             }
         });
     }
 
-    private void switchToActivity(Class<?> newActivity) {
-        Intent newIntent = new Intent(this, newActivity);
+    private void switchToActivity() {
+        Intent newIntent = new Intent(this, OtpActivity.class);
         startActivity(newIntent);
         finish();
     }

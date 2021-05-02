@@ -43,4 +43,9 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="permissionsExplanation">
+        If you want me to find your device as quickly as possible, I need to be granted some permissions.\n\n
+        <br/><br/>
+        These are not required, but they help me find your device a lot faster!
+    </string>
 </resources>

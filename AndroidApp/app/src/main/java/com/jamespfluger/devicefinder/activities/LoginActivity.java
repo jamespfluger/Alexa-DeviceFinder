@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Successfully logged into Amazon.", Toast.LENGTH_SHORT).show();
                     }
                 });
-                switchToActivity(NameActivity.class);
+                switchToActivity();
             }
 
             @Override
@@ -109,8 +109,8 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void switchToActivity(Class<?> newActivity) {
-        Intent newIntent = new Intent(this, newActivity);
+    private void switchToActivity() {
+        Intent newIntent = new Intent(this, PermissionsActivity.class);
         startActivity(newIntent);
         finish();
     }

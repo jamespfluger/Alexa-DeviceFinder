@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:text="Error"
         android:textAlignment="center"
-        android:textColor="@color/errorred"
+        android:textColor="@color/red_error"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
