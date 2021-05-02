@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/lightgray</item>
-        <item name="colorAccent">@color/darkblue</item>
+        <item name="colorPrimaryDark">@color/gray_light</item>
+        <item name="colorAccent">@color/blue_dark</item>
         <item name="android:windowAnimationStyle">@style/SlideActivityTransitions</item>
     </style>
 

@@ -13,7 +13,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="24dp"
         android:text="Permissions"
-        android:textColor="@color/darkgray"
+        android:textColor="@color/gray_dark"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

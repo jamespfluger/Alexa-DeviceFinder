@@ -26,7 +26,7 @@
                 android:backgroundTint="#00000000"
                 android:gravity="end"
                 android:src="@drawable/alert_circle"
-                android:tint="@color/errorred"/>
+                android:tint="@color/red_error"/>
 
             <Button
                 android:id="@+id/permissionAllowButton"
@@ -46,7 +46,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Why?"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/lightgray" />
+                android:textColor="@color/gray_light" />
         </LinearLayout>
 
         <TextView
