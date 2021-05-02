@@ -3,16 +3,8 @@ package com.jamespfluger.devicefinder.controls;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.opengl.Visibility;
 import android.provider.Settings;
-import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +17,8 @@ import androidx.databinding.DataBindingUtil;
 import com.jamespfluger.devicefinder.R;
 
 public class PermissionsView extends LinearLayout {
-    private ImageButton permissionStatus;
+    private ImageButton permissionStatusButton;
+    private Button grantPermissionButton;
 
     public PermissionsView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,7 +31,11 @@ public class PermissionsView extends LinearLayout {
     }
 
     public ImageButton getPermissionStatusButton() {
-        return permissionStatus;
+        return permissionStatusButton;
+    }
+
+    public Button getGrantPermissionButton() {
+        return grantPermissionButton;
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
@@ -46,15 +43,15 @@ public class PermissionsView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         DataBindingUtil.inflate(inflater, R.layout.component_permissions_view, this, true);
 
-        final Button allowButton = findViewById(R.id.permissionAllowButton);
         final TextView explanationTextView = findViewById(R.id.permissionExplanation);
         final Button expandExplanationButton = findViewById(R.id.permissionExpandButton);
-        permissionStatus = findViewById(R.id.permissionStatusIcon);
+        permissionStatusButton = findViewById(R.id.permissionStatusIcon);
+        grantPermissionButton = findViewById(R.id.permissionGrantButton);
 
         String permissionsTitle = attributes.getString(R.styleable.PermissionsView_permissionsTitle);
         String permissionsExplanation = attributes.getString(R.styleable.PermissionsView_permissionsExplanation);
 
-        allowButton.setText(permissionsTitle);
+        grantPermissionButton.setText(permissionsTitle);
         explanationTextView.setText(permissionsExplanation);
 
         expandExplanationButton.setOnClickListener(new OnClickListener() {
@@ -67,8 +64,10 @@ public class PermissionsView extends LinearLayout {
             }
         });
 
-        if (permissionsTitle != null && permissionsTitle.equals("Disable Battery Optimization")) {
-            allowButton.setOnClickListener(new OnClickListener() {
+        int permissionToGrant = attributes.getInt(R.styleable.PermissionsView_permissionToGrant, -1);
+
+        if (permissionToGrant == 0) {
+            grantPermissionButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -78,8 +77,8 @@ public class PermissionsView extends LinearLayout {
                 }
             });
         }
-        else {
-            allowButton.setOnClickListener(new OnClickListener() {
+        else if (permissionToGrant == 1){
+            grantPermissionButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -91,7 +90,5 @@ public class PermissionsView extends LinearLayout {
         }
 
         attributes.recycle();
-
-        setOrientation(HORIZONTAL);
     }
 }

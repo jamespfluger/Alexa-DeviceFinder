@@ -51,15 +51,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDescription"
         app:permissionsExplanation="This allows the notification to reach your phone quickly.\nThe app uses very little battery, so this has very little impact."
-        app:permissionsTitle="Disable Battery Optimization" />
+        app:permissionsTitle="Disable Battery Optimization"
+        app:permissionToGrant="BATTERY_OPTIMIZATION" />
 
     <com.jamespfluger.devicefinder.controls.PermissionsView
         android:id="@+id/permissionsOverrideDndView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDisableBatteryView"
-        app:permissionsTitle="Allow Override Do Not Disturb"
-        app:permissionsExplanation="This allows the notification to reach your phone even if you accidentally put it on silent." />
+        app:permissionsTitle="Allow Do Not Disturb Override"
+        app:permissionsExplanation="This allows the notification to reach your phone even if you accidentally put it on silent."
+        app:permissionToGrant="DO_NOT_DISTURB_OVERRIDE" />
 
     <Button
         android:layout_width="wrap_content"
@@ -68,6 +70,7 @@
         android:layout_marginBottom="8dp"
         android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="onContinueClick"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

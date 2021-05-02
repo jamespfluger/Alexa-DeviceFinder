@@ -2,5 +2,9 @@
     <declare-styleable name="PermissionsView">
         <attr name="permissionsTitle" format="string" />
         <attr name="permissionsExplanation" format="string" />
+        <attr name="permissionToGrant" format="enum">
+            <enum name="BATTERY_OPTIMIZATION" value="0"/>
+            <enum name="DO_NOT_DISTURB_OVERRIDE" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>
