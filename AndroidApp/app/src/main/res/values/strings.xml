@@ -45,7 +45,9 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="permissionsExplanation">
         If you want me to find your device as quickly as possible, I need to be granted some permissions.\n\n
-        <br/><br/>
+        <br /><br />
         These are not required, but they help me find your device a lot faster!
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

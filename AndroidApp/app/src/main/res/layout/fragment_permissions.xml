@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.fragments.PermissionsFragment">
+
+    <TextView
+        android:id="@+id/permissionsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Permissions"
+        android:textColor="@color/gray_dark"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/permissionsImage"
+        android:layout_width="127dp"
+        android:layout_height="183dp"
+        android:layout_weight="1"
+        android:src="@drawable/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@drawable/permissions"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsTitle" />
+
+    <TextView
+        android:id="@+id/permissionsDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/permissionsExplanation"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsImage" />
+
+    <com.jamespfluger.devicefinder.controls.PermissionsView
+        android:id="@+id/permissionsDisableBatteryView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsDescription"
+        app:permissionsExplanation="This allows the notification to reach your phone quickly.\nThe app uses very little battery, so this has very little impact."
+        app:permissionsTitle="Disable Battery Optimization"
+        app:permissionToGrant="BATTERY_OPTIMIZATION" />
+
+    <com.jamespfluger.devicefinder.controls.PermissionsView
+        android:id="@+id/permissionsOverrideDndView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsDisableBatteryView"
+        app:permissionsTitle="Allow Do Not Disturb Override"
+        app:permissionsExplanation="This allows the notification to reach your phone even if you accidentally put it on silent."
+        app:permissionToGrant="DO_NOT_DISTURB_OVERRIDE" />
+
+    <Button
+        android:id="@+id/permissionsContinueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="18dp"
+        android:text="CONTINUE"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/permissionsOverrideDndView" />
+
+    <ImageView
+        android:id="@+id/permissionsHelpIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/help_circle"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
