@@ -28,8 +28,6 @@ import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
 public class OtpActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
