@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="24dp"
-        android:text="Permissions"
+        android:text="@string/permissions"
         android:textColor="@color/gray_dark"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,8 @@
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@drawable/permissions"
-        app:layout_constraintTop_toBottomOf="@+id/permissionsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/permissionsTitle"
+        android:contentDescription="@string/permissions_logo_content_description" />
 
     <TextView
         android:id="@+id/permissionsDescription"
@@ -50,8 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDescription"
-        app:permissionsExplanation="This allows the notification to reach your phone quickly.\nThe app uses very little battery, so this has very little impact."
-        app:permissionsTitle="Disable Battery Optimization"
+        app:permissionsExplanation="@string/disable_battery_optimization_explanation"
+        app:permissionsTitle="@string/disable_battery_optimization"
         app:permissionToGrant="BATTERY_OPTIMIZATION" />
 
     <com.jamespfluger.devicefinder.controls.PermissionsView
@@ -59,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDisableBatteryView"
-        app:permissionsTitle="Allow Do Not Disturb Override"
-        app:permissionsExplanation="This allows the notification to reach your phone even if you accidentally put it on silent."
+        app:permissionsTitle="@string/allow_do_not_disturb_override"
+        app:permissionsExplanation="@string/allow_do_not_disturb_override_explanation"
         app:permissionToGrant="DO_NOT_DISTURB_OVERRIDE" />
 
     <Button
@@ -68,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="18dp"
-        android:text="CONTINUE"
+        android:text="@string/continueText"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,6 +87,7 @@
         android:scaleX="1.5"
         android:scaleY="1.5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/help" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

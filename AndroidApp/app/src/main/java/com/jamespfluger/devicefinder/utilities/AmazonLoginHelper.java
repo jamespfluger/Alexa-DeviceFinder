@@ -9,6 +9,7 @@ import com.amazon.identity.auth.device.AuthError;
 import com.amazon.identity.auth.device.api.Listener;
 import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
 import com.amazon.identity.auth.device.api.authorization.User;
+import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 
 public class AmazonLoginHelper {
@@ -24,7 +25,7 @@ public class AmazonLoginHelper {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Error retrieving profile information.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.amazon_user_fetch_error_toast, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -38,7 +39,7 @@ public class AmazonLoginHelper {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Signed out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -48,7 +49,7 @@ public class AmazonLoginHelper {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Failed to sign out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

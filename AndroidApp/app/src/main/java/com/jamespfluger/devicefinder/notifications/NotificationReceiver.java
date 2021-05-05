@@ -13,6 +13,7 @@ import android.os.Vibrator;
 
 import androidx.annotation.RequiresApi;
 
+import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
 import com.jamespfluger.devicefinder.utilities.Logger;
 
@@ -67,9 +68,9 @@ public class NotificationReceiver extends BroadcastReceiver {
                         Thread.sleep(500);
                     }
                 } catch (CameraAccessException cameraAccessException) {
-                    Logger.Log("Camera access unavailable: " + cameraAccessException.getLocalizedMessage());
+                    Logger.Log(context.getString(R.string.camera_unavailable_error_log) + cameraAccessException.getLocalizedMessage());
                 } catch (InterruptedException interruptedException) {
-                    Logger.Log("Sleep during camera flash was interrupted: " + interruptedException.getLocalizedMessage());
+                    Logger.Log(context.getString(R.string.camera_interrupted_error_log) + interruptedException.getLocalizedMessage());
                 }
             }
         });

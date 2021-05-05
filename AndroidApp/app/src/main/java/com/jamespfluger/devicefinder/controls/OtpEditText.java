@@ -90,7 +90,7 @@ public class OtpEditText extends AppCompatEditText {
                     return false;
 
                 View nextRightFocus = focusSearch(FOCUS_RIGHT);
-                setText(event.getNumber() + "");
+                setText(event.getNumber());
 
                 if (getText() != null && getText().length() > 0 && nextRightFocus != null) {
                     nextRightFocus.requestFocus();

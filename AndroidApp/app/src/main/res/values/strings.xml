@@ -48,6 +48,64 @@
         <br /><br />
         These are not required, but they help me find your device a lot faster!
     </string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save_settings_toast">Successfully saved settings</string>
+    <string name="unknown_error_http_message">Unknown error (%d)</string>
+    <string name="settings_save_error_toast">\"Failed to save settings - \"</string>
+    <string name="amazon_sign_out_success_toast">Signed out</string>
+    <string name="amazon_sign_out_failure">Failed to sign out</string>
+    <string name="amazon_login_success">Successfully logged into Amazon.</string>
+    <string name="amazon_login_error">Error logging in. Please try again.</string>
+    <string name="amazon_login_cancelled">Login cancelled.</string>
+    <string name="feature_not_yet_available">(Feature not yet available)</string>
+    <string name="warning_message">Warning</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm_deny_permissions">Are you sure you don\'t want to grant these permissions? It may take longer to find your device!\n\nYou can always change this later.</string>
+    <string name="quit">Quit</string>
+    <string name="confirm_quit_question">Are you sure you want to quit?</string>
+    <string name="unable_to_load_devices">\"Unable to load devices - \"</string>
+    <string name="home">Home</string>
+    <string name="about">About</string>
+    <string name="device_name_required_error">You must provide a device name before continuing.</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="alexa_successfully_connected">Successfully connected with Alexa</string>
+    <string name="firebase_refresh_error_log">\"Failed to refresh FirebaseToken with exception: \"</string>
+    <string name="firebase_refresh_error_toast">Error receiving Firebase token.\n</string>
+    <string name="camera_unavailable_error_log">\"Camera access unavailable: \"</string>
+    <string name="camera_interrupted_error_log">\"Sleep during camera flash was interrupted: \"</string>
+    <string name="amazon_user_fetch_error_toast">Error retrieving profile information.</string>
+    <string name="login_logo_content_description">Image logo for Device Finder app</string>
+    <string name="deviceFinder">Alexa\nDevice Finder</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_name_tip">Name your device something easy\nfor Alexa to understand</string>
+    <string name="nameOfDevice">Name of device</string>
+    <string name="continueText">CONTINUE</string>
+    <string name="help">Help icon</string>
+    <string name="device_name_logo">Device name logo</string>
+    <string name="verification">Verification</string>
+    <string name="otpInstructions">Say, \'Alexa, set up Device Finder\'</string>
+    <string name="submit">SUBMIT</string>
+    <string name="verification_logo_content_description">Verification logo</string>
+    <string name="device_finder_logo_content_description">Device finder logo</string>
+    <string name="permission_status">Permission status</string>
+    <string name="whyQuestion">Why?</string>
+    <string name="wifi_network_placeholder">(Optional) WiFi network to use</string>
+    <string name="override_max_volume">Override max volume</string>
+    <string name="delete">DELETE</string>
+    <string name="save">SAVE</string>
+    <string name="override_max_volume_title">Override max volume</string>
+    <string name="override_max_volume_subtitle">Device will ring at the maximum volume</string>
+    <string name="only_ring_on_wifi_title">Only ring on wifi</string>
+    <string name="only_ring_on_wifi_subtitle">Device will ring even when not connected to WiFi</string>
+    <string name="use_vibrate_title">Use vibrate</string>
+    <string name="use_vibrate_subtitle">Device will vibrate when finding device</string>
+    <string name="use_flashlight_title">Use flashlight</string>
+    <string name="use_flashlight_subtitle">Flashlight will turn on/off when finding device</string>
+    <string name="permissions_logo_content_description">Permissions logo</string>
+    <string name="disable_battery_optimization_explanation">This allows the notification to reach your phone quickly.\nThe app uses very little battery, so this has very little impact.</string>
+    <string name="disable_battery_optimization">Disable Battery Optimization</string>
+    <string name="allow_do_not_disturb_override">Allow Do Not Disturb Override</string>
+    <string name="allow_do_not_disturb_override_explanation">This allows the notification to reach your phone even if you accidentally put it on silent.</string>
+    <string name="permissions">Permissions</string>
 </resources>

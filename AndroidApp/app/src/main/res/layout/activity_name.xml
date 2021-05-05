@@ -22,14 +22,15 @@
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/name" />
+        tools:srcCompat="@drawable/name"
+        android:contentDescription="@string/device_name_logo" />
 
     <TextView
         android:id="@+id/deviceNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="61dp"
-        android:text="Device Name"
+        android:text="@string/device_name"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
         android:id="@+id/deviceNameInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name your device something easy\nfor Alexa to understand"
+        android:text="@string/device_name_tip"
         android:textAlignment="center"
         android:textSize="18sp"
 
@@ -53,20 +54,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Name of device"
+        android:hint="@string/nameOfDevice"
         android:inputType="textPersonName"
         android:maxLength="100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceNameTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/deviceNameTitle"
+        android:autofillHints="personGivenName" />
 
     <Button
         android:id="@+id/deviceNameContinueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="18dp"
-        android:text="CONTINUE"
+        android:text="@string/continueText"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/deviceNameField" />
 
     <ImageView
-        android:id="@+id/deviceNameHelpIcon"
+        android:id="@+id/deviceNameHelpIconContentDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -84,13 +86,14 @@
         android:scaleX="1.5"
         android:scaleY="1.5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/help" />
 
     <TextView
         android:id="@+id/deviceNameErrorDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Error"
+        android:text="@string/device_name_required_error"
         android:textAlignment="center"
         android:textColor="@color/red_error"
         android:visibility="invisible"

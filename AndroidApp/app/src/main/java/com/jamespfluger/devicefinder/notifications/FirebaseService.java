@@ -11,6 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.utilities.Logger;
 
@@ -52,8 +53,8 @@ public class FirebaseService extends FirebaseMessagingService {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception ex) {
-                        Logger.Log("Failed to refresh FirebaseToken with exception: " + ex.toString());
-                        Toast.makeText(getApplicationContext(), "Error receiving Firebase token.\n" + ex.toString(), Toast.LENGTH_SHORT).show();
+                        Logger.Log(getString(R.string.firebase_refresh_error_log) + ex.toString());
+                        Toast.makeText(getApplicationContext(), getString(R.string.firebase_refresh_error_toast) + ex.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

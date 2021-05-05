@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Successfully logged into Amazon.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.amazon_login_success, Toast.LENGTH_SHORT).show();
                     }
                 });
                 switchToActivity();
@@ -48,7 +48,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Error logging in. Please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.amazon_login_error, Toast.LENGTH_SHORT).show();
                         setLoggingInState(false);
                     }
                 });
@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Login cancelled.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.amazon_login_cancelled, Toast.LENGTH_SHORT).show();
                         setLoggingInState(false);
                     }
                 });
@@ -81,7 +81,6 @@ public class LoginActivity extends Activity {
         loginButton = findViewById(R.id.loginButton);
         loginText = findViewById(R.id.loginText);
 
-        loginButton.setText("LOGIN WITH AMAZON");
         loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
 
         loginButton.setOnClickListener(new View.OnClickListener() {

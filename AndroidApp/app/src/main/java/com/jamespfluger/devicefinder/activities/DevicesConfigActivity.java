@@ -82,15 +82,15 @@ public class DevicesConfigActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Quit")
-                .setMessage("Are you sure you want to quit?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.quit)
+                .setMessage(R.string.confirm_quit_question)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DevicesConfigActivity.super.onBackPressed();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 
@@ -105,8 +105,8 @@ public class DevicesConfigActivity extends AppCompatActivity {
                     populateDeviceList();
                 } else {
                     try {
-                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format("Unknown error (%s)", response.code());
-                        Toast.makeText(DevicesConfigActivity.this, "Unable to load devices - " + errorMessage, Toast.LENGTH_LONG).show();
+                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
+                        Toast.makeText(DevicesConfigActivity.this, getString(R.string.unable_to_load_devices) + errorMessage, Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -121,8 +121,8 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     private void createDefaultMenuItems(final DrawerLayout drawer, final Menu menu) {
-        MenuItem aboutItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, "About");
-        MenuItem permissionsItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, "Permissions");
+        MenuItem aboutItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, R.string.about);
+        MenuItem permissionsItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, R.string.permissions);
 
         aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment()));
         permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment()));
