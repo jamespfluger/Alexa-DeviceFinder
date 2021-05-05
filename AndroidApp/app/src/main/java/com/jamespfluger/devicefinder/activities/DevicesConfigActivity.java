@@ -24,6 +24,7 @@ import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
 import com.jamespfluger.devicefinder.activities.fragments.HomeFragment;
+import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
@@ -120,11 +121,11 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     private void createDefaultMenuItems(final DrawerLayout drawer, final Menu menu) {
-        MenuItem homeItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, "Home");
         MenuItem aboutItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, "About");
+        MenuItem permissionsItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, "Permissions");
 
-        homeItem.setOnMenuItemClickListener(buildMenuItemClickListener(new HomeFragment()));
         aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment()));
+        permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment()));
     }
 
     private void clearAllChecks(Menu menu) {

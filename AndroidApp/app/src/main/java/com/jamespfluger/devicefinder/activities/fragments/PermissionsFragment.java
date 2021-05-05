@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.jamespfluger.devicefinder.R;
+import com.jamespfluger.devicefinder.activities.DevicesConfigActivity;
 import com.jamespfluger.devicefinder.activities.NameActivity;
 import com.jamespfluger.devicefinder.activities.PermissionsActivity;
 import com.jamespfluger.devicefinder.controls.PermissionsView;
@@ -43,17 +44,23 @@ public class PermissionsFragment extends Fragment {
             overrideDndView = root.findViewById(R.id.permissionsOverrideDndView);
 
             Button continueButton = root.findViewById(R.id.permissionsContinueButton);
-            continueButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!hasGrantedDisableBatteryPermissions() || !hasGrantedDisableBatteryPermissions()) {
-                        validatePermissions();
+
+            if (parentActivity instanceof DevicesConfigActivity) {
+                continueButton.setVisibility(View.GONE);
+            }
+            else {
+                continueButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!hasGrantedDisableBatteryPermissions() || !hasGrantedDisableBatteryPermissions()) {
+                            validatePermissions();
+                        }
+                        else {
+                            switchToDeviceNameActivity();
+                        }
                     }
-                    else {
-                        switchToDeviceNameActivity();
-                    }
-                }
-            });
+                });
+            }
         }
 
         return root;

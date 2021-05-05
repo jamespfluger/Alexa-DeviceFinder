@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.jamespfluger.devicefinder.activities.fragments.BlankFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_device_config"
         tools:layout="@layout/fragment_blank" />
 
 <!--    <fragment-->
