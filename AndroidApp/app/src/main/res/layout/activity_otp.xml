@@ -13,7 +13,8 @@
         android:clickable="true"
         android:focusableInTouchMode="true"
         android:windowSoftInputMode="adjustPan"
-        android:gravity="center">
+        android:gravity="center"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/otpImage"
@@ -26,14 +27,15 @@
             app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/otp" />
+            tools:srcCompat="@drawable/otp"
+            android:contentDescription="@string/verification_logo_content_description" />
 
         <TextView
             android:id="@+id/verificationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="61dp"
-            android:text="Verification"
+            android:text="@string/verification"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +45,7 @@
             android:id="@+id/otpInstructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Say, 'Alexa, set up Device Finder'"
+            android:text="@string/otpInstructions"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/otpFieldRow"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="24dp"
-            android:text="SUBMIT"
+            android:text="@string/submit"
             android:textColor="@android:color/secondary_text_light"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -152,7 +154,8 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/help" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

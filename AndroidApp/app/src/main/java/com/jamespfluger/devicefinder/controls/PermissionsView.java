@@ -76,8 +76,7 @@ public class PermissionsView extends LinearLayout {
                     }
                 }
             });
-        }
-        else if (permissionToGrant == 1){
+        } else if (permissionToGrant == 1) {
             grantPermissionButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

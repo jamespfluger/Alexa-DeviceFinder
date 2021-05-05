@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_large" />
+        app:srcCompat="@drawable/logo_large"
+        android:contentDescription="@string/device_finder_logo_content_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

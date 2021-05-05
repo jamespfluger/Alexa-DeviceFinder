@@ -86,11 +86,11 @@ public class DeviceConfigFragment extends Fragment {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(getContext(), "Successfully saved settings" + response.message(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.save_settings_toast) + response.message(), Toast.LENGTH_SHORT).show();
                         } else {
                             try {
-                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format("Unknown error (%s)", response.code());
-                                Toast.makeText(getContext(), "Failed to save settings - " + errorMessage, Toast.LENGTH_LONG).show();
+                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
+                                Toast.makeText(getContext(), getString(R.string.settings_save_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -119,7 +119,7 @@ public class DeviceConfigFragment extends Fragment {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getContext(), "Signed out", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -129,7 +129,7 @@ public class DeviceConfigFragment extends Fragment {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getContext(), "Failed to sign out", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -139,7 +139,7 @@ public class DeviceConfigFragment extends Fragment {
 
         Spinner wifiDropdown = view.findViewById(R.id.settingsWifiSsdDropdown);
         wifiDropdown.setEnabled(false);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{"(Feature not yet available)"});
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{getString(R.string.feature_not_yet_available)});
         wifiDropdown.setAdapter(adapter);
     }
 

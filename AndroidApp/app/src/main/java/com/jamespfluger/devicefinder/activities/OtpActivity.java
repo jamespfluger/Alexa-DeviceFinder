@@ -77,13 +77,13 @@ public class OtpActivity extends AppCompatActivity {
                     @EverythingIsNonNull
                     public void onResponse(Call call, Response response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(OtpActivity.this, "Successfully connected with Alexa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OtpActivity.this, getString(R.string.alexa_successfully_connected), Toast.LENGTH_SHORT).show();
                             Device newDevice = (Device) response.body();
                             ConfigManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
                             switchToConfigActivity();
                         } else {
                             try {
-                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
+                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : getString(R.string.unknown_error);
                                 Toast.makeText(OtpActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_SHORT).show();
                                 displayUiErrors();
                             } catch (IOException e) {

@@ -49,7 +49,6 @@ public class NameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (deviceNameField.getText().length() == 0) {
                     TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
-                    deviceNameErrorDescription.setText("You must provide a device name before continuing.");
                     deviceNameErrorDescription.setVisibility(View.VISIBLE);
 
                     final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);

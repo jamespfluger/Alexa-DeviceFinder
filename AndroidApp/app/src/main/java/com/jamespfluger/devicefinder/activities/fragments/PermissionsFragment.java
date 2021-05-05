@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.NameActivity;
-import com.jamespfluger.devicefinder.activities.PermissionsActivity;
 import com.jamespfluger.devicefinder.controls.PermissionsView;
 
 import static android.content.Context.POWER_SERVICE;
@@ -48,8 +47,7 @@ public class PermissionsFragment extends Fragment {
                 public void onClick(View v) {
                     if (!hasGrantedDisableBatteryPermissions() || !hasGrantedDisableBatteryPermissions()) {
                         validatePermissions();
-                    }
-                    else {
+                    } else {
                         switchToDeviceNameActivity();
                     }
                 }
@@ -76,8 +74,7 @@ public class PermissionsFragment extends Fragment {
         if (hasGrantedDisableBatteryPermissions() && disableBatteryView.getPermissionStatusButton() != null) {
             disableBatteryView.getPermissionStatusButton().setImageResource(R.drawable.check_circle);
             disableBatteryView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.green));
-        }
-        else if (disableBatteryView.getPermissionStatusButton() != null){
+        } else if (disableBatteryView.getPermissionStatusButton() != null) {
             disableBatteryView.getPermissionStatusButton().setImageResource(R.drawable.alert_circle);
             disableBatteryView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.red_error));
         }
@@ -85,8 +82,7 @@ public class PermissionsFragment extends Fragment {
         if (hasGrantedDndPermissions() && overrideDndView.getPermissionStatusButton() != null) {
             overrideDndView.getPermissionStatusButton().setImageResource(R.drawable.check_circle);
             overrideDndView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.green));
-        }
-        else if (overrideDndView.getPermissionStatusButton() != null){
+        } else if (overrideDndView.getPermissionStatusButton() != null) {
             overrideDndView.getPermissionStatusButton().setImageResource(R.drawable.alert_circle);
             overrideDndView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.red_error));
         }
@@ -103,11 +99,11 @@ public class PermissionsFragment extends Fragment {
         };
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(parentActivity);
-        alertBuilder.setTitle("Warning");
+        alertBuilder.setTitle(R.string.warning_message);
         alertBuilder.setIcon(R.drawable.caution_triangle);
-        alertBuilder.setMessage("Are you sure you don't want to grant these permissions? It may take longer to find your device!\n\nYou can always change this later.");
-        alertBuilder.setPositiveButton("Yes", dialogClickListener);
-        alertBuilder.setNegativeButton("No", dialogClickListener);
+        alertBuilder.setMessage(R.string.confirm_deny_permissions);
+        alertBuilder.setPositiveButton(R.string.yes, dialogClickListener);
+        alertBuilder.setNegativeButton(R.string.no, dialogClickListener);
         alertBuilder.show();
     }
 
