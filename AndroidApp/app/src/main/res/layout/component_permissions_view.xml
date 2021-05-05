@@ -26,7 +26,8 @@
                 android:backgroundTint="#00000000"
                 android:gravity="end"
                 android:src="@drawable/alert_circle"
-                android:tint="@color/red_error"/>
+                android:tint="@color/red_error"
+                android:contentDescription="@string/permission_status" />
 
             <Button
                 android:id="@+id/permissionGrantButton"
@@ -46,7 +47,7 @@
                 android:background="#00000000"
                 android:drawableEnd="@drawable/expand_arrow"
                 android:paddingEnd="8dp"
-                android:text="Why?"
+                android:text="@string/whyQuestion"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/gray_light" />
         </LinearLayout>

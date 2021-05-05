@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -8,8 +8,7 @@
             type="com.jamespfluger.devicefinder.models.Device" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,7 +50,7 @@
                     android:id="@+id/settingsDeviceNameTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Device Name"
+                    android:text="@string/device_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
 
@@ -60,9 +59,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Device name"
+                    android:hint="@string/device_name"
                     android:inputType="textPersonName"
-                    android:text="@={device.deviceName}" />
+                    android:text="@={device.deviceName}"
+                    android:autofillHints="personGivenName" />
             </LinearLayout>
 
             <!-- Enable flashlight -->
@@ -70,8 +70,8 @@
                 android:id="@+id/settingsEnableFlashlight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="Use flashlight"
-                app:settingsSubtitle="Flashlight will turn on/off when finding device"
+                app:settingsTitle="@string/use_flashlight_title"
+                app:settingsSubtitle="@string/use_flashlight_subtitle"
                 android:checked="@={device.useFlashlight}" />
 
             <!-- Enable vibration -->
@@ -79,8 +79,8 @@
                 android:id="@+id/settingsEnableVibration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="Use vibrate"
-                app:settingsSubtitle="Device will vibrate when finding device"
+                app:settingsTitle="@string/use_vibrate_title"
+                app:settingsSubtitle="@string/use_vibrate_subtitle"
                 android:checked="@={device.useVibrate}" />
 
             <!-- Only ring on wifi -->
@@ -88,8 +88,8 @@
                 android:id="@+id/settingsEnableWifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="Only ring on wifi"
-                app:settingsSubtitle="Device will ring even when not connected to WiFi"
+                app:settingsTitle="@string/only_ring_on_wifi_title"
+                app:settingsSubtitle="@string/only_ring_on_wifi_subtitle"
                 android:checked="@={device.useOnWifiOnly}" />
 
             <!-- Specific WiFi network -->
@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="(Optional) WiFi network to use"
+                    android:text="@string/wifi_network_placeholder"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
 
@@ -121,8 +121,8 @@
                 android:id="@+id/settingsOverrideMaxVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="Override max volume"
-                app:settingsSubtitle="Device will ring at the maximum volume"
+                app:settingsTitle="@string/override_max_volume_title"
+                app:settingsSubtitle="@string/override_max_volume_subtitle"
                 android:checked="@={device.useVolumeOverride}" />
 
             <!-- Volume to use -->
@@ -137,7 +137,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Override max volume"
+                    android:text="@string/override_max_volume"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
 
@@ -158,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
-            android:text="DELETE"
+            android:text="@string/delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -168,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="SAVE"
+            android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
