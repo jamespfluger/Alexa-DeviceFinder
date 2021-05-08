@@ -12,8 +12,7 @@ import com.jamespfluger.devicefinder.R;
 
 public class AboutFragment extends Fragment {
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         container.clearDisappearingChildren();
         getActivity().getFragmentManager().popBackStack();
         View root = inflater.inflate(R.layout.fragment_about, container, false);

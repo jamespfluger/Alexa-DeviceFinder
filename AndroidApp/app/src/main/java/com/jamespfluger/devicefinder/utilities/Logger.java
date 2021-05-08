@@ -10,18 +10,19 @@ public class Logger {
     }
 
     public static void Log(String message, LogLevel logLevel) {
-        if (logLevel == LogLevel.Verbose)
+        if (logLevel == LogLevel.Verbose) {
             Log.v(TAG, message);
-        else if (logLevel == LogLevel.Debug)
+        } else if (logLevel == LogLevel.Debug) {
             Log.d(TAG, message);
-        else if (logLevel == LogLevel.Information)
+        } else if (logLevel == LogLevel.Information) {
             Log.i(TAG, message);
-        else if (logLevel == LogLevel.Warning)
+        } else if (logLevel == LogLevel.Warning) {
             Log.w(TAG, message);
-        else if (logLevel == LogLevel.Error)
+        } else if (logLevel == LogLevel.Error) {
             Log.e(TAG, message);
-        else if (logLevel == LogLevel.Wtf)
+        } else if (logLevel == LogLevel.Wtf) {
             Log.wtf(TAG, message);
+        }
     }
 
     public enum LogLevel {

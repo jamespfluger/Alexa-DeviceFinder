@@ -50,8 +50,9 @@ public class OtpActivity extends AppCompatActivity {
                 ViewGroup viewGroup = findViewById(R.id.otpFieldRow);
                 for (int i = 0; i < viewGroup.getChildCount(); i++) {
                     View child = viewGroup.getChildAt(i);
-                    if (child instanceof OtpEditText)
+                    if (child instanceof OtpEditText) {
                         otpBuilder.append(((OtpEditText) child).getText());
+                    }
                 }
 
                 if (otpBuilder.length() != 6) {
@@ -111,8 +112,9 @@ public class OtpActivity extends AppCompatActivity {
         return new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (getCurrentFocus() == null)
+                if (getCurrentFocus() == null) {
                     return false;
+                }
 
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
@@ -131,8 +133,9 @@ public class OtpActivity extends AppCompatActivity {
 
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
-            if (child instanceof OtpEditText)
+            if (child instanceof OtpEditText) {
                 ((OtpEditText) child).setErrorState();
+            }
         }
 
         final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);

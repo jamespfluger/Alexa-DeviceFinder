@@ -39,7 +39,7 @@ public class LaunchActivity extends AppCompatActivity {
         AuthorizationManager.getToken(this, scopes, new Listener<AuthorizeResult, AuthError>() {
             @Override
             public void onSuccess(AuthorizeResult result) {
-                if (result.getAccessToken() != null) {
+                if (result.getAccessToken() != null && ConfigManager.getAlexaUserIdConfig() != null) {
                     AmazonLoginHelper.setUserId(getApplicationContext());
                     switchToActivity(DevicesConfigActivity.class);
                 } else {

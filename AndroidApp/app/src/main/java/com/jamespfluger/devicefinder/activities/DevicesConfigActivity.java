@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -23,7 +24,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
-import com.jamespfluger.devicefinder.activities.fragments.HomeFragment;
 import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
@@ -56,7 +56,15 @@ public class DevicesConfigActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home).setOpenableLayout(drawer).build();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController;
+
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
+        } else {
+            navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        }
+
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 

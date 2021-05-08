@@ -57,10 +57,11 @@ public class PermissionsView extends LinearLayout {
         expandExplanationButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (explanationTextView.getVisibility() == GONE)
+                if (explanationTextView.getVisibility() == GONE) {
                     explanationTextView.setVisibility(VISIBLE);
-                else
+                } else {
                     explanationTextView.setVisibility(GONE);
+                }
             }
         });
 

@@ -17,6 +17,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.jamespfluger.devicefinder.R;
 
+import java.util.Locale;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class OtpEditText extends AppCompatEditText {
@@ -56,8 +58,9 @@ public class OtpEditText extends AppCompatEditText {
 
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 View child = viewGroup.getChildAt(i);
-                if (child instanceof OtpEditText)
+                if (child instanceof OtpEditText) {
                     ((OtpEditText) child).clearErrorState();
+                }
             }
         }
     }
@@ -76,21 +79,24 @@ public class OtpEditText extends AppCompatEditText {
         public boolean sendKeyEvent(KeyEvent event) {
             boolean keyEventResult = super.sendKeyEvent(event);
 
-            if (!hasFocus())
+            if (!hasFocus()) {
                 return keyEventResult;
+            }
 
             if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
                 View nextLeftFocus = focusSearch(FOCUS_LEFT);
                 setText("");
 
-                if (nextLeftFocus != null)
+                if (nextLeftFocus != null) {
                     nextLeftFocus.requestFocus();
+                }
             } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                if (!Character.isDigit(event.getNumber()))
+                if (!Character.isDigit(event.getNumber())) {
                     return false;
+                }
 
                 View nextRightFocus = focusSearch(FOCUS_RIGHT);
-                setText(event.getNumber());
+                setText(String.format(Locale.ENGLISH, "%c", event.getNumber()));
 
                 if (getText() != null && getText().length() > 0 && nextRightFocus != null) {
                     nextRightFocus.requestFocus();
