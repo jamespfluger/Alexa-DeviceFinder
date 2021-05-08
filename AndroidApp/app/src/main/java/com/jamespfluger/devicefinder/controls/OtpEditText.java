@@ -17,6 +17,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.jamespfluger.devicefinder.R;
 
+import java.util.Locale;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class OtpEditText extends AppCompatEditText {
@@ -94,7 +96,7 @@ public class OtpEditText extends AppCompatEditText {
                 }
 
                 View nextRightFocus = focusSearch(FOCUS_RIGHT);
-                setText(event.getNumber());
+                setText(String.format(Locale.ENGLISH, "%c", event.getNumber()));
 
                 if (getText() != null && getText().length() > 0 && nextRightFocus != null) {
                     nextRightFocus.requestFocus();
