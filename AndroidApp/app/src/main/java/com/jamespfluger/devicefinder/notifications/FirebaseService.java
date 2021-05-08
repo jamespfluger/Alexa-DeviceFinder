@@ -31,8 +31,9 @@ public class FirebaseService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        if (notificationForge == null)
+        if (notificationForge == null) {
             notificationForge = new NotificationForge(getApplicationContext());
+        }
 
         notificationForge.issueNotification(remoteMessage);
     }
