@@ -11,11 +11,11 @@
         android:id="@+id/logo_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/device_finder_logo_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_large"
-        android:contentDescription="@string/device_finder_logo_content_description" />
+        app:srcCompat="@drawable/logo_large" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,6 +41,11 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class DeviceConfigFragment extends Fragment {
     private final Device device;
 
+    public DeviceConfigFragment() {
+        // TODO: replace with device load
+        this.device = new Device();
+    }
+
     public DeviceConfigFragment(Device device) {
         this.device = device;
     }
@@ -55,87 +60,66 @@ public class DeviceConfigFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         final EditText deviceName = view.findViewById(R.id.settingsDeviceNameField);
         deviceName.setText(device.getDeviceName());
-        deviceName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+        deviceName.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
 
-                    if (inputMethodManager != null) {
-                        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    }
-
-                    v.clearFocus();
+                if (inputMethodManager != null) {
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
+
+                v.clearFocus();
             }
         });
 
         final Button saveButton = view.findViewById(R.id.settingsSaveButton);
         final Button deleteButton = view.findViewById(R.id.settingsDeleteButton);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.VISIBLE);
+        saveButton.setOnClickListener(v -> {
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.VISIBLE);
 
-                ManagementInterface managementService = ApiService.createInstance();
+            ManagementInterface managementService = ApiService.createInstance();
 
-                Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserIdConfig(), device.getDeviceId());
-                updateSettingsCall.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(getContext(), getString(R.string.save_settings_toast) + response.message(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            try {
-                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
-                                Toast.makeText(getContext(), getString(R.string.settings_save_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+            Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserIdConfig(), device.getDeviceId());
+            updateSettingsCall.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(getContext(), getString(R.string.save_settings_toast) + response.message(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
+                            Toast.makeText(getContext(), getString(R.string.settings_save_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
                     }
 
-                    @Override
-                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
-                    }
-                });
-            }
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    getActivity().findViewById(R.id.settingsSaveWaitPanel).setVisibility(View.GONE);
+                }
+            });
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        deleteButton.setOnClickListener(v -> AuthorizationManager.signOut(getContext(), new Listener<Void, AuthError>() {
             @Override
-            public void onClick(View v) {
-                AuthorizationManager.signOut(getContext(), new Listener<Void, AuthError>() {
-                    @Override
-                    public void onSuccess(Void response) {
-                        switchToActivity(LoginActivity.class);
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(), R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(AuthError authError) {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(), R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
+            public void onSuccess(Void response) {
+                switchToActivity(LoginActivity.class);
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getContext(), R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show());
             }
-        });
+
+            @Override
+            public void onError(AuthError authError) {
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getContext(), R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show());
+            }
+        }));
 
         Spinner wifiDropdown = view.findViewById(R.id.settingsWifiSsdDropdown);
         wifiDropdown.setEnabled(false);

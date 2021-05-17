@@ -54,24 +54,21 @@ public class NotificationReceiver extends BroadcastReceiver {
     private void startFlashlight(Context context) {
         final CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    boolean isFlashOn = true;
+        AsyncTask.execute(() -> {
+            try {
+                boolean isFlashOn = true;
 
-                    for (int i = 0; i < 10; i++) {
-                        final String cameraId = cameraManager.getCameraIdList()[0];
-                        cameraManager.setTorchMode(cameraId, isFlashOn);
-                        isFlashOn = !isFlashOn;
+                for (int i = 0; i < 10; i++) {
+                    final String cameraId = cameraManager.getCameraIdList()[0];
+                    cameraManager.setTorchMode(cameraId, isFlashOn);
+                    isFlashOn = !isFlashOn;
 
-                        Thread.sleep(500);
-                    }
-                } catch (CameraAccessException cameraAccessException) {
-                    Logger.Log(context.getString(R.string.camera_unavailable_error_log) + cameraAccessException.getLocalizedMessage());
-                } catch (InterruptedException interruptedException) {
-                    Logger.Log(context.getString(R.string.camera_interrupted_error_log) + interruptedException.getLocalizedMessage());
+                    Thread.sleep(500);
                 }
+            } catch (CameraAccessException cameraAccessException) {
+                Logger.Log(context.getString(R.string.camera_unavailable_error_log) + cameraAccessException.getLocalizedMessage());
+            } catch (InterruptedException interruptedException) {
+                Logger.Log(context.getString(R.string.camera_interrupted_error_log) + interruptedException.getLocalizedMessage());
             }
         });
     }

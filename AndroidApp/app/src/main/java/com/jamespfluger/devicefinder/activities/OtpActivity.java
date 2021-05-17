@@ -38,93 +38,87 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private View.OnClickListener createVerifyClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Disable and hide views
-                setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), false);
-                findViewById(R.id.otpVerificationPanel).setVisibility(View.VISIBLE);
+        return v -> {
+            // Disable and hide views
+            setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), false);
+            findViewById(R.id.otpVerificationPanel).setVisibility(View.VISIBLE);
 
-                // Build OTP
-                StringBuilder otpBuilder = new StringBuilder();
-                ViewGroup viewGroup = findViewById(R.id.otpFieldRow);
-                for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                    View child = viewGroup.getChildAt(i);
-                    if (child instanceof OtpEditText) {
-                        otpBuilder.append(((OtpEditText) child).getText());
-                    }
+            // Build OTP
+            StringBuilder otpBuilder = new StringBuilder();
+            ViewGroup viewGroup = findViewById(R.id.otpFieldRow);
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                if (child instanceof OtpEditText) {
+                    otpBuilder.append(((OtpEditText) child).getText());
                 }
+            }
 
-                if (otpBuilder.length() != 6) {
-                    displayUiErrors();
+            if (otpBuilder.length() != 6) {
+                displayUiErrors();
+                setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
+                findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
+                return;
+            }
+
+            // Build auth device
+            AuthData authUserDevices = new AuthData();
+
+            authUserDevices.setLoginUserId(ConfigManager.getLoginUserIdConfig());
+            authUserDevices.setFirebaseToken(ConfigManager.getFirebaseTokenConfig());
+            authUserDevices.setDeviceName(ConfigManager.getDeviceNameConfig());
+            authUserDevices.setOtp(otpBuilder.toString());
+
+            // Execute authorization
+            ManagementInterface authApi = ApiService.createInstance();
+            Call<Device> userCall = authApi.createDevice(authUserDevices);
+            userCall.enqueue(new Callback<Device>() {
+                @Override
+                @EverythingIsNonNull
+                public void onResponse(Call call, Response response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(OtpActivity.this, getString(R.string.alexa_successfully_connected), Toast.LENGTH_SHORT).show();
+                        Device newDevice = (Device) response.body();
+                        ConfigManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
+                        switchToConfigActivity();
+                    } else {
+                        try {
+                            String errorMessage = response.errorBody() != null ? response.errorBody().string() : getString(R.string.unknown_error);
+                            Toast.makeText(OtpActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_SHORT).show();
+                            displayUiErrors();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
                     findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
-                    return;
                 }
 
-                // Build auth device
-                AuthData authUserDevices = new AuthData();
-
-                authUserDevices.setLoginUserId(ConfigManager.getLoginUserIdConfig());
-                authUserDevices.setFirebaseToken(ConfigManager.getFirebaseTokenConfig());
-                authUserDevices.setDeviceName(ConfigManager.getDeviceNameConfig());
-                authUserDevices.setOtp(otpBuilder.toString());
-
-                // Execute authorization
-                ManagementInterface authApi = ApiService.createInstance();
-                Call<Device> userCall = authApi.createDevice(authUserDevices);
-                userCall.enqueue(new Callback<Device>() {
-                    @Override
-                    @EverythingIsNonNull
-                    public void onResponse(Call call, Response response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(OtpActivity.this, getString(R.string.alexa_successfully_connected), Toast.LENGTH_SHORT).show();
-                            Device newDevice = (Device) response.body();
-                            ConfigManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
-                            switchToConfigActivity();
-                        } else {
-                            try {
-                                String errorMessage = response.errorBody() != null ? response.errorBody().string() : getString(R.string.unknown_error);
-                                Toast.makeText(OtpActivity.this, response.code() + " - " + errorMessage, Toast.LENGTH_SHORT).show();
-                                displayUiErrors();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
-                        findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    @EverythingIsNonNull
-                    public void onFailure(Call call, Throwable t) {
-                        Toast.makeText(OtpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
-                        findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
-                        displayUiErrors();
-                    }
-                });
-            }
+                @Override
+                @EverythingIsNonNull
+                public void onFailure(Call call, Throwable t) {
+                    Toast.makeText(OtpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
+                    findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
+                    displayUiErrors();
+                }
+            });
         };
     }
 
     private View.OnTouchListener createControlsTouchListener() {
-        return new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (getCurrentFocus() == null) {
-                    return false;
-                }
-
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    getCurrentFocus().clearFocus();
-                }
-
-                return v.performClick();
+        return (v, event) -> {
+            if (getCurrentFocus() == null) {
+                return false;
             }
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                getCurrentFocus().clearFocus();
+            }
+
+            return v.performClick();
         };
     }
 

@@ -2,36 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/permissionsFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.fragments.PermissionsFragment"
-    android:id="@+id/permissionsFragmentLayout">
+    tools:context=".activities.fragments.PermissionsFragment">
 
     <TextView
         android:id="@+id/permissionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/permissions"
         android:textColor="@color/gray_dark"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/permissionsImage"
         android:layout_width="127dp"
         android:layout_height="183dp"
         android:layout_weight="1"
+        android:contentDescription="@string/permissions_logo_content_description"
         android:src="@drawable/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@drawable/permissions"
         app:layout_constraintTop_toBottomOf="@+id/permissionsTitle"
-        android:contentDescription="@string/permissions_logo_content_description" />
+        tools:srcCompat="@drawable/permissions" />
 
     <TextView
         android:id="@+id/permissionsDescription"
@@ -52,18 +52,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDescription"
+        app:permissionToGrant="BATTERY_OPTIMIZATION"
         app:permissionsExplanation="@string/disable_battery_optimization_explanation"
-        app:permissionsTitle="@string/disable_battery_optimization"
-        app:permissionToGrant="BATTERY_OPTIMIZATION" />
+        app:permissionsTitle="@string/disable_battery_optimization" />
 
     <com.jamespfluger.devicefinder.controls.PermissionsView
         android:id="@+id/permissionsOverrideDndView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/permissionsDisableBatteryView"
-        app:permissionsTitle="@string/allow_do_not_disturb_override"
+        app:permissionToGrant="DO_NOT_DISTURB_OVERRIDE"
         app:permissionsExplanation="@string/allow_do_not_disturb_override_explanation"
-        app:permissionToGrant="DO_NOT_DISTURB_OVERRIDE" />
+        app:permissionsTitle="@string/allow_do_not_disturb_override" />
 
     <Button
         android:id="@+id/permissionsContinueButton"
@@ -84,11 +84,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/help_circle"
+        android:contentDescription="@string/help"
         android:scaleX="1.5"
         android:scaleY="1.5"
+        android:src="@drawable/help_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/help" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
