@@ -42,14 +42,8 @@ public class DeviceConfigFragment extends Fragment {
     private final Device device;
 
     public DeviceConfigFragment() {
+        // TODO: replace with device load
         this.device = new Device();
-
-        device.setDeviceName("Michael");
-        device.setUseFlashlight(true);
-        device.setUseOnWifiOnly(true);
-        device.setUseVibrate(true);
-        device.setUseVolumeOverride(true);
-        device.setVolumeOverrideValue(85);
     }
 
     public DeviceConfigFragment(Device device) {
