@@ -17,7 +17,7 @@
     <string name="resourcePackage">android.resource://com.jamespfluger.devicefinder/</string>
     <string name="deviceAlertChannelName">Device Alert (Required)</string>
     <string name="preference_file_key">com.jamespfluger.devicefinder.SHARED_PREFERENCES</string>
-    <string name="title_activity_device_navigation">DeviceNavigationActivity</string>
+    <string name="title_activity_device_navigation">Device Config</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Made with ♥ by James Pfluger</string>

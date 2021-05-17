@@ -5,20 +5,19 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 
 public class PermissionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
-        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment permissionsFragment = new PermissionsFragment();
-        ft.replace(R.id.permissionsActivityFragment, permissionsFragment).commit();
+
+        NavController controller = Navigation.findNavController(this, R.id.permissionsFragmentContainer);
+        controller.navigate(R.id.permissionsFragment);
     }
 
     @Override
