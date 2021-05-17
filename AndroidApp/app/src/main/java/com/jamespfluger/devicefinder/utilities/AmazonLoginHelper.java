@@ -22,12 +22,7 @@ public class AmazonLoginHelper {
 
             @Override
             public void onError(AuthError ae) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, R.string.amazon_user_fetch_error_toast, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, R.string.amazon_user_fetch_error_toast, Toast.LENGTH_SHORT).show());
             }
         });
     }
@@ -36,22 +31,12 @@ public class AmazonLoginHelper {
         AuthorizationManager.signOut(context, new Listener<Void, AuthError>() {
             @Override
             public void onSuccess(Void response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show());
             }
 
             @Override
             public void onError(AuthError authError) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show());
             }
         });
     }

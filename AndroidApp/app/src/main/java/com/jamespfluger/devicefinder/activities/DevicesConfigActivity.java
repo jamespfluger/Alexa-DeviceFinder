@@ -151,31 +151,26 @@ public class DevicesConfigActivity extends AppCompatActivity {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
 
-        return new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                clearAllChecks(menu);
-                item.setChecked(true);
-                drawer.close();
+        return item -> {
+            clearAllChecks(menu);
+            item.setChecked(true);
+            drawer.close();
 
-                NavDirections directions = getDirections(newFragment);
-                NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-                NavController navController = navHostFragment.getNavController();
-                navController.navigate(directions);
+            NavDirections directions = getDirections(newFragment);
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            NavController navController = navHostFragment.getNavController();
+            navController.navigate(directions);
 
-                return true;
-            }
+            return true;
         };
     }
 
     private NavDirections getDirections(Fragment destinationFragment) {
         if (destinationFragment instanceof DeviceConfigFragment) {
             return DeviceConfigFragmentDirections.toDeviceConfig();
-        }
-        else if (destinationFragment instanceof AboutFragment) {
+        } else if (destinationFragment instanceof AboutFragment) {
             return DeviceConfigFragmentDirections.toAbout();
-        }
-        else {
+        } else {
             return DeviceConfigFragmentDirections.toPermissions();
         }
     }

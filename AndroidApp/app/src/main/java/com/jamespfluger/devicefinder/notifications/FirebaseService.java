@@ -40,23 +40,17 @@ public class FirebaseService extends FirebaseMessagingService {
 
     public void refreshToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        InstanceIdResult taskResult = task.getResult();
+                .addOnCompleteListener(task -> {
+                    InstanceIdResult taskResult = task.getResult();
 
-                        if (taskResult != null) {
-                            String newToken = taskResult.getToken();
-                            ConfigManager.setFirebaseTokenConfig(newToken);
-                        }
+                    if (taskResult != null) {
+                        String newToken = taskResult.getToken();
+                        ConfigManager.setFirebaseTokenConfig(newToken);
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception ex) {
-                        Logger.Log(getString(R.string.firebase_refresh_error_log) + ex.toString());
-                        Toast.makeText(getApplicationContext(), getString(R.string.firebase_refresh_error_toast) + ex.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(ex -> {
+                    Logger.Log(getString(R.string.firebase_refresh_error_log) + ex.toString());
+                    Toast.makeText(getApplicationContext(), getString(R.string.firebase_refresh_error_toast) + ex.toString(), Toast.LENGTH_SHORT).show();
                 });
     }
 }

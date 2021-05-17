@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:focusable="true"
         android:focusableInTouchMode="true"
-        android:windowSoftInputMode="adjustPan"
         android:gravity="center"
-        android:focusable="true">
+        android:windowSoftInputMode="adjustPan">
 
         <ImageView
             android:id="@+id/otpImage"
@@ -22,13 +22,13 @@
             android:layout_height="183dp"
             android:layout_marginTop="64dp"
             android:layout_weight="1"
+            android:contentDescription="@string/verification_logo_content_description"
             android:src="@drawable/otp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/otp"
-            android:contentDescription="@string/verification_logo_content_description" />
+            tools:srcCompat="@drawable/otp" />
 
         <TextView
             android:id="@+id/verificationTitle"
@@ -65,10 +65,10 @@
 
             <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField1"
-                android:nextFocusRight="@id/otpField2"
+                style="@style/Controls.OtpEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                style="@style/Controls.OtpEditText"/>
+                android:nextFocusRight="@id/otpField2" />
 
             <Space
                 android:layout_width="2dp"
@@ -76,11 +76,11 @@
 
             <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField2"
-                android:nextFocusLeft="@id/otpField1"
-                android:nextFocusRight="@id/otpField3"
+                style="@style/Controls.OtpEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                style="@style/Controls.OtpEditText"/>
+                android:nextFocusLeft="@id/otpField1"
+                android:nextFocusRight="@id/otpField3" />
 
             <Space
                 android:layout_width="2dp"
@@ -88,11 +88,11 @@
 
             <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField3"
-                android:nextFocusLeft="@id/otpField2"
-                android:nextFocusRight="@id/otpField4"
+                style="@style/Controls.OtpEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                style="@style/Controls.OtpEditText"/>
+                android:nextFocusLeft="@id/otpField2"
+                android:nextFocusRight="@id/otpField4" />
 
             <Space
                 android:layout_width="2dp"
@@ -100,11 +100,11 @@
 
             <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField4"
-                android:nextFocusLeft="@id/otpField3"
-                android:nextFocusRight="@id/otpField5"
+                style="@style/Controls.OtpEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                style="@style/Controls.OtpEditText"/>
+                android:nextFocusLeft="@id/otpField3"
+                android:nextFocusRight="@id/otpField5" />
 
             <Space
                 android:layout_width="2dp"
@@ -112,11 +112,11 @@
 
             <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField5"
-                android:nextFocusLeft="@id/otpField4"
-                android:nextFocusRight="@id/otpField6"
+                style="@style/Controls.OtpEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                style="@style/Controls.OtpEditText"/>
+                android:nextFocusLeft="@id/otpField4"
+                android:nextFocusRight="@id/otpField6" />
 
             <Space
                 android:layout_width="2dp"
@@ -124,10 +124,10 @@
 
             <com.jamespfluger.devicefinder.controls.OtpEditText
                 android:id="@+id/otpField6"
-                android:nextFocusLeft="@id/otpField5"
+                style="@style/Controls.OtpEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                style="@style/Controls.OtpEditText"/>
+                android:nextFocusLeft="@id/otpField5" />
 
         </LinearLayout>
 
@@ -150,12 +150,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/help_circle"
+            android:contentDescription="@string/help"
             android:scaleX="1.5"
             android:scaleY="1.5"
+            android:src="@drawable/help_circle"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/help" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -164,8 +164,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.65"
-        android:gravity="center"
         android:background="#000000"
+        android:gravity="center"
         android:visibility="gone">
 
         <ProgressBar

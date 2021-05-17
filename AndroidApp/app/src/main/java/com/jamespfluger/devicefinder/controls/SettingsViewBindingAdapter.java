@@ -16,11 +16,6 @@ public class SettingsViewBindingAdapter {
 
     @BindingAdapter(value = {"android:checkedAttrChanged"}, requireAll = false)
     public static void setListeners(SettingsView view, final InverseBindingListener attrChange) {
-        view.settingsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                attrChange.onChange();
-            }
-        });
+        view.settingsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> attrChange.onChange());
     }
 }

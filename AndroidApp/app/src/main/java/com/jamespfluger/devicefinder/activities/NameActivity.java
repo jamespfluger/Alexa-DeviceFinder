@@ -28,35 +28,29 @@ public class NameActivity extends AppCompatActivity {
         final EditText deviceNameField = findViewById(R.id.deviceNameField);
         final Button deviceNameContinueButton = findViewById(R.id.deviceNameContinueButton);
 
-        deviceNameField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(NameActivity.INPUT_METHOD_SERVICE);
+        deviceNameField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(NameActivity.INPUT_METHOD_SERVICE);
 
-                    if (inputMethodManager != null) {
-                        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    }
-                } else {
-                    TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
-                    deviceNameErrorDescription.setVisibility(View.INVISIBLE);
+                if (inputMethodManager != null) {
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
+            } else {
+                TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
+                deviceNameErrorDescription.setVisibility(View.INVISIBLE);
             }
         });
 
-        deviceNameContinueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (deviceNameField.getText().length() == 0) {
-                    TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
-                    deviceNameErrorDescription.setVisibility(View.VISIBLE);
+        deviceNameContinueButton.setOnClickListener(v -> {
+            if (deviceNameField.getText().length() == 0) {
+                TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
+                deviceNameErrorDescription.setVisibility(View.VISIBLE);
 
-                    final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                    deviceNameField.startAnimation(errorAnimation);
-                } else {
-                    ConfigManager.setDeviceNameConfig(deviceNameField.getText().toString());
-                    switchToOtpActivity();
-                }
+                final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                deviceNameField.startAnimation(errorAnimation);
+            } else {
+                ConfigManager.setDeviceNameConfig(deviceNameField.getText().toString());
+                switchToOtpActivity();
             }
         });
     }

@@ -34,34 +34,23 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(AuthorizeResult authorizeResult) {
                 AmazonLoginHelper.setUserId(getApplicationContext());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), R.string.amazon_login_success, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.amazon_login_success, Toast.LENGTH_SHORT).show());
                 switchToActivity();
             }
 
             @Override
             public void onError(AuthError authError) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), R.string.amazon_login_error, Toast.LENGTH_SHORT).show();
-                        setLoggingInState(false);
-                    }
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), R.string.amazon_login_error, Toast.LENGTH_SHORT).show();
+                    setLoggingInState(false);
                 });
             }
 
             @Override
             public void onCancel(AuthCancellation authCancellation) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), R.string.amazon_login_cancelled, Toast.LENGTH_SHORT).show();
-                        setLoggingInState(false);
-                    }
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), R.string.amazon_login_cancelled, Toast.LENGTH_SHORT).show();
+                    setLoggingInState(false);
                 });
             }
         });
@@ -83,16 +72,13 @@ public class LoginActivity extends Activity {
 
         loginButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.amazon_logo, 0, 0, 0);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthorizationManager.authorize(
-                        new AuthorizeRequest.Builder(requestContext)
-                                .addScopes(ProfileScope.userId())
-                                .build()
-                );
-                setLoggingInState(true);
-            }
+        loginButton.setOnClickListener(view -> {
+            AuthorizationManager.authorize(
+                    new AuthorizeRequest.Builder(requestContext)
+                            .addScopes(ProfileScope.userId())
+                            .build()
+            );
+            setLoggingInState(true);
         });
     }
 

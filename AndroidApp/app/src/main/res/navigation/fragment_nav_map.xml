@@ -73,6 +73,7 @@
             app:popUpTo="@+id/mobile_navigation"
             app:popUpToInclusive="true" />
     </fragment>
-    <activity android:id="@+id/deviceConfigActivity"
+    <activity
+        android:id="@+id/deviceConfigActivity"
         android:name="com.jamespfluger.devicefinder.activities.DevicesConfigActivity" />
 </navigation>

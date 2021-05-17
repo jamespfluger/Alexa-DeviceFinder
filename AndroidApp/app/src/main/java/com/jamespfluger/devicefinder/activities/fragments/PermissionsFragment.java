@@ -47,14 +47,11 @@ public class PermissionsFragment extends Fragment {
             if (parentActivity instanceof DevicesConfigActivity) {
                 continueButton.setVisibility(View.GONE);
             } else {
-                continueButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!hasGrantedDisableBatteryPermissions() || !hasGrantedDisableBatteryPermissions()) {
-                            validatePermissions();
-                        } else {
-                            switchToDeviceNameActivity();
-                        }
+                continueButton.setOnClickListener(v -> {
+                    if (!hasGrantedDisableBatteryPermissions() || !hasGrantedDisableBatteryPermissions()) {
+                        validatePermissions();
+                    } else {
+                        switchToDeviceNameActivity();
                     }
                 });
             }
@@ -95,12 +92,9 @@ public class PermissionsFragment extends Fragment {
     }
 
     private void validatePermissions() {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == DialogInterface.BUTTON_POSITIVE) {
-                    switchToDeviceNameActivity();
-                }
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                switchToDeviceNameActivity();
             }
         };
 
