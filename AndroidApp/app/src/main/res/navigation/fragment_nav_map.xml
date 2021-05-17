@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/aboutFragment">
+    <fragment
+        android:id="@+id/deviceConfigFragment"
+        android:name="com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment"
+        tools:layout="@layout/fragment_device_config">
+        <action
+            android:id="@+id/to_device_config"
+            app:destination="@id/deviceConfigFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_about"
+            app:destination="@id/aboutFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_permissions"
+            app:destination="@id/permissionsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/permissionsFragment"
+        android:name="com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment"
+        tools:layout="@layout/fragment_permissions">
+        <action
+            android:id="@+id/to_device_config"
+            app:destination="@id/deviceConfigFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_permissions"
+            app:destination="@id/permissionsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_about"
+            app:destination="@id/aboutFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.jamespfluger.devicefinder.activities.fragments.AboutFragment"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/to_device_config"
+            app:destination="@id/deviceConfigFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_permissions"
+            app:destination="@id/permissionsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_about"
+            app:destination="@id/aboutFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <activity android:id="@+id/deviceConfigActivity"
+        android:name="com.jamespfluger.devicefinder.activities.DevicesConfigActivity" />
+</navigation>

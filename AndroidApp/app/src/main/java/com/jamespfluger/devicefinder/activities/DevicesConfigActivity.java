@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
+import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragmentDirections;
 import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
@@ -46,24 +47,17 @@ public class DevicesConfigActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_device_navigation);
+        setContentView(R.layout.activity_device_config);
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
 
         setSupportActionBar(toolbar);
 
-        // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home).setOpenableLayout(drawer).build();
+        // Each fragment is a top-level destination
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.aboutFragment, R.id.permissionsFragment, R.id.deviceConfigFragment).setOpenableLayout(drawer).build();
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        NavController navController;
-
-        if (navHostFragment != null) {
-            navController = navHostFragment.getNavController();
-        } else {
-            navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        }
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -153,20 +147,36 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment) {
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
 
         return new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.nav_host_fragment, newFragment).commit();
                 clearAllChecks(menu);
                 item.setChecked(true);
                 drawer.close();
+
+                NavDirections directions = getDirections(newFragment);
+                NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+                NavController navController = navHostFragment.getNavController();
+                navController.navigate(directions);
+
                 return true;
             }
         };
+    }
+
+    private NavDirections getDirections(Fragment destinationFragment) {
+        if (destinationFragment instanceof DeviceConfigFragment) {
+            return DeviceConfigFragmentDirections.toDeviceConfig();
+        }
+        else if (destinationFragment instanceof AboutFragment) {
+            return DeviceConfigFragmentDirections.toAbout();
+        }
+        else {
+            return DeviceConfigFragmentDirections.toPermissions();
+        }
     }
 }

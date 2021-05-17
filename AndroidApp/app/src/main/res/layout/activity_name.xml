@@ -17,13 +17,13 @@
         android:layout_height="183dp"
         android:layout_marginTop="64dp"
         android:layout_weight="1"
+        android:contentDescription="@string/device_name_logo"
         android:src="@drawable/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/name"
-        android:contentDescription="@string/device_name_logo" />
+        tools:srcCompat="@drawable/name" />
 
     <TextView
         android:id="@+id/deviceNameTitle"
@@ -53,6 +53,7 @@
         android:id="@+id/deviceNameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="personGivenName"
         android:ems="10"
         android:hint="@string/nameOfDevice"
         android:inputType="textPersonName"
@@ -60,8 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceNameTitle"
-        android:autofillHints="personGivenName" />
+        app:layout_constraintTop_toBottomOf="@+id/deviceNameTitle" />
 
     <Button
         android:id="@+id/deviceNameContinueButton"
@@ -82,12 +82,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/help_circle"
+        android:contentDescription="@string/help"
         android:scaleX="1.5"
         android:scaleY="1.5"
+        android:src="@drawable/help_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/help" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/deviceNameErrorDescription"

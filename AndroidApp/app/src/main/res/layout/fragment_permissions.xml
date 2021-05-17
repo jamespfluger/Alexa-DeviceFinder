@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.fragments.PermissionsFragment">
+    tools:context=".activities.fragments.PermissionsFragment"
+    android:id="@+id/permissionsFragmentLayout">
 
     <TextView
         android:id="@+id/permissionsTitle"

@@ -10,6 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/deviceConfigFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
@@ -58,11 +59,11 @@
                     android:id="@+id/settingsDeviceNameField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="personGivenName"
                     android:ems="10"
                     android:hint="@string/device_name"
                     android:inputType="textPersonName"
-                    android:text="@={device.deviceName}"
-                    android:autofillHints="personGivenName" />
+                    android:text="@={device.deviceName}" />
             </LinearLayout>
 
             <!-- Enable flashlight -->
@@ -70,27 +71,27 @@
                 android:id="@+id/settingsEnableFlashlight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="@string/use_flashlight_title"
+                android:checked="@={device.useFlashlight}"
                 app:settingsSubtitle="@string/use_flashlight_subtitle"
-                android:checked="@={device.useFlashlight}" />
+                app:settingsTitle="@string/use_flashlight_title" />
 
             <!-- Enable vibration -->
             <com.jamespfluger.devicefinder.controls.SettingsView
                 android:id="@+id/settingsEnableVibration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="@string/use_vibrate_title"
+                android:checked="@={device.useVibrate}"
                 app:settingsSubtitle="@string/use_vibrate_subtitle"
-                android:checked="@={device.useVibrate}" />
+                app:settingsTitle="@string/use_vibrate_title" />
 
             <!-- Only ring on wifi -->
             <com.jamespfluger.devicefinder.controls.SettingsView
                 android:id="@+id/settingsEnableWifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="@string/only_ring_on_wifi_title"
+                android:checked="@={device.useOnWifiOnly}"
                 app:settingsSubtitle="@string/only_ring_on_wifi_subtitle"
-                android:checked="@={device.useOnWifiOnly}" />
+                app:settingsTitle="@string/only_ring_on_wifi_title" />
 
             <!-- Specific WiFi network -->
             <LinearLayout
@@ -121,9 +122,9 @@
                 android:id="@+id/settingsOverrideMaxVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingsTitle="@string/override_max_volume_title"
+                android:checked="@={device.useVolumeOverride}"
                 app:settingsSubtitle="@string/override_max_volume_subtitle"
-                android:checked="@={device.useVolumeOverride}" />
+                app:settingsTitle="@string/override_max_volume_title" />
 
             <!-- Volume to use -->
             <LinearLayout
