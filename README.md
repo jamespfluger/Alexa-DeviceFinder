@@ -54,11 +54,11 @@ First, select an issue you'd like to work on and comment on it. If you have any 
 #### Android
 1. Install Android Studio
 2. Download the [Login With Amazon Android SDK](https://developer.amazon.com/docs/apps-and-games/sdk-downloads.html#lwa)
-3. Place `login-with-amazon-sdk.jar` into the directory `\AlexaDeviceFinder-Android\app\libs`
+3. Place `login-with-amazon-sdk.jar` into the directory `\AndroidApp\app\libs`
 4. Build the app
 5. Sign your version of the app with the [instructions here](https://developer.android.com/studio/publish/app-signing)
 6. Follow the [instructions here](https://developer.amazon.com/docs/login-with-amazon/register-android.html) to create a new security profile for use with Login With Amazon
-7. Navigate to the directory `\Alexa-DeviceFinder\AlexaDeviceFinder-Android\app\src\main\assets` and create a file called `api_key.txt`. If that directory does not exist, then you must create it
+7. Navigate to the directory `\AndroidApp\app\src\main\assets` and create a file called `api_key.txt`. If that directory does not exist, then you must create it
 8. Under the Android/Kindle settings of your security profile, copy and paste the API key value directly into `api_key.txt`. Note that there cannot be spaces before/after the key. Only copy and paste the raw text given
 9. Build and run the app
 10. If this does not work, please open an issue with the documentation tag so we can identify what problems may arise
