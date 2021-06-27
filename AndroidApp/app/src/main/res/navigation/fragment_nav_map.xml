@@ -76,4 +76,7 @@
     <activity
         android:id="@+id/deviceConfigActivity"
         android:name="com.jamespfluger.devicefinder.activities.DevicesConfigActivity" />
+    <activity
+        android:id="@+id/permissionsActivity"
+        android:name="com.jamespfluger.devicefinder.activities.PermissionsActivity" />
 </navigation>

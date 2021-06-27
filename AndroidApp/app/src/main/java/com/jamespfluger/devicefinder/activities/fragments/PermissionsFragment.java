@@ -74,21 +74,8 @@ public class PermissionsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (hasGrantedDisableBatteryPermissions() && disableBatteryView.getPermissionStatusButton() != null) {
-            disableBatteryView.getPermissionStatusButton().setImageResource(R.drawable.check_circle);
-            disableBatteryView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.green));
-        } else if (disableBatteryView.getPermissionStatusButton() != null) {
-            disableBatteryView.getPermissionStatusButton().setImageResource(R.drawable.alert_circle);
-            disableBatteryView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.red_error));
-        }
-
-        if (hasGrantedDndPermissions() && overrideDndView.getPermissionStatusButton() != null) {
-            overrideDndView.getPermissionStatusButton().setImageResource(R.drawable.check_circle);
-            overrideDndView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.green));
-        } else if (overrideDndView.getPermissionStatusButton() != null) {
-            overrideDndView.getPermissionStatusButton().setImageResource(R.drawable.alert_circle);
-            overrideDndView.getPermissionStatusButton().setColorFilter(ContextCompat.getColor(parentActivity, R.color.red_error));
-        }
+        disableBatteryView.updatePermissionStatus(hasGrantedDisableBatteryPermissions());
+        overrideDndView.updatePermissionStatus(hasGrantedDndPermissions());
     }
 
     private void validatePermissions() {

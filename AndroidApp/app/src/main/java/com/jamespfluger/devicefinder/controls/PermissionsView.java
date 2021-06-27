@@ -3,6 +3,7 @@ package com.jamespfluger.devicefinder.controls;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.jamespfluger.devicefinder.R;
@@ -30,12 +32,16 @@ public class PermissionsView extends LinearLayout {
         init(context, attrs, defStyle);
     }
 
-    public ImageButton getPermissionStatusButton() {
-        return permissionStatusButton;
-    }
+    public void updatePermissionStatus(boolean isEnabled) {
+        Drawable statusIcon;
 
-    public Button getGrantPermissionButton() {
-        return grantPermissionButton;
+        if (isEnabled) {
+            statusIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.check_circle, getContext().getTheme());
+        } else {
+            statusIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.alert_circle, getContext().getTheme());
+        }
+
+        permissionStatusButton.setImageDrawable(statusIcon);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
@@ -54,37 +60,28 @@ public class PermissionsView extends LinearLayout {
         grantPermissionButton.setText(permissionsTitle);
         explanationTextView.setText(permissionsExplanation);
 
-        expandExplanationButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (explanationTextView.getVisibility() == GONE) {
-                    explanationTextView.setVisibility(VISIBLE);
-                } else {
-                    explanationTextView.setVisibility(GONE);
-                }
+        expandExplanationButton.setOnClickListener(v -> {
+            if (explanationTextView.getVisibility() == GONE) {
+                explanationTextView.setVisibility(VISIBLE);
+            } else {
+                explanationTextView.setVisibility(GONE);
             }
         });
 
         int permissionToGrant = attributes.getInt(R.styleable.PermissionsView_permissionToGrant, -1);
 
         if (permissionToGrant == 0) {
-            grantPermissionButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                        Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                        v.getContext().startActivity(intent);
-                    }
+            grantPermissionButton.setOnClickListener(v -> {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                    v.getContext().startActivity(intent);
                 }
             });
         } else if (permissionToGrant == 1) {
-            grantPermissionButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                        v.getContext().startActivity(intent);
-                    }
+            grantPermissionButton.setOnClickListener(v -> {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                    v.getContext().startActivity(intent);
                 }
             });
         }
