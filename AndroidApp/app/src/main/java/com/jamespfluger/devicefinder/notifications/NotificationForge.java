@@ -26,7 +26,7 @@ public final class NotificationForge {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.deviceAlertChannelName), NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.device_alert_channel_name), NotificationManager.IMPORTANCE_HIGH);
 
             AudioAttributes ringtoneAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ALARM)

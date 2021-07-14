@@ -1,6 +1,5 @@
 package com.jamespfluger.devicefinder.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -56,7 +54,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Each fragment is a top-level destination
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.aboutFragment, R.id.permissionsFragment, R.id.deviceConfigFragment).setOpenableLayout(drawer).build();
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.about_fragment, R.id.permissions_fragment, R.id.device_config_fragment).setOpenableLayout(drawer).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -119,8 +117,8 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     private void createDefaultMenuItems(final DrawerLayout drawer, final Menu menu) {
-        MenuItem aboutItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, R.string.about);
-        MenuItem permissionsItem = menu.add(R.id.defaultGroup, View.generateViewId(), Menu.NONE, R.string.permissions);
+        MenuItem aboutItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.about);
+        MenuItem permissionsItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.permissions);
 
         aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment()));
         permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment()));

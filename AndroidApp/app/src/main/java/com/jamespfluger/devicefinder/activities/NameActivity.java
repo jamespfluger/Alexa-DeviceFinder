@@ -25,8 +25,8 @@ public class NameActivity extends AppCompatActivity {
     }
 
     private void initializeUi() {
-        final EditText deviceNameField = findViewById(R.id.deviceNameField);
-        final Button deviceNameContinueButton = findViewById(R.id.deviceNameContinueButton);
+        final EditText deviceNameField = findViewById(R.id.device_name_field);
+        final Button deviceNameContinueButton = findViewById(R.id.device_name_continue_button);
 
         deviceNameField.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
@@ -36,14 +36,14 @@ public class NameActivity extends AppCompatActivity {
                     inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             } else {
-                TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
+                TextView deviceNameErrorDescription = findViewById(R.id.device_name_error_description);
                 deviceNameErrorDescription.setVisibility(View.INVISIBLE);
             }
         });
 
         deviceNameContinueButton.setOnClickListener(v -> {
             if (deviceNameField.getText().length() == 0) {
-                TextView deviceNameErrorDescription = findViewById(R.id.deviceNameErrorDescription);
+                TextView deviceNameErrorDescription = findViewById(R.id.device_name_error_description);
                 deviceNameErrorDescription.setVisibility(View.VISIBLE);
 
                 final Animation errorAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);

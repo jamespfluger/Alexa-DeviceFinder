@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -40,10 +38,10 @@ public class PermissionsFragment extends Fragment {
 
         if (getActivity() != null) {
             parentActivity = getActivity();
-            disableBatteryView = root.findViewById(R.id.permissionsDisableBatteryView);
-            overrideDndView = root.findViewById(R.id.permissionsOverrideDndView);
+            disableBatteryView = root.findViewById(R.id.permissions_disable_battery_view);
+            overrideDndView = root.findViewById(R.id.permissions_override_dnd_view);
 
-            Button continueButton = root.findViewById(R.id.permissionsContinueButton);
+            Button continueButton = root.findViewById(R.id.permissions_continue_button);
 
             if (parentActivity instanceof DevicesConfigActivity) {
                 continueButton.setVisibility(View.GONE);

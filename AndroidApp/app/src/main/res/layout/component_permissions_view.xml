@@ -18,50 +18,50 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/permissionStatusIcon"
+                android:id="@+id/permissions_status_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/permission_status"
-                android:layout_gravity="center"
-                android:foregroundGravity="center"
-                android:src="@drawable/ic_alert"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:background="@android:color/transparent"
-                android:paddingHorizontal="2dp" />
+                android:contentDescription="@string/permission_status"
+                android:foregroundGravity="center"
+                android:paddingHorizontal="2dp"
+                android:src="@drawable/ic_alert" />
 
             <Button
-                android:id="@+id/permissionGrantButton"
+                android:id="@+id/permissions_grant_button"
+                style="@style/AppTheme.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/permissionExpandButton"
-                android:layout_toEndOf="@id/permissionStatusIcon"
                 android:layout_marginEnd="-16dp"
-                style="@style/AppTheme.Button" />
+                android:layout_toStartOf="@id/permissions_expand_button"
+                android:layout_toEndOf="@id/permissions_status_button" />
 
-        <Button
-            android:id="@+id/permissionExpandButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/permissionExpandArrow"
-            android:padding="0dp"
-            android:layout_margin="0dp"
-            android:text="@string/whyQuestion"
-            android:textColor="@color/help_icon"
-            android:background="@android:color/transparent"/>
+            <Button
+                android:id="@+id/permissions_expand_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/permissions_expand_arrow"
+                android:layout_margin="0dp"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
+                android:text="@string/why_question"
+                android:textColor="@color/help_icon" />
 
             <ImageButton
-                android:id="@+id/permissionExpandArrow"
+                android:id="@+id/permissions_expand_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_expand"
-                android:foregroundGravity="center"
+                android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true" />
+                android:background="@drawable/ic_expand"
+                android:foregroundGravity="center" />
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/permissionExplanation"
+            android:id="@+id/permissions_explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

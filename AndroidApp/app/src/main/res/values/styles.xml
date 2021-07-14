@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Controls.OtpEditText" parent="@android:style/Widget.EditText">
         <item name="android:digits">0123456789</item>
         <item name="android:importantForAutofill" tools:targetApi="o">no</item>

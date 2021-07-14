@@ -42,9 +42,9 @@ public class SettingsView extends LinearLayout {
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SettingsView);
 
-        TextView settingsTitle = findViewById(R.id.settingsTitle);
-        TextView settingsSubtitle = findViewById(R.id.settingsSubtitle);
-        settingsSwitch = findViewById(R.id.settingsSwitch);
+        TextView settingsTitle = findViewById(R.id.settings_title);
+        TextView settingsSubtitle = findViewById(R.id.settings_subtitle);
+        settingsSwitch = findViewById(R.id.settings_switch);
 
         settingsTitle.setText(attributes.getString(R.styleable.SettingsView_settingsTitle));
         settingsSubtitle.setText(attributes.getString(R.styleable.SettingsView_settingsSubtitle));

@@ -1,7 +1,5 @@
 package com.jamespfluger.devicefinder.controls;
 
-import android.widget.CompoundButton;
-
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingListener;
 import androidx.databinding.InverseBindingMethod;
