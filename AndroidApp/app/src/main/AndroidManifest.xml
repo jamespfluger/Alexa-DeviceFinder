@@ -33,12 +33,12 @@
             android:label="Device Setup (1/3)" />
         <activity
             android:name=".activities.NameActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Device Setup (2/3)" />
+            android:label="Device Setup (2/3)"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.OtpActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Device Setup (3/3)" />
+            android:label="Device Setup (3/3)"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DevicesConfigActivity"
             android:label="@string/title_activity_device_navigation"

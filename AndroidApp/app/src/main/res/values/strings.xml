@@ -10,12 +10,12 @@
     <string name="title_activity_launch">Device Finder</string>
     <string name="logo_to_display_when_loading_app">Logo to display when loading app</string>
     <string name="alexa_device_finder">Alexa Device Finder</string>
-    <string name="alexa_device_finder_content_description">Alexa Device Finder</string>
+    <string name="alexa_device_finder_content_description">Name of app (Alexa Device Finder)</string>
     <string name="warning">ATTENTION</string>
-    <string name="doNotDisturbWarning">Do Not Disturb permission is REQUIRED in order for this app to alert you when your phone is in silent mode. Otherwise it will be unable to find your phone when it is on silent!</string>
-    <string name="batteryOptimizationWarning">Ignore Battery Optimization permission is HIGHLY RECOMMENDED in order for this app to alert you when your phone is in silent mode. Otherwise there may be a significant delay in finding your phone!!</string>
-    <string name="resourcePackage">android.resource://com.jamespfluger.devicefinder/</string>
-    <string name="deviceAlertChannelName">Device Alert (Required)</string>
+    <string name="do_not_disturb_warning">Do Not Disturb permission is REQUIRED in order for this app to alert you when your phone is in silent mode. Otherwise it will be unable to find your phone when it is on silent!</string>
+    <string name="battery_optimization_warning">Ignore Battery Optimization permission is HIGHLY RECOMMENDED in order for this app to alert you when your phone is in silent mode. Otherwise there may be a significant delay in finding your phone!!</string>
+    <string name="resource_package">android.resource://com.jamespfluger.devicefinder/</string>
+    <string name="device_alert_channel_name">Device Alert (Required)</string>
     <string name="preference_file_key">com.jamespfluger.devicefinder.SHARED_PREFERENCES</string>
     <string name="title_activity_device_navigation">Device Config</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -43,10 +43,8 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings">SettingsActivity</string>
-    <string name="permissionsExplanation">
-        If you want me to find your device as quickly as possible, I need to be granted some permissions.\n\n
-        <br /><br />
-        These are not required, but they help me find your device a lot faster!
+    <string name="permissions_explanation">
+        These permissions aren\'t required, but they help me find your device as quickly as possible!
     </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="save_settings_toast">Successfully saved settings</string>
@@ -79,17 +77,17 @@
     <string name="deviceFinder">Alexa\nDevice Finder</string>
     <string name="device_name">Device Name</string>
     <string name="device_name_tip">Name your device something easy\nfor Alexa to understand</string>
-    <string name="nameOfDevice">Name of device</string>
-    <string name="continueText">CONTINUE</string>
+    <string name="name_of_device">Name of device</string>
+    <string name="continue_text">CONTINUE</string>
     <string name="help">Help icon</string>
     <string name="device_name_logo">Device name logo</string>
     <string name="verification">Verification</string>
-    <string name="otpInstructions">Say, \'Alexa, set up Device Finder\'</string>
+    <string name="otp_instructions">Say, \'Alexa, set up Device Finder\'</string>
     <string name="submit">SUBMIT</string>
     <string name="verification_logo_content_description">Verification logo</string>
     <string name="device_finder_logo_content_description">Device finder logo</string>
     <string name="permission_status">Permission status</string>
-    <string name="whyQuestion">Why?</string>
+    <string name="why_question">Why?</string>
     <string name="wifi_network_placeholder">(Optional) WiFi network to use</string>
     <string name="override_max_volume">Override max volume</string>
     <string name="delete">DELETE</string>
@@ -103,7 +101,7 @@
     <string name="use_flashlight_title">Use flashlight</string>
     <string name="use_flashlight_subtitle">Flashlight will turn on/off when finding device</string>
     <string name="permissions_logo_content_description">Permissions logo</string>
-    <string name="disable_battery_optimization_explanation">This allows the notification to reach your phone quickly.\nThe app uses very little battery, so this has very little impact.</string>
+    <string name="disable_battery_optimization_explanation">This helps me start up faster so I can ring sooner</string>
     <string name="disable_battery_optimization">Disable Battery Optimization</string>
     <string name="allow_do_not_disturb_override">Allow Do Not Disturb Override</string>
     <string name="allow_do_not_disturb_override_explanation">This allows the notification to reach your phone even if you accidentally put it on silent.</string>

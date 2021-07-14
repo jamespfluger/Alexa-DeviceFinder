@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -49,11 +48,11 @@ public class PermissionsView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         DataBindingUtil.inflate(inflater, R.layout.component_permissions_view, this, true);
 
-        final TextView explanationTextView = findViewById(R.id.permissionExplanation);
-        final Button expandExplanationButton = findViewById(R.id.permissionExpandButton);
-        final ImageButton expandExplanationArrpw = findViewById(R.id.permissionExpandArrow);
-        permissionStatusButton = findViewById(R.id.permissionStatusIcon);
-        grantPermissionButton = findViewById(R.id.permissionGrantButton);
+        final TextView explanationTextView = findViewById(R.id.permissions_explanation);
+        final Button expandExplanationButton = findViewById(R.id.permissions_expand_button);
+        final ImageButton expandExplanationArrpw = findViewById(R.id.permissions_expand_arrow);
+        permissionStatusButton = findViewById(R.id.permissions_status_button);
+        grantPermissionButton = findViewById(R.id.permissions_grant_button);
 
         String permissionsTitle = attributes.getString(R.styleable.PermissionsView_permissionsTitle);
         String permissionsExplanation = attributes.getString(R.styleable.PermissionsView_permissionsExplanation);

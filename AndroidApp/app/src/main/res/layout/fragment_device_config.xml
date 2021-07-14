@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,8 @@
             type="com.jamespfluger.devicefinder.models.Device" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/deviceConfigFragmentLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
@@ -19,7 +20,7 @@
         tools:context=".activities.fragments.DeviceConfigFragment">
 
         <ProgressBar
-            android:id="@+id/settingsSaveWaitPanel"
+            android:id="@+id/settings_save_wait_panel"
             style="@android:style/Widget.ProgressBar.Inverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +49,7 @@
                 android:paddingEnd="20dp">
 
                 <TextView
-                    android:id="@+id/settingsDeviceNameTitle"
+                    android:id="@+id/settings_device_name_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/device_name"
@@ -56,7 +57,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/settingsDeviceNameField"
+                    android:id="@+id/settings_device_name_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="personGivenName"
@@ -68,7 +69,7 @@
 
             <!-- Enable flashlight -->
             <com.jamespfluger.devicefinder.controls.SettingsView
-                android:id="@+id/settingsEnableFlashlight"
+                android:id="@+id/settings_enable_flashlight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="@={device.useFlashlight}"
@@ -77,7 +78,7 @@
 
             <!-- Enable vibration -->
             <com.jamespfluger.devicefinder.controls.SettingsView
-                android:id="@+id/settingsEnableVibration"
+                android:id="@+id/settings_enable_vibration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="@={device.useVibrate}"
@@ -86,7 +87,7 @@
 
             <!-- Only ring on wifi -->
             <com.jamespfluger.devicefinder.controls.SettingsView
-                android:id="@+id/settingsEnableWifi"
+                android:id="@+id/settings_enable_wifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="@={device.useOnWifiOnly}"
@@ -111,7 +112,7 @@
                     android:textSize="18sp" />
 
                 <Spinner
-                    android:id="@+id/settingsWifiSsdDropdown"
+                    android:id="@+id/settings_wifi_ssid_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="false" />
@@ -119,7 +120,7 @@
 
             <!-- Override max volume -->
             <com.jamespfluger.devicefinder.controls.SettingsView
-                android:id="@+id/settingsOverrideMaxVolume"
+                android:id="@+id/settings_override_max_volume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="@={device.useVolumeOverride}"
@@ -143,7 +144,7 @@
                     android:textSize="18sp" />
 
                 <SeekBar
-                    android:id="@+id/settingsVolumeToUseSlider"
+                    android:id="@+id/settings_volume_to_use_slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
@@ -154,7 +155,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/settingsDeleteButton"
+            android:id="@+id/settings_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -164,7 +165,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/settingsSaveButton"
+            android:id="@+id/settings_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

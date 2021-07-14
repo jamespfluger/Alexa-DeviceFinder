@@ -1,9 +1,7 @@
 package com.jamespfluger.devicefinder.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -68,9 +66,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeUI() {
-        loginProgressBar = findViewById(R.id.loginProgressBar);
-        loginButton = findViewById(R.id.loginButton);
-        loginText = findViewById(R.id.loginText);
+        loginProgressBar = findViewById(R.id.login_progress_bar);
+        loginButton = findViewById(R.id.login_button);
+        loginText = findViewById(R.id.login_text);
 
         loginButton.setOnClickListener(view -> {
             AuthorizationManager.authorize(

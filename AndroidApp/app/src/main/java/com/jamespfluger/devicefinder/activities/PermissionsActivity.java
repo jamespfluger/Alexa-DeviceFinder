@@ -1,9 +1,7 @@
 package com.jamespfluger.devicefinder.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,8 +15,8 @@ public class PermissionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
 
-        NavController controller = Navigation.findNavController(this, R.id.permissionsFragmentContainer);
-        controller.navigate(R.id.permissionsFragment);
+        NavController controller = Navigation.findNavController(this, R.id.permissions_fragment_container);
+        controller.navigate(R.id.permissions_fragment);
     }
 
     @Override

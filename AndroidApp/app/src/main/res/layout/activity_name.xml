@@ -12,21 +12,21 @@
     tools:context=".activities.NameActivity">
 
     <ImageView
-        android:id="@+id/nameImage"
+        android:id="@+id/device_name_logo"
         android:layout_width="127dp"
         android:layout_height="183dp"
         android:layout_marginTop="64dp"
         android:layout_weight="1"
         android:contentDescription="@string/device_name_logo"
+        android:src="@drawable/img_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/img_name"
         tools:srcCompat="@drawable/img_name" />
 
     <TextView
-        android:id="@+id/deviceNameTitle"
+        android:id="@+id/device_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="61dp"
@@ -34,49 +34,49 @@
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameImage" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name_logo" />
 
     <TextView
-        android:id="@+id/deviceNameInstructions"
+        android:id="@+id/device_name_instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/device_name_tip"
         android:textAlignment="center"
         android:textSize="18sp"
 
-        app:layout_constraintBottom_toTopOf="@+id/deviceNameField"
+        app:layout_constraintBottom_toTopOf="@+id/device_name_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceNameTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name_title" />
 
     <EditText
-        android:id="@+id/deviceNameField"
+        android:id="@+id/device_name_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="personGivenName"
         android:ems="10"
-        android:hint="@string/nameOfDevice"
+        android:hint="@string/name_of_device"
         android:inputType="textPersonName"
         android:maxLength="100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceNameTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name_title" />
 
     <Button
-        android:id="@+id/deviceNameContinueButton"
+        android:id="@+id/device_name_continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="18dp"
-        android:text="@string/continueText"
+        android:text="@string/continue_text"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceNameField" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name_field" />
 
     <ImageView
-        android:id="@+id/deviceNameHelpIconContentDescription"
+        android:id="@+id/device_name_help_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/deviceNameErrorDescription"
+        android:id="@+id/device_name_error_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/device_name_required_error"
@@ -98,6 +98,6 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceNameField" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

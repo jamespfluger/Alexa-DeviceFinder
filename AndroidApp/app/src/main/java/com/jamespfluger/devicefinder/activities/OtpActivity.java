@@ -2,7 +2,6 @@ package com.jamespfluger.devicefinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -33,19 +32,19 @@ public class OtpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_otp);
-        findViewById(R.id.otpControlsLayout).setOnTouchListener(createControlsTouchListener());
-        findViewById(R.id.otpVerifyButton).setOnClickListener(createVerifyClickListener());
+        findViewById(R.id.otp_controls_layout).setOnTouchListener(createControlsTouchListener());
+        findViewById(R.id.otp_verify_button).setOnClickListener(createVerifyClickListener());
     }
 
     private View.OnClickListener createVerifyClickListener() {
         return v -> {
             // Disable and hide views
-            setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), false);
-            findViewById(R.id.otpVerificationPanel).setVisibility(View.VISIBLE);
+            setViewAndChildrenEnabled(findViewById(R.id.otp_controls_layout), false);
+            findViewById(R.id.otp_verification_panel).setVisibility(View.VISIBLE);
 
             // Build OTP
             StringBuilder otpBuilder = new StringBuilder();
-            ViewGroup viewGroup = findViewById(R.id.otpFieldRow);
+            ViewGroup viewGroup = findViewById(R.id.otp_field_row);
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 View child = viewGroup.getChildAt(i);
                 if (child instanceof OtpEditText) {
@@ -55,8 +54,8 @@ public class OtpActivity extends AppCompatActivity {
 
             if (otpBuilder.length() != 6) {
                 displayUiErrors();
-                setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
-                findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
+                setViewAndChildrenEnabled(findViewById(R.id.otp_controls_layout), true);
+                findViewById(R.id.otp_verification_panel).setVisibility(View.GONE);
                 return;
             }
 
@@ -89,16 +88,16 @@ public class OtpActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
-                    findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
+                    setViewAndChildrenEnabled(findViewById(R.id.otp_controls_layout), true);
+                    findViewById(R.id.otp_verification_panel).setVisibility(View.GONE);
                 }
 
                 @Override
                 @EverythingIsNonNull
                 public void onFailure(Call call, Throwable t) {
                     Toast.makeText(OtpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    setViewAndChildrenEnabled(findViewById(R.id.otpControlsLayout), true);
-                    findViewById(R.id.otpVerificationPanel).setVisibility(View.GONE);
+                    setViewAndChildrenEnabled(findViewById(R.id.otp_controls_layout), true);
+                    findViewById(R.id.otp_verification_panel).setVisibility(View.GONE);
                     displayUiErrors();
                 }
             });
@@ -123,7 +122,7 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void displayUiErrors() {
-        ViewGroup viewGroup = findViewById(R.id.otpFieldRow);
+        ViewGroup viewGroup = findViewById(R.id.otp_field_row);
 
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);

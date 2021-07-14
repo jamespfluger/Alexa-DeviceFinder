@@ -16,14 +16,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/settingsTitle"
+            android:id="@+id/settings_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/settingsSubtitle"
+            android:id="@+id/settings_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="100"
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/settingsSwitch"
+        android:id="@+id/settings_switch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.85" />
