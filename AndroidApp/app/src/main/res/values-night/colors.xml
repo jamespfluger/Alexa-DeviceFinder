@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">#0C567A</color>
+    <color name="blue_light">#396E93</color>
+    <color name="blue_dark">#0C567A</color>
+
+    <color name="text">#C1C1C1</color>
+    <color name="text_light">#D3D3D3</color>
+    <color name="help_icon">#616161</color>
+
+    <color name="logo_main_primary">@color/blue</color>
+    <color name="logo_main_secondary">@color/blue_dark</color>
+    <color name="logo_main_mono">#CCCCCC</color>
+
+    <color name="logo_setup_primary">@color/blue</color>
+    <color name="logo_setup_secondary">@color/blue_light</color>
+    <color name="logo_setup_dark">@color/blue_dark</color>
+    <color name="logo_setup_mono">#AFAFAF</color>
+
+    <color name="switch_thumb_on">#0D4F72</color>
+    <color name="switch_thumb_off">#B8B8B8</color>
+    <color name="switch_track_on">#1B3744</color>
+    <color name="switch_track_off">#5A5A5A</color>
+</resources>

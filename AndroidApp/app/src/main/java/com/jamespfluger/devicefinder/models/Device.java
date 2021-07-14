@@ -35,6 +35,7 @@ public class Device extends BaseObservable {
     private int volumeOverrideValue;
 
     public Device() {
+        this.volumeOverrideValue = 100;
     }
 
     public String getAlexaUserId() {
