@@ -20,6 +20,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
@@ -83,15 +84,10 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.quit)
                 .setMessage(R.string.confirm_quit_question)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DevicesConfigActivity.super.onBackPressed();
-                    }
-                })
+                .setPositiveButton(R.string.yes, (dialog, which) -> DevicesConfigActivity.super.onBackPressed())
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
