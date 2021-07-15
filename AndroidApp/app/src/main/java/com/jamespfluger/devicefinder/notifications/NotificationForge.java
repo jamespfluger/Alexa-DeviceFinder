@@ -55,7 +55,14 @@ public final class NotificationForge {
                 .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setDeleteIntent(createOnDismissedIntent(notificationId));
 
-        notificationBuilder.setContentText(remoteMessage.getNotification().getTitle());
+        String contentText;
+        if (remoteMessage.getNotification() != null) {
+            contentText = remoteMessage.getNotification().getTitle();
+        } else {
+            contentText = context.getString(R.string.alexa_device_finder);
+        }
+
+        notificationBuilder.setContentText(contentText);
         notificationManager.notify(notificationId, notificationBuilder.build());
     }
 

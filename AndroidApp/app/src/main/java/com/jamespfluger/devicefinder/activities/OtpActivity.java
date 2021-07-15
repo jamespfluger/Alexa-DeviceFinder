@@ -74,7 +74,7 @@ public class OtpActivity extends AppCompatActivity {
                 @Override
                 @EverythingIsNonNull
                 public void onResponse(Call call, Response response) {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && response.body() != null) {
                         Toast.makeText(OtpActivity.this, getString(R.string.alexa_successfully_connected), Toast.LENGTH_SHORT).show();
                         Device newDevice = (Device) response.body();
                         ConfigManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
