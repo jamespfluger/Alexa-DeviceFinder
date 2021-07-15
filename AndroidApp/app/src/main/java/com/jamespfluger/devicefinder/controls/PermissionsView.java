@@ -19,7 +19,6 @@ import com.jamespfluger.devicefinder.R;
 
 public class PermissionsView extends LinearLayout {
     private ImageButton permissionStatusButton;
-    private Button grantPermissionButton;
 
     public PermissionsView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,7 +51,7 @@ public class PermissionsView extends LinearLayout {
         final Button expandExplanationButton = findViewById(R.id.permissions_expand_button);
         final ImageButton expandExplanationArrpw = findViewById(R.id.permissions_expand_arrow);
         permissionStatusButton = findViewById(R.id.permissions_status_button);
-        grantPermissionButton = findViewById(R.id.permissions_grant_button);
+        Button grantPermissionButton = findViewById(R.id.permissions_grant_button);
 
         String permissionsTitle = attributes.getString(R.styleable.PermissionsView_permissionsTitle);
         String permissionsExplanation = attributes.getString(R.styleable.PermissionsView_permissionsExplanation);

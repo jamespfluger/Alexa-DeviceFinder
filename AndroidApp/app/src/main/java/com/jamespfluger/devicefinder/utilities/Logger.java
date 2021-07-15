@@ -24,13 +24,4 @@ public class Logger {
             Log.wtf(TAG, message);
         }
     }
-
-    public enum LogLevel {
-        Verbose,
-        Debug,
-        Information,
-        Warning,
-        Error,
-        Wtf
-    }
 }

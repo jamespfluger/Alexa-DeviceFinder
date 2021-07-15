@@ -29,6 +29,8 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.utilities.LogLevel;
+import com.jamespfluger.devicefinder.utilities.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,7 +98,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() instanceof ArrayList) {
                     allDevices = (ArrayList<Device>) response.body();
                     populateDeviceList();
                 } else {
@@ -152,8 +154,14 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
             NavDirections directions = getDirections(newFragment);
             NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-            NavController navController = navHostFragment.getNavController();
-            navController.navigate(directions);
+
+            if (navHostFragment != null) {
+                NavController navController = navHostFragment.getNavController();
+                navController.navigate(directions);
+            } else {
+                Logger.Log(getString(R.string.error_navigation_log), LogLevel.Error);
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.error_navigation_please_restart, Toast.LENGTH_SHORT).show());
+            }
 
             return true;
         };

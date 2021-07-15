@@ -61,7 +61,7 @@ public class DeviceConfigFragment extends Fragment {
         final EditText deviceName = view.findViewById(R.id.settings_device_name_field);
         deviceName.setText(device.getDeviceName());
         deviceName.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
+            if (!hasFocus && getActivity() != null) {
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
 
                 if (inputMethodManager != null) {
@@ -76,8 +76,7 @@ public class DeviceConfigFragment extends Fragment {
         final Button deleteButton = view.findViewById(R.id.settings_delete_button);
 
         saveButton.setOnClickListener(v -> {
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            getActivity().findViewById(R.id.settings_save_wait_panel).setVisibility(View.VISIBLE);
+            changeSavePanelVisibility(true);
 
             ManagementInterface managementService = ApiService.createInstance();
 
@@ -96,14 +95,12 @@ public class DeviceConfigFragment extends Fragment {
                         }
                     }
 
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    getActivity().findViewById(R.id.settings_save_wait_panel).setVisibility(View.GONE);
+                    changeSavePanelVisibility(false);
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    getActivity().findViewById(R.id.settings_save_wait_panel).setVisibility(View.GONE);
+                    changeSavePanelVisibility(false);
                 }
             });
         });
@@ -125,6 +122,18 @@ public class DeviceConfigFragment extends Fragment {
         wifiDropdown.setEnabled(false);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{getString(R.string.feature_not_yet_available)});
         wifiDropdown.setAdapter(adapter);
+    }
+
+    private void changeSavePanelVisibility(boolean shouldBeVisible) {
+        if (getActivity() != null) {
+            if (shouldBeVisible) {
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                getActivity().findViewById(R.id.settings_save_wait_panel).setVisibility(View.VISIBLE);
+            } else {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                getActivity().findViewById(R.id.settings_save_wait_panel).setVisibility(View.GONE);
+            }
+        }
     }
 
     private void switchToActivity(Class<?> newActivity) {

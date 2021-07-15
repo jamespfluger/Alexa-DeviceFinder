@@ -106,4 +106,6 @@
     <string name="allow_do_not_disturb_override">Allow Do Not Disturb Override</string>
     <string name="allow_do_not_disturb_override_explanation">This allows the notification to reach your phone even if you accidentally put it on silent.</string>
     <string name="permissions">Permissions</string>
+    <string name="error_navigation_please_restart">Unable to navigate to new fragment. Please restart the app.</string>
+    <string name="error_navigation_log">Could not navigate to new fragment. NavHostFragment is null!</string>
 </resources>
