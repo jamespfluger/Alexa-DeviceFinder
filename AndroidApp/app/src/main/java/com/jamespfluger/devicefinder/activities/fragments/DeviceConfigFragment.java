@@ -42,7 +42,8 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class DeviceConfigFragment extends Fragment {
     private Device device;
 
-    public DeviceConfigFragment() { }
+    public DeviceConfigFragment() {
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentDeviceConfigBinding binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
@@ -50,8 +51,7 @@ public class DeviceConfigFragment extends Fragment {
         if (getArguments() != null) {
             String deviceId = DeviceConfigFragmentArgs.fromBundle(getArguments()).getDeviceId();
             this.device = DeviceManager.findDeviceById(deviceId);
-        }
-        else {
+        } else {
             this.device = null;
         }
 

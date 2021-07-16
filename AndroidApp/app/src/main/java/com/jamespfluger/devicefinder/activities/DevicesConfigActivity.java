@@ -29,6 +29,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.utilities.DeviceManager;
 import com.jamespfluger.devicefinder.utilities.LogLevel;
 import com.jamespfluger.devicefinder.utilities.Logger;
 
@@ -41,8 +42,6 @@ import retrofit2.Response;
 
 public class DevicesConfigActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-
-    private ArrayList<Device> allDevices = new ArrayList<Device>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +98,8 @@ public class DevicesConfigActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful() && response.body() instanceof ArrayList) {
-                    allDevices = (ArrayList<Device>) response.body();
-                    populateDeviceList();
+                    DeviceManager.setDevices((ArrayList<Device>) response.body());
+                    populateSidebar();
                 } else {
                     try {
                         String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
@@ -113,7 +112,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call call, @NonNull Throwable t) {
-
+                Toast.makeText(DevicesConfigActivity.this, getString(R.string.unable_to_load_devices) + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -132,17 +131,17 @@ public class DevicesConfigActivity extends AppCompatActivity {
         }
     }
 
-    private void populateDeviceList() {
+    private void populateSidebar() {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
-
-        for (final Device device : allDevices) {
+        
+        for (final Device device : DeviceManager.getDevices()) {
             MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
-            newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device));
+            newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device.getDeviceId()));
         }
     }
 
-    private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment, Device device) {
+    private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment, String deviceId) {
         final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
@@ -152,7 +151,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
             item.setChecked(true);
             drawer.close();
 
-            NavDirections directions = getDirections(newFragment, device);
+            NavDirections directions = getDirections(newFragment, deviceId);
             NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
             if (navHostFragment != null) {
@@ -167,9 +166,9 @@ public class DevicesConfigActivity extends AppCompatActivity {
         };
     }
 
-    private NavDirections getDirections(Fragment destinationFragment, Device device) {
+    private NavDirections getDirections(Fragment destinationFragment, String deviceId) {
         if (destinationFragment instanceof DeviceConfigFragment) {
-            return DeviceConfigFragmentDirections.toDeviceConfig(device);
+            return DeviceConfigFragmentDirections.toDeviceConfig(deviceId);
         } else if (destinationFragment instanceof AboutFragment) {
             return DeviceConfigFragmentDirections.toAbout();
         } else {
