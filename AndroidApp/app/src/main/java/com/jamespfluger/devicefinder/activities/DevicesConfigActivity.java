@@ -1,5 +1,6 @@
 package com.jamespfluger.devicefinder.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 import com.jamespfluger.devicefinder.utilities.DeviceManager;
 import com.jamespfluger.devicefinder.utilities.LogLevel;
 import com.jamespfluger.devicefinder.utilities.Logger;
@@ -80,7 +82,15 @@ public class DevicesConfigActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.kebab_menu, menu);
         menu.getItem(0).setOnMenuItemClickListener(item -> {
-            onBackPressed();
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.quit)
+                    .setMessage(R.string.confirm_logout_question)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        AmazonLoginHelper.signOut(getApplicationContext());
+                        switchToLoginActivity();
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
             return true;
         });
         return true;
@@ -186,5 +196,12 @@ public class DevicesConfigActivity extends AppCompatActivity {
         } else {
             return DeviceConfigFragmentDirections.toPermissions();
         }
+    }
+
+    private void switchToLoginActivity() {
+        Intent newIntent = new Intent(this, LoginActivity.class);
+        startActivity(newIntent);
+        finish();
+        overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_right);
     }
 }
