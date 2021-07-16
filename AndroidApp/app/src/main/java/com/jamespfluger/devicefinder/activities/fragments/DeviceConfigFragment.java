@@ -29,6 +29,7 @@ import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.utilities.DeviceManager;
 
 import java.io.IOException;
 
@@ -39,19 +40,21 @@ import retrofit2.Response;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
-    private final Device device;
+    private Device device;
 
     public DeviceConfigFragment() {
-        // TODO: replace with device load
-        this.device = new Device();
-    }
-
-    public DeviceConfigFragment(Device device) {
-        this.device = device;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentDeviceConfigBinding binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
+
+        if (getArguments() != null) {
+            String deviceId = DeviceConfigFragmentArgs.fromBundle(getArguments()).getDeviceId();
+            this.device = DeviceManager.findDeviceById(deviceId);
+        } else {
+            this.device = null;
+        }
+
         binding.setDevice(device);
         return binding.getRoot();
     }
@@ -80,7 +83,7 @@ public class DeviceConfigFragment extends Fragment {
 
             ManagementInterface managementService = ApiService.createInstance();
 
-            Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserIdConfig(), device.getDeviceId());
+            Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserId(), device.getDeviceId());
             updateSettingsCall.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {

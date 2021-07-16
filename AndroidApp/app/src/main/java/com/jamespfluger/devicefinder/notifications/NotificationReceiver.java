@@ -23,17 +23,17 @@ public class NotificationReceiver extends BroadcastReceiver {
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int maxRingVolume = manager.getStreamMaxVolume(AudioManager.STREAM_RING);
 
-        if (SettingsManager.getUseVolumeOverrideSetting()) {
-            maxRingVolume = (int) Math.round(maxRingVolume * (SettingsManager.getVolumeOverrideValueSetting() / 100.0));
+        if (SettingsManager.getUseVolumeOverride()) {
+            maxRingVolume = (int) Math.round(maxRingVolume * (SettingsManager.getVolumeOverrideValue() / 100.0));
         }
 
         manager.setStreamVolume(AudioManager.STREAM_RING, maxRingVolume, 0);
 
-        if (SettingsManager.getUseVibrateSetting()) {
+        if (SettingsManager.getUseVibrate()) {
             startVibrate(context);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SettingsManager.getUseFlashlightSetting()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SettingsManager.getUseFlashlight()) {
             startFlashlight(context);
         }
     }

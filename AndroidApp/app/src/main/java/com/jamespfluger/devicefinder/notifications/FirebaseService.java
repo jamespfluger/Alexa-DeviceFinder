@@ -21,7 +21,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String newToken) {
         super.onNewToken(newToken);
-        ConfigManager.setFirebaseTokenConfig(newToken);
+        ConfigManager.setFirebaseToken(newToken);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class FirebaseService extends FirebaseMessagingService {
 
                     if (taskResult != null) {
                         String newToken = taskResult.getToken();
-                        ConfigManager.setFirebaseTokenConfig(newToken);
+                        ConfigManager.setFirebaseToken(newToken);
                     }
                 })
                 .addOnFailureListener(ex -> {
