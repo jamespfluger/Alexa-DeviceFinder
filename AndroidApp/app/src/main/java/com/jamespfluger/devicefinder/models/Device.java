@@ -65,7 +65,7 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setUseFlashlight(boolean useFlashlight) {
         this.useFlashlight = useFlashlight;
-        SettingsManager.setUseFlashlightSetting(useFlashlight);
+        SettingsManager.setUseFlashlight(useFlashlight);
         notifyPropertyChanged(BR.useFlashlight);
     }
 
@@ -76,7 +76,7 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setUseVibrate(boolean useVibrate) {
         this.useVibrate = useVibrate;
-        SettingsManager.setUseVibrateSetting(useVibrate);
+        SettingsManager.setUseVibrate(useVibrate);
         notifyPropertyChanged(BR.useVibrate);
     }
 
@@ -87,7 +87,7 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setUseOnWifiOnly(boolean useOnWifiOnly) {
         this.useOnWifiOnly = useOnWifiOnly;
-        SettingsManager.setUseOnWifiOnlySetting(useOnWifiOnly);
+        SettingsManager.setUseOnWifiOnly(useOnWifiOnly);
         notifyPropertyChanged(BR.useOnWifiOnly);
     }
 
@@ -98,7 +98,7 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setUseVolumeOverride(boolean useVolumeOverride) {
         this.useVolumeOverride = useVolumeOverride;
-        SettingsManager.setUseVolumeOverrideSetting(useVolumeOverride);
+        SettingsManager.setUseVolumeOverride(useVolumeOverride);
         notifyPropertyChanged(BR.useVolumeOverride);
     }
 
@@ -109,7 +109,7 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setWifiSsid(String wifiSsid) {
         this.wifiSsid = wifiSsid;
-        SettingsManager.setWifiSsidSetting(wifiSsid);
+        SettingsManager.setWifiSsid(wifiSsid);
         notifyPropertyChanged(BR.wifiSsid);
     }
 
@@ -120,7 +120,7 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setVolumeOverrideValue(int volumeOverrideValue) {
         this.volumeOverrideValue = volumeOverrideValue;
-        SettingsManager.setVolumeOverrideValueSetting(volumeOverrideValue);
+        SettingsManager.setVolumeOverrideValue(volumeOverrideValue);
         notifyPropertyChanged(BR.volumeOverrideValue);
     }
 }

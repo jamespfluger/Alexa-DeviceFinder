@@ -23,7 +23,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
-import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragmentArgs;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragmentDirections;
 import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
@@ -95,7 +94,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
     private void getDevices() {
         ManagementInterface managementApi = ApiService.createInstance();
-        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserIdConfig());
+        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserId());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {

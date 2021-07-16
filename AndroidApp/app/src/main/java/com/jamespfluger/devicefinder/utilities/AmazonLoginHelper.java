@@ -17,7 +17,7 @@ public class AmazonLoginHelper {
         User.fetch(context, new Listener<User, AuthError>() {
             @Override
             public void onSuccess(User user) {
-                ConfigManager.setLoginUserIdConfig(user.getUserId());
+                ConfigManager.setLoginUserId(user.getUserId());
             }
 
             @Override

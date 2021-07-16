@@ -17,7 +17,7 @@ public class ConfigManager {
         preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
     }
 
-    public static String getFirebaseTokenConfig() {
+    public static String getFirebaseToken() {
         String firebaseToken = preferences.getString(CONFIG_FIREBASE_TOKEN, null);
 
         if (firebaseToken != null) {
@@ -30,31 +30,31 @@ public class ConfigManager {
         return preferences.getString(CONFIG_FIREBASE_TOKEN, null);
     }
 
-    public static void setFirebaseTokenConfig(String settingValue) {
+    public static void setFirebaseToken(String settingValue) {
         preferences.edit().putString(CONFIG_FIREBASE_TOKEN, settingValue).apply();
     }
 
-    public static String getLoginUserIdConfig() {
+    public static String getLoginUserId() {
         return preferences.getString(CONFIG_LOGIN_USER_ID, null);
     }
 
-    public static void setLoginUserIdConfig(String settingValue) {
+    public static void setLoginUserId(String settingValue) {
         preferences.edit().putString(CONFIG_LOGIN_USER_ID, settingValue).apply();
     }
 
-    public static String getAlexaUserIdConfig() {
+    public static String getAlexaUserId() {
         return preferences.getString(CONFIG_ALEXA_USER_ID, null);
     }
 
-    public static void setAlexaUserIdConfig(String settingValue) {
+    public static void setAlexaUserId(String settingValue) {
         preferences.edit().putString(CONFIG_ALEXA_USER_ID, settingValue).apply();
     }
 
-    public static String getDeviceIdConfig() {
+    public static String getDeviceId() {
         return preferences.getString(CONFIG_DEVICE_ID, null);
     }
 
-    public static void setDeviceIdConfig(String settingValue) {
+    public static void setDeviceId(String settingValue) {
         preferences.edit().putString(CONFIG_DEVICE_ID, settingValue).apply();
     }
 
