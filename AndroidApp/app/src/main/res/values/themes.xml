@@ -6,20 +6,20 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorAccent">@color/blue_dark</item>
         <item name="colorSecondary">@color/blue_light</item>
-
         <item name="colorPrimaryDark">@color/blue_dark</item>
         <item name="android:textColor">@color/text</item>
 
         <item name="actionBarTheme">@style/AppTheme.ActionBar</item>
 
-        <item name="alertDialogTheme">@style/Temp.AlertDialog</item>
-        <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialog</item>
-
         <item name="materialButtonStyle">@style/AppTheme.Button</item>
         <item name="android:textViewStyle">@style/AppTheme.TextView</item>
         <item name="switchStyle">@style/AppTheme.Switch</item>
 
-        <item name="android:windowAnimationStyle">@style/AppTheme.Transitions.Slide</item>-->
+        <item name="alertDialogTheme">@style/Temp.AlertDialog</item>
+        <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialog</item>
+        <item name="navigationViewStyle">@style/AppTheme.NavigationView</item>
+
+        <item name="android:windowAnimationStyle">@style/AppTheme.Transitions.Slide</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -38,9 +38,7 @@
     </style>
 
     <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
-        <!--<item name="backgroundTint">#303030</item>-->
         <item name="android:textColor">@color/text_light</item>
-        <!--<item name="android:fontFamily">sans-serif</item>-->
     </style>
 
     <style name="Temp.AlertDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
@@ -64,7 +62,7 @@
     </style>
 
     <style name="AppTheme.AlertDialog.Text.Body" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -78,6 +76,10 @@
         <item name="android:thumbTint">@color/switch_thumb</item>
         <item name="trackTint" tools:targetApi="m">@color/switch_track</item>
         <item name="android:trackTint" tools:targetApi="m">@color/switch_track</item>
+    </style>
+
+    <style name="AppTheme.NavigationView" parent="@style/Widget.Design.NavigationView">
+        <item name="itemTextColor">@color/text</item>
     </style>
 
     <style name="AppTheme.Transitions.Slide" parent="@android:style/Animation.Activity">
