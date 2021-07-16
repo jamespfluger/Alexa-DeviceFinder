@@ -134,7 +134,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
     private void populateSidebar() {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
-        
+
         for (final Device device : DeviceManager.getDevices()) {
             MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
             newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device.getDeviceId()));
