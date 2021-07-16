@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SettingsManager {
+    private static final String SETTINGS_DEVICE_NAME = "SETTINGS_DEVICE_NAME";
     private static final String SETTINGS_USE_FLASHLIGHT = "SETTINGS_USE_FLASHLIGHT";
     private static final String SETTINGS_USE_VIBRATE = "SETTINGS_USE_VIBRATE";
     private static final String SETTINGS_USE_ON_WIFI_ONLY = "SETTINGS_USE_ON_WIFI_ONLY";
@@ -15,6 +16,14 @@ public class SettingsManager {
 
     public static void setInstance(Context context) {
         preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+    }
+
+    public static String getDeviceNameSetting() {
+        return preferences.getString(SETTINGS_DEVICE_NAME, null);
+    }
+
+    public static void setDeviceNameSetting(String settingValue) {
+        preferences.edit().putString(SETTINGS_DEVICE_NAME, settingValue).apply();
     }
 
     public static boolean getUseFlashlightSetting() {

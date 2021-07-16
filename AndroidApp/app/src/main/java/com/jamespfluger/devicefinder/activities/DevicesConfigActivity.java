@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
+import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragmentArgs;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragmentDirections;
 import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
@@ -122,8 +123,8 @@ public class DevicesConfigActivity extends AppCompatActivity {
         MenuItem aboutItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.about);
         MenuItem permissionsItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.permissions);
 
-        aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment()));
-        permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment()));
+        aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment(), null));
+        permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment(), null));
     }
 
     private void clearAllChecks(Menu menu) {
@@ -138,11 +139,11 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
         for (final Device device : allDevices) {
             MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
-            newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(device)));
+            newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device));
         }
     }
 
-    private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment) {
+    private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment, Device device) {
         final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
@@ -152,7 +153,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
             item.setChecked(true);
             drawer.close();
 
-            NavDirections directions = getDirections(newFragment);
+            NavDirections directions = getDirections(newFragment, device);
             NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
             if (navHostFragment != null) {
@@ -167,9 +168,9 @@ public class DevicesConfigActivity extends AppCompatActivity {
         };
     }
 
-    private NavDirections getDirections(Fragment destinationFragment) {
+    private NavDirections getDirections(Fragment destinationFragment, Device device) {
         if (destinationFragment instanceof DeviceConfigFragment) {
-            return DeviceConfigFragmentDirections.toDeviceConfig();
+            return DeviceConfigFragmentDirections.toDeviceConfig(device);
         } else if (destinationFragment instanceof AboutFragment) {
             return DeviceConfigFragmentDirections.toAbout();
         } else {

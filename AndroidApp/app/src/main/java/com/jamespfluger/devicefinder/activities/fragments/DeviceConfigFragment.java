@@ -39,19 +39,20 @@ import retrofit2.Response;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
-    private final Device device;
+    private Device device;
 
-    public DeviceConfigFragment() {
-        // TODO: replace with device load
-        this.device = new Device();
-    }
-
-    public DeviceConfigFragment(Device device) {
-        this.device = device;
-    }
+    public DeviceConfigFragment() { }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentDeviceConfigBinding binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
+
+        if (getArguments() != null) {
+            this.device = DeviceConfigFragmentArgs.fromBundle(getArguments()).getDevice();
+        }
+        else {
+            this.device = null;
+        }
+
         binding.setDevice(device);
         return binding.getRoot();
     }

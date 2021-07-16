@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import com.jamespfluger.devicefinder.notifications.FirebaseService;
 
 public class ConfigManager {
-    private static final String CONFIG_FIREBASE_TOKEN = "PREFERENCE_FIREBASE_TOKEN";
-    private static final String CONFIG_LOGIN_USER_ID = "PREFERENCE_LOGIN_USER_ID";
-    private static final String CONFIG_ALEXA_USER_ID = "PREFERENCE_ALEXA_USER_ID";
-    private static final String CONFIG_DEVICE_NAME = "PREFERENCE_DEVICE_NAME";
+    private static final String CONFIG_FIREBASE_TOKEN = "CONFIG_FIREBASE_TOKEN";
+    private static final String CONFIG_LOGIN_USER_ID = "CONFIG_LOGIN_USER_ID";
+    private static final String CONFIG_ALEXA_USER_ID = "CONFIG_ALEXA_USER_ID";
+    private static final String CONFIG_DEVICE_ID = "CONFIG_DEVICE_ID";
 
     private static SharedPreferences preferences = null;
 
@@ -50,12 +50,12 @@ public class ConfigManager {
         preferences.edit().putString(CONFIG_ALEXA_USER_ID, settingValue).apply();
     }
 
-    public static String getDeviceNameConfig() {
-        return preferences.getString(CONFIG_DEVICE_NAME, null);
+    public static String getDeviceIdConfig() {
+        return preferences.getString(CONFIG_DEVICE_ID, null);
     }
 
-    public static void setDeviceNameConfig(String settingValue) {
-        preferences.edit().putString(CONFIG_DEVICE_NAME, settingValue).apply();
+    public static void setDeviceIdConfig(String settingValue) {
+        preferences.edit().putString(CONFIG_DEVICE_ID, settingValue).apply();
     }
 
     public static void refreshFirebaseToken() {

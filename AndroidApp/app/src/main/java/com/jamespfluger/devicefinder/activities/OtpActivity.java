@@ -18,6 +18,7 @@ import com.jamespfluger.devicefinder.controls.OtpEditText;
 import com.jamespfluger.devicefinder.models.AuthData;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.settings.SettingsManager;
 
 import java.io.IOException;
 
@@ -63,8 +64,9 @@ public class OtpActivity extends AppCompatActivity {
             AuthData authUserDevices = new AuthData();
 
             authUserDevices.setLoginUserId(ConfigManager.getLoginUserIdConfig());
+            authUserDevices.setLoginUserId(ConfigManager.getLoginUserIdConfig());
             authUserDevices.setFirebaseToken(ConfigManager.getFirebaseTokenConfig());
-            authUserDevices.setDeviceName(ConfigManager.getDeviceNameConfig());
+            authUserDevices.setDeviceName(SettingsManager.getDeviceNameSetting());
             authUserDevices.setOtp(otpBuilder.toString());
 
             // Execute authorization
@@ -78,6 +80,7 @@ public class OtpActivity extends AppCompatActivity {
                         Toast.makeText(OtpActivity.this, getString(R.string.alexa_successfully_connected), Toast.LENGTH_SHORT).show();
                         Device newDevice = (Device) response.body();
                         ConfigManager.setAlexaUserIdConfig(newDevice.getAlexaUserId());
+                        ConfigManager.setDeviceIdConfig(newDevice.getDeviceId());
                         switchToConfigActivity();
                     } else {
                         try {
