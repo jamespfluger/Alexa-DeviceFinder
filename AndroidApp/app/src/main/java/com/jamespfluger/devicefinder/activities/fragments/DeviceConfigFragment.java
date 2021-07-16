@@ -2,8 +2,6 @@ package com.jamespfluger.devicefinder.activities.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.amazon.identity.auth.device.AuthError;
-import com.amazon.identity.auth.device.api.Listener;
-import com.amazon.identity.auth.device.api.authorization.AuthorizationManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jamespfluger.devicefinder.R;
-import com.jamespfluger.devicefinder.activities.LoginActivity;
+import com.jamespfluger.devicefinder.activities.DevicesConfigActivity;
 import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
@@ -108,18 +104,24 @@ public class DeviceConfigFragment extends Fragment {
             });
         });
 
-        deleteButton.setOnClickListener(v -> AuthorizationManager.signOut(getContext(), new Listener<Void, AuthError>() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(Void response) {
-                switchToActivity(LoginActivity.class);
-                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getContext(), R.string.amazon_sign_out_success_toast, Toast.LENGTH_SHORT).show());
+            public void onClick(View v) {
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle(R.string.quit)
+                        .setIcon(R.drawable.ic_caution)
+                        .setMessage("Are you SURE you want to delete the device '" + device.getDeviceName() + "' device. This cannot be undone!")
+                        .setPositiveButton(R.string.yes, (dialog, which) -> {
+                            ApiService.createInstance().deleteDevice(device.getAlexaUserId(), device.getDeviceId());
+                            if (getActivity() != null) {
+                                DevicesConfigActivity configActivity = (DevicesConfigActivity) getActivity();
+                                configActivity.initializeSidebar();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show();
             }
-
-            @Override
-            public void onError(AuthError authError) {
-                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getContext(), R.string.amazon_sign_out_failure, Toast.LENGTH_SHORT).show());
-            }
-        }));
+        });
 
         Spinner wifiDropdown = view.findViewById(R.id.settings_wifi_ssid_dropdown);
         wifiDropdown.setEnabled(false);

@@ -1,5 +1,6 @@
 package com.jamespfluger.devicefinder.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 import com.jamespfluger.devicefinder.utilities.DeviceManager;
 import com.jamespfluger.devicefinder.utilities.LogLevel;
 import com.jamespfluger.devicefinder.utilities.Logger;
@@ -62,16 +64,35 @@ public class DevicesConfigActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        initializeSidebar();
+    }
+
+    public void initializeSidebar() {
         // Create the normal menu items
+        final NavigationView navigationView = findViewById(R.id.nav_view);
+        final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
         final Menu menu = navigationView.getMenu();
+        menu.clear();
         createDefaultMenuItems(drawer, menu);
-        getDevices();
+        getAndPopulateSidebarDevices();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.kebab_menu, menu);
+        menu.getItem(0).setOnMenuItemClickListener(item -> {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.quit)
+                    .setMessage(R.string.confirm_logout_question)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        AmazonLoginHelper.signOut(getApplicationContext());
+                        switchToLoginActivity();
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+            return true;
+        });
         return true;
     }
 
@@ -86,12 +107,15 @@ public class DevicesConfigActivity extends AppCompatActivity {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.quit)
                 .setMessage(R.string.confirm_quit_question)
-                .setPositiveButton(R.string.yes, (dialog, which) -> DevicesConfigActivity.super.onBackPressed())
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    DevicesConfigActivity.super.onBackPressed();
+                    finish();
+                })
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
 
-    private void getDevices() {
+    public void getAndPopulateSidebarDevices() {
         ManagementInterface managementApi = ApiService.createInstance();
         Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserId());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
@@ -99,7 +123,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful() && response.body() instanceof ArrayList) {
                     DeviceManager.setDevices((ArrayList<Device>) response.body());
-                    populateSidebar();
+                    populateSidebarDevices();
                 } else {
                     try {
                         String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
@@ -121,33 +145,31 @@ public class DevicesConfigActivity extends AppCompatActivity {
         MenuItem aboutItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.about);
         MenuItem permissionsItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.permissions);
 
+        aboutItem.setCheckable(true);
+        permissionsItem.setCheckable(true);
+
         aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment(), null));
         permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment(), null));
     }
 
-    private void clearAllChecks(Menu menu) {
-        for (int i = 0; i < menu.size(); i++) {
-            menu.getItem(i).setChecked(false);
-        }
-    }
-
-    private void populateSidebar() {
+    private void populateSidebarDevices() {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
 
         for (final Device device : DeviceManager.getDevices()) {
+
             MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
             newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device.getDeviceId()));
+            newDeviceMenuItem.setCheckable(true);
+            newDeviceMenuItem.setChecked(true);
         }
     }
 
     private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment, String deviceId) {
         final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
-        final Menu menu = navigationView.getMenu();
 
         return item -> {
-            clearAllChecks(menu);
             item.setChecked(true);
             drawer.close();
 
@@ -174,5 +196,12 @@ public class DevicesConfigActivity extends AppCompatActivity {
         } else {
             return DeviceConfigFragmentDirections.toPermissions();
         }
+    }
+
+    private void switchToLoginActivity() {
+        Intent newIntent = new Intent(this, LoginActivity.class);
+        startActivity(newIntent);
+        finish();
+        overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_right);
     }
 }
