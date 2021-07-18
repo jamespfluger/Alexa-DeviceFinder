@@ -70,7 +70,7 @@ public class OtpActivity extends AppCompatActivity {
             authUserDevices.setOtp(otpBuilder.toString());
 
             // Execute authorization
-            ManagementInterface authApi = ApiService.createInstance();
+            ManagementInterface authApi = ApiService.getInstance();
             Call<Device> userCall = authApi.createDevice(authUserDevices);
             userCall.enqueue(new Callback<Device>() {
                 @Override

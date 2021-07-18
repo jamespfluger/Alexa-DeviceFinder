@@ -73,4 +73,8 @@ public class SettingsManager {
     public static void setVolumeOverrideValue(int settingValue) {
         preferences.edit().putInt(SETTINGS_VOLUME_OVERRIDE_VALUE, settingValue).apply();
     }
+
+    public static void reset() {
+        preferences.edit().clear().apply();
+    }
 }

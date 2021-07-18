@@ -111,9 +111,11 @@
     <string name="log_out">Log out…</string>
     <string name="delete_active_device_question">CAUTION - Delete device?</string>
     <string name="delete_normal_device_question">Delete device?</string>
-    <string name="settings_delete_toast">\"Deleted device \"</string>
-    <string name="settings_delete_error_toast">Error deleting device</string>
-    <string name="confirm_delete_device">Are you SURE you want to delete the device \'</string>
+    <string name="settings_delete_toast">Deleted device settings for \u0020</string>
+    <string name="settings_delete_error_toast">Error deleting settings</string>
+    <string name="confirm_delete_device">Are you SURE you want to delete the settings for device \'</string>
     <string name="confirm_delete_normal_device">\'? This cannot be undone!</string>
     <string name="confirm_delete_active_device">\'? This is YOUR device. You will be also be signed out!</string>
+    <string name="confirm_logout_and_delete_title">Logout and delete?</string>
+    <string name="confirm_logout_and_delete_question">Are you sure you want to logout? This will also delete settings for your current device!</string>
 </resources>

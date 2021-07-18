@@ -62,4 +62,8 @@ public class ConfigManager {
         FirebaseService firebaseService = new FirebaseService();
         firebaseService.refreshToken();
     }
+
+    public static void reset() {
+        preferences.edit().clear().apply();
+    }
 }

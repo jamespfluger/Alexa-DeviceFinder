@@ -30,6 +30,7 @@ import com.jamespfluger.devicefinder.api.ApiService;
 import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.settings.SettingsManager;
 import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 import com.jamespfluger.devicefinder.utilities.DeviceManager;
 import com.jamespfluger.devicefinder.utilities.LogLevel;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 public class DevicesConfigActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -83,11 +85,39 @@ public class DevicesConfigActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.kebab_menu, menu);
         menu.getItem(0).setOnMenuItemClickListener(item -> {
             new MaterialAlertDialogBuilder(this)
-                    .setTitle(R.string.quit)
-                    .setMessage(R.string.confirm_logout_question)
+                    .setTitle(R.string.confirm_logout_and_delete_title)
+                    .setIcon(R.drawable.ic_caution)
+                    .setMessage(R.string.confirm_logout_and_delete_question)
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        AmazonLoginHelper.signOut(getApplicationContext());
-                        switchToLoginActivity();
+                        Call<Void> deleteDeviceCall = ApiService.getInstance().deleteDevice(ConfigManager.getAlexaUserId(), ConfigManager.getDeviceId());
+                        deleteDeviceCall.enqueue(new Callback<Void>() {
+                            @Override
+                            @EverythingIsNonNull
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()) {
+                                    DeviceManager.removeDevice(ConfigManager.getDeviceId());
+                                    Toast.makeText(getApplicationContext(), getString(R.string.settings_delete_toast) + SettingsManager.getDeviceName(), Toast.LENGTH_SHORT).show();
+                                    AmazonLoginHelper.signOut(getApplicationContext());
+                                    ConfigManager.reset();
+                                    SettingsManager.reset();
+                                    switchToLoginActivity();
+                                } else {
+                                    try {
+                                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
+                                        Toast.makeText(getApplicationContext(), getString(R.string.settings_delete_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
+                                    } catch (IOException e) {
+                                        Logger.Log(e, LogLevel.Error);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            @EverythingIsNonNull
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                Logger.Log(t.getLocalizedMessage(), LogLevel.Error);
+                            }
+                        });
                     })
                     .setNegativeButton(R.string.no, null)
                     .show();
@@ -116,7 +146,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     public void getAndPopulateSidebarDevices() {
-        ManagementInterface managementApi = ApiService.createInstance();
+        ManagementInterface managementApi = ApiService.getInstance();
         Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserId());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
@@ -151,14 +181,28 @@ public class DevicesConfigActivity extends AppCompatActivity {
 
         aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment(), null));
         permissionsItem.setOnMenuItemClickListener(buildMenuItemClickListener(new PermissionsFragment(), null));
+
+        MenuItem temporaryItem = menu.add(R.id.devices_group, View.generateViewId(), 2, "(Loading Devices)");
+        temporaryItem.setEnabled(false);
+        temporaryItem.setCheckable(false);
     }
 
     private void populateSidebarDevices() {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         final Menu menu = navigationView.getMenu();
 
+        menu.removeGroup(R.id.devices_group);
+
         for (final Device device : DeviceManager.getDevices()) {
-            MenuItem newDeviceMenuItem = menu.add(R.id.devices_group, View.generateViewId(), Menu.NONE, device.getDeviceName());
+            MenuItem newDeviceMenuItem;
+
+            if (device.getDeviceId().equals(ConfigManager.getDeviceId())) {
+                newDeviceMenuItem = menu.add(R.id.devices_group, View.generateViewId(), Menu.FIRST, device.getDeviceName());
+                newDeviceMenuItem.setIcon(R.drawable.ic_person);
+            } else {
+                newDeviceMenuItem = menu.add(R.id.devices_group, View.generateViewId(), Menu.NONE, device.getDeviceName());
+            }
+
             newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device.getDeviceId()));
             newDeviceMenuItem.setCheckable(true);
         }
