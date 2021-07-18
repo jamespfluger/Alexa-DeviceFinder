@@ -146,6 +146,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
         MenuItem permissionsItem = menu.add(R.id.default_group, View.generateViewId(), Menu.NONE, R.string.permissions);
 
         aboutItem.setCheckable(true);
+        aboutItem.setChecked(true);
         permissionsItem.setCheckable(true);
 
         aboutItem.setOnMenuItemClickListener(buildMenuItemClickListener(new AboutFragment(), null));
@@ -157,17 +158,14 @@ public class DevicesConfigActivity extends AppCompatActivity {
         final Menu menu = navigationView.getMenu();
 
         for (final Device device : DeviceManager.getDevices()) {
-
-            MenuItem newDeviceMenuItem = menu.add(R.id.devicesGroup, View.generateViewId(), Menu.NONE, device.getDeviceName());
+            MenuItem newDeviceMenuItem = menu.add(R.id.devices_group, View.generateViewId(), Menu.NONE, device.getDeviceName());
             newDeviceMenuItem.setOnMenuItemClickListener(buildMenuItemClickListener(new DeviceConfigFragment(), device.getDeviceId()));
             newDeviceMenuItem.setCheckable(true);
-            newDeviceMenuItem.setChecked(true);
         }
     }
 
     private MenuItem.OnMenuItemClickListener buildMenuItemClickListener(final Fragment newFragment, String deviceId) {
         final DrawerLayout drawer = findViewById(R.id.deviceNavigationActivityLayout);
-        final NavigationView navigationView = findViewById(R.id.nav_view);
 
         return item -> {
             item.setChecked(true);
@@ -188,6 +186,19 @@ public class DevicesConfigActivity extends AppCompatActivity {
         };
     }
 
+    public void navigateToDefaultFragment() {
+        NavDirections directions = DeviceConfigFragmentDirections.toAbout();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+
+        if (navHostFragment != null) {
+            NavController navController = navHostFragment.getNavController();
+            navController.navigate(directions);
+        } else {
+            Logger.Log(getString(R.string.error_navigation_log), LogLevel.Error);
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.error_navigation_please_restart, Toast.LENGTH_SHORT).show());
+        }
+    }
+
     private NavDirections getDirections(Fragment destinationFragment, String deviceId) {
         if (destinationFragment instanceof DeviceConfigFragment) {
             return DeviceConfigFragmentDirections.toDeviceConfig(deviceId);
@@ -198,7 +209,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
         }
     }
 
-    private void switchToLoginActivity() {
+    public void switchToLoginActivity() {
         Intent newIntent = new Intent(this, LoginActivity.class);
         startActivity(newIntent);
         finish();

@@ -16,6 +16,14 @@ public class DeviceManager {
         devices = newDevices;
     }
 
+    public static void removeDevice(Device deviceToRemove) {
+        devices.remove(deviceToRemove);
+    }
+
+    public static boolean isEmpty() {
+        return devices.size() == 0;
+    }
+
     public static Device findDeviceById(String id) {
         for (Device device : devices) {
             if (device.getDeviceId().equals(id)) {

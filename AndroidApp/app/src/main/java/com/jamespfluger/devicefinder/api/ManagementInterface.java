@@ -24,5 +24,5 @@ public interface ManagementInterface {
     Call<ArrayList<Device>> getAllDevices(@Path("alexauserid") String alexaUserId);
 
     @DELETE("management/users/{alexauserid}/devices/{deviceid}")
-    Call<ArrayList<Device>> deleteDevice(@Path("alexauserid") String alexaUserId, @Path("deviceid") String deviceId);
+    Call<Void> deleteDevice(@Path("alexauserid") String alexaUserId, @Path("deviceid") String deviceId);
 }
