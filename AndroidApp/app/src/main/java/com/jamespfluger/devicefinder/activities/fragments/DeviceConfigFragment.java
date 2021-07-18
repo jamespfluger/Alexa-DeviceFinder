@@ -25,13 +25,17 @@ import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
+import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
 import com.jamespfluger.devicefinder.utilities.DeviceManager;
+import com.jamespfluger.devicefinder.utilities.LogLevel;
+import com.jamespfluger.devicefinder.utilities.Logger;
 
 import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -84,7 +88,7 @@ public class DeviceConfigFragment extends Fragment {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(getContext(), getString(R.string.save_settings_toast) + response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.settings_save_toast) + response.message(), Toast.LENGTH_SHORT).show();
                     } else {
                         try {
                             String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
@@ -100,32 +104,75 @@ public class DeviceConfigFragment extends Fragment {
                 @Override
                 public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                     changeSavePanelVisibility(false);
+                    Toast.makeText(getContext(), getString(R.string.settings_save_error_toast) + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new MaterialAlertDialogBuilder(getContext())
-                        .setTitle(R.string.quit)
-                        .setIcon(R.drawable.ic_caution)
-                        .setMessage("Are you SURE you want to delete the device '" + device.getDeviceName() + "' device. This cannot be undone!")
-                        .setPositiveButton(R.string.yes, (dialog, which) -> {
-                            ApiService.createInstance().deleteDevice(device.getAlexaUserId(), device.getDeviceId());
-                            if (getActivity() != null) {
-                                DevicesConfigActivity configActivity = (DevicesConfigActivity) getActivity();
-                                configActivity.initializeSidebar();
-                            }
-                        })
-                        .setNegativeButton(R.string.no, null)
-                        .show();
+        deleteButton.setOnClickListener(v -> {
+            String dialogTitle;
+            String dialogMessage;
+            int iconResourceId;
+
+            if (device.getDeviceId().equals(ConfigManager.getDeviceId())) {
+                dialogTitle = getString(R.string.delete_normal_device_question);
+                dialogMessage = getString(R.string.confirm_delete_device) + device.getDeviceName() + getString(R.string.confirm_delete_normal_device);
+                iconResourceId = R.drawable.ic_caution;
+            } else {
+                dialogTitle = getString(R.string.delete_active_device_question);
+                dialogMessage = getString(R.string.confirm_delete_device) + device.getDeviceName() + getString(R.string.confirm_delete_active_device);
+                iconResourceId = R.drawable.ic_alert;
             }
+
+            new MaterialAlertDialogBuilder(getContext())
+                    .setTitle(dialogTitle)
+                    .setIcon(iconResourceId)
+                    .setMessage(dialogMessage)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        Call<Void> deleteDeviceCall = ApiService.createInstance().deleteDevice(device.getAlexaUserId(), device.getDeviceId());
+                        deleteDeviceCall.enqueue(new Callback<Void>() {
+                            @Override
+                            @EverythingIsNonNull
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()) {
+                                    DeviceManager.removeDevice(device);
+                                    DevicesConfigActivity configActivity = (DevicesConfigActivity) getActivity();
+                                    Toast.makeText(getContext(), getString(R.string.settings_delete_toast) + device.getDeviceName(), Toast.LENGTH_SHORT).show();
+
+                                    if (configActivity != null) {
+                                        if (DeviceManager.isEmpty() || device.getDeviceId().equals(ConfigManager.getDeviceId())) {
+                                            AmazonLoginHelper.signOut(getContext());
+                                            configActivity.switchToLoginActivity();
+                                        } else {
+                                            configActivity.initializeSidebar();
+                                            configActivity.navigateToDefaultFragment();
+                                        }
+                                    }
+                                } else {
+                                    try {
+                                        String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
+                                        Toast.makeText(getContext(), getString(R.string.settings_delete_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
+                                    } catch (IOException e) {
+                                        Logger.Log(e, LogLevel.Error);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            @EverythingIsNonNull
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                Logger.Log(t.getLocalizedMessage(), LogLevel.Error);
+                            }
+                        });
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
         });
 
         Spinner wifiDropdown = view.findViewById(R.id.settings_wifi_ssid_dropdown);
         wifiDropdown.setEnabled(false);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{getString(R.string.feature_not_yet_available)});
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, new String[]{getString(R.string.feature_not_yet_available)});
         wifiDropdown.setAdapter(adapter);
     }
 

@@ -3,5 +3,5 @@
     <group
         android:id="@+id/default_group"
         android:checkableBehavior="single" />
-    <group android:id="@+id/devicesGroup" />
+    <group android:id="@+id/devices_group" />
 </menu>

@@ -46,7 +46,7 @@
         These permissions aren\'t required, but they help me find your device as quickly as possible!
     </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="save_settings_toast">Successfully saved settings</string>
+    <string name="settings_save_toast">Successfully saved settings</string>
     <string name="unknown_error_http_message">Unknown error (%d)</string>
     <string name="settings_save_error_toast">\"Failed to save settings - \"</string>
     <string name="amazon_sign_out_success_toast">Signed out</string>
@@ -108,5 +108,12 @@
     <string name="permissions">Permissions</string>
     <string name="error_navigation_please_restart">Unable to navigate to new fragment. Please restart the app.</string>
     <string name="error_navigation_log">Could not navigate to new fragment. NavHostFragment is null!</string>
-    <string name="log_out">Log out...</string>
+    <string name="log_out">Log out…</string>
+    <string name="delete_active_device_question">CAUTION - Delete device?</string>
+    <string name="delete_normal_device_question">Delete device?</string>
+    <string name="settings_delete_toast">\"Deleted device \"</string>
+    <string name="settings_delete_error_toast">Error deleting device</string>
+    <string name="confirm_delete_device">Are you SURE you want to delete the device \'</string>
+    <string name="confirm_delete_normal_device">\'? This cannot be undone!</string>
+    <string name="confirm_delete_active_device">\'? This is YOUR device. You will be also be signed out!</string>
 </resources>
