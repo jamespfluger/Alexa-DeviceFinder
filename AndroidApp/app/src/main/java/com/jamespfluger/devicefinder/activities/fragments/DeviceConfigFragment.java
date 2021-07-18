@@ -81,7 +81,7 @@ public class DeviceConfigFragment extends Fragment {
         saveButton.setOnClickListener(v -> {
             changeSavePanelVisibility(true);
 
-            ManagementInterface managementService = ApiService.createInstance();
+            ManagementInterface managementService = ApiService.getInstance();
 
             Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserId(), device.getDeviceId());
             updateSettingsCall.enqueue(new Callback<Void>() {
@@ -129,7 +129,7 @@ public class DeviceConfigFragment extends Fragment {
                     .setIcon(iconResourceId)
                     .setMessage(dialogMessage)
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        Call<Void> deleteDeviceCall = ApiService.createInstance().deleteDevice(device.getAlexaUserId(), device.getDeviceId());
+                        Call<Void> deleteDeviceCall = ApiService.getInstance().deleteDevice(device.getAlexaUserId(), device.getDeviceId());
                         deleteDeviceCall.enqueue(new Callback<Void>() {
                             @Override
                             @EverythingIsNonNull

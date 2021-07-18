@@ -80,6 +80,7 @@
 
     <style name="AppTheme.NavigationView" parent="@style/Widget.Design.NavigationView">
         <item name="itemTextColor">@color/text</item>
+        <item name="itemIconTint">@color/text</item>
     </style>
 
     <style name="AppTheme.Transitions.Slide" parent="@android:style/Animation.Activity">

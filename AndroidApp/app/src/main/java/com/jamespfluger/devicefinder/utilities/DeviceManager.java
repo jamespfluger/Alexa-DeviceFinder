@@ -20,6 +20,19 @@ public class DeviceManager {
         devices.remove(deviceToRemove);
     }
 
+    public static void removeDevice(String deviceIdToRemove) {
+        Device deviceToRemove = null;
+
+        for (Device device : devices) {
+            if (device.getDeviceId().equals(deviceIdToRemove)) {
+                deviceToRemove = device;
+                break;
+            }
+        }
+
+        devices.remove(deviceToRemove);
+    }
+
     public static boolean isEmpty() {
         return devices.size() == 0;
     }
