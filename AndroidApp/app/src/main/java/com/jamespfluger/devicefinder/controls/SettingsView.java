@@ -55,4 +55,8 @@ public class SettingsView extends LinearLayout {
         setGravity(Gravity.CENTER | Gravity.TOP);
         setOrientation(HORIZONTAL);
     }
+
+    public void setSaveListener(OnClickListener clickListener) {
+        settingsSwitch.setOnClickListener(clickListener);
+    }
 }
