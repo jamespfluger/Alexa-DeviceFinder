@@ -46,7 +46,7 @@ public class FirebaseService extends FirebaseMessagingService {
                     }
                 })
                 .addOnFailureListener(ex -> {
-                    Logger.Log(getString(R.string.firebase_refresh_error_log) + ex.toString());
+                    Logger.log(getString(R.string.firebase_refresh_error_log) + ex.toString());
                     Toast.makeText(getApplicationContext(), getString(R.string.firebase_refresh_error_toast) + ex.toString(), Toast.LENGTH_SHORT).show();
                 });
     }

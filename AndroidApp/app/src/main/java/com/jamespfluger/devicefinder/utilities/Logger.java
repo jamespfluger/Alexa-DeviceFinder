@@ -5,11 +5,11 @@ import android.util.Log;
 public class Logger {
     private static final String TAG = "DEVICE_FINDER_LOGS";
 
-    public static void Log(Object message) {
-        Log(message, LogLevel.Information);
+    public static void log(Object message) {
+        log(message, LogLevel.Information);
     }
 
-    public static void Log(Object message, LogLevel logLevel) {
+    public static void log(Object message, LogLevel logLevel) {
         if (logLevel == LogLevel.Verbose) {
             Log.v(TAG, message.toString());
         } else if (logLevel == LogLevel.Debug) {
