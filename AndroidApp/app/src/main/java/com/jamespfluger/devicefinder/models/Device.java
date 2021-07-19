@@ -138,4 +138,21 @@ public class Device extends BaseObservable {
         }
         notifyPropertyChanged(BR.volumeOverrideValue);
     }
+
+    public Device(Device toClone) {
+        // Config
+        this.alexaUserId = toClone.alexaUserId;
+        this.deviceId = toClone.deviceId;
+        this.loginUserId = toClone.loginUserId;
+        this.firebaseToken = toClone.firebaseToken;
+
+        // Settings
+        this.deviceName = toClone.deviceName;
+        this.useFlashlight = toClone.useFlashlight;
+        this.useVibrate = toClone.useVibrate;
+        this.useOnWifiOnly = toClone.useOnWifiOnly;
+        this.wifiSsid = toClone.wifiSsid;
+        this.useVolumeOverride = toClone.useVolumeOverride;
+        this.volumeOverrideValue = toClone.volumeOverrideValue;
+    }
 }
