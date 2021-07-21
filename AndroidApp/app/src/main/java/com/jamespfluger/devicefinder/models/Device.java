@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import com.jamespfluger.devicefinder.BR;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.utilities.DeviceCache;
 
 public class Device extends BaseObservable {
     // General device information for identification
@@ -29,14 +30,34 @@ public class Device extends BaseObservable {
     @SerializedName("useOnWifiOnly")
     private boolean useOnWifiOnly;
     @SerializedName("wifiSsid")
-    private String wifiSsid;
+    private String wifiSsid = "";
     @SerializedName("useVolumeOverride")
     private boolean useVolumeOverride;
     @SerializedName("volumeOverrideValue")
     private int volumeOverrideValue;
 
+    // Ignored for serialization
+    private int pendingChangesVisiblity;
+
     public Device() {
         this.volumeOverrideValue = 100;
+    }
+
+    public Device(Device toClone) {
+        // Config
+        this.alexaUserId = toClone.alexaUserId;
+        this.deviceId = toClone.deviceId;
+        this.loginUserId = toClone.loginUserId;
+        this.firebaseToken = toClone.firebaseToken;
+
+        // Settings
+        this.deviceName = toClone.deviceName;
+        this.useFlashlight = toClone.useFlashlight;
+        this.useVibrate = toClone.useVibrate;
+        this.useOnWifiOnly = toClone.useOnWifiOnly;
+        this.wifiSsid = toClone.wifiSsid;
+        this.useVolumeOverride = toClone.useVolumeOverride;
+        this.volumeOverrideValue = toClone.volumeOverrideValue;
     }
 
     public String getAlexaUserId() {
@@ -119,10 +140,11 @@ public class Device extends BaseObservable {
     }
 
     public void setWifiSsid(String wifiSsid) {
-        this.wifiSsid = wifiSsid;
         if (this.getDeviceId().equals(ConfigManager.getDeviceId())) {
             SettingsManager.setWifiSsid(wifiSsid);
         }
+
+        this.wifiSsid = wifiSsid;
         notifyPropertyChanged(BR.wifiSsid);
     }
 
@@ -132,10 +154,29 @@ public class Device extends BaseObservable {
     }
 
     public void setVolumeOverrideValue(int volumeOverrideValue) {
-        this.volumeOverrideValue = volumeOverrideValue;
         if (this.getDeviceId().equals(ConfigManager.getDeviceId())) {
             SettingsManager.setVolumeOverrideValue(volumeOverrideValue);
         }
+        this.volumeOverrideValue = volumeOverrideValue;
         notifyPropertyChanged(BR.volumeOverrideValue);
+    }
+
+    @Override
+    public void notifyPropertyChanged(int fieldId) {
+        super.notifyPropertyChanged(fieldId);
+        this.pendingChangesVisiblity = DeviceCache.hasPendingChanges(this);
+        super.notifyPropertyChanged(BR.pendingChangesVisiblity);
+    }
+
+    @Bindable
+    public int getPendingChangesVisiblity() {
+        this.pendingChangesVisiblity = DeviceCache.hasPendingChanges(this);
+        super.notifyPropertyChanged(BR.pendingChangesVisiblity);
+        return this.pendingChangesVisiblity;
+    }
+
+    @Bindable
+    public void setPendingChangesVisiblity(int visiblity) {
+        this.pendingChangesVisiblity = visiblity;
     }
 }

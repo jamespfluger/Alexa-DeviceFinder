@@ -26,6 +26,7 @@ import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
+import com.jamespfluger.devicefinder.utilities.DeviceCache;
 import com.jamespfluger.devicefinder.utilities.DeviceManager;
 import com.jamespfluger.devicefinder.utilities.LogLevel;
 import com.jamespfluger.devicefinder.utilities.Logger;
@@ -48,12 +49,10 @@ public class DeviceConfigFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentDeviceConfigBinding binding = FragmentDeviceConfigBinding.inflate(inflater, container, false);
 
-        if (getArguments() != null) {
-            String deviceId = DeviceConfigFragmentArgs.fromBundle(getArguments()).getDeviceId();
-            this.device = DeviceManager.findDeviceById(deviceId);
-        } else {
-            this.device = null;
-        }
+        String deviceId = DeviceConfigFragmentArgs.fromBundle(getArguments()).getDeviceId();
+        this.device = DeviceManager.findDeviceById(deviceId);
+
+        DeviceCache.addDevice(this.device);
 
         binding.setDevice(device);
         return binding.getRoot();
@@ -89,6 +88,7 @@ public class DeviceConfigFragment extends Fragment {
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getContext(), getString(R.string.settings_save_toast) + response.message(), Toast.LENGTH_SHORT).show();
+                        DeviceCache.refreshDevice(device);
                     } else {
                         try {
                             String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
@@ -153,7 +153,7 @@ public class DeviceConfigFragment extends Fragment {
                                         String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
                                         Toast.makeText(getContext(), getString(R.string.settings_delete_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
                                     } catch (IOException e) {
-                                        Logger.Log(e, LogLevel.Error);
+                                        Logger.log(e, LogLevel.Error);
                                     }
                                 }
                             }
@@ -162,7 +162,7 @@ public class DeviceConfigFragment extends Fragment {
                             @EverythingIsNonNull
                             public void onFailure(Call<Void> call, Throwable t) {
                                 Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                Logger.Log(t.getLocalizedMessage(), LogLevel.Error);
+                                Logger.log(t.getLocalizedMessage(), LogLevel.Error);
                             }
                         });
                     })

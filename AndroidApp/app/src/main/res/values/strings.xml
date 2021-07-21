@@ -118,4 +118,5 @@
     <string name="confirm_delete_active_device">\'? This is YOUR device. You will be also be signed out!</string>
     <string name="confirm_logout_and_delete_title">Logout and delete?</string>
     <string name="confirm_logout_and_delete_question">Are you sure you want to logout? This will also delete settings for your current device!</string>
+    <string name="you_have_unsaved_changes">You have\nunsaved changes</string>
 </resources>

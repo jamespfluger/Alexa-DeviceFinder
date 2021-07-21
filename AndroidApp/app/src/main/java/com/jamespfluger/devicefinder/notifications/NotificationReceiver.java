@@ -66,9 +66,9 @@ public class NotificationReceiver extends BroadcastReceiver {
                     Thread.sleep(500);
                 }
             } catch (CameraAccessException cameraAccessException) {
-                Logger.Log(context.getString(R.string.camera_unavailable_error_log) + cameraAccessException.getLocalizedMessage());
+                Logger.log(context.getString(R.string.camera_unavailable_error_log) + cameraAccessException.getLocalizedMessage());
             } catch (InterruptedException interruptedException) {
-                Logger.Log(context.getString(R.string.camera_interrupted_error_log) + interruptedException.getLocalizedMessage());
+                Logger.log(context.getString(R.string.camera_interrupted_error_log) + interruptedException.getLocalizedMessage());
             }
         });
     }

@@ -106,7 +106,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
                                         String errorMessage = response.errorBody() != null ? response.errorBody().string() : String.format(getString(R.string.unknown_error_http_message), response.code());
                                         Toast.makeText(getApplicationContext(), getString(R.string.settings_delete_error_toast) + errorMessage, Toast.LENGTH_LONG).show();
                                     } catch (IOException e) {
-                                        Logger.Log(e, LogLevel.Error);
+                                        Logger.log(e, LogLevel.Error);
                                     }
                                 }
                             }
@@ -115,7 +115,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
                             @EverythingIsNonNull
                             public void onFailure(Call<Void> call, Throwable t) {
                                 Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                Logger.Log(t.getLocalizedMessage(), LogLevel.Error);
+                                Logger.log(t.getLocalizedMessage(), LogLevel.Error);
                             }
                         });
                     })
@@ -222,7 +222,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
                 NavController navController = navHostFragment.getNavController();
                 navController.navigate(directions);
             } else {
-                Logger.Log(getString(R.string.error_navigation_log), LogLevel.Error);
+                Logger.log(getString(R.string.error_navigation_log), LogLevel.Error);
                 runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.error_navigation_please_restart, Toast.LENGTH_SHORT).show());
             }
 
@@ -238,7 +238,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
             NavController navController = navHostFragment.getNavController();
             navController.navigate(directions);
         } else {
-            Logger.Log(getString(R.string.error_navigation_log), LogLevel.Error);
+            Logger.log(getString(R.string.error_navigation_log), LogLevel.Error);
             runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.error_navigation_please_restart, Toast.LENGTH_SHORT).show());
         }
     }
