@@ -8,7 +8,6 @@ import com.jamespfluger.devicefinder.BR;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
 import com.jamespfluger.devicefinder.utilities.DeviceCache;
-import com.jamespfluger.devicefinder.utilities.Logger;
 
 public class Device extends BaseObservable {
     // General device information for identification
@@ -42,6 +41,23 @@ public class Device extends BaseObservable {
 
     public Device() {
         this.volumeOverrideValue = 100;
+    }
+
+    public Device(Device toClone) {
+        // Config
+        this.alexaUserId = toClone.alexaUserId;
+        this.deviceId = toClone.deviceId;
+        this.loginUserId = toClone.loginUserId;
+        this.firebaseToken = toClone.firebaseToken;
+
+        // Settings
+        this.deviceName = toClone.deviceName;
+        this.useFlashlight = toClone.useFlashlight;
+        this.useVibrate = toClone.useVibrate;
+        this.useOnWifiOnly = toClone.useOnWifiOnly;
+        this.wifiSsid = toClone.wifiSsid;
+        this.useVolumeOverride = toClone.useVolumeOverride;
+        this.volumeOverrideValue = toClone.volumeOverrideValue;
     }
 
     public String getAlexaUserId() {
@@ -162,22 +178,5 @@ public class Device extends BaseObservable {
     @Bindable
     public void setPendingChangesVisiblity(int visiblity) {
         this.pendingChangesVisiblity = visiblity;
-    }
-
-    public Device(Device toClone) {
-        // Config
-        this.alexaUserId = toClone.alexaUserId;
-        this.deviceId = toClone.deviceId;
-        this.loginUserId = toClone.loginUserId;
-        this.firebaseToken = toClone.firebaseToken;
-
-        // Settings
-        this.deviceName = toClone.deviceName;
-        this.useFlashlight = toClone.useFlashlight;
-        this.useVibrate = toClone.useVibrate;
-        this.useOnWifiOnly = toClone.useOnWifiOnly;
-        this.wifiSsid = toClone.wifiSsid;
-        this.useVolumeOverride = toClone.useVolumeOverride;
-        this.volumeOverrideValue = toClone.volumeOverrideValue;
     }
 }

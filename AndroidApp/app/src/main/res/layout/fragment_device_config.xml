@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="device"
             type="com.jamespfluger.devicefinder.models.Device" />
+
         <import type="com.jamespfluger.devicefinder.utilities.DeviceCache" />
     </data>
 
@@ -169,10 +171,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/you_have_unsaved_changes"
-            android:textSize="16sp"
-            android:textStyle="italic"
             android:textAlignment="center"
             android:textColor="@color/yellow_caution_text"
+            android:textSize="16sp"
+            android:textStyle="italic"
             android:visibility="@{device.pendingChangesVisiblity}"
             app:layout_constraintBottom_toBottomOf="@+id/settings_delete_button"
             app:layout_constraintEnd_toStartOf="@+id/settings_save_button"
