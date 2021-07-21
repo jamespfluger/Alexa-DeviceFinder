@@ -22,10 +22,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int maxRingVolume = manager.getStreamMaxVolume(AudioManager.STREAM_RING);
-
-        if (SettingsManager.getUseVolumeOverride()) {
-            maxRingVolume = (int) Math.round(maxRingVolume * (SettingsManager.getVolumeOverrideValue() / 100.0));
-        }
+        maxRingVolume = (int) Math.round(maxRingVolume * (SettingsManager.getVolumeOverrideValue() / 100.0));
 
         manager.setStreamVolume(AudioManager.STREAM_RING, maxRingVolume, 0);
 

@@ -31,8 +31,6 @@ public class Device extends BaseObservable {
     private boolean useOnWifiOnly;
     @SerializedName("wifiSsid")
     private String wifiSsid = "";
-    @SerializedName("useVolumeOverride")
-    private boolean useVolumeOverride;
     @SerializedName("volumeOverrideValue")
     private int volumeOverrideValue;
 
@@ -56,7 +54,6 @@ public class Device extends BaseObservable {
         this.useVibrate = toClone.useVibrate;
         this.useOnWifiOnly = toClone.useOnWifiOnly;
         this.wifiSsid = toClone.wifiSsid;
-        this.useVolumeOverride = toClone.useVolumeOverride;
         this.volumeOverrideValue = toClone.volumeOverrideValue;
     }
 
@@ -118,20 +115,6 @@ public class Device extends BaseObservable {
 
         this.useOnWifiOnly = useOnWifiOnly;
         notifyPropertyChanged(BR.useOnWifiOnly);
-    }
-
-    @Bindable
-    public boolean getUseVolumeOverride() {
-        return useVolumeOverride;
-    }
-
-    public void setUseVolumeOverride(boolean useVolumeOverride) {
-        if (this.getDeviceId().equals(ConfigManager.getDeviceId())) {
-            SettingsManager.setUseVolumeOverride(useVolumeOverride);
-        }
-
-        this.useVolumeOverride = useVolumeOverride;
-        notifyPropertyChanged(BR.useVolumeOverride);
     }
 
     @Bindable

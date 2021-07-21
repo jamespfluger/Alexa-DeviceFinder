@@ -41,7 +41,6 @@ public class DeviceCache {
                 currentDevice.getUseVibrate() != cachedDevice.getUseVibrate() ||
                 currentDevice.getUseOnWifiOnly() != cachedDevice.getUseOnWifiOnly() ||
                 !currentDevice.getWifiSsid().equals(cachedDevice.getWifiSsid()) ||
-                currentDevice.getUseVolumeOverride() != cachedDevice.getUseVolumeOverride() ||
                 currentDevice.getVolumeOverrideValue() != cachedDevice.getVolumeOverrideValue();
     }
 }

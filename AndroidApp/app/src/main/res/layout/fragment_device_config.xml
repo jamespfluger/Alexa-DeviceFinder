@@ -120,15 +120,6 @@
                     android:clickable="false" />
             </LinearLayout>
 
-            <!-- Override max volume -->
-            <com.jamespfluger.devicefinder.controls.SettingsView
-                android:id="@+id/settings_override_max_volume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="@={device.useVolumeOverride}"
-                app:settingsSubtitle="@string/override_max_volume_subtitle"
-                app:settingsTitle="@string/override_max_volume_title" />
-
             <!-- Volume to use -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,7 +132,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/override_max_volume"
+                    android:text="@string/volume_to_ring_at"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
 
@@ -150,7 +141,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:enabled="@{device.useVolumeOverride}"
                     android:max="100"
                     android:progress="@={device.volumeOverrideValue}" />
             </LinearLayout>

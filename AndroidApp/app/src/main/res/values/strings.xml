@@ -89,11 +89,9 @@
     <string name="permission_status">Permission status</string>
     <string name="why_question">Why?</string>
     <string name="wifi_network_placeholder">(Optional) WiFi network to use</string>
-    <string name="override_max_volume">Override max volume</string>
+    <string name="volume_to_ring_at">Volume to ring at</string>
     <string name="delete">DELETE</string>
     <string name="save">SAVE</string>
-    <string name="override_max_volume_title">Override max volume</string>
-    <string name="override_max_volume_subtitle">Device will ring at the maximum volume</string>
     <string name="only_ring_on_wifi_title">Only ring on wifi</string>
     <string name="only_ring_on_wifi_subtitle">Device will ring even when not connected to WiFi</string>
     <string name="use_vibrate_title">Use vibrate</string>
