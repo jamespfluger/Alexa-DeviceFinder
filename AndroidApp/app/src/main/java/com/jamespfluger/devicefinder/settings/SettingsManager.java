@@ -58,14 +58,6 @@ public class SettingsManager {
         preferences.edit().putString(SETTINGS_CONFIGURED_WIFI_SSID, settingValue).apply();
     }
 
-    public static boolean getUseVolumeOverride() {
-        return preferences.getBoolean(SETTINGS_USE_VOLUME_OVERRIDE, false);
-    }
-
-    public static void setUseVolumeOverride(boolean settingValue) {
-        preferences.edit().putBoolean(SETTINGS_USE_VOLUME_OVERRIDE, settingValue).apply();
-    }
-
     public static int getVolumeOverrideValue() {
         return preferences.getInt(SETTINGS_VOLUME_OVERRIDE_VALUE, 0);
     }

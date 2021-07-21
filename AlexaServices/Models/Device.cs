@@ -34,9 +34,6 @@ namespace DeviceFinder.Models
         [DynamoDBProperty("ConfiguredWifiSsid")]
         public string ConfiguredWifiSsid { get; set; }
 
-        [DynamoDBProperty("UseVolumeOverride")]
-        public bool UseVolumeOverride { get; set; }
-
         [DynamoDBProperty("VolumeOverrideValue")]
         public int VolumeOverrideValue { get; set; }
 
