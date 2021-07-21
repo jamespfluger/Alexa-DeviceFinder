@@ -6,7 +6,8 @@
 
     <color name="green">#788F66</color>
     <color name="red_error">#B33D3D</color>
-    <color name="yellow_caution">#E0B60F</color>
+    <color name="yellow_caution">#C69E0D</color>
+    <color name="yellow_caution_text">#C6800D</color>
 
     <color name="text">#454545</color>
     <color name="text_light">@android:color/white</color>
