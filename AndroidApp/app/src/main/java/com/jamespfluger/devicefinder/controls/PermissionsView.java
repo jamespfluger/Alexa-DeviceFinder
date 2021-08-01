@@ -34,9 +34,9 @@ public class PermissionsView extends LinearLayout {
         Drawable statusIcon;
 
         if (isEnabled) {
-            statusIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_positive, getContext().getTheme());
+            statusIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, getContext().getTheme());
         } else {
-            statusIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_alert, getContext().getTheme());
+            statusIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_exclamation, getContext().getTheme());
         }
 
         permissionStatusButton.setImageDrawable(statusIcon);
