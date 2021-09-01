@@ -15,7 +15,9 @@ public class SettingsManager {
     private static SharedPreferences preferences = null;
 
     public static void setInstance(Context context) {
-        preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        if (preferences == null) {
+            preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        }
     }
 
     public static String getDeviceName() {

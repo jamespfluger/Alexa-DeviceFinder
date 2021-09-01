@@ -20,6 +20,8 @@ import com.jamespfluger.devicefinder.utilities.Logger;
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        SettingsManager.setInstance(context);
+
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int maxRingVolume = manager.getStreamMaxVolume(AudioManager.STREAM_RING);
         maxRingVolume = (int) Math.round(maxRingVolume * (SettingsManager.getVolumeOverrideValue() / 100.0));
