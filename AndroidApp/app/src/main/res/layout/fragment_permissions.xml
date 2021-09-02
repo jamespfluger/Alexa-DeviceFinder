@@ -88,7 +88,8 @@
         android:contentDescription="@string/help"
         android:scaleX="1.25"
         android:scaleY="1.25"
-        android:src="@drawable/ic_help"
+        android:background="#FFFFFFFF"
+        android:src="@drawable/ic_question"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

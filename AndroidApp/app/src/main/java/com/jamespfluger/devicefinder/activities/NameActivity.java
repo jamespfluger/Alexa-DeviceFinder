@@ -8,12 +8,14 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.utilities.Dialog;
 
 public class NameActivity extends AppCompatActivity {
     @Override
@@ -27,6 +29,7 @@ public class NameActivity extends AppCompatActivity {
     private void initializeUi() {
         final EditText deviceNameField = findViewById(R.id.device_name_field);
         final Button deviceNameContinueButton = findViewById(R.id.device_name_continue_button);
+        final ImageView helpIcon = findViewById(R.id.device_name_help_icon);
 
         deviceNameField.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
@@ -53,6 +56,8 @@ public class NameActivity extends AppCompatActivity {
                 switchToOtpActivity();
             }
         });
+
+        helpIcon.setOnClickListener(view -> Dialog.ShowInformation(this, R.string.device_name, R.string.help_icon_device_name));
     }
 
     private void switchToOtpActivity() {

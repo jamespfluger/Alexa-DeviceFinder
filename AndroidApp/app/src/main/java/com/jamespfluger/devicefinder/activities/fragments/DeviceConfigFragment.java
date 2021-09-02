@@ -121,7 +121,7 @@ public class DeviceConfigFragment extends Fragment {
             } else {
                 dialogTitle = getString(R.string.delete_active_device_question);
                 dialogMessage = getString(R.string.confirm_delete_device) + device.getDeviceName() + getString(R.string.confirm_delete_active_device);
-                iconResourceId = R.drawable.ic_alert;
+                iconResourceId = R.drawable.ic_exclamation;
             }
 
             new MaterialAlertDialogBuilder(getContext())

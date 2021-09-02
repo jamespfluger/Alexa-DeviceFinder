@@ -28,7 +28,7 @@
                 android:contentDescription="@string/permission_status"
                 android:foregroundGravity="center"
                 android:paddingHorizontal="2dp"
-                android:src="@drawable/ic_alert" />
+                android:src="@drawable/ic_exclamation" />
 
             <Button
                 android:id="@+id/permissions_grant_button"
