@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.jamespfluger.devicefinder.R;
 
 public class PermissionsView extends LinearLayout {
     private ImageButton permissionStatusButton;
+    private boolean isPermissionSupported;
 
     public PermissionsView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -93,5 +95,13 @@ public class PermissionsView extends LinearLayout {
         }
 
         attributes.recycle();
+    }
+
+    public boolean isPermissionSupported() {
+        return isPermissionSupported;
+    }
+
+    public void setPermissionSupported(int requiredVersion) {
+        isPermissionSupported = Build.VERSION.SDK_INT >= requiredVersion;
     }
 }

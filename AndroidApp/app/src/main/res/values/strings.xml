@@ -58,6 +58,7 @@
     <string name="warning_message">Warning</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">Ok</string>
     <string name="confirm_deny_permissions">Are you sure you don\'t want to grant these permissions? It may take longer to find your device!\n\nYou can always change this later.</string>
     <string name="quit">Quit</string>
     <string name="confirm_quit_question">Are you sure you want to quit?</string>
@@ -117,4 +118,7 @@
     <string name="confirm_logout_and_delete_title">Logout and delete?</string>
     <string name="confirm_logout_and_delete_question">Are you sure you want to logout? This will also delete settings for your current device!</string>
     <string name="you_have_unsaved_changes">You have\nunsaved changes</string>
+    <string name="help_icon_permissions">Granting these permissions make finding your device faster:\n\n1. Android puts some apps into "sleep mode" if they haven\'t been used recently. This setting lets this app take a nap instead of hibernating for the winter. It doesn\'t use much battery, but older phones may not want to grant this permission\n\n2. If your phone is on do not disturb, the notification may not get through. Granting this permission allows the volume to be set higher!</string>
+    <string name="help_icon_device_name">This is the name you will say when asking Alexa to find your device.\n\nExample:\n"Alexa, find Zoey's phone"\n\nIf you only link one device, you will also be able to say "Alexa, find my device"</string>
+    <string name="help_icon_verification">When Alexa gives you the 6-digit code, enter them in the same order.\n\nThis verifies the device being used is actually yours.</string>
 </resources>

@@ -19,6 +19,7 @@ import com.jamespfluger.devicefinder.models.AuthData;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
+import com.jamespfluger.devicefinder.utilities.Dialog;
 
 import java.io.IOException;
 
@@ -35,6 +36,7 @@ public class OtpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_otp);
         findViewById(R.id.otp_controls_layout).setOnTouchListener(createControlsTouchListener());
         findViewById(R.id.otp_verify_button).setOnClickListener(createVerifyClickListener());
+        findViewById(R.id.otp_help_icon).setOnClickListener(view -> Dialog.ShowInformation(this, R.string.verification, R.string.help_icon_verification));
     }
 
     private View.OnClickListener createVerifyClickListener() {
