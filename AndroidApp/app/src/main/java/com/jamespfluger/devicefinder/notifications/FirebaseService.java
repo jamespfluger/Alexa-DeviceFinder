@@ -4,8 +4,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.jamespfluger.devicefinder.R;
@@ -36,12 +35,10 @@ public class FirebaseService extends FirebaseMessagingService {
     }
 
     public void refreshToken() {
-        FirebaseInstanceId.getInstance().getInstanceId()
+        FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
-                    InstanceIdResult taskResult = task.getResult();
-
-                    if (taskResult != null) {
-                        String newToken = taskResult.getToken();
+                    if (task.isSuccessful()) {
+                        String newToken = task.getResult();
                         ConfigManager.setFirebaseToken(newToken);
                     }
                 })
