@@ -46,4 +46,14 @@ public class DeviceManager {
 
         return null;
     }
+
+    public static boolean containsDevice(String id) {
+        for (Device device : devices) {
+            if (device.getDeviceId().equals(id)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

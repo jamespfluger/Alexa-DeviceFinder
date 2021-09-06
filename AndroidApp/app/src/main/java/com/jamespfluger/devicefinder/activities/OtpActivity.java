@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.api.ApiService;
-import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.controls.OtpEditText;
 import com.jamespfluger.devicefinder.models.AuthData;
 import com.jamespfluger.devicefinder.models.Device;
@@ -72,8 +71,7 @@ public class OtpActivity extends AppCompatActivity {
             authUserDevices.setOtp(otpBuilder.toString());
 
             // Execute authorization
-            ManagementInterface authApi = ApiService.getInstance();
-            Call<Device> userCall = authApi.createDevice(authUserDevices);
+            Call<Device> userCall = ApiService.createDevice(authUserDevices);
             userCall.enqueue(new Callback<Device>() {
                 @Override
                 @EverythingIsNonNull

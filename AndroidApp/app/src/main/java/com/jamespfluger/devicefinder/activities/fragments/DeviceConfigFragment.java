@@ -1,5 +1,7 @@
 package com.jamespfluger.devicefinder.activities.fragments;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +23,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.DevicesConfigActivity;
 import com.jamespfluger.devicefinder.api.ApiService;
-import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.databinding.FragmentDeviceConfigBinding;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
@@ -37,8 +38,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceConfigFragment extends Fragment {
     private Device device;
@@ -80,10 +79,8 @@ public class DeviceConfigFragment extends Fragment {
         saveButton.setOnClickListener(v -> {
             changeSavePanelVisibility(true);
 
-            ManagementInterface managementService = ApiService.getInstance();
-
-            Call<Void> updateSettingsCall = managementService.updateDevice(device, ConfigManager.getAlexaUserId(), device.getDeviceId());
-            updateSettingsCall.enqueue(new Callback<Void>() {
+            Call<Void> updateSettingsCall = ApiService.updateDevice(device, ConfigManager.getAlexaUserId(), device.getDeviceId());
+            updateSettingsCall.enqueue(new Callback<>() {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                     if (response.isSuccessful()) {
@@ -129,7 +126,7 @@ public class DeviceConfigFragment extends Fragment {
                     .setIcon(iconResourceId)
                     .setMessage(dialogMessage)
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        Call<Void> deleteDeviceCall = ApiService.getInstance().deleteDevice(device.getAlexaUserId(), device.getDeviceId());
+                        Call<Void> deleteDeviceCall = ApiService.deleteDevice(device.getAlexaUserId(), device.getDeviceId());
                         deleteDeviceCall.enqueue(new Callback<Void>() {
                             @Override
                             @EverythingIsNonNull
