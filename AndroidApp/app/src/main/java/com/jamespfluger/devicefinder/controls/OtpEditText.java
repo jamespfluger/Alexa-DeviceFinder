@@ -1,5 +1,7 @@
 package com.jamespfluger.devicefinder.controls;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
@@ -18,8 +20,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 import com.jamespfluger.devicefinder.R;
 
 import java.util.Locale;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class OtpEditText extends AppCompatEditText {
     private final ColorStateList defaultTextColors = getTextColors();

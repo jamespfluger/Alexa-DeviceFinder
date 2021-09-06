@@ -19,8 +19,6 @@ import com.jamespfluger.devicefinder.notifications.NotificationForge;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
 import com.jamespfluger.devicefinder.utilities.AmazonLoginHelper;
-import com.jamespfluger.devicefinder.utilities.DeviceCache;
-import com.jamespfluger.devicefinder.utilities.DeviceManager;
 
 import java.util.ArrayList;
 
