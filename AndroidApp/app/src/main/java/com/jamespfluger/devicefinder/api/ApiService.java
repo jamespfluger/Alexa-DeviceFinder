@@ -1,5 +1,11 @@
 package com.jamespfluger.devicefinder.api;
 
+import com.jamespfluger.devicefinder.models.AuthData;
+import com.jamespfluger.devicefinder.models.Device;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,8 +18,19 @@ public class ApiService {
             .build()
             .create(ManagementInterface.class);
 
+    public static Call<Device> createDevice(AuthData deviceInfo) {
+        return managementInterface.createDevice(deviceInfo);
+    }
 
-    public static ManagementInterface getInstance() {
-        return managementInterface;
+    public static Call<Void> updateDevice(Device device, String alexaUserId, String deviceId) {
+        return managementInterface.updateDevice(device, alexaUserId, deviceId);
+    }
+
+    public static Call<ArrayList<Device>> getAllDevices(String alexaUserId) {
+        return managementInterface.getAllDevices(alexaUserId);
+    }
+
+    public static Call<Void> deleteDevice(String alexaUserId, String deviceId) {
+        return managementInterface.deleteDevice(alexaUserId, deviceId);
     }
 }

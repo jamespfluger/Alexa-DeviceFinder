@@ -27,7 +27,6 @@ import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragmentDirections;
 import com.jamespfluger.devicefinder.activities.fragments.PermissionsFragment;
 import com.jamespfluger.devicefinder.api.ApiService;
-import com.jamespfluger.devicefinder.api.ManagementInterface;
 import com.jamespfluger.devicefinder.models.Device;
 import com.jamespfluger.devicefinder.settings.ConfigManager;
 import com.jamespfluger.devicefinder.settings.SettingsManager;
@@ -89,7 +88,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
                     .setIcon(R.drawable.ic_caution)
                     .setMessage(R.string.confirm_logout_and_delete_question)
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
-                        Call<Void> deleteDeviceCall = ApiService.getInstance().deleteDevice(ConfigManager.getAlexaUserId(), ConfigManager.getDeviceId());
+                        Call<Void> deleteDeviceCall = ApiService.deleteDevice(ConfigManager.getAlexaUserId(), ConfigManager.getDeviceId());
                         deleteDeviceCall.enqueue(new Callback<Void>() {
                             @Override
                             @EverythingIsNonNull
@@ -146,8 +145,7 @@ public class DevicesConfigActivity extends AppCompatActivity {
     }
 
     public void getAndPopulateSidebarDevices() {
-        ManagementInterface managementApi = ApiService.getInstance();
-        Call<ArrayList<Device>> userCall = managementApi.getAllDevices(ConfigManager.getAlexaUserId());
+        Call<ArrayList<Device>> userCall = ApiService.getAllDevices(ConfigManager.getAlexaUserId());
         userCall.enqueue(new Callback<ArrayList<Device>>() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {

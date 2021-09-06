@@ -65,5 +65,13 @@ public class ConfigManager {
 
     public static void reset() {
         preferences.edit().clear().apply();
+        refreshFirebaseToken();
+    }
+
+    public static boolean hasSetupFinished() {
+        return getAlexaUserId() != null &&
+                getLoginUserId() != null &&
+                getDeviceId() != null &&
+                getAlexaUserId() != null;
     }
 }
