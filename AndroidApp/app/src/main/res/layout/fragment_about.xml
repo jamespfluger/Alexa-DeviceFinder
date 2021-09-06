@@ -5,20 +5,200 @@
     android:id="@+id/aboutFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.fragments.AboutFragment">
+    tools:context=".activities.fragments.AboutFragment"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_about"
+    <!-- Description of how skill works -->
+    <LinearLayout
+        android:id="@+id/about_interaction_directions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/how_to_interact"
+            android:textAlignment="center"
+            android:textSize="26sp"
+            android:paddingBottom="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interaction_directions_1"
+            android:textSize="15sp"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/ic_interaction_speak" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_down"
+            android:contentDescription="@string/down_arrow" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interaction_directions_2"
+            android:textSize="15sp"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/ic_interaction_alexa" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_down"
+            android:contentDescription="@string/down_arrow" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interaction_directions_3"
+            android:textSize="15sp"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/ic_interaction_ring" />
+    </LinearLayout>
+
+    <View
+        android:visibility="invisible"
+        android:id="@+id/about_divider_1"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="16dp"
+        android:background="@color/divider"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/about_interaction_directions" />
+
+    <!-- Examples of ways to speak to the skill -->
+    <LinearLayout
+        android:id="@+id/about_interaction_examples"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="About this fragment"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_divider_1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ways_to_interact"
+            android:textAlignment="center"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/example_utterances"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <!--<ImageView
+        android:id="@+id/about_logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/logo_to_display_when_loading_app"
+        android:paddingTop="16dp"
+        android:src="@drawable/img_logo"
+        app:layout_constraintBottom_toTopOf="@+id/about_misc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/about_interaction_examples" />-->
+    <View
+        android:id="@+id/about_divider_2"
+        android:visibility="invisible"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="16dp"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@id/about_interaction_examples" />
+    <!--app:layout_constraintBottom_toTopOf="@id/about_misc" />-->
+
+    <View
+        android:id="@+id/about_divider_3"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="16dp"
+        android:background="@color/divider"
+        app:layout_constraintBottom_toTopOf="@id/about_misc" />
+    <!--app:layout_constraintTop_toBottomOf="@id/about_interaction_examples" />-->
+
+    <LinearLayout
+        android:id="@+id/about_misc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+
+        <!-- Info on privacy/data collection -->
+        <LinearLayout
+            android:id="@+id/about_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/about_interaction_examples">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy_description"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- Info on what to do for issues -->
+        <LinearLayout
+            android:id="@+id/about_issues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/about_interaction_examples">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/issues_question"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/about_issues_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/issues_description"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- Info on contributing -->
+        <LinearLayout
+            android:id="@+id/about_contributing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/about_interaction_examples">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contribute"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/about_contributing_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contribute_description"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

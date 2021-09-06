@@ -26,4 +26,6 @@
     <color name="switch_thumb_off">#ECECEC</color>
     <color name="switch_track_on">#B2CCD9</color>
     <color name="switch_track_off">#B2B2B2</color>
+
+    <color name="divider">#33454545</color>
 </resources>
