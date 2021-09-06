@@ -121,4 +121,17 @@
     <string name="help_icon_permissions">Granting these permissions make finding your device faster:\n\n1. Android puts some apps into "sleep mode" if they haven\'t been used recently. This setting lets this app take a nap instead of hibernating for the winter. It doesn\'t use much battery, but older phones may not want to grant this permission\n\n2. If your phone is on do not disturb, the notification may not get through. Granting this permission allows the volume to be set higher!</string>
     <string name="help_icon_device_name">This is the name you will say when asking Alexa to find your device.\n\nExample:\n"Alexa, find Zoey's phone"\n\nIf you only link one device, you will also be able to say "Alexa, find my device"</string>
     <string name="help_icon_verification">When Alexa gives you the 6-digit code, enter them in the same order.\n\nThis verifies the device being used is actually yours.</string>
+    <string name="privacy_description">This app collects <i>zero</i> personally identifiable information.\nHowever, it does collect  anonymous technical data. I respect your privacy, and you can opt-out in the "Privacy" section in the top right kebab menu.</string>
+    <string name="interaction_directions_1">Say \'Alexa, ask Device Finder to find my phone\'</string>
+    <string name="interaction_directions_2">Alexa will identify the device you said</string>
+    <string name="interaction_directions_3">Your device start to ring</string>
+    <string name="down_arrow">Down arrow</string>
+    <string name="how_to_interact">How to interact</string>
+    <string name="example_utterances">Many different phrases work:\n\nAlexa, ask Device Finder to find my phone\nAlexa, ask Device Finder to find Jim\'s device\nAlexa, tell Device Finder to locate my tablet\'\nAlexa, tell Device Finder I can\'t find my phone\'</string>
+    <string name="privacy">Privacy</string>
+    <string name="ways_to_interact">Ways to interact</string>
+    <string name="issues_question">Issues?</string>
+    <string name="issues_description">Find a bug? Is something broken? Want a new feature? Open an <a href="https://github.com/jamespfluger/Alexa-DeviceFinder/issues/">issue on GitHub</a> or email me at <a href="mailto: me@jamespfluger.com">me@jamespfluger.com</a></string>
+    <string name="contribute">Contribute</string>
+    <string name="contribute_description">Want to contribute? Check out the <a href="https://github.com/jamespfluger/alexa-devicefinder/">source code here</a>!</string>
 </resources>
