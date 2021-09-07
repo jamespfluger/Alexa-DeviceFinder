@@ -1,10 +1,15 @@
 package com.jamespfluger.devicefinder.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +26,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.jamespfluger.devicefinder.R;
 import com.jamespfluger.devicefinder.activities.fragments.AboutFragment;
 import com.jamespfluger.devicefinder.activities.fragments.DeviceConfigFragment;
@@ -82,7 +88,28 @@ public class DevicesConfigActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.kebab_menu, menu);
+
+        View checkboxDialogLayout = LayoutInflater.from(this).inflate(R.layout.component_optout_dialog, null);
+        if (checkboxDialogLayout.getParent() != null) {
+            ((ViewGroup)checkboxDialogLayout.getParent()).removeView(checkboxDialogLayout);
+        }
+
+        CheckBox checkbox = checkboxDialogLayout.findViewById(R.id.component_optout_checkbox);
+        checkbox.setChecked(SettingsManager.getCrashlyticsEnabled());
+        checkbox.setOnCheckedChangeListener((compoundButton, isChecked) -> FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(isChecked));
+
         menu.getItem(0).setOnMenuItemClickListener(item -> {
+            new MaterialAlertDialogBuilder(this)
+                    .setView(checkboxDialogLayout)
+                    .setTitle(R.string.data_collection)
+                    .setIcon(R.drawable.ic_incognito)
+                    .setMessage(R.string.data_collection_description)
+                    .setPositiveButton(R.string.ok, (dialogInterface, i) -> Toast.makeText(getApplicationContext(), "Successfully updated data collection preference", Toast.LENGTH_SHORT).show())
+                    .show();
+            return true;
+        });
+
+        menu.getItem(1).setOnMenuItemClickListener(item -> {
             new MaterialAlertDialogBuilder(this)
                     .setTitle(R.string.confirm_logout_and_delete_title)
                     .setIcon(R.drawable.ic_caution)

@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:id="@+id/kebab_privacy"
+        android:title="@string/privacy"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/kebab_logout"
         android:title="@string/log_out"
         app:showAsAction="never" />
 </menu>

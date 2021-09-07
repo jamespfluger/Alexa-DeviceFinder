@@ -134,4 +134,7 @@
     <string name="issues_description">Find a bug? Is something broken? Want a new feature? Open an <a href="https://github.com/jamespfluger/Alexa-DeviceFinder/issues/">issue on GitHub</a> or email me at <a href="mailto: me@jamespfluger.com">me@jamespfluger.com</a></string>
     <string name="contribute">Contribute</string>
     <string name="contribute_description">Want to contribute? Check out the <a href="https://github.com/jamespfluger/alexa-devicefinder/">source code here</a>!</string>
+    <string name="data_collection">Data collection</string>
+    <string name="data_collection_description">Check the box to Opt-In/Out of sharing anonymous technical data.</string>
+    <string name="submit_crash_reports">Share technical data</string>
 </resources>

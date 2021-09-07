@@ -11,6 +11,7 @@ public class SettingsManager {
     private static final String SETTINGS_USE_VOLUME_OVERRIDE = "SETTINGS_USE_VOLUME_OVERRIDE";
     private static final String SETTINGS_CONFIGURED_WIFI_SSID = "SETTINGS_CONFIGURED_WIFI_SSID";
     private static final String SETTINGS_VOLUME_OVERRIDE_VALUE = "SETTINGS_VOLUME_OVERRIDE_VALUE";
+    private static final String SETTINGS_CRASHLYTICS = "SETTINGS_CRASHLYTICS";
 
     private static SharedPreferences preferences = null;
 
@@ -66,6 +67,14 @@ public class SettingsManager {
 
     public static void setVolumeOverrideValue(int settingValue) {
         preferences.edit().putInt(SETTINGS_VOLUME_OVERRIDE_VALUE, settingValue).apply();
+    }
+
+    public static boolean getCrashlyticsEnabled() {
+        return preferences.getBoolean(SETTINGS_CRASHLYTICS, true);
+    }
+
+    public static void setCrashlyticsEnabled(boolean settingValue) {
+        preferences.edit().putBoolean(SETTINGS_CRASHLYTICS, settingValue).apply();
     }
 
     public static void reset() {
