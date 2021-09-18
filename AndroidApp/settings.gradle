@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = 'Alexa Device Finder'
+rootProject.name = 'Device Finder'
