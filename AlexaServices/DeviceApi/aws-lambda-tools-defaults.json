@@ -6,19 +6,22 @@
         "dotnet lambda help",
         "All the command line options for the Lambda command can be specified in this file."
     ],
-    "profile"     : "default",
+    "profile"     : "mfa",
     "region"      : "us-west-2",
     "configuration" : "Release",
-    "framework"     : "netcoreapp3.1",
-    "function-runtime" : "dotnetcore3.1",
+    "framework"     : "net6.0",
+    "function-runtime" : "dotnet6",
     "function-memory-size" : 512,
     "function-timeout"     : 15,
     "function-handler"     : "DeviceFinder.DeviceApi::DeviceFinder.DeviceApi.LambdaEntryPoint::FunctionHandlerAsync",
     "function-name"        : "DeviceFinder-DeviceApi",
-    "function-role"        : "arn:aws:iam::109578389425:role/DeviceFInder-LambdaExec",
+    "function-role"        : "arn:aws:iam::109578389425:role/DeviceFinder-LambdaExecution",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : "\"LAMBDA_NET_SERIALIZER_DEBUG\"=\"true\"",
     "function-description"  : "",
     "package-type"          : "Zip",
-    "image-tag"             : ""
+    "image-tag"             : "",
+    "function-architecture" : "x86_64",
+    "function-subnets"      : "",
+    "function-security-groups" : ""
 }
