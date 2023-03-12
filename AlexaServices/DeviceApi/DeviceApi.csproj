@@ -6,6 +6,7 @@
     <AWSProjectType>Lambda</AWSProjectType>
     <AssemblyName>DeviceFinder.DeviceApi</AssemblyName>
     <RootNamespace>DeviceFinder.DeviceApi</RootNamespace>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
