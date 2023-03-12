@@ -1,18 +1,21 @@
 
 {
     "region" : "us-west-2",
-    "profile" : "default",
+    "profile" : "mfa",
     "configuration" : "Release",
-    "framework"     : "netcoreapp3.1",
+    "framework"     : "net6.0",
     "function-name" : "DeviceFinder-AlexaSkill",
     "function-description" : "",
     "function-handler"     : "DeviceFinder.AlexaSkill::DeviceFinder.AlexaSkill.AlexaLambdaEntry::AlexaHandler",
     "function-memory-size" : 512,
-    "function-role"        : "arn:aws:iam::109578389425:role/DeviceFInder-LambdaExec",
+    "function-role"        : "arn:aws:iam::109578389425:role/DeviceFinder-LambdaExecution",
     "function-timeout"     : 15,
-    "function-runtime"     : "dotnetcore3.1",
+    "function-runtime"     : "dotnet6",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : "\"LAMBDA_NET_SERIALIZER_DEBUG\"=\"true\"",
     "package-type"          : "Zip",
-    "image-tag"             : ""
+    "image-tag"             : "",
+    "function-architecture" : "x86_64",
+    "function-subnets"      : "",
+    "function-security-groups" : ""
 }

@@ -4,10 +4,11 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <RootNamespace>DeviceFinder.Models</RootNamespace>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.4.37" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.102.2" />
   </ItemGroup>
 
 </Project>
